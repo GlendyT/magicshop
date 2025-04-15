@@ -1,50 +1,51 @@
-import { BtsPhrases } from "@/types";
+import { BtsPhrases } from "@/types/index";
+
 
 
 export const btsPhrase: BtsPhrases[] = [
   {
       title: "our Eternal youth",
       from: "BTS",
-      image: "/bg (1).avif"
+      image: "/Polaroid/bg1.avif"
   },
   {
       title: "our Biggest voice",
       from: "BTS",
-      image: "/bg2.avif"
+      image: "/Polaroid/bg2.avif"
   },
   {
       title: "the most beautiful",
       from: "BTS",
-      image: "/bg3.avif"
+      image: "/Polaroid/bg3.avif"
   },
   {
       title: "our Chapter 1",
       from: "BTS",
-      image: "/bg4.avif"
+      image: "/Polaroid/bg4.avif"
   },
   {
       title: "our Happines",
       from: "BTS",
-      image: "/bg5.avif"
+      image: "/Polaroid/bg5.avif"
   },
   {
       title: "the Biggest love",
       from: "BTS",
-      image: "/bg6.avif"
+      image: "/Polaroid/bg6.avif"
   },
   {
       title: "our Universe",
       from: "BTS",
-      image: "/bg7.webp"
+      image: "/Polaroid/bg7.webp"
   },
   {
       title: "Sweetest",
       from: "BTS",
-      image: "/bg8.webp"
+      image: "/Polaroid/bg8.webp"
   },
   {
       title: "our Wings",
       from: "BTS",
-      image: "/bg9.webp"
+      image: "/Polaroid/bg9.webp"
   },
 ];
