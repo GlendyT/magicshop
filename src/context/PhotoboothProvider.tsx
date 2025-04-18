@@ -1,11 +1,11 @@
 "use client";
 import { ChangeEvent, createContext, useEffect, useState } from "react";
 import useImageCrop from "@/hooks/useImageCrop";
-import { readFile } from "app/photobooth/cropImage";
-import { btsPerzonalizedBG } from "app/photobooth/btsPersonalizedBG";
 import { PhotoboothContextType, PhotoboothProviderProps } from "../types";
 import useRequestInfo from "@/hooks/useRequestInfo";
 import { useRouter } from "next/navigation";
+import { readFile } from "@/photobooth/Data/cropImage";
+import { btsPerzonalizedBG } from "@/photobooth/Data/btsPersonalizedBG";
 
 const PhotoboothContext = createContext<PhotoboothContextType>(null!);
 

@@ -1,5 +1,5 @@
 import useRequestInfo from "@/hooks/useRequestInfo";
-import { btsPerzonalizedBG } from "./btsPersonalizedBG";
+import { btsPerzonalizedBG } from "./Data/btsPersonalizedBG";
 import usePhotobooth from "@/hooks/usePhotobooth";
 
 const BTSPersonalized = () => {

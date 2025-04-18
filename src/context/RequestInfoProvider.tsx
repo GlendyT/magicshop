@@ -1,5 +1,5 @@
 "use client";
-import { btsImg, membersBts } from "app/valentineday/membersBts";
+
 import {
   ChangeEvent,
   createContext,
@@ -13,6 +13,8 @@ import {
   RequestInfoProviderProps,
   UsuarioType,
 } from "../types";
+import { btsImg, membersBts } from "@/valentineday/membersBts";
+import { citiesVisited } from "@/vpassport/Data/citiesVisited";
 
 const RequestInfoContext = createContext<RequestInfoContextType>(null!);
 
@@ -21,11 +23,10 @@ const RequestInfoProvider = ({ children }: RequestInfoProviderProps) => {
     name: "",
     content: "",
     diseño: "",
-    album: "",
     song: "",
   });
   const [resultado, setResultado] = useState<UsuarioType | null>(null);
-  const [cargando, setCargando] = useState<boolean>(false);
+  const [cargando, setCargando] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
   const [charCount, setCharCount] = useState<number>(
     usuario.content.length || 0
@@ -156,34 +157,19 @@ const RequestInfoProvider = ({ children }: RequestInfoProviderProps) => {
       setCargando(false);
     } catch (error) {
       console.log(error);
-    } finally {
-      setCargando(false);
     }
   };
 
   const handleResetContent = () => {
     setCargando(true);
-    setUsuario({ name: "", content: "", diseño: "", album: "", song: "" });
+    setUsuario({ name: "", content: "", diseño: "", song: "" });
     setCharCount(0);
     setCharCountFrom(0);
   };
 
-  // const handleSubmit1 = (e: FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-
-  //   const key = selectedMembers as BTSFlowerKey;
-
-  //   const selectedImage = btsImg[key];
-
-  //   if (selectedImage) {
-  //     setCardData({
-  //       image: selectedImage,
-  //     });
-
-  //     generarUsuario(usuario);
-  //     setShowForm(false);
-  //   }
-  // };
+  const randomIndex = Math.floor(Math.random() * citiesVisited.length);
+  const randomCity = citiesVisited[randomIndex];
+  const { image, stamp } = randomCity;
 
   return (
     <RequestInfoContext.Provider
@@ -202,7 +188,6 @@ const RequestInfoProvider = ({ children }: RequestInfoProviderProps) => {
         showErrorMessage,
         isMobile,
         selectedMembers,
-
         showForm,
         setUsuario,
         setResultado,
@@ -217,11 +202,12 @@ const RequestInfoProvider = ({ children }: RequestInfoProviderProps) => {
         setShowErrorMessage,
         setIsMobile,
         setSelectedMembers,
-
         setShowForm,
         maxCharLimit,
         maxCharLimitH,
         maxFromLimitH,
+        image,
+        stamp,
         //TODO: FUNCTIONS
         generateWordDisplay,
         handleCorrectWord,

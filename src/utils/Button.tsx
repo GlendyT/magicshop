@@ -10,7 +10,7 @@ export const Button = ({
 }: ButtonProps) => {
   return (
     <button
-      className={`flex justify-center cursor-pointer gap-2 font-bold transition-colors  transition-all ${className} rounded-xl ${disableColors} `}
+      className={`flex justify-center cursor-pointer gap-2 font-bold transition-all ${className} rounded-xl ${disableColors} `}
       onClick={onClick}
       disabled={disabled}
     >

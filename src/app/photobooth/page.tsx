@@ -1,17 +1,19 @@
 "use client";
 import usePhotobooth from "@/hooks/usePhotobooth";
-import Photo from "./Photo";
 import useImageCrop from "@/hooks/useImageCrop";
 import { ChangeEvent } from "react";
-import Photo2 from "./Photo2";
-import Photo3 from "./Photo3";
 import BTSPersonalized from "./BTSPersonalized";
 import Image from "next/image";
 import PhotoButton from "./PhotoButton";
 import Modal from "./base/Modal";
 import ImageCropModalContent from "./ImageCropModalContent";
-import Loader from "./Loader";
 import Logo from "./Logo";
+import Photo2 from "./photos/Photo2";
+import Photo3 from "./photos/Photo3";
+import Photo from "./photos/Photo";
+
+
+
 
 type PhotoboothProps = {
   openModal: boolean;
@@ -25,7 +27,6 @@ type PhotoboothProps = {
   handleFileChange: (event: ChangeEvent<HTMLInputElement>) => void;
   backgroundImage: string | null;
   setBackgroundImage?: (backgroundImage: string | null) => void;
-  imageSaved: boolean;
 };
 
 const Photobooth = () => {
@@ -38,7 +39,7 @@ const Photobooth = () => {
     preview3,
     openModal,
     setOpenModal,
-    imageSaved,
+    
     handleFileChange,
     backgroundImage,
   }: PhotoboothProps = usePhotobooth();
@@ -66,8 +67,8 @@ const Photobooth = () => {
       <div className="flex flex-row gap-4 max-md:gap-1 items-center justify-center">
         <BTSPersonalized />
         <div
-          className={`pt-10 relative object-cover pb-4 bg-center bg-no-repeat ${
-            backgroundImage ? "px-10 bg-transparent" : "px-2 bg-purple-500"
+          className={`pt-10 relative object-cover bg-center bg-no-repeat ${
+            backgroundImage ? "px-10 bg-transparent" : "px-2 bg-purple-500 pb-4"
           }`}
           id="print"
         >
@@ -109,11 +110,6 @@ const Photobooth = () => {
         </Modal>
       </div>
 
-      {imageSaved && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
-          <Loader />
-        </div>
-      )}
     </div>
   );
 };

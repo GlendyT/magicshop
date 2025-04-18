@@ -15,7 +15,16 @@
   background-size: cover;
   background-position: center;
 }
-
+.bg-sugaverse {
+  background-image: url("/Sugaverse/bg.gif");
+  background-size: cover;
+  background-position: center;
+}
+.bg-hobipalooza {
+  background-image: url("/Hobipalooza/jhope2.gif");
+  background-size: cover;
+  background-position: center;
+}
 .loader {
   position: relative;
   width: 120px;
@@ -55,4 +64,60 @@
   box-shadow: 0 10px #fff inset;
   top: calc(100% - 8px);
   animation: PrintedPaper 4s ease-in infinite;
+}
+
+/*Todo:HOBIPALOOZA*/
+.conteudo {
+  text-align: center;
+  height: 40px;
+  font-size: 2.1rem;
+  color: white;
+  line-height: 40px;
+  display: flex;
+  margin: 0;
+  overflow: hidden;
+  font-family: "Frijole", system-ui;
+}
+
+@media screen and (max-width: 960px) {
+  .conteudo {
+    height: 40px;
+    font-size: 1.3rem;
+  }
+}
+
+ul {
+  list-style: none;
+  padding-left: 1%;
+  animation: web 10s infinite;
+  width: 100%;
+  margin: 0;
+}
+
+@keyframes web {
+  0% {
+    transform: translateY(0);
+  }
+  10%,
+  20% {
+    transform: translateY(-100%);
+  }
+  30%,
+  40% {
+    transform: translateY(-200%);
+  }
+  50%,
+  60% {
+    transform: translateY(-300%);
+  }
+  70%,
+  80% {
+    transform: translateY(-400%);
+  }
+  85% {
+    transform: translateY(-500%);
+  }
+  100% {
+    transform: translateY(-600%);
+  }
 }
