@@ -9,7 +9,7 @@ const Modal = ({ open, children }: ModalProps) => {
       <span className="hidden sm:inline-block sm:align-middle sm:h-screen"></span>
 
       <div
-        className="inline-block align-center rounded-lg text-left overflow-hidden shadow-xl transform transitio-all sm:align-middle sm:max-w-sm h-full w-full"
+        className="inline-block align-center rounded-lg text-left overflow-hidden shadow-xl transform transitio-all sm:align-middle  h-full w-full"
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-headline"

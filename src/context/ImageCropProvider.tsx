@@ -1,7 +1,7 @@
 "use client";
 import { createContext, useCallback, useState } from "react";
-import getCroppedImg from "app/photobooth/cropImage";
 import { ImageCropContextType, ImageProviderProps, PixelCrop } from "../types";
+import getCroppedImg from "@/photobooth/Data/cropImage";
 
 const ImageCropContext = createContext<ImageCropContextType>(null!);
 

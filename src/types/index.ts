@@ -4,17 +4,7 @@ export type UsuarioType = {
   name: string;
   content: string;
   diseño: string;
-  album: string;
-  song: string;
-  image?: string;
-  estilos?: {
-    div1: string;
-    div2: string;
-    div3: string;
-    p: string;
-    to: string;
-    from: string;
-  };
+  song?: string;
 };
 
 export type RequestInfoProviderProps = {
@@ -72,6 +62,8 @@ export type RequestInfoContextType = {
   isMaxCharLimitReached: boolean;
   isMaxCharLimitReachedH: boolean;
   isMaxFromLimitReachedH: boolean;
+  image: string;
+  stamp: string;
 };
 
 export type BtsPhrases = {
@@ -83,7 +75,7 @@ export type ButtonProps = {
   label: string;
   onClick?: () => void;
   className?: string;
-  icon?: string;
+  icon?: ReactNode | undefined;
   disabled?: boolean;
   disableColors?: string;
 };
@@ -228,3 +220,52 @@ export type MemberDetails = Record<
     from: string;
   }
 >;
+
+export type InputNameProps = {
+  placeholder: string;
+  className: string;
+  from?: string;
+  disabled?: boolean;
+};
+
+export type Divs = {
+  div1: string;
+  div2: string;
+  div3: string;
+  p: string;
+};
+
+export type SugaStyle = {
+  id: number;
+  name: string;
+  image: string;
+  style: Divs[];
+};
+
+export type hobiSongs = {
+  id: number;
+  title: string;
+};
+
+export type hobiMusicTypes = {
+  id: number;
+  name: string;
+  songs: hobiSongs[];
+};
+
+export type citiesVisitedTypes = {
+  id: number;
+  name: string;
+  image: string;
+  stamp: string;
+};
+
+
+export type PassportItem = {
+  label: string;
+  value: string;
+};
+
+export type PassportDetailsProps = {
+  items: PassportItem[];
+};

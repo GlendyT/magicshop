@@ -1,7 +1,5 @@
 import { BTSFlowerKey } from "@/types/index";
 
-
-
 export const btsImg: Record<BTSFlowerKey, string> = {
   btsflower: "/ValentinesDay/btsflower.webp",
   rmflower: "/ValentinesDay/btsflower.webp",
