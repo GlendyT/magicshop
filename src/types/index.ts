@@ -46,7 +46,7 @@ export type RequestInfoContextType = {
   maxCharLimit: number;
   maxCharLimitH: number;
   maxFromLimitH: number;
-  generateWordDisplay: (currWord: string) => void;
+  generateWordDisplay: (currWord: string) => string;
   handleCorrectWord: (e: FormEvent<HTMLFormElement>) => void;
   handleResize: () => void;
   handleContent: (
@@ -55,7 +55,12 @@ export type RequestInfoContextType = {
   handleContentH: (e: ChangeEvent<HTMLInputElement>) => void;
   handleNameH: (e: ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
-  usuarioGenerado: (e: ChangeEvent<HTMLSelectElement>) => void;
+  usuarioGenerado: (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => void;
+
   usuarioGenerado1: (e: ChangeEvent<HTMLSelectElement>) => void;
   handleResetContent: () => void;
   //handleSubmit1: (e: FormEvent<HTMLFormElement>) => void;
@@ -260,7 +265,6 @@ export type citiesVisitedTypes = {
   stamp: string;
 };
 
-
 export type PassportItem = {
   label: string;
   value: string;
@@ -268,4 +272,17 @@ export type PassportItem = {
 
 export type PassportDetailsProps = {
   items: PassportItem[];
+};
+
+export type SquareVerStyles = {
+  id: number;
+  name: string;
+  image: string;
+  color: string;
+};
+
+export type hobiPersonalizedTypes = {
+  id: number;
+  name: string;
+  styles: SquareVerStyles[];
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import {
+import React, {
   ChangeEvent,
   createContext,
   FormEvent,
@@ -38,7 +38,7 @@ const RequestInfoProvider = ({ children }: RequestInfoProviderProps) => {
   const [input, setInput] = useState<string>("");
   const [isCorrectGuess, setIsCorrectGuess] = useState<boolean>(false);
   const [hasSubmitted, setHasSubmitted] = useState<boolean>(false);
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(true);
   const [showErrorMessage, setShowErrorMessage] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [selectedMembers, setSelectedMembers] = useState<string | null>(null);
@@ -49,7 +49,7 @@ const RequestInfoProvider = ({ children }: RequestInfoProviderProps) => {
   const maxCharLimitH = 21;
   const maxFromLimitH = 16;
 
-  const generateWordDisplay = (currWord: string) => {
+  const generateWordDisplay = (currWord: string): string => {
     return isCorrectGuess ? currWord : "_".repeat(currWord.length).trim();
   };
 
@@ -65,9 +65,18 @@ const RequestInfoProvider = ({ children }: RequestInfoProviderProps) => {
     setInput("");
 
     if (!correct) {
+      localStorage.setItem("correctGuess", currWord);
       setShowErrorMessage(true);
-    }
+    } 
   };
+
+  useEffect(() => {
+    const savedGuess = localStorage.getItem("correctGuess");
+    if (savedGuess && savedGuess.toLowerCase() === currWord.toLowerCase()) {
+      setIsCorrectGuess(true);
+      setShowModal(false)
+    }
+  }, [currWord]);
 
   useEffect(() => {
     if (showErrorMessage) {
@@ -128,12 +137,15 @@ const RequestInfoProvider = ({ children }: RequestInfoProviderProps) => {
   };
 
   const usuarioGenerado = (
-    e: ChangeEvent<HTMLSelectElement | HTMLTextAreaElement | HTMLInputElement>
+    e: React.ChangeEvent<
+      HTMLSelectElement | HTMLTextAreaElement | HTMLInputElement
+    >
   ) => {
-    setUsuario({
-      ...usuario,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setUsuario((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const usuarioGenerado1 = (e: ChangeEvent<HTMLSelectElement>) => {
