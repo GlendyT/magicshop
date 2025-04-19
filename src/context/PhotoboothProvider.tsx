@@ -81,7 +81,7 @@ const PhotoBoothProvider = ({ children }: PhotoboothProviderProps) => {
     setPreview3(null);
     setImageSaved(false);
     setBackgroundImage(null);
-    setUsuario({ name: "", content: "", diseño: "", album: "", song: "" });
+    setUsuario({ name: "", content: "", diseño: "", song: "" });
     router.replace("/photobooth");
   };
 

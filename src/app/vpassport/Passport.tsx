@@ -23,7 +23,7 @@ const Passport = () => {
           <div className="flex flex-row-2 pt-4 gap-2 pl-6 max-sm:pl-0 max-sm:gap-1">
             <PassportDetails
               items={[
-                { label: "Apellidos/Surname", value: "BORAHE" },
+                { label: "Surname/Apellidos", value: "BORAHE" },
                 { label: "Nacionality/Nacionalidad", value: "ARMY" },
                 {
                   label: "VisaType/TipodeVisa",

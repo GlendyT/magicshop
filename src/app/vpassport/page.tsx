@@ -14,7 +14,7 @@ const Vpassport = () => {
 
   return (
     <div
-      className={`min-h-screen bg-cover bg-center flex items-center justify-center ${fondoBase}`}
+      className={`min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center ${fondoBase}`}
     >
       <div className="flex items-center justify-center">
         {cargando ? <Formulario /> : resultado && <Resultado />}
