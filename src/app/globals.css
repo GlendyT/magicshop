@@ -25,6 +25,16 @@
   background-size: cover;
   background-position: center;
 }
+.bg-virthday {
+  background-image: url("/Virthday/vwallpaper.png");
+  background-size: cover;
+  background-position: center;
+}
+.bg-virthday2 {
+  background-image: url("https://ibighit.com/bts/images/bts/discography/v/layover/discography-cover.png");
+  background-size: cover;
+  background-position: center;
+}
 .loader {
   position: relative;
   width: 120px;
@@ -120,4 +130,21 @@ ul {
   100% {
     transform: translateY(-600%);
   }
+}
+
+/*todo: VIRTHDAY*/
+.my-rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.perspective {
+  perspective: 1000px;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
 }

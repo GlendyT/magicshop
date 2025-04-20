@@ -1,5 +1,5 @@
 import useRequestInfo from "@/hooks/useRequestInfo";
-import { hobiPersonalized } from "./hobiPersonalized";
+import { hobiPersonalized } from "./Data/hobiPersonalized";
 import React from "react";
 
 const StyleSelect = () => {

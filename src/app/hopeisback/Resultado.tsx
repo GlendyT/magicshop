@@ -1,6 +1,6 @@
 import useRequestInfo from "@/hooks/useRequestInfo";
 import Image from "next/image";
-import { hobiPersonalized } from "./hobiPersonalized";
+import { hobiPersonalized } from "./Data/hobiPersonalized";
 import { Button } from "@/utils/Button";
 import useDownload from "@/hooks/useDownload";
 
