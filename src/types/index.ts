@@ -46,7 +46,7 @@ export type RequestInfoContextType = {
   maxCharLimit: number;
   maxCharLimitH: number;
   maxFromLimitH: number;
-  generateWordDisplay: (currWord: string) => string;
+  generateWordDisplay: (currWord: string) => void;
   handleCorrectWord: (e: FormEvent<HTMLFormElement>) => void;
   handleResize: () => void;
   handleContent: (
@@ -286,3 +286,50 @@ export type hobiPersonalizedTypes = {
   name: string;
   styles: SquareVerStyles[];
 };
+
+export type ImageListTypes = {
+  id: number;
+  img: string;
+  price: string;
+  id2: number;
+  isMatched?: boolean
+};
+
+export type FlipContextProps = {
+  timer: number;
+  setTimer: (value: number) => void;
+  items: ImageListTypes[];
+  setItems: (value: ImageListTypes[]) => void;
+  prev: number;
+  setPrev: (value: number) => void;
+  gameOver: boolean;
+  setGameOver: (value: boolean) => void;
+  win: boolean;
+  setWin: (value: boolean) => void;
+  timeExpired: boolean;
+  setTimeExpired: (value: boolean) => void;
+  showAccessModal: boolean;
+  setShowAccessModal: (value: boolean) => void;
+  restart: boolean;
+  setRestart: (value: boolean) => void;
+  gameStarted: boolean;
+  setGameStarted: (value: boolean) => void;
+  handleUnlockClick: () => void;
+  handleRestart: () => void;
+  handleStartGame: () => void;
+  startTimer: () => void;
+  handleClick: (id: number) => void;
+  isFlipped: (item: ImageListTypes) => string | boolean;
+  onCardClick: (item: ImageListTypes) => void;
+};
+export type FlipProviderProps = {
+  children: ReactNode;
+};
+
+
+export type VirthdayGiftProps = {
+  id: number
+  name: string
+  image: string
+  style: string
+}

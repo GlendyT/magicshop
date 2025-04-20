@@ -4,6 +4,7 @@ import { DownloadProvider } from "@/context/DownloadProvider";
 import { ImageCropProvider } from "@/context/ImageCropProvider";
 import { RequestInfoProvider } from "@/context/RequestInfoProvider";
 import { PhotoBoothProvider } from "@/context/PhotoboothProvider";
+import { FlipProvider } from "@/context/FlipProvider";
 
 export const metadata: Metadata = {
   title: "The Magic Shop",
@@ -24,7 +25,9 @@ export default function RootLayout({
         <DownloadProvider>
           <RequestInfoProvider>
             <ImageCropProvider>
-              <PhotoBoothProvider>{children}</PhotoBoothProvider>
+              <PhotoBoothProvider>
+                <FlipProvider>{children}</FlipProvider>
+              </PhotoBoothProvider>
             </ImageCropProvider>
           </RequestInfoProvider>
         </DownloadProvider>
