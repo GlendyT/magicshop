@@ -47,7 +47,7 @@ const Keyboard = () => {
           const isPressed = pressedLetter === key;
 
           const buttonClass = classNames(
-            "border-1 py-1 px-2 text-lg max-sm:text-[7px] uppercase font-bold text-black cursor-grab",
+            "w-8 h-8 py-1 px-2 text-lg max-sm:text-xs uppercase font-bold text-black cursor-grab",
             {
               "bg-purple-600 text-white cursor-not-allowed": isActive,
               "bg-red-400 cursor-not-allowed": isInactive,

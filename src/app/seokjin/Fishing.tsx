@@ -4,7 +4,7 @@ import Keyboard from "./Keyboard";
 
 const VerticalLine = () => {
   return (
-    <div className="w-[0.3rem] h-10 bg-blue-950 mx-10 max-sm:mx-8 max-xl:mx-16 max-sm:w-[0.2rem] max-sm:h-2"></div>
+    <div className="w-[0.3rem] h-6 bg-blue-950 mx-10 max-sm:mx-8 max-xl:mx-16 max-sm:w-[0.2rem] max-sm:h-2"></div>
   );
 };
 const Fishing = () => {
@@ -17,7 +17,7 @@ const Fishing = () => {
     reveal,
   } = useFish();
   return (
-    <div className="flex flex-col items-center  gap-6 relative z-10">
+    <div className="flex flex-col px-20 max-sm:px-8 items-center  gap-6 relative z-10">
       <div className="relative inline-block">
         <Image
           src={
@@ -28,13 +28,13 @@ const Fishing = () => {
               : "/FishJin/jin_fishing.webp"
           }
           alt="fishingjin"
-          width={185}
-          height={185}
-          className={` h-auto max-xl:h-auto max-sm:w-auto  transition-all duration-500 ease-in-out transform ${
+          width={500}
+          height={500}
+          className={` w-96 transition-all duration-500 ease-in-out transform ${
             isWinner ? "" : isLoser ? "w-96" : "w-80"
           }`}
         />
-        <div className="absolute right-0 top-52 max-sm:top-32 max-xl:top-80 flex flex-col items-center">
+        <div className="absolute right-0 top-44 max-sm:top-32 max-xl:top-80 flex flex-col items-center">
           {!isWinner &&
             !isLoser &&
             Array.from({ length: correctGuessCount }).map((_, index) => (

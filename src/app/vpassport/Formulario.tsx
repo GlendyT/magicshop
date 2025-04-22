@@ -7,7 +7,7 @@ const Formulario = () => {
   const { name } = usuario;
   return (
     <div className=" w-96 text-white max-sm:text-xs max-sm:px-10 max-sm:py-1">
-      <div className="max-sm:px-10 max-sm:py-10">
+      <div className="max-sm:px-10 max-sm:py-10 w-96 px-8">
         <form
           className="backdrop-blur-xl bg-black/50 rounded-xl p-4 flex flex-col gap-6 text-white max-sm:text-xs"
           onSubmit={handleSubmit}

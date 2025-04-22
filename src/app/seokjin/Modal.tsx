@@ -1,6 +1,7 @@
 import useDownload from "@/hooks/useDownload";
 import useFish from "@/hooks/useFish";
 import useRequestInfo from "@/hooks/useRequestInfo";
+import { Button } from "@/utils/Button";
 import Image from "next/image";
 
 const Modal = () => {
@@ -13,18 +14,17 @@ const Modal = () => {
     setShow(false);
   };
   return (
-    <div className="flex justify-center items-center inset-10 z-40">
-      <div className="w-auto my-2 mx-auto">
+    <div className="flex flex-col justify-center items-center inset-10 z-40">
+      <div className=" my-2 mx-auto">
         <div className="relative" id="print">
           <Image
             src={"/FishJin/certificado2.png"}
             alt="fishingjin"
-            className="object-contain"
-            width={500}
-            height={500}
+            width={600}
+            height={600}
           />
-          <div className="absolute inset-0 flex items-center justify-center text-center gap-5 px-10 text-sm max-md:text-xs pt-6">
-            <div className="flex flex-col items-center justify-center gap-11 max-md:gap-4 pt-6 max-md:pt-2 max-md:mt-8">
+          <div className="absolute inset-0 flex items-center justify-center text-center gap-5 px-10 text-sm max-md:text-xs pt-10 max-sm:pt-2">
+            <div className="flex flex-col items-center justify-center gap-16 max-md:gap-3 pt-6 max-md:pt-2 max-md:mt-8">
               <p className="max-md:text-xs text-black">{name}</p>
               {wordData.image && (
                 <Image
@@ -40,22 +40,20 @@ const Modal = () => {
         </div>
       </div>
       <div className="flex gap-2 items-center justify-center p-4 max-sm:text-xs">
-        <button
+        <Button
+          label="Download"
           onClick={handleDownloadImage}
-          className="bg-blue-800 hover:bg-blue-900 text-white p-2 rounded-xl uppercase"
-        >
-          Download
-        </button>
-        <button
+          className="bg-blue-900 hover:bg-blue-700 text-white p-2 rounded-xl uppercase"
+        />
+        <Button
+          label={isWinner || isLoser ? "Play again" : ""}
           onClick={handleCloseandRestart}
           className={` ${
             isWinner || isLoser
-              ? "px-4 py-2 bg-black text-white rounded-xl hover:bg-slate-500 hover:text-black transition-all uppercase max-md:text-xs"
+              ? "px-4 py-2 bg-black text-white rounded-xl hover:bg-slate-900 hover:text-white transition-all uppercase max-md:text-xs"
               : ""
           }`}
-        >
-          {isWinner || isLoser ? "Play again" : ""}
-        </button>
+        />
       </div>
     </div>
   );
