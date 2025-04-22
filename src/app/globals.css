@@ -4,36 +4,49 @@
   background-image: url("/Wallpapers/BackgroundHOME_VercelBA2.webp");
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
 }
 .bg-polaroid {
   background-image: url("/Polaroid/Background_PolaroidBA.webp");
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
 }
 .bg-photostrip {
   background-image: url("/Photobooth/photobooth_bg.avif");
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
 }
 .bg-sugaverse {
   background-image: url("/Sugaverse/bg.gif");
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
 }
 .bg-hobipalooza {
   background-image: url("/Hobipalooza/jhope2.gif");
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
 }
 .bg-virthday {
   background-image: url("/Virthday/vwallpaper.png");
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
 }
 .bg-virthday2 {
   background-image: url("https://ibighit.com/bts/images/bts/discography/v/layover/discography-cover.png");
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
+}
+.bg-lovenotes {
+  background-image: url("/LoveNotes/BackgroundBalenTinS.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .loader {
   position: relative;

@@ -16,8 +16,8 @@ const InputName = ({
   } = useRequestInfo();
   const { name } = usuario;
   return (
-    <div className="w-full">
-      <label className={`flex float-start text-sm mb-2 `}>{from}</label>
+    <div className="">
+      <label className={`flex float-start text-sm mb-2 text-white `}>{from}</label>
       <div
         className={`text-xs mb-2 float-end ${
           isMaxFromLimitReachedH ? "text-red-600 font-extrabold" : "text-white"
