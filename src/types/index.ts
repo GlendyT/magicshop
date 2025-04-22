@@ -238,6 +238,8 @@ export type Divs = {
   div2: string;
   div3: string;
   p: string;
+  to?: string;
+  from?: string;
 };
 
 export type SugaStyle = {
@@ -246,6 +248,8 @@ export type SugaStyle = {
   image: string;
   style: Divs[];
 };
+
+export type LoveNotesTypes = SugaStyle;
 
 export type hobiSongs = {
   id: number;
@@ -292,7 +296,7 @@ export type ImageListTypes = {
   img: string;
   price: string;
   id2: number;
-  isMatched?: boolean
+  isMatched?: boolean;
 };
 
 export type FlipContextProps = {
@@ -326,10 +330,41 @@ export type FlipProviderProps = {
   children: ReactNode;
 };
 
-
 export type VirthdayGiftProps = {
-  id: number
-  name: string
-  image: string
-  style: string
-}
+  id: number;
+  name: string;
+  image: string;
+  style: string;
+};
+
+export type FishJinTypes = {
+  id: number;
+  word: string;
+  clue: string;
+  image: string;
+};
+export type FishProviderProps = {
+  children: ReactNode;
+};
+export type FishContextType = {
+  showModal: boolean;
+  setShowModal: (value: boolean) => void;
+  correctGuessCount: number;
+  correctLetters: string[];
+  incorrectGuesses: string[];
+  isLoser: boolean;
+  isWinner: boolean;
+  wordToGuess: string;
+  guessedLetters: string[];
+  addGuessedLetter: (letter: string) => void;
+  handleClick: (key: string) => void;
+  pressedLetter: string | null;
+  reveal: boolean;
+  activeLetters: string[];
+  disabled: boolean;
+  inactiveLetters: string[];
+  handleStartOver: () => void;
+  wordData: FishJinTypes;
+  setShow: (value: boolean) => void;
+  show: boolean;
+};
