@@ -46,7 +46,7 @@ export type RequestInfoContextType = {
   maxCharLimit: number;
   maxCharLimitH: number;
   maxFromLimitH: number;
-  generateWordDisplay: (currWord: string) => void;
+  generateWordDisplay: (currWord: string) => string;
   handleCorrectWord: (e: FormEvent<HTMLFormElement>) => void;
   handleResize: () => void;
   handleContent: (
