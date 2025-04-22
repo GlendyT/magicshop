@@ -4,10 +4,7 @@ import { Button } from "@/utils/Button";
 import InputName from "@/utils/InputName";
 
 const Formulario = () => {
-  const {
-    usuario,
-    handleSubmit,
-  } = useRequestInfo();
+  const { usuario, handleSubmit } = useRequestInfo();
   const { name } = usuario;
   const { setShowModal } = useFish();
   const handleCloseModal = () => {
@@ -15,24 +12,26 @@ const Formulario = () => {
   };
   return (
     <div className="flex justify-center items-center fixed inset-10 z-10 flex-col text-white max-sm:text-xs">
-      <div className="z-50 px-10 py-4 max-sm:px-10 max-sm:py-10 w-96">
+      <div className="z-50 w-96 px-8 py-4 max-sm:px-10 max-sm:py-10">
         <form
-          className="backdrop-blur-xl bg-black/50 rounded-xl p-4 flex flex-col items-center max-sm:text-xs"
+          className="backdrop-blur-xl bg-black/50 rounded-xl p-4 flex flex-col gap-6 "
           onSubmit={handleSubmit}
         >
           <label
-            className="flex float-start text-xs max-sm:text-[0.5rem] text-white text-center uppercase font-bold justify-center"
+            className="flex float-start text-xs max-sm:text-xs text-white text-center uppercase font-bold justify-center"
             htmlFor="name"
           >
             Unlock the game by adding your name
           </label>
           <InputName
             placeholder="Your name"
-            className="text-sm text-center py-3 text-black"
+            className="text-sm text-center py-3 text-white placeholder:text-gray-400 w-full"
           />
           <Button
             label={name ? "Unlocked" : "Lock"}
-            className="w-full uppercase text-lg max-sm:text-[0.5rem] flex items-center bg-blue-900 text-black "
+            className={`w-full uppercase text-lg max-sm:text-xs flex items-center text-white py-2 rounded ${
+              name ? "bg-blue-900" : "bg-blue-950"
+            }`}
             disabled={!name}
             onClick={handleCloseModal}
             icon={
@@ -63,6 +62,7 @@ const Formulario = () => {
           />
         </form>
       </div>
+      <div className="opacity-90 fixed inset-30 z-30 bg-blue-950 rounded-3xl max-sm:inset-8 max-lg:inset-8"></div>
     </div>
   );
 };
