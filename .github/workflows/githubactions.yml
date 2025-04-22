@@ -1,0 +1,32 @@
+name: MagicShop CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Set up Node.js environment with Yarn
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18" # Specify Node.js version
+          cache: "npm"
+
+      # Install dependencies using Yarn with environment variables
+      - name: Install dependencies
+        run: npm install --frozen-lockfile
+
+      - name: Build React app
+        run: npm run build
