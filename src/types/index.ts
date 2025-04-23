@@ -46,7 +46,7 @@ export type RequestInfoContextType = {
   maxCharLimit: number;
   maxCharLimitH: number;
   maxFromLimitH: number;
-  generateWordDisplay: (currWord: string) => void;
+  generateWordDisplay: (currWord: string) => string;
   handleCorrectWord: (e: FormEvent<HTMLFormElement>) => void;
   handleResize: () => void;
   handleContent: (
@@ -367,4 +367,41 @@ export type FishContextType = {
   wordData: FishJinTypes;
   setShow: (value: boolean) => void;
   show: boolean;
+};
+
+export type OptionTypes = {
+  id: number;
+  name: string;
+  emoji: string;
+  beats: number[];
+};
+
+export type membersBTSTypes = {
+  id: number;
+  name: string;
+  emoji: string;
+};
+
+
+export type RPSProviderProps = {
+  children: ReactNode;
+};
+
+
+export type RPSContextType = {
+  userChoice: number | null;
+  computerChoice: number | null;
+  userMessage: string | null;
+  computerMessage: string | null;
+  result: number | null;
+  disabled: boolean;
+  handlePlay: (choice: number) => void;
+  reset: () => void;
+  options: OptionTypes[];
+  turns: number;
+  maxTurns: number;
+  userWins: number;
+  computerWins: number;
+  setComputerMessage: (message: string) => void;
+  resetAll: () => void;
 };

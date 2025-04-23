@@ -48,6 +48,21 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+
+.bg-rps {
+  background-image: url("/RPS/RPS\ \(1\).png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.bg-rps1 {
+  background-image: url("/RPS/RPS\ \(2\).png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
 .loader {
   position: relative;
   width: 120px;
