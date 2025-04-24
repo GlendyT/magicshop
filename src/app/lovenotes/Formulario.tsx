@@ -2,6 +2,7 @@ import useRequestInfo from "@/hooks/useRequestInfo";
 import InputName from "@/utils/InputName";
 import VStyleOptions from "./VStyleOptions";
 import { Button } from "@/utils/Button";
+import { montserrat } from "@/utils/Fonts";
 
 const Formulario = () => {
   const {
@@ -14,9 +15,9 @@ const Formulario = () => {
   } = useRequestInfo();
   const { content, name, diseño } = usuario;
   return (
-    <div className="shadow-2xl relative flex flex-col w-full backdrop-blur-xl bg-pink-100/10 outline-none focus:outline-none rounded-lg p-5">
+    <div className={`shadow-2xl relative flex flex-col w-full backdrop-blur-xl bg-pink-100/10 outline-none focus:outline-none rounded-lg p-5 ${montserrat.className}`}>
       <div className="flex items-center justify-center mt-5">
-        <h3 className="text-2xl font-bold font-purple-800">
+        <h3 className="text-2xl font-bold font-purple-800 max-sm:text-lg">
           Valentine´s Day with BTS and ARMY
         </h3>
       </div>

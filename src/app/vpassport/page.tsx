@@ -7,16 +7,16 @@ import Resultado from "./Resultado";
 const Vpassport = () => {
   const { resultado, cargando } = useRequestInfo();
   const fondoBase = cargando
-    ? "bg-[url('/VPassport/VpassWeb2.webp')] max-sm:bg-[url('/VPassport/VpassPhone2.webp')]"
+    ? "bg-[url('/VPassport/VpassWeb2.webp')] max-sm:bg-[url('/VPassport/VpassPhone2.webp')] bg-cover bg-center bg-no-repeat"
     : resultado
-    ? "bg-[url('/VPassport/VPassWeb.webp')] max-sm:bg-[url('/VPassport/VpassPhone.webp')]"
+    ? "bg-[url('/VPassport/VPassWeb.webp')] max-sm:bg-[url('/VPassport/VpassPhone.webp')] bg-cover bg-center bg-no-repeat"
     : "";
 
   return (
     <div
-      className={`min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center ${fondoBase}`}
+      className={`min-h-screen  flex items-center justify-center ${fondoBase}`}
     >
-      <div className="flex items-center justify-center">
+      <div className="flex flex-col  justify-center">
         {cargando ? <Formulario /> : resultado && <Resultado />}
       </div>
     </div>

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { hobiPersonalized } from "./Data/hobiPersonalized";
 import { Button } from "@/utils/Button";
 import useDownload from "@/hooks/useDownload";
+import { providence } from "@/utils/Fonts";
 
 const Resultado = () => {
   const { isMobile, usuario, handleResetContent } = useRequestInfo();
@@ -20,7 +21,7 @@ const Resultado = () => {
 
   return (
     <div className="relative flex flex-col gap-2 justify-center items-center max-sm:text-xs">
-      <div className="relative w-full" id="print">
+      <div className={`relative w-full ${providence.className}`} id="print">
         {selectedStyle?.image && (
           <Image
             src={selectedStyle.image}
@@ -36,15 +37,17 @@ const Resultado = () => {
             isMobile ? "pb-20" : "pb-[3rem]"
           }`}
         >
-          <p className={`text-sm px-14 max-sm:text-xs ${selectedStyle?.color}`}>
+          <span className={`text-sm px-14 max-sm:text-xs ${selectedStyle?.color}`}>
             {name}
-          </p>
-          <p className={`text-sm px-14 max-sm:text-xs ${selectedStyle?.color}`}>
+          </span>
+          <span className={`text-sm px-14 max-sm:text-xs ${selectedStyle?.color}`}>
             from {content}
-          </p>
+          </span>
         </div>
       </div>
-      <div className="flex flex-row gap-3 justify-center">
+      <div
+        className={`flex flex-row gap-3 justify-center ${providence.className}`}
+      >
         <Button
           label="Download"
           onClick={handleDownloadImage}

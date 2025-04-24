@@ -4,6 +4,7 @@ import Modal from "./Modal";
 import InputName from "@/utils/InputName";
 import { Button } from "@/utils/Button";
 import Vgiftoptions from "./Vgiftoptions";
+import { virthday } from "@/utils/Fonts";
 
 const Formulario = () => {
   const { usuario, handleSubmit } = useRequestInfo();
@@ -18,7 +19,7 @@ const Formulario = () => {
         <div className="flex justify-center items-center fixed inset-10 z-10 flex-col max-sm:text-xs">
           <div className="z-50 px-10 py-4 max-sm:px-10 max-sm:py-10 w-96">
             <form
-              className="backdrop-blur-xl bg-black/50 rounded-xl p-4 flex flex-col gap-4 items-center text-white"
+              className={`backdrop-blur-xl bg-black/50 rounded-xl p-4 flex flex-col gap-4 items-center text-white ${virthday.className}`}
               onSubmit={handleSubmit}
             >
               <label
@@ -34,7 +35,9 @@ const Formulario = () => {
               <Vgiftoptions />
               <Button
                 label="Request"
-                className={`w-full uppercase text-lg max-sm:text-base flex items-center bg-black text-white disabled:text-gray-400 disabled:cursor-not-allowed py-3 px-2 ${diseño ? "border border-gray-400" : ""}`}
+                className={`w-full uppercase text-lg max-sm:text-base flex items-center bg-black text-white disabled:text-gray-400 disabled:cursor-not-allowed py-3 px-2 ${
+                  diseño ? "border border-gray-400" : ""
+                }`}
                 onClick={name ? handleUnlockClick : undefined}
                 disabled={!diseño}
               />

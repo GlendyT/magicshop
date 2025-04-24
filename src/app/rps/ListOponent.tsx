@@ -1,12 +1,12 @@
 import useRequestInfo from "@/hooks/useRequestInfo";
-import { membersBts } from "./rockpaper";
+import { membersBts } from "./Data/rockpaper";
 
 const ListOponent = () => {
   const { usuario, usuarioGenerado } = useRequestInfo();
   const { song, name } = usuario;
   return (
     <div className="my-5">
-      <label className="text-sm mb-2 text-violet-950 font-extrabold text-center flex items-center justify-center">
+      <label className="text-sm mb-2 text-violet-950 font-extrabold text-center flex items-center justify-center max-sm:text-xs">
         Choose Your Oponent
       </label>
       <div className="flex justify-center">
@@ -14,7 +14,7 @@ const ListOponent = () => {
           {membersBts.map((members) => (
             <label
               key={members.id}
-              className={`flex items-center justify-center gap-2 max-sm:gap-1 max-sm:flex-wrap border  border-none p-1 rounded-md text-violet-950 ${
+              className={`flex items-center justify-center gap-2 max-sm:gap-1 max-sm:flex-wrap border max-sm:text-xs border-none p-1 rounded-md text-violet-950 ${
                 name
                   ? "cursor-pointer bg-purple-400"
                   : "cursor-not-allowed bg-purple-300"

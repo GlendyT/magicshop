@@ -3,6 +3,7 @@ import useRequestInfo from "@/hooks/useRequestInfo";
 import { Button } from "@/utils/Button";
 import Image from "next/image";
 import HobiTitleAnimation from "./HobiTitleAnimation";
+import { providence } from "@/utils/Fonts";
 
 const Resultado = () => {
   const { usuario, handleResetContent } = useRequestInfo();
@@ -24,18 +25,18 @@ const Resultado = () => {
       <div className="relative flex justify-center items-center max-sm:text-xs">
         <div className="relative w-full" id="print">
           <Image
-            src="/Hobipalooza/2.avif"
+            src="/Hobipalooza/2.webp"
             alt="hobipalooza"
             width={500}
             height={500}
             className="w-96 h-auto relative"
             layout="responsive"
           />
-          <div className="absolute inset-0 flex flex-col  items-start pb-36  max-sm:pb-14 max-sm:gap-1 max-lg:pb-20 justify-end text-black uppercase">
-            <div className="text-lg font-extrabold px-16 max-sm:text-[0.4rem] max-lg:text-[0.5rem] max-lg:px-8 max-sm:px-6 flex flex-col gap-2 max-sm:gap-1">
-              <p>Name: {name}</p>
-              <p>Row: {diseño}</p>
-              <p>Seat: {song}</p>
+          <div className={`absolute inset-0 flex flex-col  items-start pb-40  max-sm:pb-14 max-sm:gap-1 max-lg:pb-28 justify-end text-black uppercase ${providence.className} `}>
+            <div className="text-lg font-extrabold px-16 max-sm:text-[0.4rem] max-lg:text-[0.7rem] max-lg:px-10 max-sm:px-6 flex flex-col gap-2 max-sm:gap-1">
+              <span>Name: {name}</span>
+              <span>Row: {diseño}</span>
+              <span>Seat: {song}</span>
             </div>
           </div>
         </div>

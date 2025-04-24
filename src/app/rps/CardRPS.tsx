@@ -47,14 +47,14 @@ const CardRPS = () => {
       </div>
       <BtsImgRPS />
       <div className="py-2 flex flex-row gap-2 justify-between">
-        {(turns === 2 || maxTurns) && (
-          <Button onClick={resetAll} label="Restart" className="uppercase" />
+        {maxTurns - turns === 0 && (
+          <Button onClick={resetAll} label="Restart" className="uppercase bg-purple-400 px-2 py-2" />
         )}
         {maxTurns - turns === 0 && (
           <Button
             onClick={handleModal}
             label={showModal ? "Show your 🎁" : "Hide"}
-            className="uppercase"
+            className="uppercase bg-purple-400 px-2 py-2"
           />
         )}
         {maxTurns - turns === 0 && !showModal && <RPSFreebie />}
@@ -62,7 +62,7 @@ const CardRPS = () => {
           <Button
             onClick={handleDownloadImage}
             label={showModal ? "" : "Download"}
-            className="uppercase"
+            className="uppercase bg-purple-400 px-2 py-2"
           />
         )}
       </div>

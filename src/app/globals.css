@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 .bg-main {
   background-image: url("/Wallpapers/BackgroundHOME_VercelBA2.webp");
@@ -13,7 +14,7 @@
   background-repeat: no-repeat;
 }
 .bg-photostrip {
-  background-image: url("/Photobooth/photobooth_bg.avif");
+  background-image: url("/Photobooth/photobooth_bg.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -31,7 +32,7 @@
   background-repeat: no-repeat;
 }
 .bg-virthday {
-  background-image: url("/Virthday/vwallpaper.png");
+  background-image: url("/Virthday/vwallpaper.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -50,18 +51,17 @@
 }
 
 .bg-rps {
-  background-image: url("/RPS/RPS\ \(1\).png");
+  background-image: url("/RPS/RPS\ \(2\).webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 .bg-rps1 {
-  background-image: url("/RPS/RPS\ \(2\).png");
+  background-image: url("/RPS/RPS\ \(2\).webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
-
 
 .loader {
   position: relative;
@@ -183,7 +183,6 @@ ul {
   z-index: 1;
   overflow: hidden;
   height: 20vh;
-
 }
 
 .waves {
@@ -193,7 +192,6 @@ ul {
   bottom: 0;
   z-index: 10;
   pointer-events: none;
-  
 }
 
 .fish {

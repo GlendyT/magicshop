@@ -8,12 +8,10 @@ import React, {
   useState,
 } from "react";
 import {
-  BTSFlowerKey,
   RequestInfoContextType,
   RequestInfoProviderProps,
   UsuarioType,
 } from "../types";
-import { btsImg, membersBts } from "@/valentineday/membersBts";
 import { citiesVisited } from "@/vpassport/Data/citiesVisited";
 
 const RequestInfoContext = createContext<RequestInfoContextType>(null!);
@@ -148,19 +146,6 @@ const RequestInfoProvider = ({ children }: RequestInfoProviderProps) => {
     }));
   };
 
-  const usuarioGenerado1 = (e: ChangeEvent<HTMLSelectElement>) => {
-    const key = e.target.value as BTSFlowerKey;
-
-    const selectedStyles = membersBts[key];
-    const selectedImage = btsImg[key];
-
-    setUsuario((prev) => ({
-      ...prev,
-      diseño: key,
-      image: selectedImage,
-      estilos: selectedStyles,
-    }));
-  };
 
   const generarUsuario = (dato: UsuarioType) => {
     setCargando(true);
@@ -228,7 +213,6 @@ const RequestInfoProvider = ({ children }: RequestInfoProviderProps) => {
         handleContentH,
         handleNameH,
         handleSubmit,
-        usuarioGenerado1,
         usuarioGenerado,
         handleResetContent,
         isMaxCharLimitReached,

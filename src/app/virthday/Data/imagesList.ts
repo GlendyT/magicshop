@@ -133,9 +133,9 @@ export const virthdayGift: VirthdayGiftProps[] = [
     style: "pt-44 pr-42",
   },
   {
-    id: 1,
+    id: 2,
     name: "V Gift 2",
-    image: "/Virthday/Happy (V)irthday.png",
+    image: "/Virthday/Happy (V)irthday.webp",
     style: "pt-56",
   },
 ];

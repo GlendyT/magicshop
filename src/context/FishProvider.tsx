@@ -1,5 +1,5 @@
 "use client"
-import { wordList } from "@/seokjin/wordList";
+import { wordList } from "@/seokjin/Data/wordList";
 import { createContext, useCallback, useEffect, useState } from "react";
 import { FishContextType, FishJinTypes, FishProviderProps } from "../types";
 

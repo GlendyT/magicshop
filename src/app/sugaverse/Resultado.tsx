@@ -3,6 +3,7 @@ import { sugaStyles } from "./Data/sugaStyles";
 import Image from "next/image";
 import { Button } from "@/utils/Button";
 import useDownload from "@/hooks/useDownload";
+import { pixel } from "@/utils/Fonts";
 
 const Resultado = () => {
   const { usuario, handleResetContent } = useRequestInfo();
@@ -25,16 +26,16 @@ const Resultado = () => {
             />
             <div className={selectedStyle.style[0].div2}>
               <div className={selectedStyle.style[0].div3}>{content}</div>
-              <p className={selectedStyle.style[0].p}>{name}</p>
+              <span className={selectedStyle.style[0].p}>{name}</span>
             </div>
           </div>
         )}
       </div>
-      <div className="flex items-center justify-center gap-2">
+      <div className={`flex items-center justify-center gap-2 ${pixel.className}`}>
         <Button
           label="Download"
           onClick={handleDownloadImage}
-          className="bg-black text-white py-2 px-4"
+          className={`bg-black text-white py-2 px-4`}
           disableColors="disabled:bg-opacity-25 disabled:cursor-not-allowed"
           icon={
             <svg

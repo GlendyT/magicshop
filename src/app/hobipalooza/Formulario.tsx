@@ -4,14 +4,15 @@ import React from "react";
 import SelectAlbum from "./SelectAlbum";
 import { Button } from "@/utils/Button";
 import useRequestInfo from "@/hooks/useRequestInfo";
+import { providence } from "@/utils/Fonts";
 
 const Formulario = () => {
   const { usuario, handleSubmit } = useRequestInfo();
   const { song } = usuario;
   return (
-    <div className="text-white max-sm:text-xs w-96 flex flex-col items-center justify-center">
+    <div className={`text-white max-sm:text-xs w-96 flex flex-col items-center justify-center ${providence.className}`}>
       <Image
-        src="/Hobipalooza/hw.avif"
+        src="/Hobipalooza/hw.webp"
         alt="hobipalooza"
         className="w-80 h-44"
         width={185}

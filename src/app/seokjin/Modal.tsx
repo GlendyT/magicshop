@@ -18,14 +18,14 @@ const Modal = () => {
       <div className=" my-2 mx-auto">
         <div className="relative" id="print">
           <Image
-            src={"/FishJin/certificado2.png"}
+            src={"/FishJin/certificado2.webp"}
             alt="fishingjin"
             width={600}
             height={600}
           />
           <div className="absolute inset-0 flex items-center justify-center text-center gap-5 px-10 text-sm max-md:text-xs pt-10 max-sm:pt-2">
             <div className="flex flex-col items-center justify-center gap-16 max-md:gap-3 pt-6 max-md:pt-2 max-md:mt-8">
-              <p className="max-md:text-xs text-black">{name}</p>
+              <span className="max-md:text-xs max-sm:text-xs text-black">{name}</span>
               {wordData.image && (
                 <Image
                   src={wordData.image}

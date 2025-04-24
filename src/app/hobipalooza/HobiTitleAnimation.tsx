@@ -4,7 +4,7 @@ const HobiTitleAnimation = () => {
       <div className="italic text-3xl text-white text-center uppercase">
         happy
       </div>
-      <div className="conteudo">
+      <div className={`conteudo`}>
         <ul>
           <li>HOPE-DAY!</li>
           <li>HOBIPALOOZA!</li>
