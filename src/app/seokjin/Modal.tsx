@@ -1,7 +1,7 @@
 import useDownload from "@/hooks/useDownload";
 import useFish from "@/hooks/useFish";
 import useRequestInfo from "@/hooks/useRequestInfo";
-import { Button } from "@/utils/Button";
+import { ButtonUtils } from "@/utils/ButtonUtils";
 import Image from "next/image";
 
 const Modal = () => {
@@ -40,12 +40,12 @@ const Modal = () => {
         </div>
       </div>
       <div className="flex gap-2 items-center justify-center p-4 max-sm:text-xs">
-        <Button
+        <ButtonUtils
           label="Download"
           onClick={handleDownloadImage}
           className="bg-blue-900 hover:bg-blue-700 text-white p-2 rounded-xl uppercase"
         />
-        <Button
+        <ButtonUtils
           label={isWinner || isLoser ? "Play again" : ""}
           onClick={handleCloseandRestart}
           className={` ${

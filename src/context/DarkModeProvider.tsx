@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useState, createContext } from "react";
-import { DarkModeContextType, DarkModeProviderProps, ThemeType } from "../types";
+import { AllProviderProps, DarkModeContextType, ThemeType } from "../types";
 
 const DarkModeContext = createContext<DarkModeContextType>(null!);
 
-const DarkProvider = ({ children }: DarkModeProviderProps) => {
+const DarkProvider = ({ children }: AllProviderProps) => {
   const [theme, setTheme] = useState<ThemeType>("light");
 
   const colorTheme = theme === "dark" ? "light" : "dark";

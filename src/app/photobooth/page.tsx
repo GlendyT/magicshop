@@ -2,7 +2,6 @@
 import usePhotobooth from "@/hooks/usePhotobooth";
 import useImageCrop from "@/hooks/useImageCrop";
 import { ChangeEvent } from "react";
-import BTSPersonalized from "./BTSPersonalized";
 import Image from "next/image";
 import PhotoButton from "./PhotoButton";
 import Modal from "./base/Modal";
@@ -11,9 +10,9 @@ import Logo from "./Logo";
 import Photo2 from "./photos/Photo2";
 import Photo3 from "./photos/Photo3";
 import Photo from "./photos/Photo";
-
-
-
+import { btsPerzonalizedBG } from "./Data/btsPersonalizedBG";
+import useRequestInfo from "@/hooks/useRequestInfo";
+import RadioOptionsUtils from "@/utils/RadioOptionsUtils";
 
 type PhotoboothProps = {
   openModal: boolean;
@@ -27,6 +26,7 @@ type PhotoboothProps = {
   handleFileChange: (event: ChangeEvent<HTMLInputElement>) => void;
   backgroundImage: string | null;
   setBackgroundImage?: (backgroundImage: string | null) => void;
+  handleSelection: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
 const Photobooth = () => {
@@ -39,12 +39,13 @@ const Photobooth = () => {
     preview3,
     openModal,
     setOpenModal,
-    
     handleFileChange,
     backgroundImage,
+    handleSelection,
   }: PhotoboothProps = usePhotobooth();
-
   const { getProcessedImage, resetStates } = useImageCrop();
+  const { usuario } = useRequestInfo();
+  const { diseño } = usuario;
 
   const handleDone = async (): Promise<File | undefined> => {
     const avatar = await getProcessedImage();
@@ -65,7 +66,21 @@ const Photobooth = () => {
   return (
     <div className=" min-h-screen bg-photostrip">
       <div className="flex flex-row gap-4 max-md:gap-1 items-center justify-center">
-        <BTSPersonalized />
+        <RadioOptionsUtils
+          id="diseño"
+          name="diseño"
+          value={diseño}
+          options={btsPerzonalizedBG}
+          checked={diseño}
+          onChange={handleSelection}
+          className="py-2 flex flex-col items-center justify-center gap-2"
+          labelStyles="flex w-full items-center justify-between gap-2 border-none p-1 rounded-md text-violet-100 cursor-pointer bg-purple-800 max-md:text-xs"
+          spanStyles={(option, isSelected) =>
+            isSelected
+              ? "ring-4 bg-purple-950"
+              : "bg-violet-300 outline-violet-500 outline"
+          }
+        />
         <div
           className={`pt-10 relative object-cover bg-center bg-no-repeat ${
             backgroundImage ? "px-10 bg-transparent" : "px-2 bg-purple-500 pb-4"
@@ -102,14 +117,13 @@ const Photobooth = () => {
         </div>
         <PhotoButton />
 
-        <Modal open={openModal} >
+        <Modal open={openModal}>
           <ImageCropModalContent
             handleDone={handleDone}
             handleClose={() => setOpenModal(false)}
           />
         </Modal>
       </div>
-
     </div>
   );
 };

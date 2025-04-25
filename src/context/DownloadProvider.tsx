@@ -2,12 +2,12 @@
 
 import html2canvas from "html2canvas-pro";
 import { createContext } from "react";
-import { DownloadContextType, DownloaderProviderProps } from "../types";
+import { AllProviderProps, DownloadContextType } from "../types";
 
 
 export const DownloadContext = createContext<DownloadContextType>(null!);
 
-export const DownloadProvider = ({ children }: DownloaderProviderProps) => {
+export const DownloadProvider = ({ children }: AllProviderProps) => {
   const handleDownloadImage = async () => {
     const element = document.getElementById("print");
     if (!element) {

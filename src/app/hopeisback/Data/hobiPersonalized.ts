@@ -12,7 +12,7 @@ export const hobiPersonalized: hobiPersonalizedTypes[] = [
         color: "text-[#7167e6]"
       },
       {
-        id: 1,
+        id: 2,
         name: "boyfriend version",
         image: "/HobiDischarge/hobissquare2.webp",
         color: "text-[rgb(188,79,77)]"
@@ -30,7 +30,7 @@ export const hobiPersonalized: hobiPersonalizedTypes[] = [
         color: "text-[#7167e6]"
       },
       {
-        id: 1,
+        id: 2,
         name: "boyfriend version",
         image: "/HobiDischarge/hobisver2.webp",
         color: "text-[rgb(188,79,77)]"

@@ -8,15 +8,15 @@ import React, {
   useState,
 } from "react";
 import {
+  AllProviderProps,
   RequestInfoContextType,
-  RequestInfoProviderProps,
   UsuarioType,
 } from "../types";
 import { citiesVisited } from "@/vpassport/Data/citiesVisited";
 
 const RequestInfoContext = createContext<RequestInfoContextType>(null!);
 
-const RequestInfoProvider = ({ children }: RequestInfoProviderProps) => {
+const RequestInfoProvider = ({ children }: AllProviderProps) => {
   const [usuario, setUsuario] = useState<UsuarioType>({
     name: "",
     content: "",

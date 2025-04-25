@@ -1,9 +1,9 @@
 import useDownload from "@/hooks/useDownload";
 import useRequestInfo from "@/hooks/useRequestInfo";
-import { Button } from "@/utils/Button";
 import Image from "next/image";
 import HobiTitleAnimation from "./HobiTitleAnimation";
 import { providence } from "@/utils/Fonts";
+import { ButtonUtils } from "@/utils/ButtonUtils";
 
 const Resultado = () => {
   const { usuario, handleResetContent } = useRequestInfo();
@@ -42,12 +42,12 @@ const Resultado = () => {
         </div>
       </div>
       <div className="flex items-center justify-center gap-2">
-        <Button
+        <ButtonUtils
           label="Download"
           onClick={handleDownloadImage}
           className={`${stylesButton}`}
         />
-        <Button
+        <ButtonUtils
           label="Restart"
           onClick={handleResetContent}
           className={`${stylesButton}`}

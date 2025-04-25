@@ -1,58 +1,39 @@
 import useRequestInfo from "@/hooks/useRequestInfo";
 import { hobiMusic } from "./Data/hobiMusic";
+import SelectUtils from "@/utils/SelectUtils";
 
 const SelectAlbum = () => {
-  const { usuario, usuarioGenerado } = useRequestInfo();
+  const { usuario } = useRequestInfo();
   const { diseño, song, name } = usuario;
   const selectedAlbum = hobiMusic.find((album) => album.name === diseño);
+  const songOptions =
+    selectedAlbum?.songs.map((song) => ({
+      id: song.id,
+      name: song.title,
+    })) || [];
   const commonstyleSelect =
     "appearance-none rounded transition-all border-white border bg-white placeholder:text-gray-400 text-black w-full py-2 px-3 text-center  border-white  disabled:border-gray-300 disabled:text-gray-400 disabled:cursor-not-allowed";
-  const commonstyleOption = "text-black placeholder:text-gray-400";
   return (
-    <div className="flex flex-col gap-6">
-      <select
+    <div className="flex flex-col gap-2">
+      <SelectUtils
         id="diseño"
         name="diseño"
         value={diseño}
-        onChange={usuarioGenerado}
-        className={`${commonstyleSelect}`}
+        options={hobiMusic}
         disabled={!name}
-      >
-        <option value="" className="text-gray-500">
-          Choose your favorite
-        </option>
-        {hobiMusic.map((hobi) => (
-          <option
-            key={hobi.id}
-            value={hobi.name}
-            className={`${commonstyleOption}`}
-          >
-            {hobi.name}
-          </option>
-        ))}
-      </select>
+        placeholder="Choose your favorite"
+        className={`${commonstyleSelect}`}
+      />
 
-      <select
+      <SelectUtils
         id="song"
         name="song"
-        value={song}
-        onChange={usuarioGenerado}
-        className={`${commonstyleSelect}`}
+        value={song || ""}
+        options={songOptions}
         disabled={!diseño}
-      >
-        <option value="" className="text-gray-500">
-          {selectedAlbum ? "Choose a Song" : "Select an album first"}
-        </option>
-        {selectedAlbum?.songs.map((hobiSong) => (
-          <option
-            key={hobiSong.id}
-            value={hobiSong.title}
-            className={`${commonstyleOption}`}
-          >
-            {hobiSong.title}
-          </option>
-        ))}
-      </select>
+        placeholder={selectedAlbum ? "Choose a Song" : "Select an album first"}
+        className={`${commonstyleSelect} mb-3`}
+      />
     </div>
   );
 };

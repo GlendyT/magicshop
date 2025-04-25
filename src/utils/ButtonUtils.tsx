@@ -1,6 +1,6 @@
 import { ButtonProps } from "../types";
 
-export const Button = ({
+export const ButtonUtils = ({
   label,
   onClick,
   className,

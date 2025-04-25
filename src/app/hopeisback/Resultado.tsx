@@ -1,9 +1,9 @@
 import useRequestInfo from "@/hooks/useRequestInfo";
 import Image from "next/image";
 import { hobiPersonalized } from "./Data/hobiPersonalized";
-import { Button } from "@/utils/Button";
 import useDownload from "@/hooks/useDownload";
 import { providence } from "@/utils/Fonts";
+import { ButtonUtils } from "@/utils/ButtonUtils";
 
 const Resultado = () => {
   const { isMobile, usuario, handleResetContent } = useRequestInfo();
@@ -48,12 +48,12 @@ const Resultado = () => {
       <div
         className={`flex flex-row gap-3 justify-center ${providence.className}`}
       >
-        <Button
+        <ButtonUtils
           label="Download"
           onClick={handleDownloadImage}
           className="bg-black text-white py-4 px-2 uppercase"
         />
-        <Button
+        <ButtonUtils
           label="restart"
           onClick={handleResetContent}
           className="bg-black text-white py-4 px-2 uppercase"

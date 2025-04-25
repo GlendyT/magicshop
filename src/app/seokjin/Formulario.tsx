@@ -1,7 +1,7 @@
 import useFish from "@/hooks/useFish";
 import useRequestInfo from "@/hooks/useRequestInfo";
-import { Button } from "@/utils/Button";
-import InputName from "@/utils/InputName";
+import { ButtonUtils } from "@/utils/ButtonUtils";
+import InputNameUtils from "@/utils/InputNameUtils";
 
 const Formulario = () => {
   const { usuario, handleSubmit } = useRequestInfo();
@@ -23,11 +23,11 @@ const Formulario = () => {
           >
             Unlock the game by adding your name
           </label>
-          <InputName
+          <InputNameUtils
             placeholder="Your name"
             className="text-sm text-center py-3 text-white placeholder:text-gray-400 w-full"
           />
-          <Button
+          <ButtonUtils
             label={name ? "Unlocked" : "Lock"}
             className={`w-full uppercase text-lg max-sm:text-xs flex items-center text-white py-2 rounded ${
               name ? "bg-blue-900" : "bg-blue-950"

@@ -1,9 +1,9 @@
 import useRequestInfo from "@/hooks/useRequestInfo";
 import { sugaStyles } from "./Data/sugaStyles";
 import Image from "next/image";
-import { Button } from "@/utils/Button";
 import useDownload from "@/hooks/useDownload";
 import { pixel } from "@/utils/Fonts";
+import { ButtonUtils } from "@/utils/ButtonUtils";
 
 const Resultado = () => {
   const { usuario, handleResetContent } = useRequestInfo();
@@ -32,7 +32,7 @@ const Resultado = () => {
         )}
       </div>
       <div className={`flex items-center justify-center gap-2 ${pixel.className}`}>
-        <Button
+        <ButtonUtils
           label="Download"
           onClick={handleDownloadImage}
           className={`bg-black text-white py-2 px-4`}
@@ -54,7 +54,7 @@ const Resultado = () => {
             </svg>
           }
         />
-        <Button
+        <ButtonUtils
           label="Restart"
           onClick={handleResetContent}
           className="bg-black text-white py-2 px-4"

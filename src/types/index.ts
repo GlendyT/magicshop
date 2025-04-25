@@ -13,7 +13,7 @@ export type UsuarioType = {
   song?: string;
 };
 
-export type RequestInfoProviderProps = {
+export type AllProviderProps = {
   children: ReactNode;
 };
 
@@ -47,7 +47,6 @@ export type RequestInfoContextType = {
   setShowErrorMessage: (showErrorMessage: boolean) => void;
   setIsMobile: (isMobile: boolean) => void;
   setSelectedMembers: (selectedMembers: string | null) => void;
-  //  setCardData: (cardData: string | null) => void;
   setShowForm: (showForm: boolean) => void;
   maxCharLimit: number;
   maxCharLimitH: number;
@@ -68,7 +67,6 @@ export type RequestInfoContextType = {
   ) => void;
 
   handleResetContent: () => void;
-  //handleSubmit1: (e: FormEvent<HTMLFormElement>) => void;
   isMaxCharLimitReached: boolean;
   isMaxCharLimitReachedH: boolean;
   isMaxFromLimitReachedH: boolean;
@@ -92,10 +90,6 @@ export type ButtonProps = {
 
 export type DownloadContextType = {
   handleDownloadImage: () => Promise<void>;
-};
-
-export type DownloaderProviderProps = {
-  children: ReactNode;
 };
 
 export type ButtonPhotobooth = {
@@ -205,11 +199,6 @@ export type PhotoboothContextType = {
     e: ChangeEvent<HTMLSelectElement | HTMLInputElement>
   ) => void; // Optional
 };
-export type PhotoboothProviderProps = {
-  children: ReactNode;
-};
-
-
 
 export type InputNameProps = {
   placeholder: string;
@@ -311,9 +300,6 @@ export type FlipContextProps = {
   isFlipped: (item: ImageListTypes) => string | boolean;
   onCardClick: (item: ImageListTypes) => void;
 };
-export type FlipProviderProps = {
-  children: ReactNode;
-};
 
 export type VirthdayGiftProps = {
   id: number;
@@ -328,9 +314,7 @@ export type FishJinTypes = {
   clue: string;
   image: string;
 };
-export type FishProviderProps = {
-  children: ReactNode;
-};
+
 export type FishContextType = {
   showModal: boolean;
   setShowModal: (value: boolean) => void;
@@ -367,10 +351,6 @@ export type membersBTSTypes = {
   emoji: string;
 };
 
-export type RPSProviderProps = {
-  children: ReactNode;
-};
-
 export type RPSContextType = {
   userChoice: number | null;
   computerChoice: number | null;
@@ -400,13 +380,58 @@ export type DarkModeContextType = {
   toggleDarkMode: (checked: boolean) => void;
 };
 
-export type DarkModeProviderProps = {
-  children: ReactNode;
-};
-
 export type LinkRoutesTypes = {
   id: number;
   name: string;
   path: string;
   image: string;
+};
+
+export type Option = {
+  id: string | number;
+  name: string;
+};
+
+export type SelectUtilsProps = {
+  id: string;
+  name: string;
+  type?: string;
+  label?: string;
+  value: string;
+  options: Option[];
+  disabled?: boolean;
+  placeholder?: string;
+  className?: string;
+  labelStyles?: string;
+  spanStyles?: (option: Option, isSelected: boolean) => string;
+  checked?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+};
+
+export type TextAreaProps = {
+  label: string;
+  placeholder: string;
+};
+
+export type InputContentProps = {
+  placeholder: string;
+  className: string;
+  from?: string;
+};
+
+export type OptionButtonProps = {
+  option: OptionTypes;
+  handlePlay: (choice: number) => void;
+  disabled?: boolean;
+  turns: number;
+  maxTurns: number;
+};
+
+export type ResultIconProp = {
+  result: number | null;
+  isUser?: boolean;
+};
+export type EmojiesRPSProps = {
+  emoji: string;
+  bgColor: string;
 };
