@@ -2,6 +2,7 @@ import useRequestInfo from "@/hooks/useRequestInfo";
 import InputName from "@/utils/InputName";
 import StyleSelect from "./StyleSelect";
 import { Button } from "@/utils/Button";
+import { providence } from "@/utils/Fonts";
 
 const Formulario = () => {
   const {
@@ -17,7 +18,7 @@ const Formulario = () => {
     <div className="w-96 text-white max-sm:text-xs max-sm:px-0 max-sm:py-1 ">
       <div className="max-sm:px-10 max-sm:py-10">
         <form
-          className="backdrop-blur-sm bg-black/40 rounded-xl p-4 flex flex-col gap-4"
+          className={`backdrop-blur-sm bg-black/40 rounded-xl p-4 flex flex-col gap-4 max-sm:gap-2 ${providence.className}`}
           onSubmit={handleSubmit}
         >
           <InputName
@@ -56,14 +57,14 @@ const Formulario = () => {
             <Button
               label="Create Post"
               disabled={!diseño}
-              className="bg-black text-white disabled:bg-opacity-25 disabled:cursor-not-allowed py-2 px-3 uppercase disabled:bg-black/30 disabled:text-gray-400"
+              className={`bg-black w-full text-white disabled:bg-opacity-25 disabled:cursor-not-allowed py-2 px-3 uppercase disabled:bg-black/30 disabled:text-gray-400 ${providence.className}`}
             />
           </div>
         </form>
         <div
-          className={` ${
+          className={`${providence.className} ${
             diseño
-              ? "relative px-10 py-4 max-sm:px-2 max-sm:py-8 backdrop-blur-sm bg-black/20 rounded-3xl  my-2 text-center font-providence transition-transform delay-150 text-black max-sm:backdrop-blur-sm max-sm:bg-black/40 p-4 gap-4 sm:justify-center items-center max-sm:text-xs "
+              ? "{`relative px-10 py-4 max-sm:px-2 max-sm:py-8 backdrop-blur-sm bg-black/20 rounded-3xl  my-2 text-center font-providence transition-transform delay-150 text-black max-sm:backdrop-blur-sm max-sm:bg-black/40 p-4 gap-4 sm:justify-center items-center max-sm:text-xs `}"
               : "hidden"
           } `}
         >

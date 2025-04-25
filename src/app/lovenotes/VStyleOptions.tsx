@@ -1,5 +1,5 @@
 import useRequestInfo from "@/hooks/useRequestInfo";
-import { loveNotesImg } from "./loveNotesImg";
+import { loveNotesImg } from "./Data/loveNotesImg";
 
 const VStyleOptions = () => {
   const { usuario, usuarioGenerado } = useRequestInfo();

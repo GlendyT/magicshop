@@ -1,5 +1,6 @@
 import useRequestInfo from "@/hooks/useRequestInfo";
 import { Button } from "@/utils/Button";
+import { providence } from "@/utils/Fonts";
 
 const Modal = () => {
   const {
@@ -27,7 +28,7 @@ const Modal = () => {
     <>
       <div className="justify-center items-center flex fixed inset-10 z-40">
         <div className="relative w-auto my-6 mx-auto">
-          <div className=" pb-4 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+          <div className={`pb-4 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none ${providence.className}`}>
             <div className="flex items-center justify-between p-5 border-b boder-solid border-blue-200 rounded-t">
               <h1 className="text-xl font-bold">Access Word</h1>
             </div>
@@ -63,7 +64,7 @@ const Modal = () => {
                     : "Submit Guess"
                 }
                 onClick={isCorrectGuess ? handleCheckCorrectWord : undefined}
-                className={` text-white py-2 px-2 ${
+                className={` text-white py-2 px-2 max-sm:text-xs ${
                   isCorrectGuess
                     ? "bg-purple-900"
                     : showErrorMessage

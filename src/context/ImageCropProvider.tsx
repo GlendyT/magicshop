@@ -58,7 +58,7 @@ const ImageCropProvider = ({
         croppedAreaPixels,
         rotation
       )) as { file: Blob };
-      return new File([croppedImage.file], `img-${Date.now()}.png`, {
+      return new File([croppedImage.file], `img-${Date.now()}.webp`, {
         type: "image/png",
       });
     }

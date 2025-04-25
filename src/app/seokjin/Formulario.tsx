@@ -11,10 +11,10 @@ const Formulario = () => {
     setShowModal(false);
   };
   return (
-    <div className="flex justify-center items-center fixed inset-10 z-10 flex-col text-white max-sm:text-xs">
+    <div className="flex justify-center items-center fixed inset-10 z-10 flex-col text-white">
       <div className="z-50 w-96 px-8 py-4 max-sm:px-10 max-sm:py-10">
         <form
-          className="backdrop-blur-xl bg-black/50 rounded-xl p-4 flex flex-col gap-6 "
+          className="backdrop-blur-xl bg-black/50 rounded-xl p-4 flex flex-col gap-6 max-sm:text-xs "
           onSubmit={handleSubmit}
         >
           <label

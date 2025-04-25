@@ -1,7 +1,7 @@
 "use client";
 import { createContext, useEffect, useState } from "react";
 import useRequestInfo from "@/hooks/useRequestInfo";
-import { options } from "@/rps/rockpaper";
+import { options } from "@/rps/Data/rockpaper";
 import { RPSContextType, RPSProviderProps } from "../types";
 
 const RPSContext = createContext<RPSContextType>(null!);

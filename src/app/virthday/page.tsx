@@ -4,13 +4,16 @@ import { Button } from "@/utils/Button";
 import React from "react";
 import Resultado from "./Resultado";
 import Formulario from "./Formulario";
+import { virthday } from "@/utils/Fonts";
 
 const Virthday = () => {
   const { items, timer, timeExpired, handleStartGame, win, handleRestart } =
     useFlip();
   return (
     <div className="min-h-screen bg-virthday bg-center bg-cover bg-no-repeat">
-      <div className="flex flex-col gap-2 items-center justify-center">
+      <div
+        className={`flex flex-col gap-2 items-center justify-center ${virthday.className}`}
+      >
         <div className="text-2xl max-sm:text-base font-bold text-black flex flex-row justify-between items-center gap-2 pt-1 backdrop-blur-xl bg-white/50 rounded-2xl">
           Memory Game
           <Button

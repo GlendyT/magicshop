@@ -10,10 +10,10 @@ type ResultDisplayProps = {
 const ResultDisplay = ({ bgColor, title, wins }: ResultDisplayProps) => {
   return (
     <div
-      className={`text-lg max-md:text-sm w-full py-3 flex flex-col font-fuzzybubbles ${bgColor}`}
+      className={`text-sm max-md:text-sm w-full py-3 flex flex-col font-fuzzybubbles ${bgColor}`}
     >
-      <p>{title}</p>
-      <p>wins {wins}</p>
+      <span>{title}</span>
+      <span>wins {wins}</span>
     </div>
   );
 };
@@ -33,9 +33,9 @@ export const ResultRPS = () => {
   return (
     <div className="flex flex-col w-full text-purple-800 font-extrabold text-lg max-md:text-sm font-fuzzybubbles ">
       {maxTurns - turns === 0 ? (
-        <p>Game-Over</p>
+        <span>Game-Over</span>
       ) : (
-        <p>Turns left {maxTurns - turns}</p>
+        <span>Turns left {maxTurns - turns}</span>
       )}
     </div>
   );

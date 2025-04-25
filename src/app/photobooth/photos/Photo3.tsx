@@ -1,4 +1,5 @@
 import usePhotobooth from "@/hooks/usePhotobooth";
+import { ballet } from "@/utils/Fonts";
 import Image from "next/image";
 import { ChangeEvent } from "react";
 
@@ -33,7 +34,7 @@ const Photo3 = ({ preview, handleFileChange, backgroundImage }: PhotoProps) => {
             } ${backgroundImage ? "border-dashed " : "border-purple-500"}`}
           >
             <h1
-              className={`text-center ${
+              className={`text-center ${ballet.className} ${
                 changeColor === true
                   ? "text-transparent max-sm:text-xs max-sm:truncate"
                   : "max-sm:text-xs max-lg:text-sm max-xl:text-sm text-purple-900"

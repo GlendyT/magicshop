@@ -1,8 +1,9 @@
 import useDownload from "@/hooks/useDownload";
 import useRequestInfo from "@/hooks/useRequestInfo";
-import { loveNotesImg } from "./loveNotesImg";
+import { loveNotesImg } from "./Data/loveNotesImg";
 import Image from "next/image";
 import { Button } from "@/utils/Button";
+import { virthday3 } from "@/utils/Fonts";
 
 const Resultado = () => {
   const { usuario, handleResetContent } = useRequestInfo();
@@ -12,8 +13,8 @@ const Resultado = () => {
     (lovenote) => lovenote.name === diseño
   );
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex flex-col shadow-2xl shadow-black/80" id="print">
+    <div className={`flex flex-col gap-6  ${virthday3.className}`}>
+      <div className={`flex flex-col shadow-2xl shadow-black/80`} id="print">
         {selectedStyle && (
           <div className={selectedStyle.style[0].div1}>
             <Image
@@ -24,14 +25,14 @@ const Resultado = () => {
               className=""
             />
             <div className={selectedStyle.style[0].div2}>
-              <p className={selectedStyle.style[0].div3}>
+              <span className={selectedStyle.style[0].div3}>
                 To: <span className={selectedStyle.style[0].to}>{name}</span>
-              </p>
+              </span>
 
-              <p className={selectedStyle.style[0].p}>
+              <span className={selectedStyle.style[0].p}>
                 Love:
                 <span className={selectedStyle.style[0].from}>{content}</span>
-              </p>
+              </span>
             </div>
           </div>
         )}

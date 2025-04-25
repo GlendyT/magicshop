@@ -13,10 +13,10 @@ type EmojiesRPSProps = {
 const ResultIcon = ({ result, isUser }: ResultIconProp) => {
   if (result === null) return null;
 
-  if (result === 0) return <p className="text-6xl max-md:text-4xl">🟰</p>;
+  if (result === 0) return <span className="text-6xl max-md:text-4xl">🟰</span>;
 
   const isWin = isUser ? result === 1 : result === 2;
-  return <p className="text-6xl max-md:text-4xl">{isWin ? "✅" : "❌"}</p>;
+  return <span className="text-6xl max-md:text-4xl">{isWin ? "✅" : "❌"}</span>;
 };
 
 const EmojiDisplay = ({ emoji, bgColor }: EmojiesRPSProps) => (
@@ -43,11 +43,11 @@ export const UserImgRPS = () => {
   return (
     <div className="w-full flex flex-row items-center justify-center py-2">
       <ResultIcon result={result} isUser={true} />
-      <p className="text-xl text-center py-4 flex flex-col items-center justify-center">
+      <span className="text-xl text-center py-4 flex flex-col items-center justify-center">
         {userMessage && emoji && (
           <EmojiDisplay emoji={emoji} bgColor={userBgColor} />
         )}
-      </p>
+      </span>
       <ResultIcon result={result} isUser={true} />
     </div>
   );
@@ -70,11 +70,11 @@ export const BtsImgRPS = () => {
     >
       <div className="w-full flex flex-row items-center justify-center">
         <ResultIcon result={result} isUser={false} />
-        <p className="text-xl text-center py-4 flex flex-col items-center justify-center">
+        <span className="text-xl text-center py-4 flex flex-col items-center justify-center">
           {userMessage && emoji && (
             <EmojiDisplay emoji={emoji} bgColor={btsBgColor} />
           )}
-        </p>
+        </span>
         <ResultIcon result={result} isUser={false} />
       </div>
       <div className="flex flex-row items-center justify-center">

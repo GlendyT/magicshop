@@ -1,4 +1,10 @@
-import { ChangeEvent, FormEvent, ReactNode } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  FormEvent,
+  ReactNode,
+  SetStateAction,
+} from "react";
 
 export type UsuarioType = {
   name: string;
@@ -61,7 +67,6 @@ export type RequestInfoContextType = {
     >
   ) => void;
 
-  usuarioGenerado1: (e: ChangeEvent<HTMLSelectElement>) => void;
   handleResetContent: () => void;
   //handleSubmit1: (e: FormEvent<HTMLFormElement>) => void;
   isMaxCharLimitReached: boolean;
@@ -204,27 +209,7 @@ export type PhotoboothProviderProps = {
   children: ReactNode;
 };
 
-export type BTSFlowerKey =
-  | "btsflower"
-  | "rmflower"
-  | "jinflower"
-  | "sugaflower"
-  | "jhopeflower"
-  | "jiminflower"
-  | "vflower"
-  | "jungkookflower";
 
-export type MemberDetails = Record<
-  BTSFlowerKey,
-  {
-    div1: string;
-    div2: string;
-    div3: string;
-    p: string;
-    to: string;
-    from: string;
-  }
->;
 
 export type InputNameProps = {
   placeholder: string;
@@ -382,11 +367,9 @@ export type membersBTSTypes = {
   emoji: string;
 };
 
-
 export type RPSProviderProps = {
   children: ReactNode;
 };
-
 
 export type RPSContextType = {
   userChoice: number | null;
@@ -404,4 +387,26 @@ export type RPSContextType = {
   computerWins: number;
   setComputerMessage: (message: string) => void;
   resetAll: () => void;
+};
+
+export type ThemeType = "dark" | "light";
+
+export type DarkModeContextType = {
+  theme: ThemeType;
+  setTheme: Dispatch<SetStateAction<ThemeType>>;
+  colorTheme: string;
+  darkSide: boolean;
+  setDarkSide: Dispatch<SetStateAction<boolean>>;
+  toggleDarkMode: (checked: boolean) => void;
+};
+
+export type DarkModeProviderProps = {
+  children: ReactNode;
+};
+
+export type LinkRoutesTypes = {
+  id: number;
+  name: string;
+  path: string;
+  image: string;
 };

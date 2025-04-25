@@ -8,13 +8,13 @@ const HopeisBack = () => {
   const { cargando, resultado, showModal, isMobile } = useRequestInfo();
 
   const backHobiDischarge = cargando
-    ? "bg-[url('/HobiDischarge/hobis_discharge_abb_bg_desktop.webp')] max-sm:bg-[url('/HobiDischarge/hobis_discharge_app_bg_mobile.webp')]"
+    ? "bg-[url('/HobiDischarge/hobis_discharge_abb_bg_desktop.webp')] max-sm:bg-[url('/HobiDischarge/hobis_discharge_app_bg_mobile.webp')] bg-cover bg-center bg-no-repeat"
     : resultado
-    ? "bg-[url('/HobiDischarge/hobis_discharge_2_app_bg_desktop.webp')] max-sm:bg-[url('/HobiDischarge/hobis_discharge_2_app_bg_mobile.webp')]"
+    ? "bg-[url('/HobiDischarge/hobis_discharge_2_app_bg_desktop.webp')] max-sm:bg-[url('/HobiDischarge/hobis_discharge_2_app_bg_mobile.webp')] bg-cover bg-center bg-no-repeat"
     : "";
   return (
     <div
-      className={`min-h-screen flex items-center justify-center ${backHobiDischarge} bg-cover bg-center bg-no-repeat ${
+      className={`min-h-screen flex items-center justify-center ${backHobiDischarge}  ${
         isMobile ? "pt1" : "pt16"
       }`}
     >
