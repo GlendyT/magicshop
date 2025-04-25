@@ -2,8 +2,8 @@ import useDownload from "@/hooks/useDownload";
 import useRequestInfo from "@/hooks/useRequestInfo";
 import { loveNotesImg } from "./Data/loveNotesImg";
 import Image from "next/image";
-import { Button } from "@/utils/Button";
 import { virthday3 } from "@/utils/Fonts";
+import { ButtonUtils } from "@/utils/ButtonUtils";
 
 const Resultado = () => {
   const { usuario, handleResetContent } = useRequestInfo();
@@ -38,13 +38,13 @@ const Resultado = () => {
         )}
       </div>
       <div className="flex items-center justify-center gap-2">
-        <Button
+        <ButtonUtils
           label="Download"
           onClick={handleDownloadImage}
           className="bg-black text-white py-2 px-4"
           disableColors="disabled:bg-opacity-25 disabled:cursor-not-allowed"
         />
-        <Button
+        <ButtonUtils
           label="Restart"
           onClick={handleResetContent}
           className="bg-black text-white py-2 px-4"

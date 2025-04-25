@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
 import useDownload from "@/hooks/useDownload";
-import { Button } from "@/utils/Button";
 import { btsPhrase } from "./btsPhrase";
 import { antonio, jinora, libre } from "@/utils/Fonts";
+import { ButtonUtils } from "@/utils/ButtonUtils";
 
 const Polaroid = () => {
   const { handleDownloadImage } = useDownload();
@@ -47,7 +47,7 @@ const Polaroid = () => {
           </div>
         </div>
       </div>
-      <Button
+      <ButtonUtils
         label="Download"
         onClick={handleDownloadImage}
         className={`bg-black text-white px-4 py-2  ${jinora.className} italic font-extrabold`}

@@ -1,13 +1,14 @@
 import useFlip from "@/hooks/useFlip";
 import useRequestInfo from "@/hooks/useRequestInfo";
 import Modal from "./Modal";
-import InputName from "@/utils/InputName";
-import { Button } from "@/utils/Button";
-import Vgiftoptions from "./Vgiftoptions";
+import InputName from "@/utils/InputNameUtils";
 import { virthday } from "@/utils/Fonts";
+import { virthdayGift } from "./Data/imagesList";
+import { ButtonUtils } from "@/utils/ButtonUtils";
+import RadioOptionsUtils from "@/utils/RadioOptionsUtils";
 
 const Formulario = () => {
-  const { usuario, handleSubmit } = useRequestInfo();
+  const { usuario, handleSubmit, usuarioGenerado } = useRequestInfo();
   const { showAccessModal, handleUnlockClick } = useFlip();
   const { name, diseño } = usuario;
 
@@ -32,8 +33,25 @@ const Formulario = () => {
                 placeholder="Write your name here"
                 className="text-white text-base text-center placeholder:text-gray-400 max-sm:text-base"
               />
-              <Vgiftoptions />
-              <Button
+
+              <RadioOptionsUtils
+                id="diseño"
+                name="diseño"
+                value={diseño}
+                options={virthdayGift}
+                onChange={usuarioGenerado}
+                checked={diseño}
+                className="w-full py-2 flex flex-row items-center justify-center gap-8"
+                label="Select your Card"
+                labelStyles="flex w-full items-center justify-between gap-2 p-1 rounded-md  max-md:text-xs  bg-gray-600/20 "
+                spanStyles={(option, isSelected) =>
+                  isSelected
+                    ? "ring-2 bg-gray-950"
+                    : "bg-gray-100 outline-gray-100 outline "
+                }
+                disabled={!name}
+              />
+              <ButtonUtils
                 label="Request"
                 className={`w-full uppercase text-lg max-sm:text-base flex items-center bg-black text-white disabled:text-gray-400 disabled:cursor-not-allowed py-3 px-2 ${
                   diseño ? "border border-gray-400" : ""

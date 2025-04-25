@@ -1,10 +1,10 @@
 "use client";
 import useFlip from "@/hooks/useFlip";
-import { Button } from "@/utils/Button";
 import React from "react";
 import Resultado from "./Resultado";
 import Formulario from "./Formulario";
 import { virthday } from "@/utils/Fonts";
+import { ButtonUtils } from "@/utils/ButtonUtils";
 
 const Virthday = () => {
   const { items, timer, timeExpired, handleStartGame, win, handleRestart } =
@@ -16,7 +16,7 @@ const Virthday = () => {
       >
         <div className="text-2xl max-sm:text-base font-bold text-black flex flex-row justify-between items-center gap-2 pt-1 backdrop-blur-xl bg-white/50 rounded-2xl">
           Memory Game
-          <Button
+          <ButtonUtils
             label={timeExpired ? "you lost - re-start" : "start"}
             onClick={timeExpired ? handleRestart : handleStartGame}
             className={`text-white rounded-lg text-lg disabled:bg-opacity-25 disabled:cursor-not-allowed py-2 uppercase max-sm:text-xs  px-2 ${

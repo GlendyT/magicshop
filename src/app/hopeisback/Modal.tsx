@@ -1,5 +1,5 @@
 import useRequestInfo from "@/hooks/useRequestInfo";
-import { Button } from "@/utils/Button";
+import { ButtonUtils } from "@/utils/ButtonUtils";
 import { providence } from "@/utils/Fonts";
 
 const Modal = () => {
@@ -55,7 +55,7 @@ const Modal = () => {
                 }`}
               />
 
-              <Button
+              <ButtonUtils
                 label={
                   isCorrectGuess
                     ? "Access Granted! Click here"

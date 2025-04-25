@@ -1,14 +1,7 @@
 import useRPS from "@/hooks/useRPS";
+import { EmojiesRPSProps, ResultIconProp } from "@/types/index";
 import Image from "next/image";
 
-type ResultIconProp = {
-  result: number | null;
-  isUser?: boolean;
-};
-type EmojiesRPSProps = {
-  emoji: string;
-  bgColor: string;
-};
 
 const ResultIcon = ({ result, isUser }: ResultIconProp) => {
   if (result === null) return null;

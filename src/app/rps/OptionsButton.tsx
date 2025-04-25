@@ -1,13 +1,6 @@
-import { OptionTypes } from "@/types/index";
+import { OptionButtonProps } from "@/types/index";
 import Image from "next/image";
 
-type OptionButtonProps = {
-  option: OptionTypes;
-  handlePlay: (choice: number) => void;
-  disabled?: boolean;
-  turns: number;
-  maxTurns: number;
-};
 
 const OptionsButton = ({
   option,

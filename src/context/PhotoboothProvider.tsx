@@ -1,7 +1,7 @@
 "use client";
 import { ChangeEvent, createContext, useEffect, useState } from "react";
 import useImageCrop from "@/hooks/useImageCrop";
-import { PhotoboothContextType, PhotoboothProviderProps } from "../types";
+import { AllProviderProps, PhotoboothContextType } from "../types";
 import useRequestInfo from "@/hooks/useRequestInfo";
 import { useRouter } from "next/navigation";
 import { readFile } from "@/photobooth/Data/cropImage";
@@ -9,7 +9,7 @@ import { btsPerzonalizedBG } from "@/photobooth/Data/btsPersonalizedBG";
 
 const PhotoboothContext = createContext<PhotoboothContextType>(null!);
 
-const PhotoBoothProvider = ({ children }: PhotoboothProviderProps) => {
+const PhotoBoothProvider = ({ children }: AllProviderProps) => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [preview1, setPreview1] = useState<string | null>(null);
   const [preview2, setPreview2] = useState<string | null>(null);

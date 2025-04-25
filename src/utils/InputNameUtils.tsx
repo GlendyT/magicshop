@@ -1,7 +1,7 @@
 import useRequestInfo from "@/hooks/useRequestInfo";
 import { InputNameProps } from "../types";
 
-const InputName = ({
+const InputNameUtils = ({
   placeholder,
   className = "",
   from,
@@ -17,7 +17,9 @@ const InputName = ({
   const { name } = usuario;
   return (
     <div className="">
-      <label className={`flex float-start text-sm mb-2 text-white `}>{from}</label>
+      <label className={`flex float-start text-sm mb-2 text-white `}>
+        {from}
+      </label>
       <div
         className={`text-xs mb-2 float-end ${
           isMaxFromLimitReachedH ? "text-red-600 font-extrabold" : "text-white"
@@ -46,4 +48,4 @@ const InputName = ({
   );
 };
 
-export default InputName;
+export default InputNameUtils;

@@ -1,12 +1,12 @@
 "use client";
 import { createContext, useEffect, useState } from "react";
-import { FlipContextProps, FlipProviderProps, ImageListTypes } from "../types";
+import { AllProviderProps, FlipContextProps, ImageListTypes } from "../types";
 import useRequestInfo from "@/hooks/useRequestInfo";
 import { initialItems } from "@/virthday/Data/imagesList";
 
 const FlipContext = createContext<FlipContextProps>(null!);
 
-const FlipProvider = ({ children }: FlipProviderProps) => {
+const FlipProvider = ({ children }: AllProviderProps) => {
   const [items, setItems] = useState<ImageListTypes[]>(initialItems.flat());
   const [prev, setPrev] = useState<number>(-1);
   const [timer, setTimer] = useState<number>(50);

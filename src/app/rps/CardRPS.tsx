@@ -4,8 +4,8 @@ import useRPS from "@/hooks/useRPS";
 import OptionsButton from "./OptionsButton";
 import { BtsImgRPS, UserImgRPS } from "./ImagesRPS";
 import { BtsRPS, ResultRPS, UserRPS } from "./PlayersRPS";
-import { Button } from "@/utils/Button";
 import RPSFreebie from "./RPSFreebie";
+import { ButtonUtils } from "@/utils/ButtonUtils";
 
 const CardRPS = () => {
   const { result, maxTurns, turns, options, handlePlay, disabled, resetAll } =
@@ -48,18 +48,18 @@ const CardRPS = () => {
       <BtsImgRPS />
       <div className="py-2 flex flex-row gap-2 justify-between">
         {maxTurns - turns === 0 && (
-          <Button onClick={resetAll} label="Restart" className="uppercase bg-purple-400 px-2 py-2" />
+          <ButtonUtils onClick={resetAll} label="Restart" className="uppercase bg-purple-400 px-2 py-2" />
         )}
         {maxTurns - turns === 0 && (
-          <Button
+          <ButtonUtils
             onClick={handleModal}
-            label={showModal ? "Show your 🎁" : "Hide"}
+            label={showModal ? "Show your Gift 🎁" : "Hide"}
             className="uppercase bg-purple-400 px-2 py-2"
           />
         )}
         {maxTurns - turns === 0 && !showModal && <RPSFreebie />}
         {maxTurns - turns === 0 && !showModal && (
-          <Button
+          <ButtonUtils
             onClick={handleDownloadImage}
             label={showModal ? "" : "Download"}
             className="uppercase bg-purple-400 px-2 py-2"

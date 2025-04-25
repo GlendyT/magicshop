@@ -1,11 +1,11 @@
 "use client"
 import { wordList } from "@/seokjin/Data/wordList";
 import { createContext, useCallback, useEffect, useState } from "react";
-import { FishContextType, FishJinTypes, FishProviderProps } from "../types";
+import { AllProviderProps, FishContextType, FishJinTypes } from "../types";
 
 const FishContext = createContext<FishContextType>(null!);
 
-const FishProvider = ({ children }: FishProviderProps) => {
+const FishProvider = ({ children }: AllProviderProps) => {
   function getWord(): FishJinTypes {
     const randomIndex = Math.floor(Math.random() * wordList.length);
     return wordList[randomIndex];

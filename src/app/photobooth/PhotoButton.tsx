@@ -1,6 +1,6 @@
 import useDownload from "@/hooks/useDownload";
 import usePhotobooth from "@/hooks/usePhotobooth";
-import { Button } from "@/utils/Button";
+import { ButtonUtils } from "@/utils/ButtonUtils";
 
 const PhotoButton = () => {
   const { resetPhotos, photo2Complete, backgroundImage } = usePhotobooth();
@@ -8,7 +8,7 @@ const PhotoButton = () => {
 
   return (
     <div className="flex flex-col gap-2 max-md:gap-0 max-sm:justify-center">
-      <Button
+      <ButtonUtils
         label="Save"
         onClick={handleDownloadImage}
         disabled={!photo2Complete}
@@ -16,7 +16,7 @@ const PhotoButton = () => {
         disableColors="disabled:bg-opacity-25 disabled:cursor-not-allowed disabled:hover:bg-none "
       />
 
-      <Button
+      <ButtonUtils
         label="Restart"
         onClick={resetPhotos}
         disabled={!backgroundImage && !photo2Complete}

@@ -1,9 +1,9 @@
 import useDownload from "@/hooks/useDownload";
 import useFlip from "@/hooks/useFlip";
 import useRequestInfo from "@/hooks/useRequestInfo";
-import { Button } from "@/utils/Button";
 import Image from "next/image";
 import { virthdayGift } from "./Data/imagesList";
+import { ButtonUtils } from "@/utils/ButtonUtils";
 
 const Modal = () => {
   const { handleDownloadImage } = useDownload();
@@ -36,12 +36,12 @@ const Modal = () => {
             </div>
           </div>
           <div className="flex gap-2 items-center justify-center p-4 max-sm:text-xs font-extrabold text-lg">
-            <Button
+            <ButtonUtils
               label="Download"
               onClick={handleDownloadImage}
               className="bg-green-950 hover:bg-green-900 text-white p-2 rounded-xl transition-all uppercase"
             />
-            <Button
+            <ButtonUtils
               label="Restart"
               className="bg-blue-950 p-2 text-white rounded-xl hover:bg-blue-900 hover:text-gray-200 transition-all uppercase"
               onClick={handleRestart}

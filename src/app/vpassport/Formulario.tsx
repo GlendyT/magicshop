@@ -1,7 +1,7 @@
 import useRequestInfo from "@/hooks/useRequestInfo";
-import { Button } from "@/utils/Button";
+import { ButtonUtils } from "@/utils/ButtonUtils";
 import { michroma } from "@/utils/Fonts";
-import InputName from "@/utils/InputName";
+import InputNameUtils from "@/utils/InputNameUtils";
 
 const Formulario = () => {
   const { usuario, handleSubmit } = useRequestInfo();
@@ -18,11 +18,11 @@ const Formulario = () => {
           >
             get your passport
           </label>
-          <InputName
+          <InputNameUtils
             placeholder="Your Name"
             className="text-black text-base text-center placeholder:text-gray-500 border bg-gray-100"
           />
-          <Button
+          <ButtonUtils
             label="Generate"
             className={`w-full uppercase text-xs bg-blue-950 text-white py-4 px-2 ${michroma.className}`}
             disableColors="disabled:bg-opacity-25 disabled:cursor-not-allowed disabled:bg-black/30 disabled:text-gray-500"

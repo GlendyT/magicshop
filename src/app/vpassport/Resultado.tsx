@@ -1,9 +1,9 @@
 import useDownload from "@/hooks/useDownload";
 import useRequestInfo from "@/hooks/useRequestInfo";
-import { Button } from "@/utils/Button";
 import Image from "next/image";
 import Passport from "./Passport";
 import { michroma } from "@/utils/Fonts";
+import { ButtonUtils } from "@/utils/ButtonUtils";
 
 const Resultado = () => {
   const { handleDownloadImage } = useDownload();
@@ -31,12 +31,12 @@ const Resultado = () => {
       </div>
 
       <div className="flex gap-2 pt-2 items-center justify-center w-full ">
-        <Button
+        <ButtonUtils
           label="Download"
           onClick={handleDownloadImage}
           className={`bg-black text-white hover:bg-[rgb(32,95,30)] hover:text-black py-3 px-2 uppercase font-extrabold ${michroma.className} `}
         />
-        <Button
+        <ButtonUtils
           label="Restart"
           onClick={handleResetContent}
           className={`bg-black text-white font-extrabold hover:bg-[rgb(93,40,95)] hover:text-black py-3 px-2 uppercase ${michroma.className}`}
