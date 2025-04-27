@@ -24,9 +24,14 @@ jobs:
           node-version: "18" # Specify Node.js version
           cache: "npm"
 
-      # Install dependencies using Yarn with environment variables
+      # Install dependencies using NPM with environment variables
       - name: Install dependencies
         run: npm install --frozen-lockfile
 
-      - name: Build React app
+      - name: Run tests
+        run: npm run test
+
+      - name: Build Next.js app
         run: npm run build
+
+     
