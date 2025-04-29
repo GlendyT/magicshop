@@ -12,6 +12,7 @@ const customJestConfig = {
     "^.+\\.(css|scss)$": "identity-obj-proxy",
   },
   testEnvironment: "jsdom",
+  testPathIgnorePatterns: ["/node_modules", "/e2e"],
 };
 
 module.exports = createJestConfig(customJestConfig);

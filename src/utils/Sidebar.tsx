@@ -55,30 +55,35 @@ const Sidebar = () => {
               alt="logo"
               width={50}
               height={30}
-              className="max-sm:w-6 max-sm:h-8"
+              className="max-sm:w-6 max-sm:h-8 h-auto"
+              priority
             />
             The Magic Shop
           </Link>
 
           <div className="flex flex-col w-auto  gap-2">
-            {LinkRoutes.map(({ id, name, path, image }) => (
+            {LinkRoutes.map((linkroute) => (
               <Link
-                key={id}
-                href={path}
-                className={`flex flex-row w-36 items-center gap-2 p-2 rounded-lg text-sm max-sm:text-xs transition-all duration-500 ${
+                key={linkroute.id}
+                href={linkroute.path}
+                className={`flex flex-row items-center gap-2 p-2 rounded-lg text-sm max-sm:text-xs transition-all duration-500 ${
                   open ? "opacity-100 " : "max-sm:hidden"
                 } `}
               >
                 <Image
-                  src={image}
-                  alt={name}
-                  className={`w-auto h-5 object-contain max-sm:w-4 max-sm:h-3  ${
-                    open ? " " : " w-36"
-                  }`}
+                  src={linkroute.image}
+                  alt={linkroute.name}
+                  className={`
+                    object-contain
+                    h-5 w-auto
+                    max-sm:h-3 max-sm:w-auto
+                    
+                  `}
                   width={20}
                   height={20}
+                  priority
                 />
-                {open && <span>{name}</span>}
+                {open && <span>{linkroute.name}</span>}
               </Link>
             ))}
           </div>
