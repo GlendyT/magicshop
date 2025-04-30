@@ -8,23 +8,23 @@ on:
     branches:
       - main
 
+permissions:
+  pull-requests: write  # necesario para habilitar el automerge
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository code
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Set up Node.js environment with Yarn
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18" # Specify Node.js version
+          node-version: "18"
           cache: "npm"
 
-      # Install dependencies using NPM with environment variables
       - name: Install dependencies
         run: npm install --frozen-lockfile
 
@@ -34,4 +34,15 @@ jobs:
       - name: Build Next.js app
         run: npm run build
 
-     
+  automerge:
+    needs: build
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Enable auto-merge for PR
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pull-request-number: ${{ github.event.pull_request.number }}
+          merge-method: merge  # Puedes usar 'merge', 'squash' o 'rebase'

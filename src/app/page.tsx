@@ -1,6 +1,6 @@
 "use client";
 
-import { commonClasses, LinkRoutes } from "@/utils/Data/ListRoutes";
+import { LinkRoutes } from "@/utils/Data/ListRoutes";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,17 +12,17 @@ export default function Home() {
           <Link
             key={linkrout.id}
             href={linkrout.path}
-            className=" drop-shadow-[0_10px_10px_#6e40bd]"
+            className="drop-shadow-[0_10px_10px_#6e40bd]"
           >
-            <Image
-              src={linkrout.image}
-              alt={linkrout.name}
-              className={`${commonClasses}`}
-              width={300}
-              height={300}
-              priority
-            />
-            
+            <div className="relative w-[300px] h-[200px]">
+              <Image
+                src={linkrout.image}
+                alt={linkrout.name}
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
           </Link>
         ))}
       </div>

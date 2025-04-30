@@ -62,6 +62,3 @@ export const LinkRoutes: LinkRoutesTypes[] = [
     image: "/Logos/RPS.webp",
   },
 ];
-
-export const commonClasses: string =
-  "delay-150 duration-700 px-2 py-2 bg-no-repeat bg-contain bg-center drop-shadow-[0_10px_15px_rgba(0,0,0,1)] w-auto h-auto";
