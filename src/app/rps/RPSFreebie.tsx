@@ -22,18 +22,20 @@ const RPSFreebie = () => {
                 className={`flex flex-col items-center justify-center gap-2 `}
               >
                 <div className="font-extrabold text-black gap-1 flex flex-col">
-                  <span className="text-2xl max-sm:text-xl">
+                  <span className="text-xl max-sm:text-sm">
                     {userWins >= 2 ? name : computerWins >= 2 ? song : ""}
                   </span>
-                  <span className="text-sm max-sm:text-[0.5rem]">Won against</span>
-                  <span className="text-2xl max-sm:text-xl">
+                  <span className="text-sm max-sm:text-[0.4rem]">
+                    Won against
+                  </span>
+                  <span className="text-xl max-sm:text-sm">
                     {computerWins >= 2 ? name : userWins >= 2 ? song : ""}
                   </span>
                 </div>
-                <div className="flex flex-col items-center justify-center gap-0 text-black text-xs font-extrabold max-sm:text-[0.5rem]">
-                  <span>Thanks for plaking the game</span>
-                  <span>Rock-Paper-Scissors</span>
-                  <span>Keep supporting BTS projects</span>
+                <div className="flex flex-col items-center justify-center gap-0 text-black text-xs font-extrabold max-sm:text-[0.4rem]">
+                  <li className="list-none">Thanks for plaking the game</li>
+                  <li className="list-none">Rock-Paper-Scissors</li>
+                  <li className="list-none">Keep supporting BTS projects</li>
                 </div>
               </div>
             </div>
