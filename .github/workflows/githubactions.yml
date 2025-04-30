@@ -10,33 +10,67 @@ permissions:
   pull-requests: write
 
 jobs:
-  build:
+  install:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "18"
           cache: "npm"
-
       - name: Install dependencies
         run: npm install --frozen-lockfile
 
-      - name: Run tests
-        run: npm run test
+  test:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+      - run: npm ci
+      - run: npm run test
 
+  playwright:
+    needs: install
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+      - run: npm ci
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: npx playwright test
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+      - run: npm ci
       - name: Build Next.js app
         run: npm run build
 
   automerge:
-    needs: build
+    needs: [build, playwright]
     if: github.event.pull_request.merged == false
     runs-on: ubuntu-latest
-
     steps:
       - name: Wait for GitHub to determine mergeability and attempt merge
         uses: actions/github-script@v7
@@ -60,7 +94,7 @@ jobs:
               }
 
               console.log(`Attempt ${i + 1}: mergeable_state is '${pr.mergeable_state}', waiting...`);
-              await new Promise(r => setTimeout(r, 5000)); // espera 5 segundos
+              await new Promise(r => setTimeout(r, 5000));
             }
 
             if (pr.state === 'open' && pr.mergeable_state === 'clean') {
