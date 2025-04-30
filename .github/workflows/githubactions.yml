@@ -1,15 +1,13 @@
 name: MagicShop CI/CD
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
 
 permissions:
-  pull-requests: write  # necesario para habilitar el automerge
+  pull-requests: write
+  contents: read
 
 jobs:
   build:
@@ -36,13 +34,19 @@ jobs:
 
   automerge:
     needs: build
-    if: github.event_name == 'pull_request'
+    if: github.event.pull_request.merged == false
     runs-on: ubuntu-latest
 
     steps:
-      - name: Enable auto-merge for PR
-        uses: peter-evans/enable-pull-request-automerge@v3
+      - name: Auto-enable and perform merge
+        uses: actions/github-script@v7
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          pull-request-number: ${{ github.event.pull_request.number }}
-          merge-method: merge  # Puedes usar 'merge', 'squash' o 'rebase'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const pr = context.payload.pull_request;
+            await github.rest.pulls.merge({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+              merge_method: 'squash' // puedes usar 'merge', 'rebase', o 'squash'
+            });
