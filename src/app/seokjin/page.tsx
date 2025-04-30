@@ -10,7 +10,9 @@ import { pressgame } from "@/utils/Fonts";
 const Seokjin = () => {
   const { showModal, isWinner, isLoser, show } = useFish();
   return (
-    <div className={`bg-[#2b74ce] flex flex-col min-h-screen justify-center ${pressgame.className}`}>
+    <div
+      className={`bg-[#2b74ce] flex flex-col min-h-screen justify-center ${pressgame.className}`}
+    >
       <p className="text-lg font-extrabold text-center max-sm:text-xs max-sm:pt-2">
         Let´s fish some music!
       </p>

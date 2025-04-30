@@ -17,7 +17,7 @@ const Fishing = () => {
     reveal,
   } = useFish();
   return (
-    <div className="flex flex-col px-20 max-sm:px-8 items-center  gap-6 relative z-10">
+    <div className="flex flex-col px-20 max-sm:px-8 items-center  gap-6 relative z-10 max-sm:gap-2">
       <div className="relative inline-block">
         <Image
           src={
@@ -44,7 +44,7 @@ const Fishing = () => {
       </div>
       <div className="flex gap-1 text-4xl font-extrabold uppercase font-mono">
         {wordToGuess.split("").map((letter, index) => (
-          <span style={{ borderBottom: ".1rem solid black" }} key={index}>
+          <span className="border-b border-black border-solid max-sm:text-2xl " key={index}>
             <span
               style={{
                 visibility:
