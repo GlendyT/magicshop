@@ -32,11 +32,11 @@ const RPSFreebie = () => {
                     {computerWins >= 2 ? name : userWins >= 2 ? song : ""}
                   </span>
                 </div>
-                <div className="flex flex-col items-center justify-center gap-0 text-black text-xs font-extrabold max-sm:text-[0.4rem]">
-                  <li className="list-none">Thanks for plaking the game</li>
+                <p className=" items-center justify-center text-black text-xs font-extrabold max-sm:text-[0.4rem]">
+                  <li className="list-none">Thanks for playing the game</li>
                   <li className="list-none">Rock-Paper-Scissors</li>
                   <li className="list-none">Keep supporting BTS projects</li>
-                </div>
+                </p>
               </div>
             </div>
           </div>
