@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Home from 'app/page';
 import { LinkRoutes } from '@/utils/Data/ListRoutes';
+import Home from 'app/page';
 
 jest.mock('@/utils/Data/ListRoutes', () => ({
   commonClasses: 'rounded-xl',

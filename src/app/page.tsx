@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="min-h-screen flex justify-center transition-all duration-500 bg-[#1a012d] text-purple-100 dark:bg-purple-200">
-      <div className="flex flex-wrap items-center justify-center gap-2 py-4 px-1 ">
+      <div className="flex flex-wrap items-center justify-center gap-2 py-4 px-10 max-sm:px-8 ">
         {LinkRoutes.map((linkrout) => (
           <Link
             key={linkrout.id}
@@ -17,10 +17,12 @@ export default function Home() {
             <Image
               src={linkrout.image}
               alt={linkrout.name}
-              className={`${commonClasses} `}
+              className={`${commonClasses}`}
               width={300}
               height={300}
+              priority
             />
+            
           </Link>
         ))}
       </div>
