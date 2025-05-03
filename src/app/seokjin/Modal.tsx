@@ -24,13 +24,13 @@ const Modal = () => {
             height={600}
           />
           <div className="absolute inset-0 flex items-center justify-center text-center gap-5 px-10 text-sm max-md:text-xs pt-10 max-sm:pt-2">
-            <div className="flex flex-col items-center justify-center gap-16 max-md:gap-3 pt-6 max-md:pt-2 max-md:mt-8">
+            <div className="flex flex-col items-center justify-center gap-10 max-md:gap-0 pt-10 max-md:pt-2 max-md:mt-10">
               <span className="max-md:text-xs max-sm:text-xs text-black">{name}</span>
               {wordData.image && (
                 <Image
                   src={wordData.image}
                   alt="songbyjin"
-                  className="w-10 h-10 rounded-xl max-md:w-8 max-md:h-8 max-md:mt-6"
+                  className="w-10 h-10 rounded-xl max-md:w-6 max-md:h-6 max-md:mt-6"
                   width={100}
                   height={100}
                 />
