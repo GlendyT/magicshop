@@ -1,6 +1,6 @@
-import { Analytics } from "@vercel/analytics/react"
-import { SpeedInsights } from "@vercel/speed-insights/next"
-import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import type { Metadata } from "next"
 import "./globals.css";
 import { DownloadProvider } from "@/context/DownloadProvider";
 import { ImageCropProvider } from "@/context/ImageCropProvider";
@@ -11,6 +11,7 @@ import { FishProvider } from "@/context/FishProvider";
 import { RPSProvider } from "@/context/RPSProvider";
 import { DarkProvider } from "@/context/DarkModeProvider";
 import Sidebar from "@/utils/Sidebar";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
   title: "The Magic Shop",
@@ -38,8 +39,9 @@ export default function RootLayout({
                       <RPSProvider>
                         <Sidebar />
                         {children}
-                        <SpeedInsights/>
-                        <Analytics/>
+                        <GoogleAnalytics gaId="G-XYZ" />
+                        <SpeedInsights />
+                        <Analytics />
                       </RPSProvider>
                     </FishProvider>
                   </FlipProvider>
