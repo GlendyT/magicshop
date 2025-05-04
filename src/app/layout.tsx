@@ -39,7 +39,7 @@ export default function RootLayout({
                       <RPSProvider>
                         <Sidebar />
                         {children}
-                        <GoogleAnalytics gaId="G-XYZ" />
+                        <GoogleAnalytics gaId="G-HZD5D4VHSX" />
                         <SpeedInsights />
                         <Analytics />
                       </RPSProvider>
