@@ -10,7 +10,8 @@ import { ButtonUtils } from "@/utils/ButtonUtils";
 const CardRPS = () => {
   const { result, maxTurns, turns, options, handlePlay, disabled, resetAll } =
     useRPS();
-  const { setShowModal, showModal } = useRequestInfo();
+  const { setShowModal, showModal, usuario } = useRequestInfo();
+  const { name, song } = usuario;
   const { handleDownloadImage } = useDownload();
   const handleModal = () => {
     setShowModal(!showModal);
@@ -26,6 +27,9 @@ const CardRPS = () => {
             : "border-4 border-blue-400"
         }`}
       >
+        <span className=" flex justify-center w-full font-extrabold">
+          {name} side, press here
+        </span>
         <div className="flex flex-row items-center justify-center">
           {options.map((option) => (
             <OptionsButton
@@ -39,6 +43,7 @@ const CardRPS = () => {
           ))}
         </div>
         <UserImgRPS />
+        
       </div>
       <div className="flex flex-row items-center text-center w-full">
         <UserRPS />
@@ -46,9 +51,14 @@ const CardRPS = () => {
         <BtsRPS />
       </div>
       <BtsImgRPS />
+
       <div className="py-2 flex flex-row gap-2 justify-between">
         {maxTurns - turns === 0 && (
-          <ButtonUtils onClick={resetAll} label="Restart" className="uppercase bg-purple-400 px-2 py-2" />
+          <ButtonUtils
+            onClick={resetAll}
+            label="Restart"
+            className="uppercase bg-purple-400 px-2 py-2"
+          />
         )}
         {maxTurns - turns === 0 && (
           <ButtonUtils

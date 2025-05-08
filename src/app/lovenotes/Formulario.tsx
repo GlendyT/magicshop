@@ -15,7 +15,7 @@ const Formulario = () => {
     >
       <div className="flex items-center justify-center mt-5">
         <h3 className="text-2xl font-bold font-purple-800 max-sm:text-lg">
-          Valentine´s Day with BTS and ARMY
+          Love Notes with BTS and ARMY
         </h3>
       </div>
       <form className="mt-5 flex flex-col gap-2" onSubmit={handleSubmit}>
