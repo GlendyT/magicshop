@@ -1,7 +1,7 @@
+import useRequestInfo from "@/hooks/useRequestInfo";
 import useRPS from "@/hooks/useRPS";
 import { EmojiesRPSProps, ResultIconProp } from "@/types/index";
 import Image from "next/image";
-
 
 const ResultIcon = ({ result, isUser }: ResultIconProp) => {
   if (result === null) return null;
@@ -9,7 +9,9 @@ const ResultIcon = ({ result, isUser }: ResultIconProp) => {
   if (result === 0) return <span className="text-6xl max-md:text-4xl">🟰</span>;
 
   const isWin = isUser ? result === 1 : result === 2;
-  return <span className="text-6xl max-md:text-4xl">{isWin ? "✅" : "❌"}</span>;
+  return (
+    <span className="text-6xl max-md:text-4xl">{isWin ? "✅" : "❌"}</span>
+  );
 };
 
 const EmojiDisplay = ({ emoji, bgColor }: EmojiesRPSProps) => (
@@ -48,6 +50,8 @@ export const UserImgRPS = () => {
 
 export const BtsImgRPS = () => {
   const { result, computerChoice, options, userMessage } = useRPS();
+  const { usuario } = useRequestInfo();
+  const { song } = usuario;
   const btsBgColor =
     result === 2
       ? "border-4 border-green-400"
@@ -86,6 +90,9 @@ export const BtsImgRPS = () => {
           </div>
         ))}
       </div>
+      <span className=" flex justify-center w-full font-extrabold">
+        {song} side
+      </span>
     </div>
   );
 };

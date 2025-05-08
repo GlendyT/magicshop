@@ -47,7 +47,7 @@ export const LinkRoutes: LinkRoutesTypes[] = [
     id: 8,
     name: "Love Notes",
     path: "/lovenotes",
-    image: "/Logos/Valentin.webp",
+    image: "/Logos/Valentine3.webp",
   },
   {
     id: 9,
