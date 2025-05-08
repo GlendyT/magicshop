@@ -7,12 +7,10 @@ import Image from "next/image";
 const Modal = () => {
   const { handleDownloadImage } = useDownload();
   const { usuario } = useRequestInfo();
-  const { isWinner, wordData, handleStartOver, isLoser, setShow } = useFish();
+  const { isWinner, wordData, handleCloseandRestart, isLoser, setShow } =
+    useFish();
   const { name } = usuario;
-  const handleCloseandRestart = () => {
-    handleStartOver();
-    setShow(false);
-  };
+
   return (
     <div className="flex flex-col justify-center items-center inset-10 z-40">
       <div className=" my-2 mx-auto">

@@ -336,6 +336,7 @@ export type FishContextType = {
   wordData: FishJinTypes;
   setShow: (value: boolean) => void;
   show: boolean;
+  handleCloseandRestart: () => void;
 };
 
 export type OptionTypes = {
