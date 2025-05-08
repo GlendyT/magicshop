@@ -95,13 +95,19 @@ const FishProvider = ({ children }: AllProviderProps) => {
   };
 
   useEffect(() => {
-    if (isWinner || isLoser) {
+    if (isWinner ) {
       const timer = setTimeout(() => setShow(true), 3000);
       return () => clearTimeout(timer);
     } else {
       setShow(false);
     }
-  }, [isWinner, isLoser]);
+  }, [isWinner]);
+
+
+  const handleCloseandRestart = () => {
+    handleStartOver();
+    setShow(false);
+  };
 
   return (
     <FishContext.Provider
@@ -126,6 +132,7 @@ const FishProvider = ({ children }: AllProviderProps) => {
         wordData,
         setShow,
         show,
+        handleCloseandRestart
       }}
     >
       {children}

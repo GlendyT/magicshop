@@ -16,7 +16,7 @@ const Seokjin = () => {
       <p className="text-lg font-extrabold text-center max-sm:text-xs max-sm:pt-2">
         Let´s fish some music!
       </p>
-      {isWinner || isLoser ? show ? <Modal /> : <Fishing /> : <Fishing />}
+      {isWinner ? show ? <Modal /> : <Fishing /> : <Fishing />}
 
       {showModal && <Formulario />}
       <Waves />
