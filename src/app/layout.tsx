@@ -26,6 +26,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const analyticsId = process.env.NODE_ENV === "production" ? "G-HZD5D4VHSX" : "G-Q36BM1H2SR"
   return (
     <html lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning>
@@ -39,7 +40,7 @@ export default function RootLayout({
                       <RPSProvider>
                         <Sidebar />
                         {children}
-                        <GoogleAnalytics gaId="G-HZD5D4VHSX" />
+                        <GoogleAnalytics gaId={analyticsId} />
                         <SpeedInsights />
                         <Analytics />
                       </RPSProvider>
