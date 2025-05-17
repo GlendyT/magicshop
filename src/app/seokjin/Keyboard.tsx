@@ -39,7 +39,7 @@ const Keyboard = () => {
     inactiveLetters,
   } = useFish();
   return (
-    <div className="flex items-center justify-center gap-1 text-xs max-sm:px-4">
+    <div className="flex items-center justify-center gap-1 text-xs max-sm:px-10">
       <div className="flex flex-wrap items-center justify-center gap-2 max-sm:gap-1 max-sm:flex-wrap">
         {KEYS.map((key) => {
           const isActive = activeLetters.includes(key);

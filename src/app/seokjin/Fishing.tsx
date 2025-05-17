@@ -5,7 +5,7 @@ import { ButtonUtils } from "@/utils/ButtonUtils";
 
 const VerticalLine = () => {
   return (
-    <div className="w-[0.3rem] h-6 bg-blue-950 mx-10 max-sm:mx-8 max-xl:mx-16 max-sm:w-[0.2rem] max-sm:h-2"></div>
+    <div className="w-[0.3rem] h-6 bg-blue-950 mx-10 max-sm:mx-10 max-xl:mx-16 max-sm:w-[0.2rem] max-sm:h-2"></div>
   );
 };
 const Fishing = () => {
