@@ -31,7 +31,7 @@ const Sidebar = () => {
     <div className="flex">
       <div
         ref={sidebarRef}
-        className={`fixed flex flex-col justify-between top-0 left-0 h-full p-4 transition-all duration-500 z-50 ${
+        className={`fixed flex flex-col justify-between top-0 left-0 h-full p-4 transition-all duration-500 z-50 max-sm:px-4 ${
           open
             ? "bg-[#1a012d] dark:bg-purple-400 text-purple-200 dark:text-[#1a012d]"
             : "max-sm:bg-transparent max-sm:dark:bg-transparent bg-[#1a012d] dark:bg-purple-400 text-purple-200 dark:text-[#1a012d]"
