@@ -1,8 +1,8 @@
 import useRequestInfo from "@/hooks/useRequestInfo";
-import RadioOptions from "@/utils/RadioOptionsUtils";
 import { membersBts } from "./Data/rockpaper";
 import { ButtonUtils } from "@/utils/ButtonUtils";
 import InputNameUtils from "@/utils/InputNameUtils";
+import RadioOptionsUtils from "@/utils/RadioOptionsUtils";
 
 const Formulario = () => {
   const { usuario, handleSubmit, usuarioGenerado } = useRequestInfo();
@@ -24,7 +24,7 @@ const Formulario = () => {
           <label className="text-sm my-2 text-violet-950 font-extrabold text-center flex items-center justify-center max-sm:text-xs">
             Choose Your Oponent
           </label>
-          <RadioOptions
+          <RadioOptionsUtils
             id="song"
             name="song"
             value={song || ""}
@@ -43,7 +43,7 @@ const Formulario = () => {
           <ButtonUtils
             label="Start the game"
             className={`w-full uppercase py-2 px-2 max-sm:text-xs  text-white ${
-              song ? "bg-purple-800" : "bg-purple-400"
+              song ? "bg-purple-800" : "bg-purple-400 disabled:cursor-not-allowed"
             }`}
             disabled={!song}
           />
