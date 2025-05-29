@@ -28,7 +28,7 @@ const Form = () => {
           tic-tac-toe
         </span>
         <div className="w-full max-sm:w-40 flex items-center justify-center py-10 max-sm:py-2 shadow-[0px_1px_6px_18px_rgba(147,_51,_234,_0.5)] border-purple-400 border-2 font-extrabold rounded-3xl bg-black/50">
-          <div className="text-white w-96 max-sm:w-36 text-center p-1 grid grid-cols-3 gap-6 max-sm:gap-4 text-7xl max-sm:text-lg">
+          <div className="text-white w-96 max-sm:w-36 text-center p-1 grid grid-cols-3 gap-6 max-sm:gap-4 text-5xl max-sm:text-lg">
             {btsgrid.map((letra) => (
               <div
                 key={letra.id}
@@ -50,9 +50,17 @@ const Form = () => {
               className="flex flex-col gap-4 items-center max-sm:text-xs"
               onSubmit={handleSubmit}
             >
-              <InputNameUtils placeholder="Your Name" className=" text-white" />
+              <InputNameUtils placeholder="write your name first" className=" text-white  " />
 
-              <label className="">Level of the game</label>
+              <label
+                className={`mb-2 ${
+                  !name
+                    ? " disabled:cursor-not-allowed text-purple-200 opacity-50"
+                    : "  text-purple-200"
+                }`}
+              >
+                Level of the game
+              </label>
               <RadioOptionsUtils
                 id="mode"
                 name="mode"
@@ -71,25 +79,33 @@ const Form = () => {
               />
 
               <div className="flex flex-col items-center mb-8 p-2">
-                <label className="mb-2">who you are going to be</label>
+                <label
+                  className={`mb-2 ${
+                    mode === GAME_MODES.medium
+                      ? " disabled:cursor-not-allowed text-purple-200 opacity-50"
+                      : "  text-purple-200"
+                  }`}
+                >
+                  who you are going to be
+                </label>
                 <div className="flex w-28 justify-between items-center">
                   <ButtonUtils
                     label="X"
                     onClick={() => choosePlayer(PLAYER_X)}
-                    className={` shadow-[0px_1px_6px_4px_rgba(147,_51,_234,_0.5)] border-2 text-white bg-none  px-3 py-0 max-sm:py-2 rounded-none ${
+                    className={` shadow-[0px_1px_6px_4px_rgba(147,_51,_234,_0.5)]  px-3 py-0 max-sm:py-2 rounded-none ${
                       mode === GAME_MODES.medium
-                        ? "bg-purple-300 cursor-not-allowed "
-                        : "bg-red-500/50 disabled:cursor-not-allowed"
+                        ? "bg-purple-200 disabled:cursor-not-allowed opacity-50"
+                        : "bg-purple-200 text-purple-950 font-extrabold"
                     }`}
                     disabled={!mode || !name}
                   />
                   <ButtonUtils
                     label="0"
                     onClick={() => choosePlayer(PLAYER_0)}
-                    className={` shadow-[0px_1px_6px_4px_rgba(147,_51,_234,_0.5)] border-2 text-white bg-none  px-3 py-0 max-sm:py-2 rounded-none ${
+                    className={` shadow-[0px_1px_6px_4px_rgba(147,_51,_234,_0.5)]  px-3 py-0 max-sm:py-2 rounded-none ${
                       mode === GAME_MODES.medium
-                        ? "bg-purple-300 cursor-not-allowed "
-                        : "bg-red-500/50 disabled:cursor-not-allowed"
+                        ? "bg-purple-200 disabled:cursor-not-allowed opacity-50"
+                        : "bg-purple-200 text-purple-950 font-extrabold"
                     }`}
                     disabled={!mode || !name}
                   />
