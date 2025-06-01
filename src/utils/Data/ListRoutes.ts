@@ -61,10 +61,10 @@ export const LinkRoutes: LinkRoutesTypes[] = [
     path: "/rps",
     image: "/Logos/RPS.webp",
   },
-  {
-    id: 11,
-    name: "TicTacToe",
-    path: "/tictactoe",
-    image: "/Logos/xoxo.webp",
-  },
+  // {
+  //   id: 11,
+  //   name: "TicTacToe",
+  //   path: "/tictactoe",
+  //   image: "/Logos/xoxo.webp",
+  // },
 ];
