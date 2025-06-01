@@ -66,6 +66,9 @@
       "@/rps/*": [
         "app/rps/*"
       ],
+      "@/tictactoe/*": [
+        "app/tictactoe/*"
+      ],
       "@/utils/*": [
         "utils/*"
       ]

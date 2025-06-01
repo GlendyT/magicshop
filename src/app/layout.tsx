@@ -12,6 +12,7 @@ import { RPSProvider } from "@/context/RPSProvider";
 import { DarkProvider } from "@/context/DarkModeProvider";
 import Sidebar from "@/utils/Sidebar";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { TicTacToeProvider } from "@/context/TicTacToeProvider";
 
 export const metadata: Metadata = {
   title: "The Magic Shop",
@@ -40,11 +41,12 @@ export default function RootLayout({
                   <FlipProvider>
                     <FishProvider>
                       <RPSProvider>
-                        <Sidebar />
-                        {children}
-                        <GoogleAnalytics gaId={analyticsId!} />
-                        <SpeedInsights />
-                        <Analytics />
+                        <TicTacToeProvider>
+                          <Sidebar />
+                          {children}
+                          <GoogleAnalytics gaId={analyticsId!} />
+                          <SpeedInsights />
+                          <Analytics /></TicTacToeProvider>
                       </RPSProvider>
                     </FishProvider>
                   </FlipProvider>
