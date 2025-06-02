@@ -436,3 +436,9 @@ export type EmojiesRPSProps = {
   emoji: string;
   bgColor: string;
 };
+
+export type FestaBtsProps = {
+   id: number
+   name: string
+   image: string
+}
