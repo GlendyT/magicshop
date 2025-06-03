@@ -391,6 +391,7 @@ export type LinkRoutesTypes = {
 export type Option = {
   id: string | number;
   name: string;
+  disabled?: boolean
 };
 
 export type SelectUtilsProps = {
@@ -441,4 +442,5 @@ export type FestaBtsProps = {
    id: number
    name: string
    image: string
+   disabled?: boolean
 }

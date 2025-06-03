@@ -18,7 +18,7 @@ export default function page() {
       className={`min-h-screen flex items-center justify-center ${backFesta2025}`}>
         <div className='flex flex-col items-center gap-2'>
 
-            { resultado ? <Resultado/> : <Formulario/> }
+           {cargando ? <Formulario /> : resultado && <Resultado />}
                 
         </div>
     </div>
