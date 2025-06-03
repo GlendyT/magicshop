@@ -508,3 +508,9 @@ export type PlayerOptions = {
   id: number;
   name: string;
 };
+
+export type FestaBtsProps = {
+   id: number
+   name: string
+   image: string
+}
