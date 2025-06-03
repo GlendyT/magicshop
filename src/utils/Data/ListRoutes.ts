@@ -61,10 +61,4 @@ export const LinkRoutes: LinkRoutesTypes[] = [
     path: "/rps",
     image: "/Logos/RPS.webp",
   },
-  {
-    id: 11,
-    name: 'Festa',
-    path: '/festa',
-    image: '/Logos/RPS.webp'
-  }
 ];

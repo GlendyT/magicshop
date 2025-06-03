@@ -15,7 +15,7 @@ const Logo = ({ backgroundImage }: LogoProps) => {
         ""
       ) : (
         <Image
-          src="/Photobooth/festa_logo.webp"
+          src="/Photobooth/festa_logo2.webp"
           alt="logoarmy"
           width={196}
           height={196}
