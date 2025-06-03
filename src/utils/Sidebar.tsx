@@ -1,11 +1,10 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import Switcher from "./Switcher";
 import Image from "next/image";
 import { LinkRoutes } from "./Data/ListRoutes";
-import { indie } from "./Fonts";
 import { ButtonUtils } from "./ButtonUtils";
+import TTechLogo from "./TTechLogo";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
@@ -28,33 +27,33 @@ const Sidebar = () => {
   }, []);
 
   return (
-    <div className="flex">
+    <div className="flex absolute " ref={sidebarRef}>
+      <ButtonUtils
+        label={open ? "×" : "☰"}
+        onClick={() => setOpen(!open)}
+        className={` flex items-center justify-center w-14 h-12 fixed focus:outline-none text-xl px-2 py-2 max-sm:dark:bg-purple-400 dark:text-[#1a012d] dark:bg-purple-400 text-purple-200 rounded-full z-50 ${
+          open ? "opacity-100" : "opacity-80"
+        } `}
+      />
       <div
-        ref={sidebarRef}
-        className={`fixed flex flex-col justify-between top-0 left-0 h-full p-4 transition-all duration-500 z-50 max-sm:px-4 ${
+        className={`fixed flex flex-col items-center justify-center top-0 left-0 h-full p-4 transition-all duration-500 z-30 max-sm:px-4 ${
           open
             ? "bg-[#1a012d] dark:bg-purple-400 text-purple-200 dark:text-[#1a012d]"
             : "max-sm:bg-transparent max-sm:dark:bg-transparent bg-[#1a012d] dark:bg-purple-400 text-purple-200 dark:text-[#1a012d]"
-        } ${open ? "opacity-100" : "opacity-80"} ${open ? "w-44" : "w-20"}`}
+        }  ${open ? "w-44 " : "w-20  "}`}
       >
-        <ButtonUtils
-          label={open ? "×" : "☰"}
-          onClick={() => setOpen(!open)}
-          className="focus:outline-none text-xl z-50 px-2 py-2 max-sm:dark:bg-purple-400 dark:text-[#1a012d] dark:bg-purple-400 text-purple-200 rounded-full hover:scale-110"
-        />
-
         <div className=" space-y-6 font-extrabold ">
           <Link
             href="/"
-            className={`flex flex-col items-center gap-2 w-36 max-sm:flex-row  text-xs transition-all duration-500 ${
+            className={`flex flex-col items-center justify-center gap-2 w-36 max-sm:flex-row  text-xs transition-all duration-500 ${
               open ? "opacity-100" : "hidden"
             }`}
           >
             <Image
               src={"/Polaroid/Only-graphic-darkpurple.webp"}
               alt="logo"
-              width={50}
-              height={30}
+              width={20}
+              height={5}
               className="max-sm:w-6 max-sm:h-8 h-auto"
               priority
             />
@@ -66,7 +65,7 @@ const Sidebar = () => {
               <Link
                 key={linkroute.id}
                 href={linkroute.path}
-                className={`flex flex-row items-center gap-2 p-2 rounded-lg text-sm max-sm:text-xs transition-all duration-500 ${
+                className={`flex flex-row items-center gap-2 p-2 rounded-lg text-xs max-sm:text-xs transition-all duration-500 ${
                   open ? "opacity-100 " : "max-sm:hidden"
                 } `}
               >
@@ -88,19 +87,8 @@ const Sidebar = () => {
             ))}
           </div>
         </div>
-
-        <div className="flex flex-col items-center justify-center gap-2">
-          <Switcher />
-          <Link
-            href="https://ttechdesigners.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`text-[0.6rem] text-center w-20 font-extrabold ${indie.className}`}
-          >
-            Programmed by TTechDesigners
-          </Link>
-        </div>
       </div>
+      <TTechLogo />
     </div>
   );
 };

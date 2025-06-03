@@ -1,5 +1,8 @@
+import { GAME_MODES, GAME_STATES } from "@/tictactoe/Data/constants";
+import { indie } from "../utils/Fonts";
 import {
   ChangeEvent,
+  CSSProperties,
   Dispatch,
   FormEvent,
   ReactNode,
@@ -436,6 +439,75 @@ export type ResultIconProp = {
 export type EmojiesRPSProps = {
   emoji: string;
   bgColor: string;
+};
+
+export type GameStates = {
+  notStarted: string;
+  inProgress: string;
+  over: string;
+};
+
+export type GameState = (typeof GAME_STATES)[keyof typeof GAME_STATES];
+
+export type GameModeKey = "easy" | "medium" | "difficult";
+export type GameModeValue = "easy" | "medium" | "difficult";
+
+export type TicTacToeProviderProps = {
+  children: ReactNode;
+  //squares?: Array<number | null>;
+};
+
+export type TicTacToeContextType = {
+  // Funciones de interacción
+  humanMove: (index: number) => void;
+  choosePlayer: (option: number) => void;
+  startNewGame: () => void;
+  changeMode: (e: ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void;
+  containerWidth: number;
+  strikeStyles: CSSProperties;
+  startAll: () => void;
+
+  // Estado del juego
+  winner: string | null;
+  setWinner: Dispatch<SetStateAction<string | null>>;
+  modalOpen: boolean;
+  setModalOpen: Dispatch<SetStateAction<boolean>>;
+  gameState: GameState;
+  setGameState: Dispatch<SetStateAction<GameState>>;
+  nextMove: number | null;
+  setNextMove: Dispatch<SetStateAction<number | null>>;
+  playerChoice: number | null;
+  setPlayerChoice: Dispatch<SetStateAction<number | null>>;
+
+  // Jugadores
+  players: Record<string, number | null>;
+  setPlayers: Dispatch<SetStateAction<Record<string, number | null>>>;
+
+  // Tablero
+  grid: Array<number | null>;
+  setGrid: Dispatch<SetStateAction<Array<number | null>>>;
+
+  // Configuración y constantes
+  mode:
+    | typeof GAME_MODES.easy
+    | typeof GAME_MODES.medium
+    | typeof GAME_MODES.difficult;
+  GAME_STATES: typeof GAME_STATES;
+  GAME_MODES: typeof GAME_MODES;
+  PLAYER_0: number;
+  PLAYER_X: number;
+  SQUARE_DIMS: number;
+};
+export type BTSArray = {
+  id: number;
+  letter: string;
+};
+
+export type PlayerOptions = {
+  value: number;
+  label: string;
+  id: number;
+  name: string;
 };
 
 export type FestaBtsProps = {
