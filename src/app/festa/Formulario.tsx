@@ -9,8 +9,17 @@ import { festaBts } from "./data";
 
 export default function Formulario() {
 
-    const {handleSubmit, usuario, usuarioGenerado, isMaxCharLimitReachedH } = useRequestInfo();
+    const {handleSubmit, usuario, usuarioGenerado, isMaxCharLimitReachedH, isMobile } = useRequestInfo();
     const { content, diseño } = usuario;
+    const selectedStyles = isMobile
+    ? festaBts.find(style => style.name === "Vertical Style")
+    : festaBts.find(style => style.name === "Square Style");
+
+    const selectedMember = selectedStyles?.styles.filter(
+      (member, index, array) =>
+        index === array.findIndex((members) => members.id === member.id)
+    ) || []
+
 
   return (
      <div className="w-96 text-white max-sm:text-sx max-sm:px-0 mx:sm:py-1">
@@ -38,7 +47,7 @@ export default function Formulario() {
                id='diseño'
                name= 'diseño'
                value={diseño}
-               options={festaBts}
+               options={selectedMember}
                onChange={usuarioGenerado}
                checked={diseño}
                className="flex flex-row gap-2 items-center justify-center text-purple-700 font-extrabold"
