@@ -2,7 +2,7 @@
 import { createContext, useEffect, useState } from "react";
 import { AllProviderProps, FlipContextProps, ImageListTypes } from "../types";
 import useRequestInfo from "@/hooks/useRequestInfo";
-import { initialItems } from "@/virthday/Data/imagesList";
+import { initialItems } from "app/(V)irthday/Data/imagesList";
 
 const FlipContext = createContext<FlipContextProps>(null!);
 

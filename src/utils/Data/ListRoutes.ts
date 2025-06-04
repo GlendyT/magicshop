@@ -40,14 +40,14 @@ export const LinkRoutes: LinkRoutesTypes[] = [
   {
     id: 7,
     name: "(V)irthday",
-    path: "/virthday",
+    path: "/(V)irthday",
     image: "/Logos/virthday.webp",
   },
   {
     id: 8,
     name: "Love Notes",
     path: "/lovenotes",
-    image: "/Logos/Valentine3.webp",
+    image: "/Logos/Valentin.webp",
   },
   {
     id: 9,
@@ -61,10 +61,10 @@ export const LinkRoutes: LinkRoutesTypes[] = [
     path: "/rps",
     image: "/Logos/RPS.webp",
   },
-    {
-    id: 11,
-    name: "festa",
-    path: "/festa",
-    image: "/Logos/RPS.webp",
-  },
+  //   {
+  //   id: 11,
+  //   name: "festa",
+  //   path: "/festa",
+  //   image: "/Logos/RPS.webp",
+  // },
 ];
