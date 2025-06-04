@@ -511,8 +511,4 @@ export type PlayerOptions = {
   name: string;
 };
 
-export type FestaBtsProps = {
-   id: number
-   name: string
-   styles: SquareVerStyles[];
-}
+export type FestaBtsProps = hobiPersonalizedTypes
