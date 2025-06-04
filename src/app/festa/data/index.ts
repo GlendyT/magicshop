@@ -27,7 +27,7 @@ export const festaBts: FestaBtsProps[] = [
         id: 4,
         name: "JK",
         image: "/Festa2025/jungkook discharge_square ver.webp",
-        color: "text-[rgb(188,79,77)]"
+        color: "text-[rgb(195,61,122)]"
       },
       {
         id: 5,
