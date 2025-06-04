@@ -25,7 +25,7 @@ export const festaBts: FestaBtsProps[] = [
       },
       {
         id: 4,
-        name: "JungKook",
+        name: "JK",
         image: "/Festa2025/jungkook discharge_square ver.webp",
         color: "text-[rgb(188,79,77)]"
       },
@@ -62,7 +62,7 @@ export const festaBts: FestaBtsProps[] = [
       },
        {
         id: 4,
-        name: "JungKook",
+        name: "JK",
         image: "/Festa2025/jungkook discharge_mobile ver.webp",
         color: "text-[rgb(188,79,77)]"
       },

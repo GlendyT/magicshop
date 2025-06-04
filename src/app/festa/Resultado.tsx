@@ -34,7 +34,7 @@ export default function Resultado() {
         )}
        
         <div
-          className={`absolute inset-0 flex flex-col font-extrabold items-center justify-end text-white drop-shadow-lg ${
+          className={`absolute inset-0 flex flex-col font-extrabold items-center justify-end text-purple-900 drop-shadow-lg ${
             isMobile ? "pb-20" : "pb-[3rem]"
           }`}
         >
