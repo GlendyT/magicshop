@@ -394,6 +394,7 @@ export type LinkRoutesTypes = {
 export type Option = {
   id: string | number;
   name: string;
+  disabled?: boolean
 };
 
 export type SelectUtilsProps = {
@@ -508,3 +509,10 @@ export type PlayerOptions = {
   id: number;
   name: string;
 };
+
+export type FestaBtsProps = {
+   id: number
+   name: string
+   image: string
+   disabled?: boolean
+}

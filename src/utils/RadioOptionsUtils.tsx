@@ -21,10 +21,11 @@ const RadioOptionsUtils = ({
             key={option.id}
             htmlFor={`${id}-${option.id}`}
             className={`${labelStyles} ${
-              disabled ? "cursor-not-allowed opacity-50" : ""
+              disabled || option.disabled ? "cursor-not-allowed opacity-50" : ""
             }`}
+            title={option.disabled ? 'COMING SOON' : undefined}
           >
-            {option.name}
+           {option.name}
             <input
               id={`${id}-${option.id}`}
               name={name}
@@ -33,7 +34,7 @@ const RadioOptionsUtils = ({
               onChange={onChange}
               checked={checked === option.name}
               className="hidden"
-              disabled={disabled}
+              disabled={disabled || option.disabled}
             />
             <span
               className={`w-4 h-4 rounded ${
