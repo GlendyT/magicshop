@@ -53,7 +53,7 @@ export default function Formulario() {
             options={selectedMember}
             onChange={usuarioGenerado}
             checked={diseño}
-            className="flex flex-row gap-2 items-center justify-center text-purple-700 font-extrabold"
+            className="flex flex-row gap-1 items-center justify-center text-purple-700 font-extrabold"
             label="Select a Member"
             labelStyles="flex items-center justify-center gap-2 max-sm:gap-1 max-sm:flex-wrap border max-sm:text-xs border-none p-1 rounded-md text-violet-950 bg-gray-300"
             spanStyles={(option, isSelected) =>
