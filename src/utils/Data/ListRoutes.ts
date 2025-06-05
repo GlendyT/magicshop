@@ -63,7 +63,7 @@ export const LinkRoutes: LinkRoutesTypes[] = [
   },
   {
     id: 11,
-    name: "festa",
+    name: "Festa",
     path: "/festa",
     image: "/Logos/festa2025.webp",
   },

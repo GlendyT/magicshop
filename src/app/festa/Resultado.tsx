@@ -33,13 +33,14 @@ export default function Resultado() {
         <div
           className={`absolute inset-0 flex flex-col font-extrabold items-center justify-end  rotate ${
             isMobile ? "pb-16" : "pb-[5rem]"
-          }`}  style={{ transform: "rotate(-12deg)" }}
+          }`}
+          style={{ transform: "rotate(-12deg)" }}
         >
           <div
             className={`flex flex-col items-center justify-center gap-1 bg-white/90 rounded-xs px-1 ${selectedStyle?.color} `}
           >
             <span>{name}</span>
-             from {content}
+            from {content}
           </div>
         </div>
       </div>
