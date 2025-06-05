@@ -89,7 +89,7 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-      <div className="fixed top-0 right-18 z-50 p-4">
+      <div className="fixed top-0 right-12 z-50 p-4">
         <TTechLogo />
       </div>
     </>
