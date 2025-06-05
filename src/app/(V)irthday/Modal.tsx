@@ -16,7 +16,7 @@ const Modal = () => {
       <div className="flex justify-center items-center fixed inset-10 z-40">
         <div className="w-auto my-2 mx-auto">
           <div className="shadow-lg flex- flex-col w-full outline-none focus:outline-none">
-            <div className="relative" id="print">
+            <div className="relative font-virthday" id="print">
               {selectedStyle && (
                 <Image
                   src={selectedStyle.image}

@@ -4,15 +4,16 @@ import html2canvas from "html2canvas-pro";
 import { createContext } from "react";
 import { AllProviderProps, DownloadContextType } from "../types";
 
-
 export const DownloadContext = createContext<DownloadContextType>(null!);
 
 export const DownloadProvider = ({ children }: AllProviderProps) => {
   const handleDownloadImage = async () => {
     const element = document.getElementById("print");
+
     if (!element) {
       return;
     }
+    await document.fonts.ready;
 
     const options = {
       scale: 3,
