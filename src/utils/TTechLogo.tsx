@@ -6,7 +6,7 @@ import { indie } from "./Fonts";
 const TTechLogo = () => {
   return (
     <div className="flex gap-2 w-full h-full relative ">
-      <div className="w-20 h-20 flex flex-col justify-center items-center fixed bottom-2 cursor-pointer z-50">
+      <div className="w-20 h-20 flex flex-col justify-center items-center fixed bottom-2 cursor-pointer bg-black/20 rounded-3xl z-50">
         <Switcher />
         <Link
           href="https://ttechdesigners.com/"

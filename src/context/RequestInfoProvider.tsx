@@ -53,26 +53,28 @@ const RequestInfoProvider = ({ children }: AllProviderProps) => {
 
   const handleCorrectWord = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!input) {
-      return;
-    }
+    if (!input) return;
+
     const guessedWord = input.toLowerCase();
     const correct = guessedWord === currWord.toLowerCase();
     setIsCorrectGuess(correct);
     setHasSubmitted(true);
     setInput("");
 
+    localStorage.setItem("correctGuess", currWord); // ✅ SIEMPRE guardar
+
     if (!correct) {
-      localStorage.setItem("correctGuess", currWord);
       setShowErrorMessage(true);
-    } 
+    } else {
+      setShowModal(false);
+    }
   };
 
   useEffect(() => {
     const savedGuess = localStorage.getItem("correctGuess");
     if (savedGuess && savedGuess.toLowerCase() === currWord.toLowerCase()) {
       setIsCorrectGuess(true);
-      setShowModal(false)
+      setShowModal(false);
     }
   }, [currWord]);
 
@@ -145,7 +147,6 @@ const RequestInfoProvider = ({ children }: AllProviderProps) => {
       [name]: value,
     }));
   };
-
 
   const generarUsuario = (dato: UsuarioType) => {
     setCargando(true);
