@@ -7,7 +7,7 @@ const PhotoButton = () => {
   const { handleDownloadImage } = useDownload();
 
   return (
-    <div className="flex flex-col gap-2 max-md:gap-0 max-sm:justify-center">
+    <div className="flex flex-row gap-2 max-md:gap-0 max-sm:justify-center">
       <ButtonUtils
         label="Save"
         onClick={handleDownloadImage}

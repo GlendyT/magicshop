@@ -32,7 +32,7 @@ export default function Resultado() {
 
         <div
           className={`absolute inset-0 flex flex-col font-extrabold items-center justify-end  rotate ${
-            isMobile ? "pb-16" : "pb-[5rem]"
+            isMobile ? "mb-16" : "pb-[5rem]"
           }`}
           style={{ transform: "rotate(-12deg)" }}
         >
@@ -46,7 +46,7 @@ export default function Resultado() {
       </div>
 
       <div
-        className={`flex flex-row gap-3 justify-center ${providence.className}`}
+        className={`flex flex-row gap-3 justify-center pt-14 ${providence.className}`}
       >
         <ButtonUtils
           label="Download"
