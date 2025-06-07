@@ -15,7 +15,7 @@ const Resultado = () => {
     <div className="sm:justify-center max-sm:text-xs flex flex-col gap-4">
       <div className="sm:max-w-lg w-full">
         {selectedStyle && (
-          <div className={selectedStyle.style[0].div1} id="print">
+          <div className={` ${selectedStyle.style[0].div1}`}  id="print">
             <Image
               src={selectedStyle.image}
               alt={selectedStyle.name}

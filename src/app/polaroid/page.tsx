@@ -36,12 +36,12 @@ const Polaroid = () => {
                italic ${jinora.className}`}
             >
               Special thanks to{" "}
-              <span className={`font-bold italic ${libre.className}`}>
+              <span className={`font-bold italic font-libre.`}>
                 {randomPhrase.title} ,
               </span>{" "}
               <span className="font-extrabold">ARMY</span>
             </div>
-            <p className={`${antonio.className} text-end font-bold`}>
+            <p className={`font-antonio text-end font-bold`}>
               - {randomPhrase.from}
             </p>
           </div>

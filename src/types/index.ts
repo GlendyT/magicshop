@@ -260,6 +260,7 @@ export type SquareVerStyles = {
   name: string;
   image: string;
   color: string;
+  disabled?: boolean
 };
 
 export type hobiPersonalizedTypes = {
@@ -510,9 +511,4 @@ export type PlayerOptions = {
   name: string;
 };
 
-export type FestaBtsProps = {
-   id: number
-   name: string
-   image: string
-   disabled?: boolean
-}
+export type FestaBtsProps = hobiPersonalizedTypes

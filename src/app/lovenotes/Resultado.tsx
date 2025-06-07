@@ -14,7 +14,7 @@ const Resultado = () => {
   );
   return (
     <div className={`flex flex-col gap-6  ${virthday3.className}`}>
-      <div className={`flex flex-col shadow-2xl shadow-black/80`} id="print">
+      <div className={`flex flex-col shadow-2xl shadow-black/80 font-virthday3`} id="print">
         {selectedStyle && (
           <div className={selectedStyle.style[0].div1}>
             <Image

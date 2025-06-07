@@ -21,7 +21,7 @@ const Resultado = () => {
 
   return (
     <div className="relative flex flex-col gap-2 justify-center items-center max-sm:text-xs">
-      <div className={`relative w-full ${providence.className}`} id="print">
+      <div className={`relative w-full font-providence`} id="print">
         {selectedStyle?.image && (
           <Image
             src={selectedStyle.image}

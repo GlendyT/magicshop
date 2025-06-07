@@ -68,7 +68,7 @@ const Formulario = () => {
           </div>
         </div>
       </div>
-      <div className="opacity-90 fixed inset-10 z-30 bg-blue-950"></div>
+      <div className="opacity-90 fixed inset-30 max-sm:inset-10 z-30 bg-blue-950"></div>
     </>
   );
 };

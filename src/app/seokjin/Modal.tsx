@@ -14,7 +14,7 @@ const Modal = () => {
   return (
     <div className="flex flex-col justify-center items-center inset-10 z-40">
       <div className=" my-2 mx-auto">
-        <div className="relative" id="print">
+        <div className="relative font-pressgame" id="print">
           <Image
             src={"/FishJin/certificado2.webp"}
             alt="fishingjin"

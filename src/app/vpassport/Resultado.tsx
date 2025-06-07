@@ -14,7 +14,7 @@ const Resultado = () => {
       className={`flex flex-col items-start justify-start ${michroma.className}`}
     >
       <div
-        className="flex items-center justify-center bg-transparent"
+        className="flex items-center justify-center bg-transparent font-michroma"
         id="print"
       >
         <div className="shadow-md rounded-xl w-full h-full">

@@ -6,13 +6,13 @@ import { indie } from "./Fonts";
 const TTechLogo = () => {
   return (
     <div className="flex gap-2 w-full h-full relative ">
-      <div className="w-20 h-20 flex flex-col justify-center items-center fixed bottom-2 cursor-pointer z-50">
+      <div className="w-16 h-16 flex flex-col justify-center items-center fixed bottom-2 cursor-pointer bg-black/20 rounded-2xl z-50">
         <Switcher />
         <Link
           href="https://ttechdesigners.com/"
           target="_blank"
           rel="noopener noreferrer"
-          className={`text-[0.6rem] text-center w-16 font-extrabold ${indie.className} dark:text-purple-950 text-purple-200 transition-colors duration-300 `}
+          className={`text-[0.4rem] text-center w-16 font-extrabold ${indie.className} dark:text-purple-950 text-purple-200 transition-colors duration-300 `}
         >
           Programmed by TTechDesigners
         </Link>

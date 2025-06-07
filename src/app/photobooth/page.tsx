@@ -65,7 +65,7 @@ const Photobooth = () => {
   };
   return (
     <div className=" min-h-screen bg-photostrip">
-      <div className="flex flex-row gap-4 max-md:gap-1 items-center justify-center">
+      <div className="flex flex-col gap-2 max-md:gap-1 items-center justify-center">
         {/* <RadioOptionsUtils
           id="diseño"
           name="diseño"

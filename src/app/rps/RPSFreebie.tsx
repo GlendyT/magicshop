@@ -9,7 +9,7 @@ const RPSFreebie = () => {
   return (
     <div className="flex items-center fixed inset-14 z-10 bg-black px-4 bg-opacity-70">
       <div className="w-auto my-2">
-        <div className="relative" id="print">
+        <div className="relative font-indie" id="print">
           <Image
             src="/RPS/freebie.webp"
             alt="Freebie"

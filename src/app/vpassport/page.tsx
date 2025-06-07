@@ -5,7 +5,7 @@ import Formulario from "./Formulario";
 import Resultado from "./Resultado";
 
 const Vpassport = () => {
-  const { resultado, cargando } = useRequestInfo();
+  const { resultado, cargando, isMobile } = useRequestInfo();
   const fondoBase = cargando
     ? "bg-[url('/VPassport/VpassWeb2.webp')] max-sm:bg-[url('/VPassport/VpassPhone2.webp')] bg-cover bg-center bg-no-repeat"
     : resultado
@@ -14,9 +14,11 @@ const Vpassport = () => {
 
   return (
     <div
-      className={`min-h-screen  flex items-center justify-center ${fondoBase}`}
+      className={`min-h-screen  flex items-center justify-center ${fondoBase} ${
+        isMobile ? "pt1" : "pt16"
+      }`}
     >
-      <div className="flex flex-col  justify-center">
+      <div className="flex flex-col items-center  justify-center">
         {cargando ? <Formulario /> : resultado && <Resultado />}
       </div>
     </div>
