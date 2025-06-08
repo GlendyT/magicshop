@@ -34,7 +34,6 @@ export const festaBts: FestaBtsProps[] = [
         name: "Suga",
         image: "/HobiDischarge/hobissquare2.webp",
         color: "text-[rgb(188,79,77)]",
-        disabled: true
       },
     ],
   },
@@ -71,7 +70,6 @@ export const festaBts: FestaBtsProps[] = [
         name: "Suga",
         image: "/HobiDischarge/hobisver2.webp",
         color: "text-[rgb(188,79,77)]",
-        disabled: true
       },
     ],
   },

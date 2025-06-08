@@ -25,6 +25,9 @@ export default function Formulario() {
         index === array.findIndex((members) => members.id === member.id)
     ) || [];
 
+  const selectedMemberId = selectedMember.find(member => member.name === diseño)
+  const selectedId = selectedMemberId?.id
+
   return (
     <div className="w-96 text-white max-sm:text-sx max-sm:px-0 mx:sm:py-1">
       <div className="max-sm:px-10 max-sm:py-10">
@@ -71,22 +74,22 @@ export default function Formulario() {
               className={`bg-black w-full text-white disabled:bg-opacitabled:cursor-not-allowed py-2 px-3 uppercase disabled:bg-black/30 disabled:text-gray-400 ${providence.className}`}
             />
           </div>
-        </form>
-        <div
-          className={`${providence.className} ${
-            diseño
-              ? "{`relative px-10 py-4 max-sm:px-2 max-sm:py-8 backdrop-blur-sm bg-black/20 rounded-3xl  my-2 text-center font-providence transition-transform delay-150 text-black max-sm:backdrop-blur-sm max-sm:bg-black/40 p-4 gap-4 sm:justify-center items-center max-sm:text-xs `}"
-              : "hidden"
-          } `}
-        >
+        </form>    
+        {diseño && (
+         <div
+          className={`relative px-10 py-4 max-sm:px-2 max-sm:py-8 backdrop-blur-sm bg-black/20 rounded-3xl my-2 text-center font-providence transition-transform delay-150 text-black max-sm:backdrop-blur-sm max-sm:bg-black/40 p-4 gap-4 sm:justify-center items-center max-sm:text-xs ${providence.className}`}
+         >
           Let&apos;s welcome {diseño} with a special card
-          <p className="text-xs text-black/40 max-sm:text-xs ">
-            This message will be shown in korean
-          </p>
-          &quot;Congratulations on your discharge! We missed you and we are
-          proud of you. Wishing you all the best in the future. Sending you all
-          of our love. .&quot;
+           <p className="text-xs text-black/40 max-sm:text-xs">
+             This message will be shown in Korean
+           </p>
+          &quot;
+           {selectedId === 5
+            ? "Yoongi's isn't available yet. We'll make a note of it. His won't be ready until after the 13th closer to his discharge"
+            : "Congratulations on your discharge! We missed you and we are proud of you. Wishing you all the best in the future. Sending you all of our love."}
+          &quot;
         </div>
+         )}
       </div>
     </div>
   );

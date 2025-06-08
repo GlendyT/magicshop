@@ -71,6 +71,9 @@
       ],
       "@/utils/*": [
         "utils/*"
+      ],
+      "@/festa/*": [
+        "app/festa/*"
       ]
     }
   },
