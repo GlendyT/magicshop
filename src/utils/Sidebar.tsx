@@ -91,7 +91,7 @@ const Sidebar = () => {
         </div>
       </div>
 
-      <div className="fixed top-0 right-12 z-50 p-4">
+      <div className="fixed top-0 right-12 z-60 p-4">
         <TTechLogo />
       </div>
       <div className="fixed bottom-0 left-1/3  z-50 py-1 px-2 w-full max-sm:w-full max-sm:left-14 ">
