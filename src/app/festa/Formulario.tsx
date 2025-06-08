@@ -70,7 +70,7 @@ export default function Formulario() {
           <div>
             <ButtonUtils
               label="Create Post"
-              disabled={!diseño}
+              disabled={!diseño || selectedId === 5}
               className={`bg-black w-full text-white disabled:bg-opacitabled:cursor-not-allowed py-2 px-3 uppercase disabled:bg-black/30 disabled:text-gray-400 ${providence.className}`}
             />
           </div>
