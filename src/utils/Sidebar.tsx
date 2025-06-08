@@ -5,6 +5,7 @@ import Image from "next/image";
 import { LinkRoutes } from "./Data/ListRoutes";
 import { ButtonUtils } from "./ButtonUtils";
 import TTechLogo from "./TTechLogo";
+import Contact from "./Contact";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
@@ -85,21 +86,16 @@ const Sidebar = () => {
                   {/* {open && <span>{linkroute.name}</span>} */}
                 </Link>
               ))}
-              <Link
-                className="text-[0.4rem] text-white text-center "
-                href="https://x.com/beyond_ARMY_"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                If you run into technical issues with the app, please reach out
-                to <p className="hover:text-purple-400">@Beyond_ARMY_</p>
-              </Link>
             </div>
           </div>
         </div>
       </div>
+
       <div className="fixed top-0 right-12 z-50 p-4">
         <TTechLogo />
+      </div>
+      <div className="fixed bottom-0 left-1/3  z-50 py-1 px-2 w-full max-sm:w-full max-sm:left-14 ">
+        <Contact />
       </div>
     </>
   );
