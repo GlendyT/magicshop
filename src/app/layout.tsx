@@ -28,11 +28,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const analyticsId =
-    process.env.NODE_ENV === "production"
-      ? process.env.NEXT_PUBLIC_VERCEL_ANALYTICS
-      : process.env.NEXT_PUBLIC_NETLIFY_ANALYTICS;
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning>
@@ -48,7 +43,9 @@ export default function RootLayout({
                           <Sidebar />
 
                           {children}
-                          <GoogleAnalytics gaId={analyticsId!} />
+                          <GoogleAnalytics
+                            gaId={process.env.NEXT_PUBLIC_VERCEL_ANALYTICS!}
+                          />
                           <SpeedInsights />
                           <Analytics />
                         </TicTacToeProvider>
