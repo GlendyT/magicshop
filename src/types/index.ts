@@ -37,6 +37,7 @@ export type RequestInfoContextType = {
   selectedMembers: string | null;
   // cardData: string | null;
   showForm: boolean;
+  downloadLabel: string;
   setUsuario: (usuario: UsuarioType) => void;
   setResultado: (resultado: UsuarioType) => void;
   setCargando: (cargando: boolean) => void;
@@ -51,6 +52,7 @@ export type RequestInfoContextType = {
   setIsMobile: (isMobile: boolean) => void;
   setSelectedMembers: (selectedMembers: string | null) => void;
   setShowForm: (showForm: boolean) => void;
+  setDownloadLabel: (downloadLabel: string) => void;
   maxCharLimit: number;
   maxCharLimitH: number;
   maxFromLimitH: number;
@@ -68,6 +70,7 @@ export type RequestInfoContextType = {
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >
   ) => void;
+  handleDownload: () => void;
 
   handleResetContent: () => void;
   isMaxCharLimitReached: boolean;
@@ -260,6 +263,7 @@ export type SquareVerStyles = {
   name: string;
   image: string;
   color: string;
+  disabled?: boolean;
 };
 
 export type hobiPersonalizedTypes = {
@@ -394,7 +398,7 @@ export type LinkRoutesTypes = {
 export type Option = {
   id: string | number;
   name: string;
-  disabled?: boolean
+  disabled?: boolean;
 };
 
 export type SelectUtilsProps = {
@@ -510,9 +514,4 @@ export type PlayerOptions = {
   name: string;
 };
 
-export type FestaBtsProps = {
-   id: number
-   name: string
-   image: string
-   disabled?: boolean
-}
+export type FestaBtsProps = hobiPersonalizedTypes;

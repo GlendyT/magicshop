@@ -23,7 +23,7 @@ const Resultado = () => {
         Here it is your ticket, keep supporting j-hope´s work
       </p>
       <div className="relative flex justify-center items-center max-sm:text-xs">
-        <div className="relative w-full" id="print">
+        <div className="relative w-full font-providence" id="print">
           <Image
             src="/Hobipalooza/2.webp"
             alt="hobipalooza"

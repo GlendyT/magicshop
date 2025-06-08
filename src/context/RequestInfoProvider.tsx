@@ -13,6 +13,7 @@ import {
   UsuarioType,
 } from "../types";
 import { citiesVisited } from "@/vpassport/Data/citiesVisited";
+import useDownload from "@/hooks/useDownload";
 
 const RequestInfoContext = createContext<RequestInfoContextType>(null!);
 
@@ -42,6 +43,8 @@ const RequestInfoProvider = ({ children }: AllProviderProps) => {
   const [selectedMembers, setSelectedMembers] = useState<string | null>(null);
   // const [cardData, setCardData] = useState<{ image: string } | null>(null);
   const [showForm, setShowForm] = useState<boolean>(false);
+  const [downloadLabel, setDownloadLabel] = useState<string>("Download");
+  const { handleDownloadImage } = useDownload();
 
   const maxCharLimit = 281;
   const maxCharLimitH = 21;
@@ -53,26 +56,28 @@ const RequestInfoProvider = ({ children }: AllProviderProps) => {
 
   const handleCorrectWord = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!input) {
-      return;
-    }
+    if (!input) return;
+
     const guessedWord = input.toLowerCase();
     const correct = guessedWord === currWord.toLowerCase();
     setIsCorrectGuess(correct);
     setHasSubmitted(true);
     setInput("");
 
+    localStorage.setItem("correctGuess", currWord); // ✅ SIEMPRE guardar
+
     if (!correct) {
-      localStorage.setItem("correctGuess", currWord);
       setShowErrorMessage(true);
-    } 
+    } else {
+      setShowModal(false);
+    }
   };
 
   useEffect(() => {
     const savedGuess = localStorage.getItem("correctGuess");
     if (savedGuess && savedGuess.toLowerCase() === currWord.toLowerCase()) {
       setIsCorrectGuess(true);
-      setShowModal(false)
+      setShowModal(false);
     }
   }, [currWord]);
 
@@ -146,7 +151,6 @@ const RequestInfoProvider = ({ children }: AllProviderProps) => {
     }));
   };
 
-
   const generarUsuario = (dato: UsuarioType) => {
     setCargando(true);
     try {
@@ -162,11 +166,28 @@ const RequestInfoProvider = ({ children }: AllProviderProps) => {
     setUsuario({ name: "", content: "", diseño: "", song: "" });
     setCharCount(0);
     setCharCountFrom(0);
+    setDownloadLabel("Download")
   };
 
   const randomIndex = Math.floor(Math.random() * citiesVisited.length);
   const randomCity = citiesVisited[randomIndex];
   const { image, stamp } = randomCity;
+
+  //TODO: THIS PART IS FOR THE FESTA ROUTE
+
+  useEffect(() => {
+    if (downloadLabel === "Downloading...") {
+      const timer = setTimeout(() => {
+        setDownloadLabel("Downloaded");
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [downloadLabel]);
+
+  const handleDownload = async () => {
+    setDownloadLabel("Downloading...");
+    await handleDownloadImage();
+  };
 
   return (
     <RequestInfoContext.Provider
@@ -205,6 +226,8 @@ const RequestInfoProvider = ({ children }: AllProviderProps) => {
         maxFromLimitH,
         image,
         stamp,
+        downloadLabel,
+        setDownloadLabel,
         //TODO: FUNCTIONS
         generateWordDisplay,
         handleCorrectWord,
@@ -218,6 +241,7 @@ const RequestInfoProvider = ({ children }: AllProviderProps) => {
         isMaxCharLimitReached,
         isMaxCharLimitReachedH,
         isMaxFromLimitReachedH,
+        handleDownload,
       }}
     >
       {children}

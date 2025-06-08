@@ -1,6 +1,6 @@
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import type { Metadata } from "next"
+import type { Metadata } from "next";
 import "./globals.css";
 import { DownloadProvider } from "@/context/DownloadProvider";
 import { ImageCropProvider } from "@/context/ImageCropProvider";
@@ -13,6 +13,7 @@ import { DarkProvider } from "@/context/DarkModeProvider";
 import Sidebar from "@/utils/Sidebar";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { TicTacToeProvider } from "@/context/TicTacToeProvider";
+import Contact from "@/utils/Contact";
 
 export const metadata: Metadata = {
   title: "The Magic Shop",
@@ -27,8 +28,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-  const analyticsId = process.env.NODE_ENV === "production" ? process.env.NEXT_PUBLIC_VERCEL_ANALYTICS : process.env.NEXT_PUBLIC_NETLIFY_ANALYTICS;
+  const analyticsId =
+    process.env.NODE_ENV === "production"
+      ? process.env.NEXT_PUBLIC_VERCEL_ANALYTICS
+      : process.env.NEXT_PUBLIC_NETLIFY_ANALYTICS;
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -43,10 +46,12 @@ export default function RootLayout({
                       <RPSProvider>
                         <TicTacToeProvider>
                           <Sidebar />
+
                           {children}
                           <GoogleAnalytics gaId={analyticsId!} />
                           <SpeedInsights />
-                          <Analytics /></TicTacToeProvider>
+                          <Analytics />
+                        </TicTacToeProvider>
                       </RPSProvider>
                     </FishProvider>
                   </FlipProvider>

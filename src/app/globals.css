@@ -1,5 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Recursive:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ballet&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik+Glitch&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Frijole&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Michroma&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Unkempt&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Antonio&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Monoton&display=swap");
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
+
+.font-recursive {
+  font-family: "Recursive", sans-serif;
+}
+.font-libre {
+  font-family: "Libre Caslon Text", serif;
+}
+.font-ballet {
+  font-family: "Ballet", cursive;
+}
+.font-dmmono {
+  font-family: "DM Mono", monospace;
+}
+.font-pixel {
+  font-family: "Pixelify Sans", cursive;
+}
+.font-glich {
+  font-family: "Rubik Glitch", cursive;
+}
+.font-providence {
+  font-family: "Fuzzy Bubbles", cursive;
+}
+.font-frijole {
+  font-family: "Frijole", cursive;
+}
+.font-michroma {
+  font-family: "Michroma", sans-serif;
+}
+.font-virthday {
+  font-family: "Unkempt", cursive;
+}
+.font-virthday3 {
+  font-family: "Permanent Marker", cursive;
+}
+.font-montserrat {
+  font-family: "Montserrat Alternates", sans-serif;
+}
+.font-pressgame {
+  font-family: "Press Start 2P", monospace;
+}
+.font-rock {
+  font-family: "Rock Salt", cursive;
+}
+.font-indie {
+  font-family: "Indie Flower", cursive;
+}
+.font-antonio {
+  font-family: "Antonio", sans-serif;
+}
+.font-monoton {
+  font-family: "Monoton", cursive;
+}
 
 .bg-main {
   background-image: url("/Wallpapers/BackgroundHOME_VercelBA2.webp");
@@ -331,3 +400,4 @@ ul {
     width: 90px;
   }
 }
+
