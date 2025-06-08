@@ -13,6 +13,7 @@ import {
   UsuarioType,
 } from "../types";
 import { citiesVisited } from "@/vpassport/Data/citiesVisited";
+import useDownload from "@/hooks/useDownload";
 
 const RequestInfoContext = createContext<RequestInfoContextType>(null!);
 
@@ -42,6 +43,8 @@ const RequestInfoProvider = ({ children }: AllProviderProps) => {
   const [selectedMembers, setSelectedMembers] = useState<string | null>(null);
   // const [cardData, setCardData] = useState<{ image: string } | null>(null);
   const [showForm, setShowForm] = useState<boolean>(false);
+  const [downloadLabel, setDownloadLabel] = useState<string>("Download");
+  const { handleDownloadImage } = useDownload();
 
   const maxCharLimit = 281;
   const maxCharLimitH = 21;
@@ -169,6 +172,22 @@ const RequestInfoProvider = ({ children }: AllProviderProps) => {
   const randomCity = citiesVisited[randomIndex];
   const { image, stamp } = randomCity;
 
+  //TODO: THIS PART IS FOR THE FESTA ROUTE
+
+  useEffect(() => {
+    if (downloadLabel === "Downloading...") {
+      const timer = setTimeout(() => {
+        setDownloadLabel("Downloaded");
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [downloadLabel]);
+
+  const handleDownload = async () => {
+    setDownloadLabel("Downloading...");
+    await handleDownloadImage();
+  };
+
   return (
     <RequestInfoContext.Provider
       value={{
@@ -206,6 +225,8 @@ const RequestInfoProvider = ({ children }: AllProviderProps) => {
         maxFromLimitH,
         image,
         stamp,
+        downloadLabel,
+        setDownloadLabel,
         //TODO: FUNCTIONS
         generateWordDisplay,
         handleCorrectWord,
@@ -219,6 +240,7 @@ const RequestInfoProvider = ({ children }: AllProviderProps) => {
         isMaxCharLimitReached,
         isMaxCharLimitReachedH,
         isMaxFromLimitReachedH,
+        handleDownload,
       }}
     >
       {children}

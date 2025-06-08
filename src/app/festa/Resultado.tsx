@@ -4,11 +4,17 @@ import useRequestInfo from "@/hooks/useRequestInfo";
 import { ButtonUtils } from "@/utils/ButtonUtils";
 import { festaBts } from "./data";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function Resultado() {
-  const { usuario, handleResetContent, isMobile } = useRequestInfo();
+  const {
+    usuario,
+    handleResetContent,
+    isMobile,
+    downloadLabel,
+    handleDownload,
+  } = useRequestInfo();
   const { name, content, diseño } = usuario;
-  const { handleDownloadImage } = useDownload();
 
   const selectedStyleMember = isMobile
     ? festaBts.find((styleMember) => styleMember.name === "Vertical Style")
@@ -49,14 +55,14 @@ export default function Resultado() {
         className={`flex flex-row gap-3 justify-center pt-14 ${providence.className}`}
       >
         <ButtonUtils
-          label="Download"
-          onClick={handleDownloadImage}
-          className="bg-black text-white py-4 px-2 uppercase"
+          label={downloadLabel}
+          onClick={handleDownload}
+          className={`bg-black text-white py-4 px-2 uppercase cursor-pointer `}
         />
         <ButtonUtils
           label="Restart"
           onClick={handleResetContent}
-          className="bg-black text-white py-4 px-2 uppercase"
+          className="bg-black text-white py-4 px-2 uppercase cursor-pointer"
         />{" "}
       </div>
     </div>

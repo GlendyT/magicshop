@@ -25,8 +25,10 @@ export default function Formulario() {
         index === array.findIndex((members) => members.id === member.id)
     ) || [];
 
-  const selectedMemberId = selectedMember.find(member => member.name === diseño)
-  const selectedId = selectedMemberId?.id
+  const selectedMemberId = selectedMember.find(
+    (member) => member.name === diseño
+  );
+  const selectedId = selectedMemberId?.id;
 
   return (
     <div className="w-96 text-white max-sm:text-sx max-sm:px-0 mx:sm:py-1">
@@ -56,7 +58,7 @@ export default function Formulario() {
             options={selectedMember}
             onChange={usuarioGenerado}
             checked={diseño}
-            className="flex flex-row gap-1 items-center justify-center text-purple-700 font-extrabold"
+            className="flex flex-wrap gap-1 items-center justify-center text-purple-700 font-extrabold"
             label="Select a Member"
             labelStyles="flex items-center justify-center gap-2 max-sm:gap-1 max-sm:flex-wrap border max-sm:text-xs border-none p-1 rounded-md text-violet-950 bg-gray-300"
             spanStyles={(option, isSelected) =>
@@ -69,27 +71,35 @@ export default function Formulario() {
 
           <div>
             <ButtonUtils
-              label="Create Post"
+              label={selectedId === 5 ? "COMING SOON!" : "Create Card"}
               disabled={!diseño || selectedId === 5}
-              className={`bg-black w-full text-white disabled:bg-opacitabled:cursor-not-allowed py-2 px-3 uppercase disabled:bg-black/30 disabled:text-gray-400 ${providence.className}`}
+              className={`bg-black w-full text-white disabled:bg-opacitabled:cursor-not-allowed py-2 px-3 uppercase disabled:bg-black/30 disabled:text-gray-400 ${
+                providence.className
+              } ${
+                selectedId === 5
+                  ? "cursor-not-allowed disabled:text-white"
+                  : "cursor-pointer"
+              }`}
             />
           </div>
-        </form>    
+        </form>
         {diseño && (
-         <div
-          className={`relative px-10 py-4 max-sm:px-2 max-sm:py-8 backdrop-blur-sm bg-black/20 rounded-3xl my-2 text-center font-providence transition-transform delay-150 text-black max-sm:backdrop-blur-sm max-sm:bg-black/40 p-4 gap-4 sm:justify-center items-center max-sm:text-xs ${providence.className}`}
-         >
-          Let&apos;s welcome {diseño} with a special card
-           <p className="text-xs text-black/40 max-sm:text-xs">
-             This message will be shown in Korean
-           </p>
-          &quot;
-           {selectedId === 5
-            ? "Yoongi's isn't available yet. We'll make a note of it. His won't be ready until after the 13th closer to his discharge"
-            : "Congratulations on your discharge! We missed you and we are proud of you. Wishing you all the best in the future. Sending you all of our love."}
-          &quot;
-        </div>
-         )}
+          <div
+            className={`relative px-10 py-4 max-sm:px-2 max-sm:py-8 backdrop-blur-3xl bg-black/20 rounded-3xl my-2 text-center font-providence transition-transform delay-150 text-black font-extrabold max-sm:backdrop-blur-sm max-sm:bg-black/40 p-4 gap-4 sm:justify-center items-center max-sm:text-xs ${providence.className}`}
+          >
+            Let&apos;s welcome {diseño} with a special card
+            <p className="text-xs text-black/40 max-sm:text-xs">
+              {selectedId === 5 ? "" : "This message will be shown in Korean"}
+            </p>
+            <p className="font-extrabold">
+              &quot;
+              {selectedId === 5
+                ? "Suga's card will be released closer to his enlistment discharge on June 21"
+                : "Congratulations on your discharge! We missed you and we are proud of you. Wishing you all the best in the future. Sending you all of our love."}
+              &quot;
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
