@@ -85,6 +85,15 @@ const Sidebar = () => {
                   {/* {open && <span>{linkroute.name}</span>} */}
                 </Link>
               ))}
+              <Link
+                className="text-[0.4rem] text-white text-center "
+                href="https://x.com/beyond_ARMY_"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                If you run into technical issues with the app, please reach out
+                to <p className="hover:text-purple-400">@Beyond_ARMY_</p>
+              </Link>
             </div>
           </div>
         </div>

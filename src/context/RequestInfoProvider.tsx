@@ -166,6 +166,7 @@ const RequestInfoProvider = ({ children }: AllProviderProps) => {
     setUsuario({ name: "", content: "", diseño: "", song: "" });
     setCharCount(0);
     setCharCountFrom(0);
+    setDownloadLabel("Download")
   };
 
   const randomIndex = Math.floor(Math.random() * citiesVisited.length);

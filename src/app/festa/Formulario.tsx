@@ -5,6 +5,7 @@ import InputNameUtils from "@/utils/InputNameUtils";
 import RadioOptionsUtils from "@/utils/RadioOptionsUtils";
 import InputContentUtils from "@/utils/InputContentUtils";
 import { festaBts } from "./data";
+import Link from "next/link";
 
 export default function Formulario() {
   const {
