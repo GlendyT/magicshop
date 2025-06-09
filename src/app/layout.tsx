@@ -13,7 +13,6 @@ import { DarkProvider } from "@/context/DarkModeProvider";
 import Sidebar from "@/utils/Sidebar";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { TicTacToeProvider } from "@/context/TicTacToeProvider";
-import Contact from "@/utils/Contact";
 
 export const metadata: Metadata = {
   title: "The Magic Shop",
@@ -43,9 +42,7 @@ export default function RootLayout({
                           <Sidebar />
 
                           {children}
-                          <GoogleAnalytics
-                            gaId={process.env.NEXT_PUBLIC_VERCEL_ANALYTICS!}
-                          />
+                          <GoogleAnalytics gaId="G-3SC31S5CBD" />
                           <SpeedInsights />
                           <Analytics />
                         </TicTacToeProvider>
