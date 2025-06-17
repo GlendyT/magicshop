@@ -68,7 +68,7 @@ export const festaBts: FestaBtsProps[] = [
       {
         id: 5,
         name: "Suga",
-        image: "/public/Festa2025/yoongi_s dischage_vertical ver.webp",
+        image: "/Festa2025/yoongi_s dischage_vertical ver.webp",
         color: "text-[#441e22]",
       },
     ],
