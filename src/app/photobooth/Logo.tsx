@@ -7,9 +7,9 @@ type LogoProps = {
 const Logo = ({ backgroundImage }: LogoProps) => {
   return (
     <div
-      className={`pt-2  border-4 w-40 h-36 max-sm:pb-2 max-sm:w-40 ${
-        backgroundImage ? "border-none" : "border-white border-solid"
-      }`}
+      data-testid="Logo"
+      className={`pt-2  border-4 w-40 h-36 max-sm:pb-2 max-sm:w-40 ${backgroundImage ? "border-none" : "border-white border-solid"
+        }`}
     >
       {backgroundImage ? (
         ""

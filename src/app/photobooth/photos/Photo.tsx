@@ -12,7 +12,7 @@ type PhotoProps = {
 const Photo = ({ preview, handleFileChange, backgroundImage }: PhotoProps) => {
   const { changeColor } = usePhotobooth();
   return (
-    <div className="flex flex-col items-center m-1">
+    <div data-test-id="Photo" className="flex flex-col items-center m-1">
       <label
         htmlFor="avatarInput"
         className={` ${preview ? "cursor-not-allowed" : "cursor-pointer"}`}
