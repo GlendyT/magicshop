@@ -41,11 +41,9 @@ const Photobooth = () => {
     setOpenModal,
     handleFileChange,
     backgroundImage,
-    handleSelection,
   }: PhotoboothProps = usePhotobooth();
   const { getProcessedImage, resetStates } = useImageCrop();
   const { usuario } = useRequestInfo();
-  const { diseño } = usuario;
 
   const handleDone = async (): Promise<File | undefined> => {
     const avatar = await getProcessedImage();
@@ -82,9 +80,8 @@ const Photobooth = () => {
           }
         /> */}
         <div
-          className={`pt-10 relative object-cover bg-center bg-no-repeat ${
-            backgroundImage ? "px-10 bg-transparent" : "px-2 bg-purple-500 pb-4"
-          }`}
+          className={`pt-10 relative object-cover bg-center bg-no-repeat ${backgroundImage ? "px-10 bg-transparent" : "px-2 bg-purple-500 pb-4"
+            }`}
           id="print"
         >
           {backgroundImage && (
@@ -98,6 +95,7 @@ const Photobooth = () => {
           )}
           <div className="relative z-0 flex flex-col items-center">
             <Photo
+
               handleFileChange={handleFileChange}
               preview={preview1}
               backgroundImage={backgroundImage}
