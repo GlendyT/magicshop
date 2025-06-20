@@ -31,6 +31,7 @@ const Formulario = () => {
           </h1>
         </div>
         <form
+          data-testid="form"
           className={`mt-5 flex flex-col gap-2 ${dmmono.className}`}
           onSubmit={handleSubmit}
         >

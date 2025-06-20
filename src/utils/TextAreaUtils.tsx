@@ -12,7 +12,7 @@ const TextAreaUtils = ({ label, placeholder }: TextAreaProps) => {
   } = useRequestInfo();
   const { content } = usuario;
   return (
-    <div className="">
+    <div data-testid="textarea" className="">
       <label className="flex float-start text-sm mb-2" htmlFor="descripcion">
         {label}
       </label>

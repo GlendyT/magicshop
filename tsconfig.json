@@ -46,7 +46,7 @@
         "app/sugaverse/*"
       ],
       "@/hobipalooza/*": [
-        "app/hobipalooza*"
+        "app/hobipalooza/*"
       ],
       "@/vpassport/*": [
         "app/vpassport/*"
