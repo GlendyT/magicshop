@@ -10,6 +10,7 @@ export const ButtonUtils = ({
 }: ButtonProps) => {
   return (
     <button
+     data-testid="button"
       className={`flex justify-center  gap-2 font-bold transition-all ${className} rounded-xl ${disableColors} `}
       onClick={onClick}
       disabled={disabled}

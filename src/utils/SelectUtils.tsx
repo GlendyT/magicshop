@@ -24,6 +24,7 @@ const SelectUtils = ({
         onChange={usuarioGenerado}
         disabled={disabled}
         className={` ${className}`}
+        data-testid="select"
       >
         <option value="" className="text-black">
           {placeholder}
