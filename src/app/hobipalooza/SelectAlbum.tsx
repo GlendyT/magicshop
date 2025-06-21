@@ -23,6 +23,7 @@ const SelectAlbum = () => {
         disabled={!name}
         placeholder="Choose your favorite"
         className={`${commonstyleSelect}`}
+        
       />
 
       <SelectUtils
@@ -33,6 +34,7 @@ const SelectAlbum = () => {
         disabled={!diseño}
         placeholder={selectedAlbum ? "Choose a Song" : "Select an album first"}
         className={`${commonstyleSelect} mb-3`}
+        
       />
     </div>
   );
