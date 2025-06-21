@@ -15,7 +15,7 @@ jest.mock("@/utils/Fonts", () => ({
 jest.mock("@/utils/SelectUtils", () => ({
     __esModule: true,
     default: (props: any) => (
-        <select data-testid="select-utils" {...props}>
+        <select data-testid="select" {...props}>
             <option value="">Test Option</option>
         </select>
     ),
@@ -24,21 +24,21 @@ jest.mock("@/utils/SelectUtils", () => ({
 jest.mock("@/utils/TextAreaUtils", () => ({
     __esModule: true,
     default: (props: any) => (
-        <textarea data-testid="textarea-utils" {...props} />
+        <textarea data-testid="textarea" {...props} />
     ),
 }));
 
 jest.mock("@/utils/InputNameUtils", () => ({
     __esModule: true,
     default: (props: any) => (
-        <input data-testid="input-name-utils" {...props} />
+        <input data-testid="input" {...props} />
     ),
 }));
 
 jest.mock("@/utils/ButtonUtils", () => ({
     __esModule: true,
     ButtonUtils: (props: any) => (
-        <button data-testid="button-utils" {...props}>
+        <button data-testid="button" {...props}>
             {props.label}
         </button>
     ),
@@ -74,10 +74,10 @@ describe("Formulario", () => {
         ).toBeInTheDocument();
 
         expect(screen.getByTestId("form")).toBeInTheDocument();
-        expect(screen.getByTestId("textarea-utils")).toBeInTheDocument();
-        expect(screen.getByTestId("input-name-utils")).toBeInTheDocument();
-        expect(screen.getByTestId("select-utils")).toBeInTheDocument();
-        expect(screen.getByTestId("button-utils")).toBeInTheDocument();
+        expect(screen.getByTestId("textarea")).toBeInTheDocument();
+        expect(screen.getByTestId("input")).toBeInTheDocument();
+        expect(screen.getByTestId("select")).toBeInTheDocument();
+        expect(screen.getByTestId("button")).toBeInTheDocument();
     });
 
     it("llama a handleSubmit al enviar el formulario", () => {
@@ -98,7 +98,7 @@ describe("Formulario", () => {
         });
 
         render(<Formulario />);
-        const input = screen.getByTestId("input-name-utils");
+        const input = screen.getByTestId("input");
         expect(input).toBeDisabled();
     });
 
@@ -113,7 +113,7 @@ describe("Formulario", () => {
         });
 
         render(<Formulario />);
-        const select = screen.getByTestId("select-utils");
+        const select = screen.getByTestId("select");
         expect(select).toBeDisabled();
     });
 
@@ -128,7 +128,7 @@ describe("Formulario", () => {
         });
 
         render(<Formulario />);
-        const button = screen.getByTestId("button-utils");
+        const button = screen.getByTestId("button");
         expect(button).toBeDisabled();
     });
 });
