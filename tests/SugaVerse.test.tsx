@@ -11,12 +11,19 @@ jest.mock("@/utils/Fonts", () => ({
     pixel: { className: "pixel" },
 }));
 
-// Mock de componentes personalizados
+// Mocks de componentes personalizados con onChange
 jest.mock("@/utils/SelectUtils", () => ({
     __esModule: true,
     default: (props: any) => (
-        <select data-testid="select" {...props}>
+        <select
+            data-testid="select"
+            value={props.value}
+            onChange={props.onChange || (() => { })}
+            disabled={props.disabled}
+            className={props.className}
+        >
             <option value="">Test Option</option>
+            <option value="D-Day">D-Day</option>
         </select>
     ),
 }));
@@ -24,21 +31,38 @@ jest.mock("@/utils/SelectUtils", () => ({
 jest.mock("@/utils/TextAreaUtils", () => ({
     __esModule: true,
     default: (props: any) => (
-        <textarea data-testid="textarea" {...props} />
+        <textarea
+            data-testid="textarea"
+            value={props.value}
+            onChange={props.onChange || (() => { })}
+            disabled={props.disabled}
+            className={props.className}
+        />
     ),
 }));
 
 jest.mock("@/utils/InputNameUtils", () => ({
     __esModule: true,
     default: (props: any) => (
-        <input data-testid="input" {...props} />
+        <input
+            data-testid="input"
+            value={props.value}
+            onChange={props.onChange || (() => { })}
+            disabled={props.disabled}
+            className={props.className}
+        />
     ),
 }));
 
 jest.mock("@/utils/ButtonUtils", () => ({
     __esModule: true,
     ButtonUtils: (props: any) => (
-        <button data-testid="button" {...props}>
+        <button
+            data-testid="button"
+            onClick={props.onClick}
+            disabled={props.disabled}
+            className={props.className}
+        >
             {props.label}
         </button>
     ),
@@ -130,5 +154,28 @@ describe("Formulario", () => {
         render(<Formulario />);
         const button = screen.getByTestId("button");
         expect(button).toBeDisabled();
+    });
+
+    // 🔄 Nuevas pruebas de interacción con onChange
+
+    it("permite escribir en el textarea", () => {
+        render(<Formulario />);
+        const textarea = screen.getByTestId("textarea");
+        fireEvent.change(textarea, { target: { value: "Nuevas letras" } });
+        expect((textarea as HTMLTextAreaElement).value).toBe("Nuevas letras");
+    });
+
+    it("permite escribir el nombre en el input", () => {
+        render(<Formulario />);
+        const input = screen.getByTestId("input");
+        fireEvent.change(input, { target: { value: "Min Yoongi" } });
+        expect((input as HTMLInputElement).value).toBe("Min Yoongi");
+    });
+
+    it("permite seleccionar una canción en el select", () => {
+        render(<Formulario />);
+        const select = screen.getByTestId("select") as HTMLSelectElement;
+        fireEvent.change(select, { target: { value: "D-Day" } });
+        expect(select.value).toBe("D-Day");
     });
 });

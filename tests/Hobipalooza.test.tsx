@@ -3,130 +3,93 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import Formulario from "@/hobipalooza/Formulario";
 import useRequestInfo from "@/hooks/useRequestInfo";
 
-
+// ✅ Mocks de fuentes
 jest.mock("@/utils/Fonts", () => ({
     __esModule: true,
     providence: { className: "providence" },
-}))
+}));
 
+// ✅ Mock de InputNameUtils (default export)
 jest.mock("@/utils/InputNameUtils", () => ({
     __esModule: true,
     default: (props: any) => (
-        <input data-testid="input-namehobi" {...props} />
+        <input data-testid="input" {...props} />
     )
-}))
+}));
+
+jest.mock("@/utils/ButtonUtils", () => ({
+    __esModule: true,
+    ButtonUtils: (props: any) => (
+        <button
+            data-testid="button-utils"
+            onClick={props.onClick}
+            className={`${props.className} ${props.disableColors}`}
+            disabled={props.disabled}
+        >
+            {props.label}
+        </button>
+    )
+}));
 
 
-// jest.mock("@/utils/SelectUtils", () => ({
-//     __esModule: true,
-//     default: (props: any) => (
-//         <select data-testid="select-utilshobi" {...props}>
-//             <option value="">Test Option</option>
-//         </select>
-//     )
-// }))
+// ✅ Mock de SelectAlbum (default export desde misma carpeta)
+jest.mock("../src/app/hobipalooza/SelectAlbum", () => ({
+    __esModule: true,
+    default: (props: any) => (
+        <select data-testid="select-utilshobi" {...props}>
+            <option value="">Option</option>
+        </select>
+    )
+}));
 
-// jest.mock("@/utils/SelectUtils", () => ({
-//     __esModule: true,
-//     default: (props: any) => (
-//         <select data-testid="selectsong-utilshobi" {...props}>
-//             <option value="">Test Option</option>
-//         </select>
-//     )
-// }))
-
-
-// jest.mock("@/utils/ButtonUtils", () => ({
-//     __esModule: true,
-//     ButtonUtils: (props: any) => (
-//         <button data-testid="button-utils" {...props}>
-//             {props.label}
-//         </button>
-//     )
-// }))
-
-//TODO: Mock del hook
-
-const mockHandleSubmit = jest.fn()
+// ✅ Mock del hook useRequestInfo
+const mockHandleSubmit = jest.fn();
 
 jest.mock("@/hooks/useRequestInfo", () => ({
     __esModule: true,
     default: jest.fn()
-}))
+}));
 
-describe("Formulario", () => {
+describe("Formulario Hobipalooza", () => {
     beforeEach(() => {
         (useRequestInfo as jest.Mock).mockReturnValue({
             handleSubmit: mockHandleSubmit,
             usuario: {
-                name: "Test name",
+                name: "Glendy",
                 diseño: "Hope World",
                 song: "Airplane"
             }
-        })
-    })
+        });
+    });
 
     it("renderiza correctamente todos los elementos", () => {
-        render(<Formulario />)
+        render(<Formulario />);
+        expect(screen.getByAltText(/hobipalooza/i)).toBeInTheDocument();
+        expect(screen.getByTestId("form")).toBeInTheDocument();
+        expect(screen.getByTestId("input")).toBeInTheDocument();
+        expect(screen.getByTestId("select-utilshobi")).toBeInTheDocument();
+        expect(screen.getByTestId("button-utils")).toBeInTheDocument();
+    });
 
-        expect(screen.getByAltText(/hobipalooza/i)).toBeInTheDocument()
-        expect(screen.getByTestId("form")).toBeInTheDocument()
-        expect(screen.getByTestId("input-namehobi")).toBeInTheDocument()
-        // expect(screen.getByTestId("select-utilshobi")).toBeInTheDocument()
-        // expect(screen.getByTestId("selectsong-utilshobi")).toBeInTheDocument()
-        // expect(screen.getByTestId("button-utils")).toBeInTheDocument()
-    })
+    it("llama a handleSubmit al enviar el formulario", () => {
+        render(<Formulario />);
+        const form = screen.getByTestId("form");
+        fireEvent.submit(form);
+        expect(mockHandleSubmit).toHaveBeenCalled();
+    });
 
-    it("llama a handle submit al enviar el formulario", () => {
-        render(<Formulario />)
-        const form = screen.getByTestId("form")
-        fireEvent.submit(form)
-        expect(mockHandleSubmit).toHaveBeenCalled()
-    })
+    it("desactiva el botón si no hay canción", () => {
+        (useRequestInfo as jest.Mock).mockReturnValueOnce({
+            handleSubmit: mockHandleSubmit,
+            usuario: {
+                name: "Glendy",
+                diseño: "Hope World",
+                song: "" // Sin canción
+            }
+        });
 
-    // it("desactive el campo de select si no hay nombre", () => {
-    //     (useRequestInfo as jest.Mock).mockReturnValue({
-    //         handleSubmit: mockHandleSubmit,
-    //         usuario: {
-    //             name: "",
-    //             // diseño: "",
-    //             // song: ""
-    //         }
-    //     })
-
-    //     render(<Formulario />)
-    //     const select = screen.getByTestId("select-utilshobi")
-    //     expect(select).toBeDisabled()
-    // })
-
-    //     it("desactive el campo de select si no diseño", () => {
-    //     (useRequestInfo as jest.Mock).mockReturnValue({
-    //         handleSubmit: mockHandleSubmit,
-    //         usuario: {
-    //             name: "Texto",
-    //             diseño: "Hope World",
-    //             song: ""
-    //         }
-    //     })
-
-    //     render(<Formulario />)
-    //     const select = screen.getByTestId("selectsong-utilshobi")
-    //     expect(select).toBeDisabled()
-    // })
-
-    // it("desactiva el boton si no hay diseño", () => {
-    //     (useRequestInfo as jest.Mock).mockReturnValue({
-    //         handleSubmit: mockHandleSubmit,
-    //         usuario: {
-    //             name: "Texto",
-    //             diseño: "Hope World",
-    //             song: ""
-    //         }
-    //     })
-
-    //     render(<Formulario />)
-    //     const button = screen.getByTestId("button-utils")
-    //     expect(button).toBeDisabled()
-    // })
-
-})
+        render(<Formulario />);
+        const button = screen.getByTestId("button-utils");
+        expect(button).toBeDisabled();
+    });
+});
