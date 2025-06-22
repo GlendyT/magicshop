@@ -26,7 +26,7 @@ const Formulario = () => {
             placeholder="Use your X @username"
             className="w-full bg-white text-black border-black placeholder:text-gray-400 text-center"
           />
-          <SelectAlbum data-testid="select-utilshobi" />
+          <SelectAlbum />
           <ButtonUtils
             label="Generate Card"
             disabled={!song}
