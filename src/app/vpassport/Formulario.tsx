@@ -2,6 +2,7 @@ import useRequestInfo from "@/hooks/useRequestInfo";
 import { ButtonUtils } from "@/utils/ButtonUtils";
 import { michroma } from "@/utils/Fonts";
 import InputNameUtils from "@/utils/InputNameUtils";
+import { test } from '@playwright/test';
 
 const Formulario = () => {
   const { usuario, handleSubmit } = useRequestInfo();
@@ -12,6 +13,7 @@ const Formulario = () => {
         <form
           className={`backdrop-blur-xl bg-black/50 rounded-xl p-4 flex flex-col gap-6 text-white max-sm:text-xs ${michroma.className}`}
           onSubmit={handleSubmit}
+          data-testid="form"
         >
           <label
             className={`flex float-start text-sm text-white uppercase font-bold justify-center ${michroma.className}`}
