@@ -5,6 +5,7 @@ import { hobiPersonalized } from "./Data/hobiPersonalized";
 import { ButtonUtils } from "@/utils/ButtonUtils";
 import InputNameUtils from "@/utils/InputNameUtils";
 import InputContentUtils from "@/utils/InputContentUtils";
+import { test } from '@playwright/test';
 
 const Formulario = () => {
   const {
@@ -24,6 +25,7 @@ const Formulario = () => {
         <form
           className={`backdrop-blur-sm bg-black/40 rounded-xl p-4 flex flex-col gap-4 max-sm:gap-2 ${providence.className}`}
           onSubmit={handleSubmit}
+          data-testid="form"
         >
           <InputNameUtils
             className="text-black text-base placeholder:text-gray-400 bg-white border border-gray-300"
