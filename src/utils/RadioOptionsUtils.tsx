@@ -13,19 +13,18 @@ const RadioOptionsUtils = ({
   disabled,
 }: SelectUtilsProps) => {
   return (
-    <div className={`${className}`}>
+    <div className={`${className}`} data-testid="radio-options">
       {options.map((option) => {
         const isSelected = checked === option.name;
         return (
           <label
             key={option.id}
             htmlFor={`${id}-${option.id}`}
-            className={`${labelStyles} ${
-              disabled || option.disabled ? "cursor-not-allowed opacity-50" : ""
-            }`}
+            className={`${labelStyles} ${disabled || option.disabled ? "cursor-not-allowed opacity-50" : ""
+              }`}
             title={option.disabled ? 'COMING SOON' : undefined}
           >
-           {option.name}
+            {option.name}
             <input
               id={`${id}-${option.id}`}
               name={name}
@@ -37,9 +36,8 @@ const RadioOptionsUtils = ({
               disabled={disabled || option.disabled}
             />
             <span
-              className={`w-4 h-4 rounded ${
-                spanStyles?.(option, isSelected) ?? ""
-              }`}
+              className={`w-4 h-4 rounded ${spanStyles?.(option, isSelected) ?? ""
+                }`}
             ></span>
           </label>
         );

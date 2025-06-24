@@ -33,6 +33,7 @@ const InputContentUtils = ({ placeholder, className, from }: InputContentProps) 
         placeholder={placeholder}
         className={`${className}`}
         disabled={!name}
+        data-testid="input-content"
       />
     </div>
   );
