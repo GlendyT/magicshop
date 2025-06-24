@@ -34,11 +34,10 @@ const Formulario = () => {
 
           <InputContentUtils
             placeholder="Write your country or city"
-            className={`appearance-none border rounded w-full py-2 px-3 text-black bg-white placeholder:text-gray-400 leading-tight focus:outline-none focus:shadow-outline resize-none disabled:cursor-not-allowed disabled:bg-black/20 disabled:border-none ${
-              isMaxCharLimitReachedH
+            className={`appearance-none border rounded w-full py-2 px-3 text-black bg-white placeholder:text-gray-400 leading-tight focus:outline-none focus:shadow-outline resize-none disabled:cursor-not-allowed disabled:bg-black/20 disabled:border-none ${isMaxCharLimitReachedH
                 ? "border-red-500 text-red-500"
                 : "border-gray-300"
-            }`}
+              }`}
           />
 
           <RadioOptions
@@ -66,21 +65,23 @@ const Formulario = () => {
             />
           </div>
         </form>
-        <div
-          className={`${providence.className} ${
-            diseño
-              ? "{`relative px-10 py-4 max-sm:px-2 max-sm:py-8 backdrop-blur-sm bg-black/20 rounded-3xl  my-2 text-center font-providence transition-transform delay-150 text-black max-sm:backdrop-blur-sm max-sm:bg-black/40 p-4 gap-4 sm:justify-center items-center max-sm:text-xs `}"
-              : "hidden"
-          } `}
-        >
-          Let&apos;s welcome Hobi with a special card
-          <p className="text-xs text-black/40 max-sm:text-xs ">
-            This message will be shown in korean
-          </p>
-          &quot;Welcome home, Jung Hoseok! We missed you and we are proud of
-          you. Our sunshine is home. Wishing you all the best of luck. Sending
-          you all of our love.&quot;
-        </div>
+        {diseño && (
+          <div
+            className={`${providence.className} ${diseño
+                ? "{`relative px-10 py-4 max-sm:px-2 max-sm:py-8 backdrop-blur-sm bg-black/20 rounded-3xl  my-2 text-center font-providence transition-transform delay-150 text-black max-sm:backdrop-blur-sm max-sm:bg-black/40 p-4 gap-4 sm:justify-center items-center max-sm:text-xs `}"
+                : "hidden"
+              } `}
+          >
+            Let&apos;s welcome Hobi with a special card
+            <p className="text-xs text-black/40 max-sm:text-xs ">
+              This message will be shown in korean
+            </p>
+            &quot;Welcome home, Jung Hoseok! We missed you and we are proud of
+            you. Our sunshine is home. Wishing you all the best of luck. Sending
+            you all of our love.&quot;
+          </div>
+        )}
+
       </div>
     </div>
   );

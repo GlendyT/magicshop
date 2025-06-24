@@ -3,22 +3,25 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import Formulario from "@/hopeisback/Formulario";
 import useRequestInfo from "@/hooks/useRequestInfo";
 
+// Mocks de fuentes
 jest.mock("@/utils/Fonts", () => ({
     __esModule: true,
     providence: { className: "providence" },
 }));
 
+// Mock del input de nombre
 jest.mock("@/utils/InputNameUtils", () => ({
     __esModule: true,
     default: (props: any) => <input data-testid="input" {...props} />,
 }));
 
+// Mock del input de contenido
 jest.mock("@/utils/InputContentUtils", () => ({
     __esModule: true,
     default: (props: any) => (
         <input
             data-testid="input-content"
-            value={props.value}
+            value={props.value || ""}
             onChange={props.onChange || (() => { })}
             disabled={props.disabled}
             className={props.className}
@@ -26,6 +29,7 @@ jest.mock("@/utils/InputContentUtils", () => ({
     ),
 }));
 
+// Mock del botón
 jest.mock("@/utils/ButtonUtils", () => ({
     __esModule: true,
     ButtonUtils: (props: any) => (
@@ -40,6 +44,7 @@ jest.mock("@/utils/ButtonUtils", () => ({
     ),
 }));
 
+// Mock de radio options
 jest.mock("@/utils/RadioOptionsUtils", () => ({
     __esModule: true,
     default: (props: any) => (
@@ -59,19 +64,22 @@ jest.mock("@/utils/RadioOptionsUtils", () => ({
             ))}
         </div>
     ),
-}))
+}));
 
+// Mock de hook
 const mockHandleSubmit = jest.fn();
-
 jest.mock("@/hooks/useRequestInfo", () => ({
     __esModule: true,
     default: jest.fn(),
 }));
 
-describe("Formulario Hobisback", () => {
+describe("Formulario", () => {
     beforeEach(() => {
         (useRequestInfo as jest.Mock).mockReturnValue({
             handleSubmit: mockHandleSubmit,
+            isMobile: false,
+            isMaxCharLimitReachedH: false,
+            usuarioGenerado: jest.fn(),
             usuario: {
                 name: "Glendy",
                 content: "guatemala",
@@ -96,19 +104,70 @@ describe("Formulario Hobisback", () => {
         expect(mockHandleSubmit).toHaveBeenCalled();
     });
 
-    it("desactive el campo de contenido si no hay nombre", () => {
+    it("mantiene habilitado el campo de contenido si hay nombre", () => {
         (useRequestInfo as jest.Mock).mockReturnValue({
             handleSubmit: mockHandleSubmit,
+            isMobile: false,
+            isMaxCharLimitReachedH: false,
+            usuarioGenerado: jest.fn(),
             usuario: {
-                name: "",
-                content: "",
-                diseño: ""
+                name: "Glendy", // ✅
+                content: "guatemala",
+                diseño: "",
+            },
+            charCount: 10,
+            handleContentH: jest.fn(),
+            maxCharLimitH: 20,
+        });
 
-            }
-        })
+        render(<Formulario />);
+        const content = screen.getByTestId("input-content");
+        expect(content).not.toBeDisabled();
+    });
 
-        render(<Formulario />)
-        const input = screen.getByTestId("input-content");
-        expect(input).toBeDisabled();
-    })
+
+    it("muestra mensaje especial cuando hay diseño seleccionado", () => {
+        render(<Formulario />);
+        expect(screen.getByText(/Let's welcome Hobi/i)).toBeInTheDocument();
+        expect(
+            screen.getByText(/Welcome home, Jung Hoseok!/i)
+        ).toBeInTheDocument();
+    });
+
+    it("no muestra mensaje especial si no hay diseño", () => {
+        (useRequestInfo as jest.Mock).mockReturnValue({
+            handleSubmit: mockHandleSubmit,
+            isMobile: false,
+            isMaxCharLimitReachedH: false,
+            usuarioGenerado: jest.fn(),
+            usuario: {
+                name: "Glendy",
+                content: "guatemala",
+                diseño: "",
+            },
+        });
+
+        render(<Formulario />);
+        expect(
+            screen.queryByText(/Let's welcome Hobi/i)
+        ).not.toBeInTheDocument();
+    });
+
+    it("botón está deshabilitado si no hay diseño", () => {
+        (useRequestInfo as jest.Mock).mockReturnValue({
+            handleSubmit: mockHandleSubmit,
+            isMobile: false,
+            isMaxCharLimitReachedH: false,
+            usuarioGenerado: jest.fn(),
+            usuario: {
+                name: "Glendy",
+                content: "guatemala",
+                diseño: "",
+            },
+        });
+
+        render(<Formulario />);
+        const button = screen.getByTestId("button-utils");
+        expect(button).toBeDisabled();
+    });
 });
