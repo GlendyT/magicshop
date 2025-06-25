@@ -18,7 +18,7 @@ const Formulario = () => {
           Love Notes with BTS and ARMY
         </h3>
       </div>
-      <form className="mt-5 flex flex-col gap-2" onSubmit={handleSubmit}>
+      <form data-testid="form" className="mt-5 flex flex-col gap-2" onSubmit={handleSubmit}>
         <InputNameUtils
           from="To"
           placeholder="Whom"
