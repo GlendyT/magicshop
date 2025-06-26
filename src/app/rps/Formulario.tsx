@@ -15,7 +15,7 @@ const Formulario = () => {
             Rock-Paper-Scissors
           </h3>
         </div>
-        <form className=" gap-2 flex flex-col" onSubmit={handleSubmit}>
+        <form data-testid="form" className=" gap-2 flex flex-col" onSubmit={handleSubmit}>
           <InputNameUtils
             placeholder="write one name"
             className="placeholder:text-violet-600 bg-transparent"
