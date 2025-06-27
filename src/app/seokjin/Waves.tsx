@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Waves = () => {
   return (
-    <div className="header">
+    <div data-testid="waves" className="header">
       <svg
         className="waves"
         xmlns="http://www.w3.org/2000/svg"

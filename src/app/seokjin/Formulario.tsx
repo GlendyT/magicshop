@@ -19,6 +19,7 @@ const Formulario = () => {
               <form
                 className="backdrop-blur-xl bg-black/50 rounded-xl p-4 flex flex-col gap-6 max-sm:text-xs "
                 onSubmit={handleSubmit}
+                data-testid="form"
               >
                 <label
                   className="flex float-start text-xs max-sm:text-xs text-white text-center uppercase font-bold justify-center"
@@ -32,9 +33,8 @@ const Formulario = () => {
                 />
                 <ButtonUtils
                   label={name ? "Unlocked" : "Lock"}
-                  className={`w-full uppercase text-lg max-sm:text-xs flex items-center text-white py-2 rounded ${
-                    name ? "bg-blue-900" : "bg-blue-950"
-                  }`}
+                  className={`w-full uppercase text-lg max-sm:text-xs flex items-center text-white py-2 rounded ${name ? "bg-blue-900" : "bg-blue-950"
+                    }`}
                   disabled={!name}
                   onClick={handleCloseModal}
                   icon={

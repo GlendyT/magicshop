@@ -5,7 +5,6 @@ import InputNameUtils from "@/utils/InputNameUtils";
 import RadioOptionsUtils from "@/utils/RadioOptionsUtils";
 import InputContentUtils from "@/utils/InputContentUtils";
 import { festaBts } from "./data";
-import Link from "next/link";
 
 export default function Formulario() {
   const {
@@ -30,6 +29,7 @@ export default function Formulario() {
     <div className="w-96 text-white max-sm:text-sx max-sm:px-0 mx:sm:py-1">
       <div className="max-sm:px-10 max-sm:py-10">
         <form
+          data-testid="form"
           className={`backdrop-blur-sm bg-black/40 rounded-xl p-4 flex flex-col gap-4 max-sm:gap-2 ${providence.className}`}
           onSubmit={handleSubmit}
         >
@@ -40,11 +40,10 @@ export default function Formulario() {
 
           <InputContentUtils
             placeholder="Write your country or city"
-            className={`appearance-none border rounded w-full py-2 px-3 text-black bg-white placeholder:text-gray-400 leading-tight focus:outline-none focus:shadow-outline resize-none disabled:cursor-not-allowed disabled:bg-black/20 disabled:border-none ${
-              isMaxCharLimitReachedH
+            className={`appearance-none border rounded w-full py-2 px-3 text-black bg-white placeholder:text-gray-400 leading-tight focus:outline-none focus:shadow-outline resize-none disabled:cursor-not-allowed disabled:bg-black/20 disabled:border-none ${isMaxCharLimitReachedH
                 ? "border-red-500 text-red-500"
                 : "border-gray-300"
-            }`}
+              }`}
           />
 
           <RadioOptionsUtils
