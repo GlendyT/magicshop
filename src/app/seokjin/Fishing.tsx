@@ -19,7 +19,7 @@ const Fishing = () => {
     handleCloseandRestart,
   } = useFish();
   return (
-    <div className="flex flex-col px-20 max-sm:px-8 items-center  gap-4 relative z-10 max-sm:gap-2">
+    <div data-testid="fishing" className="flex flex-col px-20 max-sm:px-8 items-center  gap-4 relative z-10 max-sm:gap-2">
       <div className="relative inline-block">
         <Image
           src={

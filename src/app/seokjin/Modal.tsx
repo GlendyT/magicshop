@@ -12,7 +12,7 @@ const Modal = () => {
   const { name } = usuario;
 
   return (
-    <div className="flex flex-col justify-center items-center inset-10 z-40">
+    <div data-testid="modal" className="flex flex-col justify-center items-center inset-10 z-40">
       <div className=" my-2 mx-auto">
         <div className="relative font-pressgame" id="print">
           <Image
