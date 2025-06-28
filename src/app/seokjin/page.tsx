@@ -8,7 +8,7 @@ import Waves from "./Waves";
 import { pressgame } from "@/utils/Fonts";
 
 const Seokjin = () => {
-  const { showModal, isWinner, isLoser, show } = useFish();
+  const { showModal, isWinner, show } = useFish();
   return (
     <div
       className={`bg-[#2b74ce] flex flex-col min-h-screen justify-center ${pressgame.className}`}
