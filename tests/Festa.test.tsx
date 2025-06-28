@@ -3,19 +3,19 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import Formulario from "@/festa/Formulario";
 import useRequestInfo from "@/hooks/useRequestInfo";
 
-// Mocks de fuentes
+
 jest.mock("@/utils/Fonts", () => ({
     __esModule: true,
     providence: { className: "providence" },
 }));
 
-// Mock del input de nombre
+
 jest.mock("@/utils/InputNameUtils", () => ({
     __esModule: true,
     default: (props: any) => <input data-testid="input" {...props} />,
 }));
 
-// Mock del input de contenido
+
 jest.mock("@/utils/InputContentUtils", () => ({
     __esModule: true,
     default: (props: any) => (
@@ -29,7 +29,7 @@ jest.mock("@/utils/InputContentUtils", () => ({
     ),
 }));
 
-// Mock del botón
+
 jest.mock("@/utils/ButtonUtils", () => ({
     __esModule: true,
     ButtonUtils: (props: any) => (
@@ -44,7 +44,7 @@ jest.mock("@/utils/ButtonUtils", () => ({
     ),
 }));
 
-// Mock de radio options
+
 jest.mock("@/utils/RadioOptionsUtils", () => ({
     __esModule: true,
     default: (props: any) => (
@@ -66,7 +66,6 @@ jest.mock("@/utils/RadioOptionsUtils", () => ({
     ),
 }));
 
-// Mock de hook
 const mockHandleSubmit = jest.fn();
 jest.mock("@/hooks/useRequestInfo", () => ({
     __esModule: true,

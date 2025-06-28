@@ -7,7 +7,7 @@ import Image from "next/image";
 const Modal = () => {
   const { handleDownloadImage } = useDownload();
   const { usuario } = useRequestInfo();
-  const { isWinner, wordData, handleCloseandRestart, isLoser, setShow } =
+  const { isWinner, handleCloseandRestart, isLoser } =
     useFish();
   const { name } = usuario;
 
@@ -26,15 +26,6 @@ const Modal = () => {
               <span className="max-md:text-xs max-sm:text-[0.6rem] text-black">
                 {name}
               </span>
-              {/* {wordData.image && (
-                <Image
-                  src={wordData.image}
-                  alt="songbyjin"
-                  className="w-10 h-10 rounded-xl max-md:w-6 max-md:h-6 max-md:mt-6"
-                  width={100}
-                  height={100}
-                />
-              )} */}
             </div>
           </div>
         </div>
@@ -48,11 +39,10 @@ const Modal = () => {
         <ButtonUtils
           label={isWinner || isLoser ? "Play again" : ""}
           onClick={handleCloseandRestart}
-          className={` ${
-            isWinner || isLoser
+          className={` ${isWinner || isLoser
               ? "px-4 py-2 bg-black text-white rounded-xl hover:bg-slate-900 hover:text-white transition-all uppercase max-md:text-xs"
               : ""
-          }`}
+            }`}
         />
       </div>
     </div>
