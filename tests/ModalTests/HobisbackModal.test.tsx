@@ -69,7 +69,7 @@ describe("Access Word Modal", () => {
     }));
 
     jest.resetModules();
-    const ModalWithError = require("../src/app/hopeisback/Modal").default;
+    const ModalWithError = require("../../src/app/hopeisback/Modal").default;
     render(<ModalWithError />);
     expect(screen.getByRole("button", { name: /wrong, try again/i })).toBeInTheDocument();
   });
@@ -92,7 +92,7 @@ describe("Access Word Modal", () => {
     }));
 
     jest.resetModules();
-    const ModalWithSuccess = require("../src/app/hopeisback/Modal").default;
+    const ModalWithSuccess = require("../../src/app/hopeisback/Modal").default;
     render(<ModalWithSuccess />);
 
     const successButton = screen.getByRole("button", { name: /access granted!/i });

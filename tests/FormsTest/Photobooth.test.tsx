@@ -28,28 +28,28 @@ jest.mock("@/hooks/useRequestInfo", () => () => ({
     },
 }));
 
-jest.mock("../src/app/photobooth/photos/Photo", () => (props: any) => (
+jest.mock("../../src/app/photobooth/photos/Photo", () => (props: any) => (
     <div data-testid="Photo">Photo Component</div>
 ));
-jest.mock("../src/app/photobooth/photos/Photo2", () => (props: any) => (
+jest.mock("../../src/app/photobooth/photos/Photo2", () => (props: any) => (
     <div data-testid="Photo2">Photo2 Component</div>
 ));
-jest.mock("../src/app/photobooth/photos/Photo3", () => (props: any) => (
+jest.mock("../../src/app/photobooth/photos/Photo3", () => (props: any) => (
     <div data-testid="Photo3">Photo3 Component</div>
 ));
-jest.mock("../src/app/photobooth/Logo", () => () => (
+jest.mock("../../src/app/photobooth/Logo", () => () => (
     <div data-testid="Logo">Logo Component</div>
 ));
-jest.mock("../src/app/photobooth/PhotoButton", () => () => (
+jest.mock("../../src/app/photobooth/PhotoButton", () => () => (
     <button data-testid="PhotoButton">PhotoButton</button>
 ));
-jest.mock("../src/app/photobooth/ImageCropModalContent", () => (props: any) => (
+jest.mock("../../src/app/photobooth/ImageCropModalContent", () => (props: any) => (
     <div data-testid="ImageCropModalContent">
         <button onClick={props.handleDone}>Done</button>
         <button onClick={props.handleClose}>Close</button>
     </div>
 ));
-jest.mock("../src/app/photobooth/base/Modal", () => ({ children, open }: any) =>
+jest.mock("../../src/app/photobooth/base/Modal", () => ({ children, open }: any) =>
     open ? <div data-testid="Modal">{children}</div> : null
 );
 

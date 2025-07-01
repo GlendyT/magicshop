@@ -71,7 +71,7 @@ describe("Modal component", () => {
     }));
 
     jest.resetModules();
-    const ModalWithNoWinOrLose = require("../src/app/seokjin/Modal").default;
+    const ModalWithNoWinOrLose = require("../../src/app/seokjin/Modal").default;
 
     render(<ModalWithNoWinOrLose />);
     const playAgain = screen.queryByRole("button", { name: /play again/i });

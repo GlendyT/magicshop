@@ -33,7 +33,7 @@ jest.mock("@/utils/ButtonUtils", () => ({
 
 
 // ✅ Mock de SelectAlbum (default export desde misma carpeta)
-jest.mock("../src/app/hobipalooza/SelectAlbum", () => ({
+jest.mock("../../src/app/hobipalooza/SelectAlbum", () => ({
     __esModule: true,
     default: (props: any) => (
         <select data-testid="select-utilshobi" {...props}>
