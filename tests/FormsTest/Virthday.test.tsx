@@ -3,8 +3,8 @@ import { render, screen } from "@testing-library/react";
 import Virthday from "@/app/(V)irthday/page";
 
 // Mocks
-jest.mock("../src/app/(V)irthday/Formulario", () => () => <div data-testid="formulario">Formulario</div>);
-jest.mock("../src/app/(V)irthday/Resultado", () => ({ item }: any) => <div data-testid="resultado">{item.id2}</div>);
+jest.mock("../../src/app/(V)irthday/Formulario", () => () => <div data-testid="formulario">Formulario</div>);
+jest.mock("../../src/app/(V)irthday/Resultado", () => ({ item }: any) => <div data-testid="resultado">{item.id2}</div>);
 jest.mock("@/utils/Fonts", () => ({
   virthday: { className: "font-virthday" }
 }));
