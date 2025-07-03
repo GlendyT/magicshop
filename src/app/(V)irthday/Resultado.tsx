@@ -46,7 +46,3 @@ const Resultado = ({ item }: ResultadoProps) => {
 
 export default Resultado;
 
-/*${
-              timer === 50
-                ? "bg-black"
-            }*/
