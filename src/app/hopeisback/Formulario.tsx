@@ -5,7 +5,6 @@ import { hobiPersonalized } from "./Data/hobiPersonalized";
 import { ButtonUtils } from "@/utils/ButtonUtils";
 import InputNameUtils from "@/utils/InputNameUtils";
 import InputContentUtils from "@/utils/InputContentUtils";
-import { test } from '@playwright/test';
 
 const Formulario = () => {
   const {

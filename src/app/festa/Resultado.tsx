@@ -1,19 +1,17 @@
-import useDownload from "@/hooks/useDownload";
 import { providence } from "@/utils/Fonts";
 import useRequestInfo from "@/hooks/useRequestInfo";
 import { ButtonUtils } from "@/utils/ButtonUtils";
-import { festaBts } from "./data";
+import { festaBts } from "./data/festaBts";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import useDownload from "@/hooks/useDownload";
 
-export default function Resultado() {
+const Resultado = () => {
   const {
     usuario,
     handleResetContent,
     isMobile,
-    downloadLabel,
-    handleDownload,
   } = useRequestInfo();
+  const { handleDownloadImage} = useDownload()
   const { name, content, diseño } = usuario;
 
   const selectedStyleMember = isMobile
@@ -37,9 +35,8 @@ export default function Resultado() {
         )}
 
         <div
-          className={`absolute inset-0 flex flex-col font-extrabold items-center justify-end  rotate ${
-            isMobile ? "mb-16" : "pb-[5rem]"
-          }`}
+          className={`absolute inset-0 flex flex-col font-extrabold items-center justify-end  rotate ${isMobile ? "mb-16" : "pb-[5rem]"
+            }`}
           style={{ transform: "rotate(-12deg)" }}
         >
           <div
@@ -55,8 +52,8 @@ export default function Resultado() {
         className={`flex flex-row gap-3 justify-center pt-14 ${providence.className}`}
       >
         <ButtonUtils
-          label={downloadLabel}
-          onClick={handleDownload}
+          label="Download"
+          onClick={handleDownloadImage}
           className={`bg-black text-white py-4 px-2 uppercase cursor-pointer `}
         />
         <ButtonUtils
@@ -68,3 +65,5 @@ export default function Resultado() {
     </div>
   );
 }
+
+export default Resultado;
