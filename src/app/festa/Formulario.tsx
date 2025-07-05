@@ -4,7 +4,7 @@ import { providence } from "@/utils/Fonts";
 import InputNameUtils from "@/utils/InputNameUtils";
 import RadioOptionsUtils from "@/utils/RadioOptionsUtils";
 import InputContentUtils from "@/utils/InputContentUtils";
-import { festaBts } from "./data";
+import { festaBts } from "./data/festaBts";
 
 export default function Formulario() {
   const {
