@@ -17,7 +17,7 @@ const CardRPS = () => {
     setShowModal(!showModal);
   };
   return (
-    <div className="flex flex-col items-center justify-center px-4">
+    <div data-testid="card-rps" className="flex flex-col items-center justify-center px-4">
       <div
         className={`w-full py-4 rounded-t-xl bg-white/5 backdrop-blur-sm ${
           result === 1
