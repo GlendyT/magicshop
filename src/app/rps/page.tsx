@@ -13,7 +13,7 @@ const RPS = () => {
         <div
           className={`rounded-xl bg-purple-100/25 backdrop-blur-md shadow-lg ${rock.className}`}
         >
-          <h1 className="text-2xl max-md:text-xl pt-6 text-center font-extrabold uppercase max-sm:text-xs pb-2">
+          <h1 data-testid="title" className="text-2xl max-md:text-xl pt-6 text-center font-extrabold uppercase max-sm:text-xs pb-2">
             Let´s play
           </h1>
           {cargando ? <Formulario /> : resultado && <CardRPS />}

@@ -4,7 +4,7 @@ import Formulario from './Formulario'
 import Resultado from './Resultado';
 import useRequestInfo from '@/hooks/useRequestInfo';
 
-export default function page() {
+export default function Festa() {
 
    const { resultado, cargando } = useRequestInfo()
     
