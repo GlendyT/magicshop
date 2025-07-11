@@ -3,16 +3,19 @@ import React from "react";
 
 const Contact = () => {
   return (
-    <div className="relative w-full max-sm:w-full text-purple-500 text-[0.9rem] dark:text-[#1a012d] max-sm:text-[0.5rem] font-extrabold">
-      If you run into technical issues with the app, please reach out to:{" "}
-      <Link
-        className="  hover:text-violet-400 text-violet-300 dark:text-violet-700"
-        href="https://x.com/beyond_ARMY_"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        @Beyond_ARMY_
-      </Link> on X
+    <div className="flex absolute">
+      <div className="fixed bottom-0 left-0 w-full flex items-center justify-center text-center transition-all duration-150 max-sm:w-full text-[0.9rem] max-sm:text-[0.5rem] font-extrabold backdrop-blur-sm bg-black/10 dark:bg-white/30   text-white dark:text-purple-900  ">
+        If you run into technical issues with the app, please reach out to:{" "}
+        <Link
+          className=" text-purple-400 dark:text-purple-600  "
+          href="https://x.com/beyond_ARMY_"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          @Beyond_ARMY_
+        </Link>{" "}
+        on X
+      </div>
     </div>
   );
 };

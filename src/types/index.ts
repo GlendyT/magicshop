@@ -1,5 +1,5 @@
 import { GAME_MODES, GAME_STATES } from "@/tictactoe/Data/constants";
-import { indie } from "../utils/Fonts";
+import { render } from '@testing-library/react';
 import {
   ChangeEvent,
   CSSProperties,
@@ -86,7 +86,7 @@ export type BtsPhrases = {
   image: string;
 };
 export type ButtonProps = {
-  label: string;
+  label?: string ;
   onClick?: () => void;
   className?: string;
   icon?: ReactNode | undefined;
@@ -515,3 +515,19 @@ export type PlayerOptions = {
 };
 
 export type FestaBtsProps = hobiPersonalizedTypes;
+
+export type TetrisContextType = {
+  score: number
+  highScore: number
+  gameOver: boolean
+  renderBoard: () => Board
+  startGame: () => void
+  isPlaying: boolean
+  pauseGame: () => void
+  isPaused: boolean
+  movePiece: (dx: number, dy: number) => void
+  rotatePiece: () => void
+}
+
+export type Board = number[][];
+export type Piece = { shape: number[][]; x: number; y: number; color: number };
