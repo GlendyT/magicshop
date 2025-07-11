@@ -13,7 +13,8 @@ const Tetris = () => {
         >
 
         </div>
-        {cargando ? <Formulario /> : resultado && <Resultado />}
+        {/* {cargando ? <Formulario /> : resultado && <Resultado />} */}
+        <Resultado />
       </div>
     </div>
   );

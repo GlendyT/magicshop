@@ -34,18 +34,18 @@ const Sidebar = () => {
         <ButtonUtils
           icon={open ? <LuX /> : <LuAlignJustify />}
           onClick={() => setOpen(!open)}
-          className={`max-sm:block hidden  items-center justify-center w-14 h-12 bg-black/20 fixed focus:outline-none text-xl px-2 py-2 max-sm:dark:bg-purple-400 dark:text-[#1a012d] dark:bg-purple-400 text-black rounded-full z-70 ${
+          className={`max-sm:block hidden  items-center justify-center w-10 h-10999 bg-black/20 fixed focus:outline-none text-xl px-2 py-2  text-white rounded-full z-70 ${
             open ? "opacity-100" : "opacity-80"
           } `}
         />
         <div
-          className={`fixed flex flex-col items-center justify-center top-0 left-0 h-full p-4 transition-all duration-500 z-50 max-sm:px-4 overflow-y-auto ${
+          className={`fixed flex flex-col items-center justify-center left-0 h-full px-4 py-2  transition-all duration-500 z-50 max-sm:px-4 overflow-auto ${
             open
-              ? "bg-[#1a012d] dark:bg-purple-400 text-purple-200 dark:text-[#1a012d]"
-              : "max-sm:bg-transparent max-sm:dark:bg-transparent bg-[#1a012d] dark:bg-purple-100 text-purple-200 dark:text-[#1a012d]"
-          }  ${open ? "w-28 " : "max-sm:w-0 w-20 "}`}
+              ? "bg-[#1a012d]  text-purple-200 "
+              : "max-sm:bg-transparent max-sm:dark:bg-transparent bg-[#1a012d]  text-purple-200 "
+          }  ${open ? "w-28 " : "max-sm:w-0 w-20 pt-10 "}`}
         >
-          <div className=" space-y-6 font-extrabold  ">
+          <div className=" flex flex-col gap-2 ">
             <Link
               href="/"
               className={`flex flex-col items-center justify-center gap-2  text-xs transition-all duration-500 ${
@@ -62,7 +62,7 @@ const Sidebar = () => {
               />
               {/* The Magic Shop */}
             </Link>
-            <div className="flex flex-col w-auto  gap-2">
+            <div className="flex flex-col w-auto  gap-0">
               {LinkRoutes.map((linkroute) => (
                 <Link
                   key={linkroute.id}

@@ -22,6 +22,7 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
   const [gameOver, setGameOver] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [level, setLevel] = useState(1);
 
   const createPiece = (): Piece => ({
     shape: SHAPES[Math.floor(Math.random() * SHAPES.length)],
@@ -134,11 +135,18 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
   }, [currentPiece, gameOver, isPlaying]);
 
   useEffect(() => {
-    if (!isPlaying || isPaused || gameOver) return;
+    const newLevel = Math.floor(score / 1000) + 1;
+    setLevel(newLevel);
+  }, [score]);
 
-    const interval = setInterval(() => movePiece(0, 1), 500);
+  useEffect(() => {
+    if (!isPlaying || isPaused || gameOver) return;
+    const baseSpeed = 600;
+    const speed = Math.max(100, baseSpeed - (level - 1) * 100);
+
+    const interval = setInterval(() => movePiece(0, 1), speed);
     return () => clearInterval(interval);
-  }, [movePiece, isPlaying, gameOver, isPaused]);
+  }, [movePiece, isPlaying, gameOver, isPaused, level]);
 
   const renderBoard = () => {
     const displayBoard = board.map((row) => [...row]);
@@ -185,6 +193,7 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
         pauseGame,
         movePiece,
         rotatePiece,
+        level,
       }}
     >
       {children}

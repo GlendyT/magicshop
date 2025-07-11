@@ -19,47 +19,46 @@ const ButtonControls = () => {
     gameOver,
   } = useTetris();
   return (
-    <div className="flex flex-col items-center gap-2">
-      <div className="flex flex-row gap-2">
+    <div className="flex flex-col items-center gap-2 w-full p-2 bg-red-600 rounded-lg">
+      <div className="flex flex-row gap-4 items-center justify-start w-full">
+        <div className="flex flex-col gap-2 items-center justify-center  ">
+          <div className="flex flex-row gap-4">
+            <ButtonUtils
+              onClick={() => movePiece(-1, 0)}
+              className="bg-blue-950 text-white p-2 cursor-pointer flex items-center justify-center text-center drop-shadow-[0_5px_10px_#000000] hover:scale-105 transition-transform duration-200"
+              icon={<LuArrowLeft />}
+            />
+
+            <ButtonUtils
+              onClick={() => movePiece(1, 0)}
+              className="bg-blue-950 text-white p-2 cursor-pointer flex items-center justify-center text-center drop-shadow-[0_5px_10px_#000000] hover:scale-105 transition-transform duration-200  "
+              icon={<LuArrowRight />}
+            />
+          </div>
+          <ButtonUtils
+            onClick={() => movePiece(0, 1)}
+            className="bg-blue-950 text-white p-2 cursor-pointer flex items-center justify-center text-center drop-shadow-[0_5px_10px_#000000]  hover:scale-105 transition-transform duration-200 "
+            icon={<LuArrowDown />}
+          />
+        </div>
+        <div>
+          <ButtonUtils
+            onClick={rotatePiece}
+            className="bg-blue-950 text-white p-2 cursor-pointer flex items-center justify-center text-center drop-shadow-[0_5px_10px_#000000] hover:scale-105 transition-transform duration-200  "
+            icon={<LuRefreshCw />}
+          />
+        </div>
+      </div>
+      <div className="flex flex-row gap-2 items-end justify-end w-full">
         <ButtonUtils
           label={
-            !isPlaying || gameOver
-              ? "Start Game"
-              : isPaused
-              ? "Resume"
-              : "Pause"
+            !isPlaying || gameOver ? "Start" : isPaused ? "Resume" : "Pause"
           }
           onClick={!isPlaying || gameOver ? startGame : pauseGame}
           className={`${
             !isPlaying || gameOver ? "bg-green-500" : "bg-yellow-500"
-          } text-white px-4 py-2 rounded cursor-pointer`}
+          } text-white px-2 py-2 rounded cursor-pointer`}
         />
-      </div>
-      <div className="flex flex-row gap-2 sm:hidden">
-        <ButtonUtils
-          onClick={() => movePiece(-1, 0)}
-          className="bg-blue-600 text-white p-2 cursor-pointer flex items-center justify-center text-center"
-          icon={<LuArrowLeft />}
-        />
-        <ButtonUtils
-          onClick={() => movePiece(0, 1)}
-          className="bg-blue-600 text-white p-2 cursor-pointer flex items-center justify-center text-center"
-          icon={<LuArrowDown />}
-        />
-        <ButtonUtils
-          onClick={rotatePiece}
-          className="bg-blue-600 text-white p-2 cursor-pointer flex items-center justify-center text-center"
-          icon={<LuRefreshCw />}
-        />
-        <ButtonUtils
-          onClick={() => movePiece(1, 0)}
-          className="bg-blue-600 text-white p-2 cursor-pointer flex items-center justify-center text-center"
-          icon={<LuArrowRight />}
-        />
-      </div>
-      <div className=" text-center">
-        <div>Use arrow keys or buttons to play:</div>
-        <div>← → to move, ↓ to drop, ↑ to rotate</div>
       </div>
     </div>
   );
