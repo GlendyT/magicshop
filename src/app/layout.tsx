@@ -13,6 +13,8 @@ import { DarkProvider } from "@/context/DarkModeProvider";
 import Sidebar from "@/utils/Sidebar";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { TicTacToeProvider } from "@/context/TicTacToeProvider";
+import { TetrisProvider } from "@/context/TetrisProvider";
+import Contact from "@/utils/Contact";
 
 export const metadata: Metadata = {
   title: "The Magic Shop",
@@ -39,12 +41,15 @@ export default function RootLayout({
                     <FishProvider>
                       <RPSProvider>
                         <TicTacToeProvider>
-                          <Sidebar />
+                          <TetrisProvider>
+                            <Sidebar />
 
-                          {children}
-                          <GoogleAnalytics gaId="G-3SC31S5CBD" />
-                          <SpeedInsights />
-                          <Analytics />
+                            {children}
+                            <Contact />
+                            <GoogleAnalytics gaId="G-3SC31S5CBD" />
+                            <SpeedInsights />
+                            <Analytics />
+                          </TetrisProvider>
                         </TicTacToeProvider>
                       </RPSProvider>
                     </FishProvider>
