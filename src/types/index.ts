@@ -527,6 +527,7 @@ export type TetrisContextType = {
   isPaused: boolean
   movePiece: (dx: number, dy: number) => void
   rotatePiece: () => void
+  level: number;
 }
 
 export type Board = number[][];

@@ -2,7 +2,6 @@ import useRequestInfo from "@/hooks/useRequestInfo";
 import { ButtonUtils } from "@/utils/ButtonUtils";
 import { michroma } from "@/utils/Fonts";
 import InputNameUtils from "@/utils/InputNameUtils";
-import { test } from '@playwright/test';
 
 const Formulario = () => {
   const { usuario, handleSubmit } = useRequestInfo();

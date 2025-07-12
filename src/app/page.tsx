@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex justify-center transition-all duration-500 bg-[#1a012d] dark:bg-purple-100">
+    <div className="min-h-screen flex justify-center transition-all duration-500 bg-[#1a012d] ">
       <div className="flex flex-wrap items-center justify-center gap-2 py-4 px-8 max-sm:px-8 ">
         {LinkRoutes.map((linkrout) => (
           <Link
