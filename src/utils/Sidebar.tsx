@@ -34,7 +34,7 @@ const Sidebar = () => {
         <ButtonUtils
           icon={open ? <LuX /> : <LuAlignJustify />}
           onClick={() => setOpen(!open)}
-          className={`max-sm:block hidden  items-center justify-center w-10 h-10999 bg-black/20 fixed focus:outline-none text-xl px-2 py-2  text-white rounded-full z-70 ${
+          className={`max-sm:block hidden  items-center justify-center w-10 h-10 bg-black/20 fixed focus:outline-none text-xl px-2 py-2  text-white rounded-full z-70 ${
             open ? "opacity-100" : "opacity-80"
           } `}
         />
@@ -45,7 +45,7 @@ const Sidebar = () => {
               : "max-sm:bg-transparent max-sm:dark:bg-transparent bg-[#1a012d]  text-purple-200 "
           }  ${open ? "w-28 " : "max-sm:w-0 w-20 pt-10 "}`}
         >
-          <div className=" flex flex-col gap-2 ">
+          <div className=" flex flex-col gap-4 ">
             <Link
               href="/"
               className={`flex flex-col items-center justify-center gap-2  text-xs transition-all duration-500 ${
@@ -62,7 +62,7 @@ const Sidebar = () => {
               />
               {/* The Magic Shop */}
             </Link>
-            <div className="flex flex-col w-auto  gap-0">
+            <div className="flex flex-col w-auto  gap-3">
               {LinkRoutes.map((linkroute) => (
                 <Link
                   key={linkroute.id}

@@ -76,7 +76,7 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
 
   const movePiece = useCallback(
     (dx: number, dy: number) => {
-      if (!currentPiece || gameOver) return;
+      if (!currentPiece || gameOver || isPaused) return;
       if (isValidMove(currentPiece, dx, dy)) {
         setCurrentPiece((prev) =>
           prev ? { ...prev, x: prev.x + dx, y: prev.y + dy } : null
@@ -94,11 +94,11 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
         }
       }
     },
-    [currentPiece, board, gameOver]
+    [currentPiece, board, gameOver, isPaused]
   );
 
   const rotatePiece = () => {
-    if (!currentPiece || gameOver) return;
+    if (!currentPiece || gameOver || isPaused) return;
     const rotated = currentPiece.shape[0].map((_, i) =>
       currentPiece.shape.map((row) => row[i]).reverse()
     );
@@ -180,6 +180,20 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
     setIsPaused((prev) => !prev);
   };
 
+  const resetGame = () => {
+    setBoard(
+      Array(BOARD_HEIGHT)
+        .fill(null)
+        .map(() => Array(BOARD_WIDTH).fill(0))
+    );
+    setCurrentPiece(null);
+    setScore(0);
+    setGameOver(false);
+    setIsPaused(false);
+    setIsPlaying(false);
+    setLevel(1);
+  };
+
   return (
     <TetrisContext.Provider
       value={{
@@ -194,6 +208,7 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
         movePiece,
         rotatePiece,
         level,
+        resetGame
       }}
     >
       {children}
