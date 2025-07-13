@@ -18,6 +18,36 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #0f0822 #0d011e;
+}
+
+/* Para navegadores Webkit (Chrome, Safari, Edge) */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #04000c;
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #ff3d00, #ff6b35);
+  border-radius: 10px;
+  border: 1px solid #222;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #ff6b35, #ff9500);
+}
+
+*::-webkit-scrollbar-corner {
+  background: #050011;
+}
+
 .font-recursive {
   font-family: "Recursive", sans-serif;
 }

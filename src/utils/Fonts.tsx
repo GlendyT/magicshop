@@ -16,6 +16,7 @@ import {
   Antonio,
   Monoton,
   Montserrat_Alternates,
+  Tiny5,
 } from "next/font/google";
 
 //todo: Fonts Polaroid
@@ -115,3 +116,10 @@ export const monoton = Monoton({
   subsets: ["latin"],
   weight: ["400"],
 });
+
+//TODO: FONTS TETRIS
+export const tiny = Tiny5({
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
