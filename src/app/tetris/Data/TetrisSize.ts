@@ -29,12 +29,12 @@ export const SHAPES = [
 ];
 
 export const colors = [
-  "#000",
-  "#f00",
-  "#0f0",
-  "#00f",
-  "#ff0",
-  "#f0f",
-  "#0ff",
-  "#ffa500",
+  "#000000",
+  "#cb8458",
+  "#e3a1c2",
+  "#88d7f7",
+  "#f7ea00",
+  "#f2f2f2",
+  "#d3bfda",
+  "#f03935",
 ];
