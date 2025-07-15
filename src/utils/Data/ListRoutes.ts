@@ -72,5 +72,5 @@ export const LinkRoutes: LinkRoutesTypes[] = [
   //   name: "Tetris",
   //   path: "/tetris",
   //   image: "/Logos/festa2025.webp",
-  // },
+  // }
 ];

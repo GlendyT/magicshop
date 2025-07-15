@@ -184,6 +184,13 @@
   background-repeat: no-repeat;
 }
 
+.bg-tetris4 {
+  background-image: url("/Tetris/tetris.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size:cover;
+}
+
 .loader {
   position: relative;
   width: 120px;

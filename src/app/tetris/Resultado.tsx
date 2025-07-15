@@ -19,7 +19,7 @@ const Resultado = () => {
       <div className="flex flex-row max-sm:flex-col gap-2">
         <div className=" flex flex-col">
           <div className="bg-purple-950 p-4 rounded-lg bg-tetris2   ">
-            <div className="grid grid-cols-10 gap-px bg-blue-950   p-2 ">
+            <div className="grid grid-cols-10 gap-px bg-purple-950   p-2 ">
               {renderBoard().map((row, y) =>
                 row.map((cell, x) => (
                   <div
@@ -31,8 +31,12 @@ const Resultado = () => {
               )}
             </div>
           </div>
-          <div className="bg-purple-950 px-2 text-center  h-6 rounded-lg drop-shadow-[0_5px_10px_#000000]">
-            BTS-BTS-BTS-BTS-BTS
+          <div
+            className={`bg-purple-950 flex items-center justify-center px-2 text-center text-xl h-8 rounded-lg drop-shadow-[0_5px_0px_#000000]  ${
+              !gameOver ? "" : " animate-pulse "
+            }`}
+          >
+            {!gameOver ? "BTS-BTS-BTS-BTS-BTS" : "Game Over!"}
           </div>
           <ButtonControls />
         </div>
@@ -62,7 +66,7 @@ const Resultado = () => {
           <ButtonUtils
             onClick={resetAll}
             label="Restart All"
-            className="bg-purple-800 text-white py-2 px-4 rounded-lg mt-4 hover:bg-purple-700 transition-colors duration-300 cursor-pointer"
+            className={`bg-purple-800 text-white py-2 px-4 rounded-lg mt-4 hover:bg-purple-700 transition-colors duration-300 cursor-pointer `}
             disabled={gameOver}
           />
         </div>

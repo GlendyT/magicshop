@@ -102,7 +102,13 @@ const ButtonControls = () => {
         />
         <ButtonUtils
           onClick={resetGame}
-          className="bg-red-500/80 text-white px-2 py-2 rounded cursor-pointer border-2 border-red-900 hover:scale-105 transition-all duration-150"
+          className={` px-2 py-2 rounded    transition-all duration-200 ${
+            isPlaying
+              ? "cursor-pointer bg-red-500/80 border-2 border-red-900 hover:scale-105"
+              : "cursor-not-allowed border-2 border-gray-800 text-gray-600"
+          }
+           ${!gameOver ? "" : "animate-pulse"}
+          `}
           icon={<LuPower />}
         />
       </div>
