@@ -162,6 +162,28 @@
   background-repeat: no-repeat;
 }
 
+.bg-tetris {
+  background-image: url("/Tetris/BT21.png");
+    background-size: cover;
+  background-position: left;
+  background-repeat: no-repeat;
+}
+
+.bg-tetris2 {
+  background-image: url("/Tetris/BT21-2.png");
+    background-size: fill;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+.bg-tetris3 {
+  background-image: url("/Tetris/BT21-3.png");
+    background-size: fill;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .loader {
   position: relative;
   width: 120px;

@@ -25,71 +25,71 @@ const ButtonControls = () => {
   } = useTetris();
   return (
     <div
-      className={`flex flex-col items-center gap-2 w-full p-2 bg-purple-900 rounded-lg `}
+      className={`flex flex-row items-center gap-2 w-full h-36 p-2 bg-purple-950 rounded-lg bg-tetris object-fill `}
     >
-      <div className="flex flex-row gap-4 items-center justify-start w-full">
-        <div className="flex flex-col gap-2 items-center justify-center  ">
+      <div className="flex flex-row gap-4 items-center justify-start w-full h-full ">
+        <div className="flex flex-col gap-4 items-center justify-items-start h-full  ">
           <div className="flex flex-row gap-4">
             <ButtonUtils
               onClick={() => movePiece(-1, 0)}
-              className={`${
+              className={` backdrop-blur-sm ${
                 !isPlaying || gameOver
-                  ? "bg-gray-700 cursor-not-allowed"
+                  ? "bg-gray-600/5 cursor-not-allowed border-2 border-gray-800 text-gray-600"
                   : isPaused
-                  ? "bg-gray-600 cursor-not-allowed"
-                  : "bg-blue-950 cursor-pointer hover:scale-105"
-              } text-white p-2  flex items-center justify-center text-center drop-shadow-[0_5px_10px_#000000]  transition-transform duration-200`}
+                  ? "bg-gray-500 cursor-not-allowed border-2 border-gray-900 text-gray-700"
+                  : "bg-blue-950 cursor-pointer hover:scale-105 border-2 border-black text-white font-extrabold"
+              }  p-2  flex items-center justify-center text-center drop-shadow-[0_5px_10px_#000000]  transition-transform duration-200`}
               icon={<LuArrowLeft />}
             />
 
             <ButtonUtils
               onClick={() => movePiece(1, 0)}
-              className={`${
+              className={`backdrop-blur-sm  ${
                 !isPlaying || gameOver
-                  ? "bg-gray-700 cursor-not-allowed"
+                  ? "bg-gray-600/5 cursor-not-allowed border-2 border-gray-800 text-gray-600"
                   : isPaused
-                  ? "bg-gray-600 cursor-not-allowed"
-                  : "bg-blue-950 cursor-pointer hover:scale-105"
-              } text-white p-2  flex items-center justify-center text-center drop-shadow-[0_5px_10px_#000000] transition-transform duration-200`}
+                  ? "bg-gray-500 cursor-not-allowed border-2 border-gray-900 text-gray-700"
+                  : "bg-blue-950 cursor-pointer hover:scale-105 border-2 border-black text-white font-extrabold"
+              }  p-2  flex items-center justify-center text-center drop-shadow-[0_5px_10px_#000000] transition-transform duration-200`}
               icon={<LuArrowRight />}
             />
           </div>
           <ButtonUtils
             onClick={() => movePiece(0, 1)}
-            className={`${
+            className={` backdrop-blur-sm  ${
               !isPlaying || gameOver
-                ? "bg-gray-700 cursor-not-allowed"
+                ? "bg-gray-600/10 cursor-not-allowed border-2 border-gray-800 text-gray-600"
                 : isPaused
-                ? "bg-gray-600 cursor-not-allowed"
-                : "bg-blue-950 cursor-pointer hover:scale-105"
-            } text-white p-2 flex items-center justify-center text-center drop-shadow-[0_5px_10px_#000000]  transition-transform duration-200 `}
+                ? "bg-gray-500 cursor-not-allowed border-2 border-gray-900 text-gray-700"
+                : "bg-blue-950 cursor-pointer hover:scale-105 border-2 border-black text-white font-extrabold"
+            } p-2 flex items-center justify-center text-center drop-shadow-[0_5px_10px_#000000]  transition-transform duration-200 `}
             icon={<LuArrowDown />}
           />
         </div>
-        <div>
+        <div className="flex flex-col items-end h-full">
           <ButtonUtils
             onClick={rotatePiece}
-            className={`${
+            className={` backdrop-blur-sm ${
               !isPlaying || gameOver
-                ? "bg-gray-700 cursor-not-allowed"
+                ? "bg-gray-600/10 cursor-not-allowed  border-2 border-gray-800 text-gray-600"
                 : isPaused
-                ? "bg-gray-600 cursor-not-allowed"
-                : "bg-blue-950 cursor-pointer hover:scale-105"
-            } text-white p-2 flex items-center justify-center text-center drop-shadow-[0_5px_10px_#000000] transition-transform duration-200  `}
+                ? "bg-gray-500 cursor-not-allowed border-2 border-gray-900 text-gray-700"
+                : "bg-blue-950 cursor-pointer hover:scale-105 border-2 border-black text-white font-extrabold"
+            } p-2 flex text-center drop-shadow-[0_5px_10px_#000000] transition-transform duration-200  `}
             icon={<LuRefreshCw />}
           />
         </div>
       </div>
-      <div className="flex flex-row gap-2 items-end justify-end w-full">
+      <div className="flex flex-col gap-2 items-end justify-end w-full h-full">
         <ButtonUtils
           onClick={!isPlaying || gameOver ? startGame : pauseGame}
-          className={`${
+          className={` backdrop-blur-sm hover:scale-105 transition-all duration-150 ${
             !isPlaying || gameOver
-              ? "bg-green-500"
+              ? "bg-green-600 border-2 border-green-800"
               : isPaused
-              ? "bg-yellow-500"
-              : "bg-blue-700"
-          } text-white px-2 py-2 rounded cursor-pointer`}
+              ? "bg-yellow-500/90 border-2 border-yellow-800"
+              : "bg-blue-700/80 border-2 border-black"
+          } text-white font-extrabold px-2 py-2 rounded cursor-pointer`}
           icon={
             !isPlaying || gameOver ? (
               <LuPlay />
@@ -102,7 +102,7 @@ const ButtonControls = () => {
         />
         <ButtonUtils
           onClick={resetGame}
-          className="bg-red-500 text-white px-2 py-2 rounded cursor-pointer"
+          className="bg-red-500/80 text-white px-2 py-2 rounded cursor-pointer border-2 border-red-900 hover:scale-105 transition-all duration-150"
           icon={<LuPower />}
         />
       </div>

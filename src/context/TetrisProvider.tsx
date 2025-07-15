@@ -7,6 +7,7 @@ import {
   BOARD_WIDTH,
   SHAPES,
 } from "@/app/tetris/Data/TetrisSize";
+import useRequestInfo from "@/hooks/useRequestInfo";
 
 const TetrisContext = createContext<TetrisContextType>(null!);
 
@@ -22,7 +23,8 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
   const [gameOver, setGameOver] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-  const [level, setLevel] = useState(1);
+  const [level, setLevel] = useState(0);
+  const { handleResetContent } = useRequestInfo();
 
   const createPiece = (): Piece => ({
     shape: SHAPES[Math.floor(Math.random() * SHAPES.length)],
@@ -135,7 +137,7 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
   }, [currentPiece, gameOver, isPlaying]);
 
   useEffect(() => {
-    const newLevel = Math.floor(score / 1000) + 1;
+    const newLevel = Math.floor(score / 1000);
     setLevel(newLevel);
   }, [score]);
 
@@ -174,6 +176,7 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
     setGameOver(false);
     setIsPaused(false);
     setIsPlaying(true);
+    setLevel(0);
   };
 
   const pauseGame = () => {
@@ -191,7 +194,12 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
     setGameOver(false);
     setIsPaused(false);
     setIsPlaying(false);
-    setLevel(1);
+    setLevel(0);
+  };
+
+  const resetAll = () => {
+    resetGame();
+    handleResetContent();
   };
 
   return (
@@ -208,7 +216,8 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
         movePiece,
         rotatePiece,
         level,
-        resetGame
+        resetGame,
+        resetAll
       }}
     >
       {children}

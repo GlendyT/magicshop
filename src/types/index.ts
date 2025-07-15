@@ -529,6 +529,7 @@ export type TetrisContextType = {
   rotatePiece: () => void
   level: number;
   resetGame: () => void;
+  resetAll: () => void;
 }
 
 export type Board = number[][];
