@@ -8,9 +8,9 @@ const Tetris = () => {
   const { cargando, resultado } = useRequestInfo();
   return (
     <div
-      className={`min-h-screen flex items-center justify-center bg-gradient-to-tr from-gray-900 from-20% via-slate-800 via-60% to-slate-950 to-100% ${tiny.className}`}
+      className={`min-h-screen flex items-center justify-center bg-tetris4 bg-[#230232] ${tiny.className}  `}
     >
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col min-h-screen w-full items-center justify-center bg-black/30">
         {cargando ? <Formulario /> : resultado && <Resultado />}
       </div>
     </div>
