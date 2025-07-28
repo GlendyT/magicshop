@@ -20,7 +20,7 @@
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #0f0822 #0d011e;
+  scrollbar-color: #210429 #0d011e;
 }
 
 /* Para navegadores Webkit (Chrome, Safari, Edge) */
@@ -35,7 +35,7 @@
 }
 
 *::-webkit-scrollbar-thumb {
-  background: linear-gradient(45deg, #ff3d00, #ff6b35);
+  background: linear-gradient(45deg, #2a033e, #25022f);
   border-radius: 10px;
   border: 1px solid #222;
 }
@@ -51,51 +51,67 @@
 .font-recursive {
   font-family: "Recursive", sans-serif;
 }
+
 .font-libre {
   font-family: "Libre Caslon Text", serif;
 }
+
 .font-ballet {
   font-family: "Ballet", cursive;
 }
+
 .font-dmmono {
   font-family: "DM Mono", monospace;
 }
+
 .font-pixel {
   font-family: "Pixelify Sans", cursive;
 }
+
 .font-glich {
   font-family: "Rubik Glitch", cursive;
 }
+
 .font-providence {
   font-family: "Fuzzy Bubbles", cursive;
 }
+
 .font-frijole {
   font-family: "Frijole", cursive;
 }
+
 .font-michroma {
   font-family: "Michroma", sans-serif;
 }
+
 .font-virthday {
   font-family: "Unkempt", cursive;
 }
+
 .font-virthday3 {
   font-family: "Permanent Marker", cursive;
 }
+
 .font-montserrat {
   font-family: "Montserrat Alternates", sans-serif;
 }
+
 .font-pressgame {
   font-family: "Press Start 2P", monospace;
 }
+
 .font-rock {
   font-family: "Rock Salt", cursive;
 }
+
 .font-indie {
   font-family: "Indie Flower", cursive;
 }
+
 .font-antonio {
   font-family: "Antonio", sans-serif;
 }
+
 .font-monoton {
   font-family: "Monoton", cursive;
 }
@@ -106,42 +122,49 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+
 .bg-polaroid {
   background-image: url("/Polaroid/Background_PolaroidBA.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
+
 .bg-photostrip {
   background-image: url("/Photobooth/photobooth_bg.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
+
 .bg-sugaverse {
   background-image: url("/Sugaverse/bg.gif");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
+
 .bg-hobipalooza {
   background-image: url("/Hobipalooza/jhope2.gif");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
+
 .bg-virthday {
   background-image: url("/Virthday/vwallpaper.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
+
 .bg-virthday2 {
   background-image: url("https://ibighit.com/bts/images/bts/discography/v/layover/discography-cover.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
+
 .bg-lovenotes {
   background-image: url("/LoveNotes/BackgroundBalenTinS.webp");
   background-size: cover;
@@ -155,6 +178,7 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+
 .bg-rps1 {
   background-image: url("/RPS/RPS\ \(2\).webp");
   background-size: cover;
@@ -164,14 +188,14 @@
 
 .bg-tetris {
   background-image: url("/Tetris/BT21.png");
-    background-size: cover;
+  background-size: cover;
   background-position: left;
   background-repeat: no-repeat;
 }
 
 .bg-tetris2 {
   background-image: url("/Tetris/BT21-2.png");
-    background-size: fill;
+  background-size: fill;
   background-position: center;
   background-repeat: no-repeat;
 }
@@ -179,7 +203,7 @@
 
 .bg-tetris3 {
   background-image: url("/Tetris/BT21-3.png");
-    background-size: fill;
+  background-size: fill;
   background-position: center;
   background-repeat: no-repeat;
 }
@@ -188,7 +212,7 @@
   background-image: url("/Tetris/tetris.png");
   background-position: center;
   background-repeat: no-repeat;
-  background-size:cover;
+  background-size: cover;
 }
 
 .loader {
@@ -203,6 +227,7 @@
   background-size: 5px 5px, 90px 10px, 120px 45px, 100px 15px;
   background-position: 110px 15px, center bottom, center bottom, center 0;
 }
+
 .loader:before {
   content: "";
   width: 70px;
@@ -214,6 +239,7 @@
   bottom: calc(100% - 10px);
   animation: printerPaper 4s ease-in infinite;
 }
+
 .loader:after {
   content: "";
   width: 70px;
@@ -264,25 +290,31 @@ ul {
   0% {
     transform: translateY(0);
   }
+
   10%,
   20% {
     transform: translateY(-100%);
   }
+
   30%,
   40% {
     transform: translateY(-200%);
   }
+
   50%,
   60% {
     transform: translateY(-300%);
   }
+
   70%,
   80% {
     transform: translateY(-400%);
   }
+
   85% {
     transform: translateY(-500%);
   }
+
   100% {
     transform: translateY(-600%);
   }
@@ -355,43 +387,48 @@ ul {
 }
 
 /* Parallax Animation */
-.parallax > use {
+.parallax>use {
   animation: move-forever 20s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
 }
 
-.parallax > use:nth-child(1) {
+.parallax>use:nth-child(1) {
   animation-delay: -2s;
   animation-duration: 3s;
 }
 
-.parallax > use:nth-child(2) {
+.parallax>use:nth-child(2) {
   animation-delay: -7s;
   animation-duration: 8s;
 }
 
-.parallax > use:nth-child(3) {
+.parallax>use:nth-child(3) {
   animation-delay: -12s;
   animation-duration: 13s;
 }
 
-.parallax > use:nth-child(4) {
+.parallax>use:nth-child(4) {
   animation-delay: -17s;
   animation-duration: 20s;
 }
+
 /* Animación de salto */
 @keyframes jump {
   0% {
     transform: translateX(90vw) translateY(0);
   }
+
   20% {
     transform: translateX(75vw) translateY(-50px);
   }
+
   50% {
     transform: translateX(50vw) translateY(-80px);
   }
+
   80% {
     transform: translateX(25vw) translateY(-50px);
   }
+
   100% {
     transform: translateX(-10vw) translateY(0);
   }
@@ -401,14 +438,17 @@ ul {
   0% {
     transform: translate3d(-90px, 0, 0);
   }
+
   100% {
     transform: translate3d(85px, 0, 0);
   }
 }
+
 .fish img {
   animation: jump 5s ease-in-out infinite;
 }
-.parallax > use {
+
+.parallax>use {
   animation: move-forever 10s linear infinite;
 }
 
@@ -417,6 +457,7 @@ ul {
   .fish img {
     max-width: 1366px;
   }
+
   .waves {
     width: 200rem;
     height: 100%;
@@ -427,10 +468,12 @@ ul {
   .header {
     top: 72;
   }
+
   .fish img {
     max-width: 1024px;
     width: 10vw;
   }
+
   .waves {
     width: 100rem;
     height: 100%;
@@ -460,3 +503,95 @@ ul {
   }
 }
 
+
+
+.door {
+  transition: transform 2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  
+}
+
+
+.door-left {
+  transform-origin: left center;
+  background-image: url("/BTSLogoDoors/leftdoor.png");
+}
+
+.door-right {
+  transform-origin: right center;
+  background-image: url("/BTSLogoDoors/rightdoor.png");
+
+}
+
+.door-left.open {
+  transform: rotateY(-90deg);
+}
+
+.door-right.open {
+  transform: rotateY(90deg);
+}
+
+@media screen and (max-width: 1024px) {
+  .door {
+    transition: transform 1.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+  
+  .door-left.open {
+    transform: rotateY(-85deg);
+  }
+  
+  .door-right.open {
+    transform: rotateY(85deg);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .door {
+    transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+    perspective: 800px;
+  }
+  
+  .door-left.open {
+    transform: rotateY(-80deg);
+  }
+  
+  .door-right.open {
+    transform: rotateY(80deg);
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .door {
+    transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    perspective: 600px;
+  }
+  
+  .door-left,
+  .door-right {
+    background-size: contain;
+  }
+  
+  .door-left.open {
+    transform: rotateY(-75deg);
+  }
+  
+  .door-right.open {
+    transform: rotateY(75deg);
+  }
+}
+
+@media screen and (max-width: 475px) {
+  .door {
+    transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+    perspective: 500px;
+  }
+  
+  .door-left.open {
+    transform: rotateY(-70deg);
+  }
+  
+  .door-right.open {
+    transform: rotateY(70deg);
+  }
+}
