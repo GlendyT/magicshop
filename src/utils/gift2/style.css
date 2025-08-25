@@ -14,15 +14,23 @@
     }
 }
 
-@keyframes vibrate {
-  0% { transform: rotate(0deg); }
-  25% { transform: rotate(-1deg); }
-  50% { transform: rotate(0deg); }
-  75% { transform: rotate(1deg); }
-  100% { transform: rotate(0deg); }
+.vibrating {
+  animation: vibrate 0.3s linear infinite;
 }
 
-.lid.vibrating {
-  animation: vibrate 0.3s infinite;
-  transform-origin: 50% 100%;
+@keyframes vibrate {
+  0% { transform: translate(0); }
+  25% { transform: translate(-2px, 2px); }
+  50% { transform: translate(2px, -2px); }
+  75% { transform: translate(-2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+.svg-wrapper.cursor-pointer {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.svg-wrapper.cursor-pointer:hover {
+  transform: scale(1.05);
 }
