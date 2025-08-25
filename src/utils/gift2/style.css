@@ -1,0 +1,28 @@
+.svg-wrapper {
+    height: 8vh;
+}
+
+.svg-wrapper svg {
+    display: block;
+    width: auto;
+    height: 100%;
+}
+
+@media only screen and (max-width: 47.98em) {
+    .svg-wrapper svg {
+        max-width: 100%;
+    }
+}
+
+@keyframes vibrate {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(-1deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(1deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.lid.vibrating {
+  animation: vibrate 0.3s infinite;
+  transform-origin: 50% 100%;
+}

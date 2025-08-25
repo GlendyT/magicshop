@@ -3,6 +3,7 @@
 import { createContext, useCallback, useEffect, useState } from "react";
 import { AllProviderProps, Board, Piece, TetrisContextType } from "../types";
 import {
+  BirthdayCards,
   BOARD_HEIGHT,
   BOARD_WIDTH,
   SHAPES,
@@ -137,7 +138,7 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
   }, [currentPiece, gameOver, isPlaying]);
 
   useEffect(() => {
-    const newLevel = Math.floor(score / 1000);
+    const newLevel = Math.floor(score / 700);
     setLevel(newLevel);
   }, [score]);
 
@@ -202,6 +203,35 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
     handleResetContent();
   };
 
+    const birthdaysLatest = [...BirthdayCards].sort((a, b) => {
+      const today = new Date();
+      const currentYear = today.getFullYear();
+  
+      const birthdayA = new Date(
+        currentYear,
+        a.date.getMonth(),
+        a.date.getDate()
+      );
+      const birthdayB = new Date(
+        currentYear,
+        b.date.getMonth(),
+        b.date.getDate()
+      );
+  
+      if (birthdayA < today) birthdayA.setFullYear(currentYear + 1);
+      if (birthdayB < today) birthdayB.setFullYear(currentYear + 1);
+  
+      const daysToA = Math.ceil(
+        (birthdayA.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
+      );
+      const daysToB = Math.ceil(
+        (birthdayB.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
+      );
+  
+      return daysToA - daysToB;
+    });
+  
+
   return (
     <TetrisContext.Provider
       value={{
@@ -217,7 +247,8 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
         rotatePiece,
         level,
         resetGame,
-        resetAll
+        resetAll,
+        birthdaysLatest,
       }}
     >
       {children}

@@ -6,6 +6,7 @@ import { tiny } from "@/utils/Fonts";
 
 const Tetris = () => {
   const { cargando, resultado } = useRequestInfo();
+
   return (
     <div
       className={`min-h-screen flex items-center justify-center bg-tetris4 bg-[#230232] ${tiny.className}  `}

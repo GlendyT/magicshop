@@ -209,7 +209,7 @@
 }
 
 .bg-tetris4 {
-  background-image: url("/Tetris/tetris.png");
+  background-image: url("/Tetris/BGTetris.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -509,7 +509,6 @@ ul {
   transition: transform 2s cubic-bezier(0.645, 0.045, 0.355, 1);
   perspective: 1000px;
   transform-style: preserve-3d;
-  
 }
 
 

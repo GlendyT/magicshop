@@ -1,5 +1,5 @@
+import { BirthdayCards } from "@/app/tetris/Data/TetrisSize";
 import { GAME_MODES, GAME_STATES } from "@/tictactoe/Data/constants";
-import { render } from '@testing-library/react';
 import {
   ChangeEvent,
   CSSProperties,
@@ -86,7 +86,7 @@ export type BtsPhrases = {
   image: string;
 };
 export type ButtonProps = {
-  label?: string ;
+  label?: string;
   onClick?: () => void;
   className?: string;
   icon?: ReactNode | undefined;
@@ -517,20 +517,30 @@ export type PlayerOptions = {
 export type FestaBtsProps = hobiPersonalizedTypes;
 
 export type TetrisContextType = {
-  score: number
-  highScore: number
-  gameOver: boolean
-  renderBoard: () => Board
-  startGame: () => void
-  isPlaying: boolean
-  pauseGame: () => void
-  isPaused: boolean
-  movePiece: (dx: number, dy: number) => void
-  rotatePiece: () => void
+  score: number;
+  highScore: number;
+  gameOver: boolean;
+  renderBoard: () => Board;
+  startGame: () => void;
+  isPlaying: boolean;
+  pauseGame: () => void;
+  isPaused: boolean;
+  movePiece: (dx: number, dy: number) => void;
+  rotatePiece: () => void;
   level: number;
   resetGame: () => void;
   resetAll: () => void;
-}
+  birthdaysLatest: typeof BirthdayCards;
+};
 
 export type Board = number[][];
 export type Piece = { shape: number[][]; x: number; y: number; color: number };
+
+export type birthdayCardType = {
+  id: number;
+  name: string;
+  aka: string;
+  shortAka: string;
+  date: Date;
+  birthdaycard: string;
+};
