@@ -209,7 +209,14 @@
 }
 
 .bg-tetris4 {
-  background-image: url("/Tetris/BGTetris.webp");
+  background-image: url("/Tetris/BGWeb.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bg-tetris5 {
+  background-image: url("/Tetris/BGMobile.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -535,11 +542,11 @@ ul {
   .door {
     transition: transform 1.8s cubic-bezier(0.645, 0.045, 0.355, 1);
   }
-  
+
   .door-left.open {
     transform: rotateY(-85deg);
   }
-  
+
   .door-right.open {
     transform: rotateY(85deg);
   }
@@ -550,11 +557,11 @@ ul {
     transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
     perspective: 800px;
   }
-  
+
   .door-left.open {
     transform: rotateY(-80deg);
   }
-  
+
   .door-right.open {
     transform: rotateY(80deg);
   }
@@ -565,16 +572,16 @@ ul {
     transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     perspective: 600px;
   }
-  
+
   .door-left,
   .door-right {
     background-size: contain;
   }
-  
+
   .door-left.open {
     transform: rotateY(-75deg);
   }
-  
+
   .door-right.open {
     transform: rotateY(75deg);
   }
@@ -585,11 +592,11 @@ ul {
     transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
     perspective: 500px;
   }
-  
+
   .door-left.open {
     transform: rotateY(-70deg);
   }
-  
+
   .door-right.open {
     transform: rotateY(70deg);
   }
