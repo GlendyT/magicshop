@@ -2,16 +2,13 @@ import useTetris from "@/hooks/useTetris";
 import ButtonControls from "./ButtonControls";
 import { colors } from "./Data/TetrisSize";
 import { tiny } from "@/utils/Fonts";
-import useRequestInfo from "@/hooks/useRequestInfo";
 import { ButtonUtils } from "@/utils/ButtonUtils";
-import { formatDate, isFutureDate } from "@/utils/FormatDates";
+import { formatDate } from "@/utils/FormatDates";
 import Gift2 from "../../utils/gift2/page";
 import ImageModal from "./ImageModal";
 
 const Resultado = () => {
   const {
-    score,
-    highScore,
     gameOver,
     renderBoard,
     level,
@@ -20,19 +17,17 @@ const Resultado = () => {
     selectedImage,
     setSelectedImage,
     isGiftLocked,
+    tableBoard,
   } = useTetris();
-  const { usuario } = useRequestInfo();
-  const { name } = usuario;
-
   return (
     <div
-      className={`flex flex-col items-center pb-6 py-1  gap-1  px-3 ${tiny.className} `}
+      className={`flex flex-col max-sm:flex-row max-sm:gap-4 items-center pb-6 py-1  gap-1  px-3 ${tiny.className} `}
     >
       <div className="flex flex-row max-sm:flex-col gap-2">
         <div className="flex flex-row gap-2">
           <div className="flex flex-row gap-2 max-sm:flex-col">
             {/* //TODO: TETRIS BOARD */}
-            <div className=" flex flex-col">
+            <div className=" flex flex-col ">
               <div className="bg-purple-950 px-5.5 py-4 rounded-lg  ">
                 <div className="grid grid-cols-10 gap-px bg-purple-950   p-2 ">
                   {renderBoard().map((row, y) =>
@@ -59,44 +54,37 @@ const Resultado = () => {
             {/* //TODO: STATS */}
             <div className="flex flex-col items-center gap-1 text-white  ">
               <div className=" backdrop-blur-sm bg-black/50 p-2 w-full flex flex-col justify-center rounded-md">
-                <div className="flex flex-col max-sm:flex-row gap-4 w-full  ">
-                  <span className="flex flex-col w-full   border-b  border-gray-300">
-                    Score{" "}
-                    <span className="flex items-end justify-end">{score}</span>{" "}
-                  </span>
-                  <span className="flex flex-col w-full border-b border-gray-300">
-                    Level:{" "}
-                    <span className="flex items-end justify-end">{level}</span>
-                  </span>
-                </div>
-                <div className="flex flex-col  max-sm:flex-row gap-4 w-full">
-                  <span className="flex flex-col w-full border-b border-gray-300 ">
-                    High Score
-                    <span className="flex items-end justify-end">
-                      {highScore}
+                <div className="flex flex-col max-sm:grid max-sm:grid-cols-2 gap-2 w-full  ">
+                  {tableBoard.map((item, index) => (
+                    <span
+                      key={index}
+                      className="flex flex-col w-full   border-b  border-gray-300"
+                    >
+                      {item.title}
+                      <span className="flex items-end justify-end">
+                        {item.value}
+                      </span>
                     </span>
-                  </span>
-                  <span className="flex flex-col w-full border-b border-gray-300">
-                    Player:{" "}
-                    <span className="flex items-end justify-end break-all break-words">
-                      {name}
-                    </span>
-                  </span>
+                  ))}
                 </div>
-
                 <ButtonUtils
                   onClick={resetAll}
                   label="Restart All"
-                  className={`bg-purple-800 text-white py-2 px-4 rounded-lg mt-4 hover:bg-purple-700 transition-colors duration-300 cursor-pointer `}
+                  className={`bg-purple-800 text-white py-1 px-4 rounded-lg mt-4 hover:bg-purple-700 transition-colors duration-300 cursor-pointer `}
                   disabled={gameOver}
                 />
               </div>
               <div
-                className={`backdrop-blur-sm bg-black/50 p-2 w-36  max-sm:w-56 h-auto flex flex-col text-center justify-center rounded-md font-sans`}
+                className={`backdrop-blur-sm bg-black/50 p-2 w-44  max-sm:w-56 h-auto flex flex-col gap-2  text-center justify-center rounded-md font-sans max-sm:text-xs text-sm`}
               >
-                <span className="text-white text-sm">
-                  When you reach level 1, you can unlock a gift on the first
-                  birthday.
+                <span>Each level requires 700 points.</span>
+                <span>
+                  When you reach level 1, you can unlock the gift for the
+                  closest upcoming birthday.
+                </span>
+                <span>
+                  Gifts for future birthdays will be unlocked on their
+                  respective dates.
                 </span>
               </div>
             </div>
@@ -105,7 +93,7 @@ const Resultado = () => {
       </div>
 
       {/* //TODO: GIFTS */}
-      <div className="flex flex-row max-sm:flex-wrap  gap-1 items-center justify-center   ">
+      <div className="flex flex-row max-sm:flex-col  gap-1 items-center justify-center   ">
         {birthdaysLatest.map((bday, index) => (
           <div
             key={index}

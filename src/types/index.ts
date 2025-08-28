@@ -534,6 +534,10 @@ export type TetrisContextType = {
   selectedImage: string | null;
   setSelectedImage: (image: string | null) => void;
   isGiftLocked: (date: Date, index: number) => boolean;
+  tableBoard: {
+    title: string;
+    value: number | string;
+  }[];
 };
 
 export type Board = number[][];
@@ -547,7 +551,6 @@ export type birthdayCardType = {
   date: Date;
   birthdaycard: string;
 };
-
 
 export interface Gift2Props {
   level: number;
