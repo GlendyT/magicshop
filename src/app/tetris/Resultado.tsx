@@ -21,7 +21,7 @@ const Resultado = () => {
   } = useTetris();
   return (
     <div
-      className={`flex flex-col max-sm:flex-row max-sm:gap-4 items-center pb-6 py-1  gap-1  px-3 ${tiny.className} `}
+      className={`flex flex-col max-lg:flex-row  max-sm:gap-4 items-center pb-6 py-1  gap-1  px-3 ${tiny.className} `}
     >
       <div className="flex flex-row max-sm:flex-col gap-2">
         <div className="flex flex-row gap-2">
@@ -93,7 +93,7 @@ const Resultado = () => {
       </div>
 
       {/* //TODO: GIFTS */}
-      <div className="flex flex-row max-sm:flex-col  gap-1 items-center justify-center   ">
+      <div className="flex flex-row max-lg:flex-col  gap-1 items-center justify-center   ">
         {birthdaysLatest.map((bday, index) => (
           <div
             key={index}

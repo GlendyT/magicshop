@@ -27,14 +27,14 @@ const ImageModal = ({ isOpen, onClose, imageUrl }: ImageModalProps) => {
   return (
     <div
       data-testid="modal"
-      className="absolute flex flex-col   justify-center items-center inset-5 bg-black/50 z-40 overflow-hidden "
+      className="absolute flex flex-col   justify-center items-center inset-5 bg-black/80 z-40 overflow-hidden "
     >
       <div className=" my-2 mx-auto">
         <div className="relative font-indie" id="print">
           <Image src={imageUrl} alt="Freebie" width={400} height={450} />
           <div className="absolute inset-0 flex items-center justify-center text-center gap-5 px-10 text-sm max-md:text-xs pt-10 max-sm:pt-6">
-            <div className="relative flex flex-col items-center justify-center pt-78 mt-2 left-14   ">
-              <span className="  max-md:text-xs max-sm:text-[0.8rem] text-black tracking--10">
+            <div className="relative flex flex-col items-center justify-center pt-76 mt-3 left-14   ">
+              <span className="text-[0.6rem]  max-md:text-xs max-sm:text-[0.8rem] text-black tracking-tighter text-montserrat">
                 {name}
               </span>
             </div>
