@@ -32,7 +32,7 @@ const ImageModal = ({ isOpen, onClose, imageUrl }: ImageModalProps) => {
       <div className=" my-2 mx-auto">
         <div className="relative font-indie" id="print">
           <Image src={imageUrl} alt="Freebie" width={400} height={450} />
-          <div className="absolute inset-0 flex items-center justify-center text-center gap-5 px-10 text-sm max-md:text-xs pt-10 max-sm:pt-2">
+          <div className="absolute inset-0 flex items-center justify-center text-center gap-5 px-10 text-sm max-md:text-xs pt-10 max-sm:pt-6">
             <div className="relative flex flex-col items-center justify-center pt-78 mt-2 left-14   ">
               <span className="  max-md:text-xs max-sm:text-[0.8rem] text-black tracking--10">
                 {name}
