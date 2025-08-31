@@ -1,0 +1,36 @@
+.svg-wrapper {
+    height: 8vh;
+}
+
+.svg-wrapper svg {
+    display: block;
+    width: auto;
+    height: 100%;
+}
+
+@media only screen and (max-width: 47.98em) {
+    .svg-wrapper svg {
+        max-width: 100%;
+    }
+}
+
+.vibrating {
+  animation: vibrate 0.3s linear infinite;
+}
+
+@keyframes vibrate {
+  0% { transform: translate(0); }
+  25% { transform: translate(-2px, 2px); }
+  50% { transform: translate(2px, -2px); }
+  75% { transform: translate(-2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+.svg-wrapper.cursor-pointer {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.svg-wrapper.cursor-pointer:hover {
+  transform: scale(1.05);
+}

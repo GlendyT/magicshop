@@ -34,7 +34,7 @@ const Sidebar = () => {
         <ButtonUtils
           icon={open ? <LuX /> : <LuAlignJustify />}
           onClick={() => setOpen(!open)}
-          className={`max-sm:block hidden  items-center justify-center w-10 h-10 bg-black/20 fixed focus:outline-none text-xl px-2 py-2  text-white rounded-full z-70 ${
+          className={`max-sm:block hidden rounded-t-none rounded-bl-none  items-center justify-center w-10 h-10 bg-black fixed focus:outline-none text-xl px-2 py-2  text-white z-70 ${
             open ? "opacity-100" : "opacity-80"
           } `}
         />

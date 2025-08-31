@@ -3,6 +3,7 @@
 import { createContext, useCallback, useEffect, useState } from "react";
 import { AllProviderProps, Board, Piece, TetrisContextType } from "../types";
 import {
+  BirthdayCards,
   BOARD_HEIGHT,
   BOARD_WIDTH,
   SHAPES,
@@ -24,7 +25,8 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [level, setLevel] = useState(0);
-  const { handleResetContent } = useRequestInfo();
+  const { handleResetContent, usuario } = useRequestInfo();
+  const { name } = usuario;
 
   const createPiece = (): Piece => ({
     shape: SHAPES[Math.floor(Math.random() * SHAPES.length)],
@@ -137,7 +139,7 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
   }, [currentPiece, gameOver, isPlaying]);
 
   useEffect(() => {
-    const newLevel = Math.floor(score / 1000);
+    const newLevel = Math.floor(score / 700);
     setLevel(newLevel);
   }, [score]);
 
@@ -202,6 +204,62 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
     handleResetContent();
   };
 
+  const birthdaysLatest = [...BirthdayCards].sort((a, b) => {
+    const today = new Date();
+    const currentYear = today.getFullYear();
+
+    const birthdayA = new Date(
+      currentYear,
+      a.date.getMonth(),
+      a.date.getDate()
+    );
+    const birthdayB = new Date(
+      currentYear,
+      b.date.getMonth(),
+      b.date.getDate()
+    );
+
+    if (birthdayA < today) birthdayA.setFullYear(currentYear + 1);
+    if (birthdayB < today) birthdayB.setFullYear(currentYear + 1);
+
+    const daysToA = Math.ceil(
+      (birthdayA.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
+    );
+    const daysToB = Math.ceil(
+      (birthdayB.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
+    );
+
+    return daysToA - daysToB;
+  });
+
+  const isGiftLocked = (date: Date, index: number) => {
+    const currentDate = new Date();
+    const giftDate = new Date(date);
+    if (index === 0) {
+      return level === 0;
+    }
+    return currentDate < giftDate;
+  };
+
+  const tableBoard = [
+    {
+      title: "Score",
+      value: score,
+    },
+    {
+      title: "Level",
+      value: level,
+    },
+    {
+      title: "High Score",
+      value: highScore,
+    },
+    {
+      title: "Player",
+      value: name,
+    },
+  ];
+
   return (
     <TetrisContext.Provider
       value={{
@@ -217,7 +275,10 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
         rotatePiece,
         level,
         resetGame,
-        resetAll
+        resetAll,
+        birthdaysLatest,
+        isGiftLocked,
+        tableBoard,
       }}
     >
       {children}
