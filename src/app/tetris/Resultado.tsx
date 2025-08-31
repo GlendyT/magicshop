@@ -6,6 +6,7 @@ import { ButtonUtils } from "@/utils/ButtonUtils";
 import { formatDate } from "@/utils/FormatDates";
 import Gift2 from "../../utils/gift2/page";
 import ImageModal from "./ImageModal";
+import { useState } from "react";
 
 const Resultado = () => {
   const {
@@ -14,11 +15,10 @@ const Resultado = () => {
     level,
     resetAll,
     birthdaysLatest,
-    selectedImage,
-    setSelectedImage,
     isGiftLocked,
     tableBoard,
   } = useTetris();
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   return (
     <div
       className={`flex flex-col max-lg:flex-row  max-sm:gap-4 items-center pb-6 py-1  gap-1  px-3 ${tiny.className} `}
@@ -77,11 +77,8 @@ const Resultado = () => {
               <div
                 className={`backdrop-blur-sm bg-black/50 p-2 w-44  max-sm:w-56 h-auto flex flex-col gap-2  text-center justify-center rounded-md font-sans max-sm:text-xs text-sm`}
               >
-                <span>Each level requires 700 points.</span>
-                <span>
-                  When you reach level 1, you can unlock the gift for the
-                  closest upcoming birthday.
-                </span>
+                <span>Custom cards unlock at Level 1 with 700 points. </span>
+
                 <span>
                   Gifts for future birthdays will be unlocked on their
                   respective dates.
@@ -104,21 +101,25 @@ const Resultado = () => {
               isClosest={index === 0}
               name={bday.shortAka}
               imageUrl={bday.birthdaycard}
-              onClick={() =>
-                !isGiftLocked(bday.date, index) &&
-                setSelectedImage(bday.birthdaycard)
-              }
+              onClick={() => {
+                if (!isGiftLocked(bday.date, index) && bday.birthdaycard) {
+                  setSelectedImage(bday.birthdaycard);
+                }
+              }}
               isLocked={index === 0 ? level === 0 : true}
             />
             {formatDate(bday.date)}
           </div>
         ))}
       </div>
-      <ImageModal
-        isOpen={!!selectedImage}
-        onClose={() => setSelectedImage(null)}
-        imageUrl={selectedImage || ""}
-      />
+
+      {selectedImage && (
+        <ImageModal
+          isOpen={true}
+          imageUrl={selectedImage}
+          onClose={() => setSelectedImage(null)}
+        />
+      )}
     </div>
   );
 };

@@ -232,8 +232,6 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
     return daysToA - daysToB;
   });
 
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
   const isGiftLocked = (date: Date, index: number) => {
     const currentDate = new Date();
     const giftDate = new Date(date);
@@ -279,8 +277,6 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
         resetGame,
         resetAll,
         birthdaysLatest,
-        selectedImage,
-        setSelectedImage,
         isGiftLocked,
         tableBoard,
       }}

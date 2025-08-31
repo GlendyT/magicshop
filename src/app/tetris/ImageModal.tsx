@@ -5,7 +5,7 @@ import { ButtonUtils } from "@/utils/ButtonUtils";
 import Image from "next/image";
 import React, { useEffect } from "react";
 
-const ImageModal = ({ isOpen, onClose, imageUrl }: ImageModalProps) => {
+const ImageModal = ({ isOpen, imageUrl, onClose }: ImageModalProps) => {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -23,13 +23,14 @@ const ImageModal = ({ isOpen, onClose, imageUrl }: ImageModalProps) => {
   const { usuario } = useRequestInfo();
   const { name } = usuario;
   const { handleDownloadImage } = useDownload();
+  
 
   return (
     <div
       data-testid="modal"
       className="absolute flex flex-col   justify-center items-center inset-5 bg-black/80 z-40 overflow-hidden "
     >
-      <div className=" my-2 mx-auto">
+      <div className=" my-2 mx-auto" onClick={(e) => e.stopPropagation()}>
         <div className="relative font-indie" id="print">
           <Image src={imageUrl} alt="Freebie" width={400} height={450} />
           <div className="absolute inset-0 flex items-center justify-center text-center gap-5 px-10 text-sm max-md:text-xs pt-10 max-sm:pt-6">

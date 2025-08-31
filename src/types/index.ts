@@ -531,8 +531,6 @@ export type TetrisContextType = {
   resetGame: () => void;
   resetAll: () => void;
   birthdaysLatest: typeof BirthdayCards;
-  selectedImage: string | null;
-  setSelectedImage: (image: string | null) => void;
   isGiftLocked: (date: Date, index: number) => boolean;
   tableBoard: {
     title: string;
@@ -564,6 +562,6 @@ export interface Gift2Props {
 
 export interface ImageModalProps {
   isOpen: boolean;
-  onClose: () => void;
   imageUrl: string;
+  onClose?: () => void;
 }
