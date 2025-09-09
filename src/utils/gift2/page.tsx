@@ -3,23 +3,20 @@ import "./style.css";
 
 const Gift2 = ({
   level = 0,
-  isClosest,
   name,
   onClick,
   isLocked,
-  showLockedMessage = true,
+  canOpen = false,
 }: Gift2Props) => {
   return (
     <div
       className={`relative flex flex-col text-center ${
-        isLocked && !isClosest ? "opacity-60" : ""
+        isLocked ? "opacity-60" : ""
       }`}
     >
       <section
-        className={`svg-wrapper ${
-          !isLocked && isClosest ? "cursor-pointer" : ""
-        }`}
-        onClick={!isLocked && isClosest ? onClick : undefined}
+        className={`svg-wrapper ${!isLocked ? "cursor-pointer" : ""}`}
+        onClick={!isLocked ? onClick : undefined}
       >
         <svg
           width="3.5"
@@ -79,7 +76,7 @@ const Gift2 = ({
               d="M55.4 57.8 L55.35 58.5 54.75 59 Q51.85 59.95 49.5 62.25 L49.45 62.3 48.3 63.55 47.65 63.85 46.95 63.65 46.6 63 Q46.55 62.6 46.85 62.3 L48.1 60.95 48.1 60.9 Q50.85 58.2 54.2 57.15 L54.9 57.25 55.4 57.8"
             />
             <g
-              className={`lid ${level > 0 && isClosest ? "vibrating" : ""}`}
+              className={`lid ${canOpen ? "vibrating" : ""}`}
               data-origin="50% 100%"
             >
               <path
@@ -103,7 +100,7 @@ const Gift2 = ({
           </g>
         </svg>
       </section>
-      {isLocked && showLockedMessage && !isClosest ? (
+      {isLocked ? (
         <div className="uppercase">Locked</div>
       ) : (
         <div className=" uppercase ">Available</div>

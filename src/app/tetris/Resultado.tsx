@@ -6,7 +6,7 @@ import { ButtonUtils } from "@/utils/ButtonUtils";
 import { formatDate } from "@/utils/FormatDates";
 import Gift2 from "../../utils/gift2/page";
 import ImageModal from "./ImageModal";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 const Resultado = () => {
   const {
@@ -16,29 +16,33 @@ const Resultado = () => {
     resetAll,
     birthdaysLatest,
     isGiftLocked,
+    canOpenGift,
     tableBoard,
   } = useTetris();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  
+  const memoizedBoardCells = useMemo(() => {
+    const board = renderBoard();
+    return board.flatMap((row, y) => 
+      row.map((cell, x) => ({ cell, x, y, key: `${y}-${x}` }))
+    );
+  }, [renderBoard]);
   return (
     <div
       className={`flex flex-col max-lg:flex-row  max-sm:gap-4 items-center pb-6 py-1  gap-1  px-3 ${tiny.className} `}
     >
-      <div className="flex flex-row max-sm:flex-col gap-2">
-        <div className="flex flex-row gap-2">
-          <div className="flex flex-row gap-2 max-sm:flex-col">
+      <div className="flex flex-row gap-2 max-sm:flex-col">
             {/* //TODO: TETRIS BOARD */}
             <div className=" flex flex-col ">
               <div className="bg-purple-950 px-5.5 py-4 rounded-lg  ">
                 <div className="grid grid-cols-10 gap-px bg-purple-950   p-2 ">
-                  {renderBoard().map((row, y) =>
-                    row.map((cell, x) => (
-                      <div
-                        key={`${y}-${x}`}
-                        className="w-3.8 h-3 max-sm:w-4 max-sm:h-4"
-                        style={{ backgroundColor: colors[cell] }}
-                      />
-                    ))
-                  )}
+                  {memoizedBoardCells.map(({ cell, key }) => (
+                    <div
+                      key={key}
+                      className="w-3.8 h-3 max-sm:w-4 max-sm:h-4"
+                      style={{ backgroundColor: colors[cell] }}
+                    />
+                  ))}
                 </div>
               </div>
               <div
@@ -70,8 +74,7 @@ const Resultado = () => {
                 <ButtonUtils
                   onClick={resetAll}
                   label="Restart All"
-                  className={`bg-purple-800 text-white py-1 px-4 rounded-lg mt-4 hover:bg-purple-700 transition-colors duration-300 cursor-pointer `}
-                  disabled={gameOver}
+                  className="bg-purple-800 text-white py-1 px-4 rounded-lg mt-4 hover:bg-purple-700 transition-colors duration-300 cursor-pointer"
                 />
               </div>
               <div
@@ -84,10 +87,8 @@ const Resultado = () => {
                   respective dates.
                 </span>
               </div>
-            </div>
           </div>
         </div>
-      </div>
 
       {/* //TODO: GIFTS */}
       <div className="flex flex-row max-lg:flex-col  gap-1 items-center justify-center   ">
@@ -98,15 +99,15 @@ const Resultado = () => {
           >
             <Gift2
               level={level}
-              isClosest={index === 0}
               name={bday.shortAka}
               imageUrl={bday.birthdaycard}
               onClick={() => {
-                if (!isGiftLocked(bday.date, index) && bday.birthdaycard) {
+                if (canOpenGift(bday.date, index) && bday.birthdaycard) {
                   setSelectedImage(bday.birthdaycard);
                 }
               }}
-              isLocked={index === 0 ? level === 0 : true}
+              isLocked={isGiftLocked(bday.date, index)}
+              canOpen={canOpenGift(bday.date, index)}
             />
             {formatDate(bday.date)}
           </div>

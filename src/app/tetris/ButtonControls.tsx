@@ -26,6 +26,7 @@ const ButtonControls = () => {
   return (
     <div
       className={`flex flex-row items-center gap-2 w-full h-36 p-2 bg-purple-950 rounded-lg bg-tetris object-fill `}
+      data-testid="button-controls"
     >
       <div className="flex flex-row gap-4 items-center justify-start w-full h-full ">
         <div className="flex flex-col gap-4 items-center justify-items-start h-full  ">

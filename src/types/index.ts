@@ -532,6 +532,7 @@ export type TetrisContextType = {
   resetAll: () => void;
   birthdaysLatest: typeof BirthdayCards;
   isGiftLocked: (date: Date, index: number) => boolean;
+  canOpenGift: (date: Date, index: number) => boolean;
   tableBoard: {
     title: string;
     value: number | string;
@@ -552,11 +553,11 @@ export type birthdayCardType = {
 
 export interface Gift2Props {
   level: number;
-  isClosest: boolean;
   name: string;
   imageUrl?: string;
   onClick?: () => void;
   isLocked?: boolean;
+  canOpen?: boolean;
   showLockedMessage?: boolean;
 }
 
