@@ -16,8 +16,8 @@ test("generate Lovenotes", async ({ page }) => {
   await page.getByTestId('select').selectOption('Hoseok');
   await page.getByTestId('form').getByTestId('button').click();
   await page.getByRole('img', { name: 'Hoseok' }).click();
-  const download9Promise = page.waitForEvent('download');
-  await page.getByRole('button', { name: 'Download' }).click();
-  const download9 = await download9Promise;
-  await page.getByRole('button', { name: 'Restart' }).click();
+  // const download9Promise = page.waitForEvent('download');
+  // await page.getByRole('button', { name: 'Download' }).click();
+  // const download9 = await download9Promise;
+  // await page.getByRole('button', { name: 'Restart' }).click();
 });

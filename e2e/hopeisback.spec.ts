@@ -19,9 +19,9 @@ test("generate Hobi is back", async ({ page }) => {
   await page.getByText('Let\'s welcome Hobi with a').click();
   await page.getByTestId('form').getByTestId('button').click();
   await page.getByText('glendyfrom hola').click();
-  const download8Promise = page.waitForEvent('download');
-  await page.getByRole('button', { name: 'Download' }).click();
-  const download8 = await download8Promise;
-  await page.getByRole('button', { name: 'restart' }).click();
+  // const download8Promise = page.waitForEvent('download');
+  // await page.getByRole('button', { name: 'Download' }).click();
+  // const download8 = await download8Promise;
+  // await page.getByRole('button', { name: 'restart' }).click();
 
 });

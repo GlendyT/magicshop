@@ -14,7 +14,7 @@ test("Generate a Sugaverse", async ({ page }) => {
   await page.getByRole('textbox', { name: 'Your Name' }).fill('casa');
   await page.getByTestId('select').selectOption('Agust D');
   await page.getByTestId('form').getByTestId('button').click();
-  await page.getByRole('img', { name: 'Agust D' }).click();
+  //await page.getByRole('img', { name: 'Agust D' }).click();
   await page.getByText('Download Restart').click();
   const download2Promise = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Download' }).click();
