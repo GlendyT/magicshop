@@ -204,41 +204,35 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
     handleResetContent();
   };
 
-  const birthdaysLatest = [...BirthdayCards].sort((a, b) => {
-    const today = new Date();
-    const currentYear = today.getFullYear();
-
-    const birthdayA = new Date(
-      currentYear,
-      a.date.getMonth(),
-      a.date.getDate()
-    );
-    const birthdayB = new Date(
-      currentYear,
-      b.date.getMonth(),
-      b.date.getDate()
-    );
-
-    if (birthdayA < today) birthdayA.setFullYear(currentYear + 1);
-    if (birthdayB < today) birthdayB.setFullYear(currentYear + 1);
-
-    const daysToA = Math.ceil(
-      (birthdayA.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
-    );
-    const daysToB = Math.ceil(
-      (birthdayB.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
-    );
-
-    return daysToA - daysToB;
-  });
+  const birthdaysLatest = [...BirthdayCards];
 
   const isGiftLocked = (date: Date, index: number) => {
-    const currentDate = new Date();
-    const giftDate = new Date(date);
-    if (index === 0) {
-      return level === 0;
+    const birthdayId = birthdaysLatest[index]?.id;
+    
+    // JK (id: 1) and RM (id: 2) show as available
+    if (birthdayId === 1 || birthdayId === 2) {
+      return false;
     }
-    return currentDate < giftDate;
+    
+    // Other birthdays remain locked
+    return true;
+  };
+
+  const canOpenGift = (date: Date, index: number) => {
+    const birthdayId = birthdaysLatest[index]?.id;
+    
+    // JK (id: 1) unlocks at level 1+ (700+ points)
+    if (birthdayId === 1) {
+      return level >= 1;
+    }
+    
+    // RM (id: 2) unlocks at level 2+ (1400+ points)
+    if (birthdayId === 2) {
+      return level >= 2;
+    }
+    
+    // Other birthdays cannot be opened
+    return false;
   };
 
   const tableBoard = [
@@ -278,6 +272,7 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
         resetAll,
         birthdaysLatest,
         isGiftLocked,
+        canOpenGift,
         tableBoard,
       }}
     >
