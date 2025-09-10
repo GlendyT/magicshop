@@ -1,8 +1,6 @@
 import { expect, test } from "@playwright/test";
 
 test("Generate a Sugaverse", async ({ page }) => {
-  await page.goto("http://localhost:3000/");
-  await page.getByRole("link", { name: "Sugaverse" }).nth(1).click();
   await page.goto("http://localhost:3000/sugaverse");
 
   await page.locator('div').filter({ hasText: 'Into thesuga-verseCreate and' }).nth(3).click();

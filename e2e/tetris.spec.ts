@@ -1,11 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test("generate Tetris", async ({ page }) => {
-  await page.goto("http://localhost:3000/");
-  await page.getByRole("link", { name: "Tetris" }).nth(1).click();
   await page.goto("http://localhost:3000/tetris");
-
-
 
   await page.getByText('Play TimeTETRIS 0/15Start the').click();
   await page.getByTestId('title').click();

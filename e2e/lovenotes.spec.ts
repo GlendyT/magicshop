@@ -1,8 +1,6 @@
 import { test, expect } from "@playwright/test";
 
 test("generate Lovenotes", async ({ page }) => {
-  await page.goto("http://localhost:3000/");
-  await page.getByRole("link", { name: "Love Notes" }).nth(1).click();
   await page.goto("http://localhost:3000/lovenotes");
 
   await page.getByRole('heading', { name: 'Love Notes with BTS and ARMY' }).click();

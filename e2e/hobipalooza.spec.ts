@@ -1,8 +1,6 @@
 import { expect, test } from "@playwright/test";
 
 test("Generate a Hobipalooza", async ({ page }) => {
-  await page.goto("http://localhost:3000/");
-  await page.getByRole("link", { name: "Hobipalooza" }).nth(1).click();
   await page.goto("http://localhost:3000/hobipalooza");
 
   await page.locator('div').filter({ hasText: '0/15Choose your favoriteHope' }).nth(2).click();

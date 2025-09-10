@@ -1,8 +1,6 @@
 import { test, expect } from "@playwright/test";
 
 test("generate passport and verify details", async ({ page }) => {
-  await page.goto("http://localhost:3000/");
-  await page.getByRole("link", { name: "VPassport" }).nth(1).click();
   await page.goto("http://localhost:3000/vpassport");
 
 
