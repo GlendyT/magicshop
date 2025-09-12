@@ -208,30 +208,24 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
 
   const isGiftLocked = (date: Date, index: number) => {
     const birthdayId = birthdaysLatest[index]?.id;
-    
+
     // JK (id: 1) and RM (id: 2) show as available
     if (birthdayId === 1 || birthdayId === 2) {
       return false;
     }
-    
+
     // Other birthdays remain locked
     return true;
   };
 
   const canOpenGift = (date: Date, index: number) => {
     const birthdayId = birthdaysLatest[index]?.id;
-    
-    // JK (id: 1) unlocks at level 1+ (700+ points)
-    if (birthdayId === 1) {
+
+    // Both JK and RM cards unlock at level 1+
+    if (birthdayId === 1 || birthdayId === 2) {
       return level >= 1;
     }
-    
-    // RM (id: 2) unlocks at level 2+ (1400+ points)
-    if (birthdayId === 2) {
-      return level >= 2;
-    }
-    
-    // Other birthdays cannot be opened
+
     return false;
   };
 

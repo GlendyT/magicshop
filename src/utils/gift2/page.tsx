@@ -101,9 +101,9 @@ const Gift2 = ({
         </svg>
       </section>
       {isLocked ? (
-        <div className="uppercase">Locked</div>
+        <div className="uppercase text-xs">Locked</div>
       ) : (
-        <div className=" uppercase ">Available</div>
+        <div className=" text-xs uppercase ">Available</div>
       )}
     </div>
   );
