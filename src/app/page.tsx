@@ -66,8 +66,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col gap-4 justify-center items-center transition-all duration-500 backdrop-blur-2xl bg-[#923dd2]/60 p-4">
-      {/* <div className={` door-left  left-0  ${commonClass}`}></div>
-      <div className={` door-right  right-0 ${commonClass} `}></div> */}
+     <div className={` door-left  left-0  ${commonClass}`}></div>
+      <div className={` door-right  right-0 ${commonClass} `}></div> 
       <div>
         <Image
           src={"/BTSLogoDoors/MAGICSHOP.svg"}
