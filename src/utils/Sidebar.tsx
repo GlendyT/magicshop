@@ -1,18 +1,18 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
+import { useGSAP } from "@gsap/react";
 import Link from "next/link";
 import Image from "next/image";
 import { LinkRoutes } from "./Data/ListRoutes";
 import { ButtonUtils } from "./ButtonUtils";
 import TTechLogo from "./TTechLogo";
-import Contact from "./Contact";
 import { LuAlignJustify, LuX } from "react-icons/lu";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
   const sidebarRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
+  useGSAP(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (
         sidebarRef.current &&
@@ -26,26 +26,26 @@ const Sidebar = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  });
 
   return (
     <>
-      <div className="flex absolute " ref={sidebarRef}>
+      <div className="flex h-full absolute " ref={sidebarRef}>
         <ButtonUtils
-          icon={open ? <LuX /> : <LuAlignJustify />}
+          icon={open ? <LuX /> : <LuAlignJustify className="w-8 h-8" />}
           onClick={() => setOpen(!open)}
-          className={`max-sm:block hidden rounded-t-none rounded-bl-none  items-center justify-center w-10 h-10 bg-black fixed focus:outline-none text-xl px-2 py-2  text-white z-70 ${
+          className={`   items-center justify-center w-10 h-10  fixed  cursor-pointer text-xl px-2 py-2 font-extrabold text-black z-70 ${
             open ? "opacity-100" : "opacity-80"
           } `}
         />
         <div
-          className={`fixed flex flex-col items-center justify-center left-0 h-full px-4 py-2  transition-all duration-500 z-50 max-sm:px-4 overflow-auto ${
+          className={` flex flex-col items-center justify-center py-2  transition-all duration-500 z-50 max-sm:px-4 overflow-auto ${
             open
-              ? "bg-[#1a012d]  text-purple-200 "
-              : "max-sm:bg-transparent max-sm:dark:bg-transparent bg-[#1a012d]  text-purple-200 "
-          }  ${open ? "w-28 " : "max-sm:w-0 w-20 pt-10 "}`}
+              ? " backdrop-blur-sm bg-[#923dd2]/20 text-purple-200 "
+              : "max-sm:bg-transparent  backdrop-blur-3xl bg-[#1a012d]/10  text-purple-200 "
+          }  ${open ? "w-28 " : "hidden "}`}
         >
-          <div className=" flex flex-col gap-2 ">
+          <div className=" flex flex-col gap-2  ">
             <Link
               href="/"
               className={`flex flex-col items-center justify-center gap-2  text-xs transition-all duration-500 ${
@@ -57,7 +57,7 @@ const Sidebar = () => {
                 alt="logo"
                 width={25}
                 height={5}
-                className="max-sm:w-10 max-sm:h-12 h-8 mt-0 drop-shadow-[0_10px_10px_#6e40bd]"
+                className="max-sm:w-10 max-sm:h-12 h-8 mt-0 drop-shadow-[0_0px_10px_#000000]   "
                 priority
               />
               {/* The Magic Shop */}
@@ -67,7 +67,7 @@ const Sidebar = () => {
                 <Link
                   key={linkroute.id}
                   href={linkroute.path}
-                  className={`flex flex-col items-center gap-2 rounded-lg text-xs max-sm:text-xs transition-all duration-500 ${
+                  className={`flex flex-col items-center gap-2 rounded-lg text-xs max-sm:text-xs transition-all duration-500  ${
                     open ? "opacity-100 " : "max-sm:hidden"
                   } `}
                 >
@@ -77,8 +77,8 @@ const Sidebar = () => {
                     className={`
                     object-contain
                     h-10 w-auto
-                     max-sm:w-auto drop-shadow-[0_10px_10px_#5419ba]
-                    
+                     max-sm:w-auto 
+                    backdrop-blur-md bg-purple-950/90 rounded-lg p-1
                   `}
                     width={50}
                     height={50}
