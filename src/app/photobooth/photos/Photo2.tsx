@@ -31,7 +31,7 @@ const Photo2 = ({ preview, handleFileChange, backgroundImage }: PhotoProps) => {
             className={`cursor-grab bg-white ${
               changeColor === true
                 ? " "
-                : "w-40 h-40 max-sm:w-40 max-sm:h-36 border-x-4"
+                : "w-36 h-36 max-sm:w-40 max-sm:h-36 border-x-4"
             } ${
               backgroundImage
                 ? "border-dashed"

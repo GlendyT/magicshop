@@ -80,7 +80,7 @@ const Photobooth = () => {
           }
         /> */}
         <div
-          className={`pt-10 relative object-cover bg-center bg-no-repeat ${backgroundImage ? "px-10 bg-transparent" : "px-2 bg-purple-500 pb-4"
+          className={`pt-4 relative object-cover bg-center bg-no-repeat ${backgroundImage ? "px-10 bg-transparent" : "px-2 bg-purple-500 pb-4"
             }`}
           id="print"
         >

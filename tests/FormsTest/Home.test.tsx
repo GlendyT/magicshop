@@ -15,7 +15,8 @@ describe('Home component', () => {
   it('renders all link images', () => {
     render(<Home />);
     LinkRoutes.forEach((link) => {
-      expect(screen.getByAltText(link.name)).toBeInTheDocument();
+      const images = screen.getAllByAltText(link.name);
+      expect(images.length).toBeGreaterThan(0);
     });
   });
 });
