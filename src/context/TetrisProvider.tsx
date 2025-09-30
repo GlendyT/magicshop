@@ -210,7 +210,7 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
     const birthdayId = birthdaysLatest[index]?.id;
 
     // JK (id: 1) and RM (id: 2) show as available
-    if (birthdayId === 1 || birthdayId === 2) {
+    if (birthdayId === 1 || birthdayId === 2 || birthdayId === 3) {
       return false;
     }
 
@@ -222,7 +222,7 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
     const birthdayId = birthdaysLatest[index]?.id;
 
     // Both JK and RM cards unlock at level 1+
-    if (birthdayId === 1 || birthdayId === 2) {
+    if (birthdayId === 1 || birthdayId === 2 || birthdayId === 3) {
       return level >= 1;
     }
 

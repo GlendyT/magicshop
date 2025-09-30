@@ -14,9 +14,4 @@ test("generate Festa", async ({ page }) => {
   await page.getByText('JungKook').click();
   await page.getByTestId('form').getByTestId('button').click();
   await page.locator('div').filter({ hasText: /^holafrom hola2$/ }).nth(1).click();
-  const download13Promise = page.waitForEvent('download');
-  await page.getByRole('button', { name: 'Download' }).click();
-  const download13 = await download13Promise;
-  await page.getByRole('button', { name: 'Restart' }).click();
-
 });

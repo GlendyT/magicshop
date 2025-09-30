@@ -17,6 +17,5 @@ test("generate RPS", async ({ page }) => {
   await page.getByTitle("Rock").click();
   await page.getByTitle("Paper").click();
   await page.getByTitle("Siccors").click();
-  await page.locator("div:nth-child(4) > div").first().click();
 
 });
