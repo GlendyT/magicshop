@@ -2,9 +2,9 @@ import { loadFullArtistData } from "@/services/spotify";
 import ArtistDetailsClient from "./ArtistDetailsClient";
 
 interface ArtistDetailsProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 const ArtistDetails = async ({ params }: ArtistDetailsProps) => {
