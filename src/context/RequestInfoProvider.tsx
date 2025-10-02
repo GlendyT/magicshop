@@ -5,6 +5,7 @@ import React, {
   createContext,
   FormEvent,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import {
@@ -14,6 +15,8 @@ import {
 } from "../types";
 import { citiesVisited } from "@/vpassport/Data/citiesVisited";
 import useDownload from "@/hooks/useDownload";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 const RequestInfoContext = createContext<RequestInfoContextType>(null!);
 
@@ -166,7 +169,7 @@ const RequestInfoProvider = ({ children }: AllProviderProps) => {
     setUsuario({ name: "", content: "", diseño: "", song: "" });
     setCharCount(0);
     setCharCountFrom(0);
-    setDownloadLabel("Download")
+    setDownloadLabel("Download");
   };
 
   const randomIndex = Math.floor(Math.random() * citiesVisited.length);
@@ -189,6 +192,19 @@ const RequestInfoProvider = ({ children }: AllProviderProps) => {
     await handleDownloadImage();
   };
 
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const hasVisited = localStorage.getItem("hasVisited");
+    if (!hasVisited) {
+      setLoading(true);
+      localStorage.setItem("hasVisited", "true");
+
+      setTimeout(() => {
+        setLoading(false);
+      }, 3800); // 0.5s delay + 1.5s rotation + 0.8s slide + margin
+    }
+  }, []);
   return (
     <RequestInfoContext.Provider
       value={{
@@ -242,6 +258,11 @@ const RequestInfoProvider = ({ children }: AllProviderProps) => {
         isMaxCharLimitReachedH,
         isMaxFromLimitReachedH,
         handleDownload,
+
+        // loader
+
+        loading,
+        setLoading,
       }}
     >
       {children}

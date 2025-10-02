@@ -32,7 +32,13 @@ const Sidebar = () => {
     <>
       <div className="flex h-full absolute " ref={sidebarRef}>
         <ButtonUtils
-          icon={open ? <LuX /> : <LuAlignJustify className="w-8 h-8" />}
+          icon={
+            open ? (
+              <LuX className="text-white" />
+            ) : (
+              <LuAlignJustify className="w-8 h-8" />
+            )
+          }
           onClick={() => setOpen(!open)}
           className={`   items-center justify-center w-10 h-10  fixed  cursor-pointer text-xl px-2 py-2 font-extrabold text-black z-70 ${
             open ? "opacity-100" : "opacity-80"
@@ -41,7 +47,7 @@ const Sidebar = () => {
         <div
           className={` flex flex-col items-center justify-center py-2  transition-all duration-500 z-50 max-sm:px-4 overflow-auto ${
             open
-              ? " backdrop-blur-sm bg-[#923dd2]/20 text-purple-200 "
+              ? " backdrop-blur-sm bg-[#1a012d]/90 text-purple-200 "
               : "max-sm:bg-transparent  backdrop-blur-3xl bg-[#1a012d]/10  text-purple-200 "
           }  ${open ? "w-28 " : "hidden "}`}
         >
@@ -78,7 +84,7 @@ const Sidebar = () => {
                     object-contain
                     h-10 w-auto
                      max-sm:w-auto 
-                    backdrop-blur-md bg-purple-950/90 rounded-lg p-1
+                     rounded-lg p-1
                   `}
                     width={50}
                     height={50}

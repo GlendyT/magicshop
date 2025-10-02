@@ -21,3 +21,9 @@ export const isFutureDate = (dateString: Date): boolean => {
 
   return inputDate.getTime() > currentDate.getTime();
 };
+
+export const formatDuration = (durationMs: number) => {
+  const minutes = Math.floor(durationMs / 60000);
+  const seconds = Math.floor((durationMs % 60000) / 1000);
+  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+};

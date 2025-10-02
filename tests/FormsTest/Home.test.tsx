@@ -11,6 +11,14 @@ jest.mock('@/utils/Data/ListRoutes', () => ({
   ],
 }));
 
+jest.mock('@/hooks/useRequestInfo', () => ({
+  __esModule: true,
+  default: () => ({
+    loading: false,
+    setLoading: jest.fn(),
+  }),
+}));
+
 describe('Home component', () => {
   it('renders all link images', () => {
     render(<Home />);

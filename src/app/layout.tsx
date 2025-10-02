@@ -15,6 +15,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import { TicTacToeProvider } from "@/context/TicTacToeProvider";
 import { TetrisProvider } from "@/context/TetrisProvider";
 import Contact from "@/utils/Contact";
+import { SpotifyProvider } from "@/context/SpotifyProvider";
 
 export const metadata: Metadata = {
   title: "The Magic Shop",
@@ -53,13 +54,15 @@ export default function RootLayout({
                       <RPSProvider>
                         <TicTacToeProvider>
                           <TetrisProvider>
-                            <Sidebar />
+                            
+                              <Sidebar />
 
-                            {children}
-                            <Contact />
-                            <GoogleAnalytics gaId="G-3SC31S5CBD" />
-                            <SpeedInsights />
-                            <Analytics />
+                              {children}
+                              <Contact />
+                              <GoogleAnalytics gaId="G-3SC31S5CBD" />
+                              <SpeedInsights />
+                              <Analytics />
+                            
                           </TetrisProvider>
                         </TicTacToeProvider>
                       </RPSProvider>
