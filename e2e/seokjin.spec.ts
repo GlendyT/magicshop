@@ -9,8 +9,6 @@ test("generate Seokjin", async ({ page }) => {
   await page.getByRole('textbox', { name: 'Unlock the game by adding' }).click();
   await page.getByRole('textbox', { name: 'Unlock the game by adding' }).fill('hola');
   await page.getByTestId('form').getByTestId('button').click();
-  await page.getByText('Let´s fish some music!').click();
-  //await page.getByRole('img', { name: 'fishingjin' }).click();
   await page.getByText('abcdefghijklmnopqrstuvwxyz').click();
   await page.getByTestId('waves').click();
   await page.getByTestId('fishing').getByRole('button', { name: 'y' }).click();

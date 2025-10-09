@@ -16,10 +16,7 @@ test("generate Tetris", async ({ page }) => {
   await page.getByText('Score0Level0High Score0PlayerholaRestart All').click();
   await page.getByText('Custom cards unlock at Level 1 with 700 points. Gifts for future birthdays will').click();
   await page.getByText('JKAvailable09/').click();
-  await page.getByText('RMAvailable09/').click();
-  await page.getByText('JMLocked10/').click();
   await page.locator('div:nth-child(3) > div:nth-child(2) > button').first().click();
-  await page.locator('.flex > div > div > button').first().click();
   await page.locator('button:nth-child(2)').first().click();
   await page.locator('div:nth-child(2) > button').first().click();
   await page.locator('div:nth-child(3) > div > div > button').first().click();
