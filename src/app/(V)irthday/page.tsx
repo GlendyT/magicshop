@@ -56,7 +56,7 @@ const Virthday = () => {
           </div>
         )}
 
-        <div className="w-96 max-sm:px-4">
+        {/* <div className="w-96 max-sm:px-4">
           <iframe
             title="Spotify Playlist"
             style={{ borderRadius: "12px" }}
@@ -66,7 +66,7 @@ const Virthday = () => {
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             loading="lazy"
           ></iframe>
-        </div>
+        </div> */}
       </div>
     </div>
   );

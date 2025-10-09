@@ -8,6 +8,7 @@ import {
   ReactNode,
   SetStateAction,
 } from "react";
+import { SpotifyData } from "./types.spotify";
 
 export type UsuarioType = {
   name: string;
@@ -78,6 +79,9 @@ export type RequestInfoContextType = {
   isMaxFromLimitReachedH: boolean;
   image: string;
   stamp: string;
+
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
 };
 
 export type BtsPhrases = {
@@ -566,3 +570,14 @@ export interface ImageModalProps {
   imageUrl: string;
   onClose?: () => void;
 }
+
+export type SpotifyContextType = {
+  artistData: SpotifyData | null;
+  isLoading: boolean;
+  handleClick: () => void;
+};
+
+export type SpotifyProviderProps = {
+  children: ReactNode;
+  artistId: string;
+};

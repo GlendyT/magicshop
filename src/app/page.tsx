@@ -5,11 +5,13 @@ import gsap from "gsap";
 import Image from "next/image";
 import Link from "next/link";
 import { useGSAP } from "@gsap/react";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
+import useRequestInfo from "@/hooks/useRequestInfo";
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const { loading } = useRequestInfo();
 
   useGSAP(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -24,23 +26,26 @@ export default function Home() {
   const itemsPerSlide = isMobile ? 1 : 2;
 
   useGSAP(() => {
-    const tl = gsap.timeline();
-
-    tl.to(".door-left", {
-      duration: 1.5,
-      rotateY: -90,
-      ease: "power2.inOut",
-      delay: 0.5,
-    }).to(
-      ".door-right",
-      {
+    if (loading) {
+      const tl = gsap.timeline();
+      tl.to(".door-left", {
         duration: 1.5,
-        rotateY: 90,
+        rotateY: -90,
         ease: "power2.inOut",
-      },
-      "-=1.5"
-    );
-  });
+        delay: 0.5,
+      })
+        .to(
+          ".door-right",
+          {
+            duration: 1.5,
+            rotateY: 90,
+            ease: "power2.inOut",
+          },
+          "-=1.5"
+        )
+;
+    }
+  }, [loading]);
 
   const intervalRef = useRef<gsap.core.Tween | null>(null);
 
@@ -66,8 +71,12 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col gap-4 justify-center items-center transition-all duration-500 backdrop-blur-2xl bg-[#923dd2]/60 p-4">
-     <div className={` door-left  left-0  ${commonClass}`}></div>
-      <div className={` door-right  right-0 ${commonClass} `}></div> 
+      {loading && (
+        <>
+          <div className={` door-left  left-0  ${commonClass}`}></div>
+          <div className={` door-right  right-0 ${commonClass} `}></div>
+        </>
+      )}
       <div>
         <Image
           src={"/BTSLogoDoors/MAGICSHOP.svg"}
@@ -91,7 +100,7 @@ export default function Home() {
               href="https://ttechdesigners.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className={`text-[0.7rem] text-center w-16 font-extrabold  dark:text-purple-100  transition-colors duration-300 `}
+              className={`text-[0.7rem] text-center w-16 font-extrabold    transition-colors duration-300 `}
             >
               developed by TTechDesigners
             </Link>

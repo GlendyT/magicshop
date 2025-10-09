@@ -53,13 +53,15 @@ export default function RootLayout({
                       <RPSProvider>
                         <TicTacToeProvider>
                           <TetrisProvider>
-                            <Sidebar />
+                            
+                              <Sidebar />
 
-                            {children}
-                            <Contact />
-                            <GoogleAnalytics gaId="G-3SC31S5CBD" />
-                            <SpeedInsights />
-                            <Analytics />
+                              {children}
+                              <Contact />
+                              <GoogleAnalytics gaId="G-3SC31S5CBD" />
+                              <SpeedInsights />
+                              <Analytics />
+                            
                           </TetrisProvider>
                         </TicTacToeProvider>
                       </RPSProvider>

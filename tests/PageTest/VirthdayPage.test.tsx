@@ -119,11 +119,4 @@ describe("Virthday component", () => {
     expect(screen.getByTestId("formulario")).toBeInTheDocument();
   });
 
-  test("renders the Spotify iframe", () => {
-    render(<Virthday />);
-    const iframe = screen.getByTitle("Spotify Playlist");
-
-    expect(iframe).toBeInTheDocument();
-    expect(iframe).toHaveAttribute("src", expect.stringContaining("open.spotify.com"));
-  });
 });
