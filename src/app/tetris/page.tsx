@@ -15,6 +15,9 @@ const Tetris = () => {
     >
       <div className="flex flex-col min-h-screen w-full items-center justify-center bg-black/30">
         {cargando ? <Formulario /> : resultado && <Resultado />}
+
+        
+        {/* <Resultado /> */}
       </div>
     </div>
   );

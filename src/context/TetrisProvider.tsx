@@ -221,9 +221,9 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
   const canOpenGift = (date: Date, index: number) => {
     const birthdayId = birthdaysLatest[index]?.id;
 
-    // Both JK and RM cards unlock at level 1+
+    // JK, RM and Jimin cards are always available (no level required)
     if (birthdayId === 1 || birthdayId === 2 || birthdayId === 3) {
-      return level >= 1;
+      return true;
     }
 
     return false;
@@ -238,10 +238,10 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
       title: "Level",
       value: level,
     },
-    {
-      title: "High Score",
-      value: highScore,
-    },
+    // {
+    //   title: "High Score",
+    //   value: highScore,
+    // },
     {
       title: "Player",
       value: name,

@@ -116,9 +116,6 @@ describe("Resultado Component", () => {
 
   it("displays unlock information text", () => {
     render(<Resultado />);
-    expect(
-      screen.getByText(/Custom cards unlock at Level 1/)
-    ).toBeInTheDocument();
     expect(screen.getByText(/Gifts for future birthdays/)).toBeInTheDocument();
   });
 });

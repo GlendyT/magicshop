@@ -1,6 +1,10 @@
 .svg-wrapper {
-    height: 8vh;
+    height: 7vh;
 }
+.svg-wrapper2 {
+    height: 12vh;
+}
+
 
 .svg-wrapper svg {
     display: block;
@@ -8,14 +12,24 @@
     height: 100%;
 }
 
+.svg-wrapper2 svg {
+    display: block;
+    width: auto;
+    height: 100%;
+}
+
+
 @media only screen and (max-width: 47.98em) {
     .svg-wrapper svg {
         max-width: 100%;
     }
+    .svg-wrapper2 {
+    height: 8vh;
+}
 }
 
 .vibrating {
-  animation: vibrate 0.3s linear infinite;
+  animation: vibrate 1s linear infinite;
 }
 
 @keyframes vibrate {
