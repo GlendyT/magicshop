@@ -556,8 +556,8 @@ export type birthdayCardType = {
 };
 
 export interface Gift2Props {
-  level: number;
-  name: string;
+  level?: number;
+  name?: string;
   imageUrl?: string;
   onClick?: () => void;
   isLocked?: boolean;

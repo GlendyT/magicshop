@@ -1,35 +1,27 @@
-import { Gift2Props } from "@/types/index";
 import "./style.css";
 
-const Gift2 = ({
-  level = 0,
-  name,
-  onClick,
-  isLocked,
-  canOpen = false,
-}: Gift2Props) => {
+type BoxProps = {
+  onClick: () => void;
+};
+
+const Box = ({ onClick }: BoxProps) => {
   return (
     <div
-      className={`relative flex flex-col text-center ${
-        isLocked ? "opacity-60" : ""
-      }`}
+      className={`relative flex flex-col justify-center items-center text-center  `}
     >
-      <section
-        className={`svg-wrapper ${!isLocked ? "cursor-pointer" : ""}`}
-        onClick={!isLocked ? onClick : undefined}
-      >
+      <section className={`svg-wrapper2 cursor-pointer`} onClick={onClick}>
         <svg
-          width="3.5"
-          height="3"
+          width="5"
+          height="5"
           viewBox="0 0 10 105"
           preserveAspectRatio="xMinYMin meet"
           xmlns="http://www.w3.org/2000/svg"
           xmlnsXlink="http://www.w3.org/1999/xlink"
         >
           <g className="" data-origin="50% 100%">
-            <g className="box">
+            <g className="box ">
               <path
-                fill="#fdf9ec"
+                fill="#eddafa"
                 d="M94 88.1 Q94 92.1 90 92.1 L29 92.1 Q25 92.1 25 88.1 L25 53.1 94 53.1 94 88.1"
               />
               <path
@@ -37,25 +29,17 @@ const Gift2 = ({
                 d="M95 53.1 L95 87.1 Q95 93.1 89 93.1 L30 93.1 Q24 93.1 24 87.1 L24 53.1 26 53.1 26 87.1 Q26 91.1 30 91.1 L89 91.1 Q93 91.1 93 87.1 L93 53.1 95 53.1"
               />
               <rect fill="#333333" x="24" y="51.5" width="71" height="2"></rect>
-              <path
-                fill="#440568"
-                d="M41.4 72.8 Q41.4 65.3 46.7 60 52 54.7 59.5 54.7 67 54.7 72.25 60 77.6 65.3 77.6 72.8 77.6 80.3 72.25 85.55 67 90.9 59.5 90.9 52 90.9 46.7 85.55 41.4 80.3 41.4 72.8"
-              />
 
               <text
                 x="59.5"
                 y="80"
-                textAnchor="middle"
-                fill="#fffefe"
-                fontSize="23"
-                fontFamily=" bold"
+                textAnchor="middle "
+                fill="#0a0b0f"
+                fontSize="15"
+                fontFamily=" extrabold"
               >
-                {name}
+                OPEN ME
               </text>
-              <path
-                fill="#333333"
-                d="M79.2 72.8 Q79.2 80.9 73.4 86.65 L73.35 86.7 Q67.6 92.5 59.5 92.5 51.35 92.5 45.6 86.7 39.8 80.95 39.8 72.8 39.8 64.7 45.6 58.9 51.4 53.1 59.5 53.1 67.65 53.1 73.4 58.9 79.2 64.65 79.2 72.8 M77.25 72.8 Q77.25 65.45 72.05 60.2 66.85 55.05 59.5 55.05 52.15 55.05 46.9 60.2 41.75 65.45 41.75 72.8 41.75 80.15 46.9 85.35 52.15 90.55 59.5 90.55 66.85 90.55 72.05 85.35 77.25 80.15 77.25 72.8"
-              />
             </g>
             <path
               className="bottom-shadow"
@@ -75,10 +59,7 @@ const Gift2 = ({
               fillOpacity="0.2"
               d="M55.4 57.8 L55.35 58.5 54.75 59 Q51.85 59.95 49.5 62.25 L49.45 62.3 48.3 63.55 47.65 63.85 46.95 63.65 46.6 63 Q46.55 62.6 46.85 62.3 L48.1 60.95 48.1 60.9 Q50.85 58.2 54.2 57.15 L54.9 57.25 55.4 57.8"
             />
-            <g
-              className={`lid ${canOpen ? "vibrating" : ""}`}
-              data-origin="50% 100%"
-            >
+            <g className={`lid  vibrating`} data-origin="50% 100%">
               <path
                 fill="#fdf9ec"
                 d="M95 38.1 Q99 38.1 99 42.1 L99 53.1 20 53.1 20 42.1 Q20 38.1 24 38.1 L95 38.1"
@@ -100,9 +81,8 @@ const Gift2 = ({
           </g>
         </svg>
       </section>
-      {isLocked ? <div className="uppercase text-xs">Soon...</div> : <></>}
     </div>
   );
 };
 
-export default Gift2;
+export default Box;
