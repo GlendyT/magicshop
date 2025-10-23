@@ -1,9 +1,4 @@
-import {
-  GameModeKey,
-  GameModeValue,
-  GameStates,
-  PlayerOptions,
-} from "@/types/index";
+import { GameModeKey, GameModeValue, PlayerOptions } from "@/types/index";
 
 export const DIMENSIONS = 3;
 export const DRAW = 0;
@@ -12,7 +7,7 @@ export const PLAYER_0 = 2;
 
 export const playerOptions: PlayerOptions[] = [
   { value: PLAYER_X, label: "X", id: 1, name: "X" },
-  { value: PLAYER_0, label: "0", id: 2,name: "0" },
+  { value: PLAYER_0, label: "0", id: 2, name: "0" },
 ];
 export const SCORES: Record<string, number> = {
   1: 1,

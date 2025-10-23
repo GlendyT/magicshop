@@ -10,9 +10,6 @@ import Logo from "./Logo";
 import Photo2 from "./photos/Photo2";
 import Photo3 from "./photos/Photo3";
 import Photo from "./photos/Photo";
-import { btsPerzonalizedBG } from "./Data/btsPersonalizedBG";
-import useRequestInfo from "@/hooks/useRequestInfo";
-import RadioOptionsUtils from "@/utils/RadioOptionsUtils";
 
 type PhotoboothProps = {
   openModal: boolean;
@@ -43,7 +40,6 @@ const Photobooth = () => {
     backgroundImage,
   }: PhotoboothProps = usePhotobooth();
   const { getProcessedImage, resetStates } = useImageCrop();
-  const { usuario } = useRequestInfo();
 
   const handleDone = async (): Promise<File | undefined> => {
     const avatar = await getProcessedImage();

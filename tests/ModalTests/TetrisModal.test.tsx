@@ -71,7 +71,7 @@ describe('ImageModal', () => {
     render(
       <ImageModal isOpen={true} imageUrl="/test.jpg" onClose={mockOnClose} />
     );
-    expect(document.body.style.overflow).toBe('hidden');
+    expect(document.body).toHaveStyle({overflow:'hidden'});
   });
 
   it('resets body overflow when modal closes', () => {
@@ -81,6 +81,6 @@ describe('ImageModal', () => {
     rerender(
       <ImageModal isOpen={false} imageUrl="/test.jpg" onClose={mockOnClose} />
     );
-    expect(document.body.style.overflow).toBe('unset');
+    expect(document.body).toHaveStyle({overflow:'unset'});
   });
 });

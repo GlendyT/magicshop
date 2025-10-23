@@ -1,11 +1,10 @@
 import AlbumDropdown from "@/app/spotify/[id]/AlbumDropdown";
-import { SpotifyAlbum, SpotifyTrack } from "@/types/types.spotify";
+import { SpotifyAlbum } from "@/types/types.spotify";
 import { ButtonUtils } from "@/utils/ButtonUtils";
 import { formatDuration } from "@/utils/FormatDates";
 import Link from "next/link";
 import React from "react";
 import {
-  RiAddFill,
   RiArrowLeftLine,
   RiArrowRightLine,
   RiPlayLargeLine,

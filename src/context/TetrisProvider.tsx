@@ -35,48 +35,52 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
     color: Math.floor(Math.random() * 7) + 1,
   });
 
-  const isValidMove = (piece: Piece, dx = 0, dy = 0, newShape?: number[][]) => {
-    const shape = newShape || piece.shape;
-    for (let y = 0; y < shape.length; y++) {
-      for (let x = 0; x < shape[y].length; x++) {
-        if (shape[y][x]) {
-          const newX = piece.x + x + dx;
-          const newY = piece.y + y + dy;
-          if (
-            newX < 0 ||
-            newX >= BOARD_WIDTH ||
-            newY >= BOARD_HEIGHT ||
-            (newY >= 0 && board[newY][newX])
-          )
-            return false;
+  const isValidMove = useCallback(
+    (piece: Piece, dx = 0, dy = 0, newShape?: number[][]) => {
+      const shape = newShape || piece.shape;
+      for (let y = 0; y < shape.length; y++) {
+        for (let x = 0; x < shape[y].length; x++) {
+          if (shape[y][x]) {
+            const newX = piece.x + x + dx;
+            const newY = piece.y + y + dy;
+            if (
+              newX < 0 ||
+              newX >= BOARD_WIDTH ||
+              newY >= BOARD_HEIGHT ||
+              (newY >= 0 && board[newY][newX])
+            )
+              return false;
+          }
         }
       }
-    }
-    return true;
-  };
+      return true;
+    },
+    [board]
+  );
 
-  const placePiece = (piece: Piece) => {
-    const newBoard = board.map((row) => [...row]);
-    piece.shape.forEach((row, y) => {
-      row.forEach((cell, x) => {
-        if (cell && piece.y + y >= 0) {
-          newBoard[piece.y + y][piece.x + x] = piece.color;
-        }
+  const placePiece = useCallback(
+    (piece: Piece) => {
+      const newBoard = board.map((row) => [...row]);
+      piece.shape.forEach((row, y) => {
+        row.forEach((cell, x) => {
+          if (cell && piece.y + y >= 0) {
+            newBoard[piece.y + y][piece.x + x] = piece.color;
+          }
+        });
       });
-    });
 
-    // Clear lines
-    const clearedBoard = newBoard.filter((row) =>
-      row.some((cell) => cell === 0)
-    );
-    const linesCleared = BOARD_HEIGHT - clearedBoard.length;
-    while (clearedBoard.length < BOARD_HEIGHT) {
-      clearedBoard.unshift(Array(BOARD_WIDTH).fill(0));
-    }
+      // Clear lines
+      const clearedBoard = newBoard.filter((row) => row.some((cell) => cell === 0));
+      const linesCleared = BOARD_HEIGHT - clearedBoard.length;
+      while (clearedBoard.length < BOARD_HEIGHT) {
+        clearedBoard.unshift(Array(BOARD_WIDTH).fill(0));
+      }
 
-    setBoard(clearedBoard);
-    setScore((prev) => prev + linesCleared * 100);
-  };
+      setBoard(clearedBoard);
+      setScore((prev) => prev + linesCleared * 100);
+    },
+    [board]
+  );
 
   const movePiece = useCallback(
     (dx: number, dy: number) => {
@@ -98,10 +102,10 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
         }
       }
     },
-    [currentPiece, board, gameOver, isPaused]
+    [currentPiece, gameOver, isPaused, score, highScore, placePiece, isValidMove]
   );
 
-  const rotatePiece = () => {
+  const rotatePiece = useCallback(() => {
     if (!currentPiece || gameOver || isPaused) return;
     const rotated = currentPiece.shape[0].map((_, i) =>
       currentPiece.shape.map((row) => row[i]).reverse()
@@ -109,7 +113,7 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
     if (isValidMove(currentPiece, 0, 0, rotated)) {
       setCurrentPiece((prev) => (prev ? { ...prev, shape: rotated } : null));
     }
-  };
+  }, [currentPiece, gameOver, isPaused, isValidMove]);
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -130,7 +134,7 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
     };
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [movePiece]);
+  }, [movePiece, rotatePiece]);
 
   useEffect(() => {
     if (!currentPiece && !gameOver && isPlaying) {

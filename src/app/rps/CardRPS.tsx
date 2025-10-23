@@ -11,7 +11,7 @@ const CardRPS = () => {
   const { result, maxTurns, turns, options, handlePlay, disabled, resetAll } =
     useRPS();
   const { setShowModal, showModal, usuario } = useRequestInfo();
-  const { name, song } = usuario;
+  const { name } = usuario;
   const { handleDownloadImage } = useDownload();
   const handleModal = () => {
     setShowModal(!showModal);

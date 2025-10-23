@@ -5,7 +5,6 @@ import React, {
   createContext,
   FormEvent,
   useEffect,
-  useRef,
   useState,
 } from "react";
 import {
@@ -15,8 +14,6 @@ import {
 } from "../types";
 import { citiesVisited } from "@/vpassport/Data/citiesVisited";
 import useDownload from "@/hooks/useDownload";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 
 const RequestInfoContext = createContext<RequestInfoContextType>(null!);
 

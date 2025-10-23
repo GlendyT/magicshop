@@ -121,7 +121,7 @@ describe("Formulario", () => {
 
         render(<Formulario />);
         const content = screen.getByTestId("input-content");
-        expect(content).not.toBeDisabled();
+        expect(content).toBeEnabled();
     });
 
 

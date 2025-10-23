@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import InputNameUtils from "@/utils/InputNameUtils";
 import useRequestInfo from "@/hooks/useRequestInfo";
@@ -34,6 +34,6 @@ describe("InputNmaeUtils", () => {
     const input = screen.getByPlaceholderText("Enter text") as HTMLInputElement;
     expect(input).toHaveValue("Hoseok");
     expect(input).toHaveClass("test-input");
-    expect(input).not.toBeDisabled();
+    expect(input).toBeEnabled();
   });
 });

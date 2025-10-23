@@ -89,7 +89,7 @@ describe("Formulario", () => {
 
         render(<Formulario />)
         const content = screen.getByTestId("input-content")
-        expect(content).not.toBeDisabled()
+        expect(content).toBeEnabled()
     })
 
     it("boton esta deshabilitado si no hay diseño", () => {

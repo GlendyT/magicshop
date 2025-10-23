@@ -388,7 +388,7 @@ export async function getMultipleBasicArtistData(token: string, artistIds: strin
 export async function getArtistDataById(token: string, artistId: string): Promise<SpotifyData | null> {
   try {
     // Get fresh token if needed
-    let currentToken = token;
+    const currentToken = token;
     
     const artist = await getArtistById(currentToken, artistId);
     

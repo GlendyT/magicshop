@@ -122,7 +122,7 @@ export default function Home() {
                 {LinkRoutes.slice(
                   slideIndex * itemsPerSlide,
                   slideIndex * itemsPerSlide + itemsPerSlide
-                ).map((linkrout, index) => (
+                ).map((linkrout) => (
                   <Link
                     key={linkrout.id}
                     href={linkrout.path}

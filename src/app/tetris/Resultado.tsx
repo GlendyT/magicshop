@@ -31,8 +31,8 @@ const Resultado = () => {
   };
 
   const memoizedBoardCells = useMemo(() => {
-    const board = renderBoard();
-    return board.flatMap((row, y) =>
+    const view = renderBoard();
+    return view.flatMap((row, y) =>
       row.map((cell, x) => ({ cell, x, y, key: `${y}-${x}` }))
     );
   }, [renderBoard]);
