@@ -1,4 +1,9 @@
 {
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-workflow.json": "./.github/workflows/*"
+  },
+  // If the schema store fetch fails in your environment, you can disable schema download
+  "yaml.schemaStore.enable": false,
   "files.associations": {
     "*.css": "tailwindcss"
   },
