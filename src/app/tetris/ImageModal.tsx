@@ -18,11 +18,12 @@ const ImageModal = ({ isOpen, imageUrl, onClose }: ImageModalProps) => {
     };
   }, [isOpen]);
 
-  if (!isOpen) return null;
-
+  // Call hooks unconditionally to preserve React hook order
   const { usuario } = useRequestInfo();
-  const { name } = usuario;
   const { handleDownloadImage } = useDownload();
+  const name = usuario?.name ?? "";
+
+  if (!isOpen) return null;
 
   return (
     <div

@@ -15,7 +15,7 @@ export const minimax = (
     return [SCORES[winner], 0];
   } else {
     for (const square of board.getEmptySquares()) {
-      let copy: Board = board.clone();
+      const copy: Board = board.clone();
       copy.makeMove(square, player);
       thisScore = multiplier * minimax(copy, switchPlayer(player))[0];
 

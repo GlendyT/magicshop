@@ -77,7 +77,7 @@ describe("Photobooth component", () => {
 
         // Wait to simulate async image processing
         await waitFor(() => {
-            expect(screen.queryByTestId("Modal")).toBeInTheDocument(); // Still in document because closeModal is mocked
+            expect(screen.getByTestId("Modal")).toBeInTheDocument(); // Still in document because closeModal is mocked
         });
     });
 

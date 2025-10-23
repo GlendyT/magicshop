@@ -2,7 +2,6 @@ import { Gift2Props } from "@/types/index";
 import "./style.css";
 
 const Gift2 = ({
-  level = 0,
   name,
   onClick,
   isLocked,

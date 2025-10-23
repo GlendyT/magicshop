@@ -2,7 +2,7 @@ import InputNameUtils from "@/utils/InputNameUtils";
 import { btsgrid } from "./Data/BTSarr";
 import RadioOptionsUtils from "@/utils/RadioOptionsUtils";
 import useTicTacToe from "@/hooks/useTicTacToe";
-import { gameModeOptions, playerOptions } from "./Data/constants";
+import { gameModeOptions } from "./Data/constants";
 import { ButtonUtils } from "@/utils/ButtonUtils";
 import useRequestInfo from "@/hooks/useRequestInfo";
 
@@ -14,12 +14,10 @@ const Form = () => {
     choosePlayer,
     PLAYER_0,
     PLAYER_X,
-    playerChoice,
   } = useTicTacToe();
   const { usuario, handleSubmit } = useRequestInfo();
   const name = usuario?.name?.trim();
   const isNameFilled = !!name;
-  const isModeSelected = !!mode;
 
   return (
     <div className=" min-h-screen flex flex-row max-sm:flex-col max-sm:gap-14 items-center justify-center h-fit w-full gap-44 px-40 bg-purple-950">

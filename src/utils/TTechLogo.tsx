@@ -1,7 +1,5 @@
 import React from "react";
 import Switcher from "./Switcher";
-import Link from "next/link";
-import { indie } from "./Fonts";
 
 const TTechLogo = () => {
   return (

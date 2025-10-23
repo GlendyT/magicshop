@@ -1,6 +1,5 @@
 import useTetris from "@/hooks/useTetris";
 import { ButtonUtils } from "@/utils/ButtonUtils";
-import { tiny } from "@/utils/Fonts";
 import React from "react";
 import {
   LuArrowDown,

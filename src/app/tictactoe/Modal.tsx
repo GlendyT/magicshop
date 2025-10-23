@@ -1,5 +1,4 @@
 import useDownload from "@/hooks/useDownload";
-import useRequestInfo from "@/hooks/useRequestInfo";
 import useTicTacToe from "@/hooks/useTicTacToe";
 import { ButtonUtils } from "@/utils/ButtonUtils";
 import Image from "next/image";
@@ -7,8 +6,6 @@ import Image from "next/image";
 const Modal = () => {
   const { winner, startNewGame, modalOpen } = useTicTacToe();
   const { handleDownloadImage } = useDownload();
-  const { usuario } = useRequestInfo();
-  const { name } = usuario;
 
   if (!modalOpen) return null;
   return (

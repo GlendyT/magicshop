@@ -66,12 +66,12 @@ describe("Resultado component", () => {
         const { rerender } = render(<Resultado item={{ ...mockItem, price: "wrong" }} />);
         let image = screen.getByRole("img");
 
-        expect(image.className).toContain("border-red-600");
+        expect(image).toHaveClass("border-red-600");
 
         rerender(<Resultado item={{ ...mockItem, price: "correct" }} />);
         image = screen.getByRole("img");
 
-        expect(image.className).toContain("border-green-600");
+        expect(image).toHaveClass("border-green-600");
     });
 
     test("disables click when gameStarted is false", () => {

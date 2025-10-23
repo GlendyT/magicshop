@@ -34,7 +34,7 @@ describe("InputContentUtils", () => {
     const input = screen.getByPlaceholderText("Enter text") as HTMLInputElement;
     expect(input).toHaveValue("hello");
     expect(input).toHaveClass("test-input");
-    expect(input).not.toBeDisabled();
+    expect(input).toBeEnabled();
   });
 
   it("calls handleContentH on input change", () => {

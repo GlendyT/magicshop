@@ -2,7 +2,7 @@
 import Image from "next/image";
 import useDownload from "@/hooks/useDownload";
 import { btsPhrase } from "./btsPhrase";
-import { antonio, jinora, libre } from "@/utils/Fonts";
+import {  jinora } from "@/utils/Fonts";
 import { ButtonUtils } from "@/utils/ButtonUtils";
 
 const Polaroid = () => {
