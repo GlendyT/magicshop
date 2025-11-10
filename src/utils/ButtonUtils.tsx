@@ -7,6 +7,7 @@ export const ButtonUtils = ({
   icon,
   disabled,
   disableColors,
+  title
 }: ButtonProps) => {
   return (
     <button
@@ -14,6 +15,7 @@ export const ButtonUtils = ({
       className={`flex justify-center  gap-2 font-bold transition-all ${className} rounded-xl ${disableColors} `}
       onClick={onClick}
       disabled={disabled}
+      title={title}
     >
       <span className="flex flex-row items-center justify-center gap-2 ">
         {label} {icon}

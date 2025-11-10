@@ -82,7 +82,7 @@ const Sidebar = () => {
                     alt={linkroute.name}
                     className={`
                     object-contain
-                    h-10 w-auto
+                    h-8 w-auto
                      max-sm:w-auto 
                      rounded-lg p-1
                   `}

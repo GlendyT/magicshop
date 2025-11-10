@@ -222,6 +222,14 @@
   background-size: cover;
 }
 
+
+.bg-bingo {
+  background-image: url("/BillionGoal/blue.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .loader {
   position: relative;
   width: 120px;
