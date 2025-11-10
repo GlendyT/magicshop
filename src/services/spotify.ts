@@ -1,7 +1,7 @@
 "use server";
 
 import { SpotifyData } from "@/types/types.spotify";
-import { getBasicArtistData, getTokenSpotify, getMultipleBasicArtistData, getArtistDataById } from "./express";
+import { getBasicArtistData, getTokenSpotify, getMultipleBasicArtistData, getArtistDataById } from "./handlerSpotify";
 
 export const loadArtistData = async (
   artistId: string

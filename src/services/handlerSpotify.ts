@@ -1,7 +1,5 @@
 import { SpotifyAlbum, SpotifyArtist, SpotifyData, SpotifyTrack } from "@/types/types.spotify";
 
-
-
 export async function getTokenSpotify(): Promise<string> {
   const clientId = process.env.SPOTIFY_CLIENT_ID;
   const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;

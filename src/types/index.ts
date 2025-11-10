@@ -9,6 +9,7 @@ import {
   SetStateAction,
 } from "react";
 import { SpotifyData } from "./types.spotify";
+import { TrackResult } from "./lastfmtypes";
 
 export type UsuarioType = {
   name: string;
@@ -96,6 +97,7 @@ export type ButtonProps = {
   icon?: ReactNode | undefined;
   disabled?: boolean;
   disableColors?: string;
+  title?: string;
 };
 
 export type DownloadContextType = {
@@ -581,3 +583,13 @@ export type SpotifyProviderProps = {
   children: ReactNode;
   artistId: string;
 };
+
+
+
+export interface BingoContextType {
+  result: TrackResult | null;
+  isChecking: boolean;
+  hasChecked: boolean;
+  handleCheck: (username: string) => Promise<void>;
+  handleCleanCheck: () => void;
+}

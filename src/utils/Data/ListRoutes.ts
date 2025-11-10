@@ -72,5 +72,12 @@ export const LinkRoutes: LinkRoutesTypes[] = [
     name: "Tetris",
     path: "/tetris",
     image: "/Logos/btstetris.webp",
+  },
+  {
+    id: 13,
+    name: "Bingo",
+    path: "/bingo",
+    image: "/Logos/1B.webp",
+
   }
 ];
