@@ -1,16 +1,16 @@
 import { LastfmTrack, SongDetails, TrackResult } from "@/types/lastfmtypes";
 import { LASTFM_API_KEY, LASTFM_BASE_URL, TARGET_SONGS_INFO } from "constants/constants";
 
-// Validation
-if (!LASTFM_BASE_URL || !LASTFM_API_KEY) {
-  throw new Error("Missing Last.fm API configuration");
-}
-
 // Helper functions
 export const buildLastfmUrl = (method: string, params: Record<string, string>) => {
-   const url = new URL(LASTFM_BASE_URL!);
+  // Validation at runtime, not at module load time
+  if (!LASTFM_BASE_URL || !LASTFM_API_KEY) {
+    throw new Error("Missing Last.fm API configuration");
+  }
+  
+  const url = new URL(LASTFM_BASE_URL);
   url.searchParams.set("method", method);
-  url.searchParams.set("api_key", LASTFM_API_KEY!);
+  url.searchParams.set("api_key", LASTFM_API_KEY);
   url.searchParams.set("format", "json");
 
   Object.entries(params).forEach(([key, value]) => {
