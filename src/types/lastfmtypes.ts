@@ -2,6 +2,7 @@ import { TargetSongInfo } from "constants/constants";
 
 // Interface for Last.fm track data
 export interface LastfmTrack {
+  id: number;
   name: string;
   artist: { "#text": string };
   album?: { "#text": string };
@@ -23,6 +24,7 @@ export interface LastfmResponse {
 }
 
 export interface SongDetails {
+  id: number;
   name: string;
   artist: string;
   album: string;

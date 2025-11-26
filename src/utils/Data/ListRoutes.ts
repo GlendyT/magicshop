@@ -78,6 +78,11 @@ export const LinkRoutes: LinkRoutesTypes[] = [
     name: "Bingo",
     path: "/bingo",
     image: "/Logos/1B.webp",
-
+  },
+  {
+    id: 14,
+    name: "Spotify",
+    path: "/spotify",
+    image: "/Logos/spotify.webp"
   }
 ];

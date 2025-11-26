@@ -41,6 +41,7 @@ export const isMatchingTrack = (
 };
 
 export const createSongDetails = (track: LastfmTrack): SongDetails => ({
+  id: track.id,
   name: track.name,
   artist: track.artist["#text"],
   album: track.album?.["#text"] || "Unknown Album",
