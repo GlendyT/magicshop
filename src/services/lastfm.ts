@@ -169,6 +169,7 @@ export const checkRecentTrack = async (
 
     // Paso 1: Usar TARGET_SONGS_INFO como base de datos
     const targetSongsInfo: SongDetails[] = TARGET_SONGS_INFO.map((song) => ({
+      id: song.id,
       name: song.name,
       artist: song.artist,
       album: song.album,

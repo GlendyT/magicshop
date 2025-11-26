@@ -13,10 +13,24 @@ export const DownloadProvider = ({ children }: AllProviderProps) => {
     if (!element) {
       return;
     }
-    await document.fonts.ready;
+    
+    // Pequeña espera adicional para asegurar el renderizado
+    await new Promise(resolve => setTimeout(resolve, 100));
 
     const options = {
       scale: 3,
+      useCORS: true,
+      allowTaint: true,
+      logging: false,
+      backgroundColor: null,
+      removeContainer: true,
+      onclone: (clonedDoc: Document) => {
+        const clonedElement = clonedDoc.getElementById("print");
+        if (clonedElement) {
+          // Forzar el estilo de fuente en el elemento clonado
+          clonedElement.style.fontFamily = getComputedStyle(element).fontFamily;
+        }
+      },
     };
     const canvas = await html2canvas(element, options);
     const data = canvas.toDataURL("image/png", 1.0);
