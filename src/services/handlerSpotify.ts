@@ -10,29 +10,56 @@ export async function getTokenSpotify(): Promise<string> {
 
   const authString = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
 
-  const response = await fetchWithRetry(`${process.env.SPOTIFY_TOKEN_URL}`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Basic ${authString}`,
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: 'grant_type=client_credentials',
-  });
+  try {
+    const response = await fetchWithRetry(`${process.env.SPOTIFY_TOKEN_URL}`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Basic ${authString}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: 'grant_type=client_credentials',
+    });
 
-  if (!response.ok) {
-    const errorData = await response.text();
-    throw new Error(`Failed to fetch Spotify token: ${response.status} - ${errorData}`);
+    if (!response.ok) {
+      const errorData = await response.text();
+      throw new SpotifyFetchError(`Failed to fetch Spotify token: ${response.status} - ${errorData}`, response.status);
+    }
+
+    const data = await response.json();
+    return data.access_token;
+  } catch (error) {
+    if (error instanceof SpotifyFetchError && error.isNetworkError) {
+      throw new Error('Unable to connect to Spotify. Please check your internet connection.');
+    }
+    throw error;
   }
-
-  const data = await response.json();
-  return data.access_token;
 }
 // Función utilitaria para hacer delay entre peticiones
 function delay(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+// Tipo de error personalizado para mejor manejo
+class SpotifyFetchError extends Error {
+  constructor(
+    message: string,
+    public statusCode?: number,
+    public isNetworkError: boolean = false
+  ) {
+    super(message);
+    this.name = 'SpotifyFetchError';
+  }
+}
+
 // Función utilitaria para hacer peticiones con retry logic
-async function fetchWithRetry(url: string, options: RequestInit, maxRetries = 3): Promise<Response> {
+async function fetchWithRetry(
+  url: string, 
+  options: RequestInit, 
+  maxRetries = 3,
+  silent = false
+): Promise<Response> {
+  let lastError: Error | null = null;
+  
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const response = await fetch(url, {
@@ -40,33 +67,57 @@ async function fetchWithRetry(url: string, options: RequestInit, maxRetries = 3)
         signal: AbortSignal.timeout(15000)
       });
       
+      // Handle rate limiting
       if (response.status === 429) {
         const retryAfter = response.headers.get('Retry-After');
         const waitTime = retryAfter ? parseInt(retryAfter) * 1000 : Math.pow(2, attempt) * 1000;
         
         if (attempt === maxRetries) {
-          throw new Error(`Rate limit exceeded after ${maxRetries} attempts`);
+          throw new SpotifyFetchError('Rate limit exceeded', 429);
         }
         
         await delay(waitTime);
         continue;
       }
       
+      // Handle authentication errors
       if (response.status === 401) {
-        throw new Error('Unauthorized - Token may be expired');
+        throw new SpotifyFetchError('Unauthorized - Token may be expired', 401);
       }
       
       return response;
     } catch (error) {
-      console.error(`Fetch attempt ${attempt}/${maxRetries} failed for ${url}:`, error);
-      if (attempt === maxRetries) {
-        throw error;
+      lastError = error as Error;
+      
+      // Detectar errores de red (timeout, connection refused, etc.)
+      const isNetworkError = 
+        error instanceof TypeError || 
+        (error as unknown as { code?: string })?.code === 'UND_ERR_CONNECT_TIMEOUT' ||
+        (error as unknown as { cause?: { code?: string } })?.cause?.code === 'UND_ERR_CONNECT_TIMEOUT';
+      
+      // Solo loguear en el último intento y solo si no es modo silencioso
+      if (attempt === maxRetries && !silent) {
+        if (isNetworkError) {
+          console.error(`[Spotify API] Network error after ${maxRetries} attempts: ${url.includes('accounts.spotify.com') ? 'Authentication' : 'API'} service unavailable`);
+        } else {
+          console.error(`[Spotify API] Request failed after ${maxRetries} attempts:`, error instanceof Error ? error.message : error);
+        }
       }
-      await delay(2000 * attempt);
+      
+      if (attempt === maxRetries) {
+        throw new SpotifyFetchError(
+          isNetworkError ? 'Network connection failed' : 'Request failed',
+          undefined,
+          isNetworkError
+        );
+      }
+      
+      // Backoff exponencial
+      await delay(1000 * Math.pow(2, attempt - 1));
     }
   }
   
-  throw new Error('Max retries exceeded');
+  throw lastError || new Error('Max retries exceeded');
 }
 
 export async function searchArtist(token: string, artistName: string): Promise<SpotifyArtist | null> {
@@ -201,7 +252,7 @@ export async function getAllArtistTracks(token: string, artistId: string): Promi
     
     return detailedTracks.filter((track: SpotifyTrack | null): track is SpotifyTrack => track !== null);
   } catch (error) {
-    console.error('Error getting all artist tracks:', error);
+    console.error('[Spotify] Failed to get all artist tracks');
     throw error;
   }
 }
@@ -236,8 +287,8 @@ export async function getAlbumsWithTracks(token: string, artistId: string): Prom
               tracks: []
             };
           }
-        } catch (error) {
-          console.error(`Error getting tracks for album ${album.name}:`, error);
+        } catch {
+          // Silently return album without tracks on error
           return {
             ...album,
             tracks: []
@@ -255,7 +306,7 @@ export async function getAlbumsWithTracks(token: string, artistId: string): Prom
     
     return albumsWithTracks;
   } catch (error) {
-    console.error('Error getting albums with tracks:', error);
+    console.error('[Spotify] Failed to get albums with tracks');
     throw error;
   }
 }
@@ -282,8 +333,8 @@ export async function getArtistData(token: string, artistName: string): Promise<
       topTracks: topTracks || [],
       allTracks: allTracks || []
     };
-  } catch (error) {
-    console.error(`Error getting data for ${artistName}:`, error);
+  } catch {
+    // Silently return null on error
     return null;
   }
 }
@@ -330,6 +381,83 @@ export async function getMultipleArtists(token: string, artistIds: string[]): Pr
 
   return allArtists;
 }
+
+// OAuth functions for user authentication
+export async function getUserProfile(accessToken: string): Promise<{ id: string; display_name: string; email: string }> {
+  const response = await fetchWithRetry(`${process.env.SPOTIFY_ENDPOINT_URL}/me`, {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to get user profile: ${response.status}`);
+  }
+
+  return await response.json();
+}
+
+export async function createPlaylist(
+  accessToken: string,
+  userId: string,
+  name: string,
+  description: string = '',
+  isPublic: boolean = false
+): Promise<{ id: string; external_urls: { spotify: string } }> {
+  const response = await fetchWithRetry(`${process.env.SPOTIFY_ENDPOINT_URL}/users/${userId}/playlists`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name,
+      description,
+      public: isPublic,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to create playlist: ${response.status}`);
+  }
+
+  return await response.json();
+}
+
+export async function addTracksToPlaylist(
+  accessToken: string,
+  playlistId: string,
+  trackUris: string[]
+): Promise<void> {
+  // Spotify allows max 100 tracks per request
+  const chunks = [];
+  for (let i = 0; i < trackUris.length; i += 100) {
+    chunks.push(trackUris.slice(i, i + 100));
+  }
+
+  for (const chunk of chunks) {
+    const response = await fetchWithRetry(
+      `${process.env.SPOTIFY_ENDPOINT_URL}/playlists/${playlistId}/tracks`,
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          uris: chunk,
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Failed to add tracks to playlist: ${response.status}`);
+    }
+
+    await delay(100);
+  }
+}
+
 // Función rápida para información básica del artista
 export async function getBasicArtistData(token: string, artistId: string): Promise<SpotifyData | null> {
   try {
@@ -350,8 +478,8 @@ export async function getBasicArtistData(token: string, artistId: string): Promi
       topTracks: topTracks || [],
       allTracks: []
     };
-  } catch (error) {
-    console.error(`Error getting basic data for artist ID ${artistId}:`, error);
+  } catch {
+    // Silently return null on error
     return null;
   }
 }
@@ -378,7 +506,7 @@ export async function getMultipleBasicArtistData(token: string, artistIds: strin
     
     return result;
   } catch (error) {
-    console.error('Error getting multiple basic artist data:', error);
+    console.error('[Spotify] Failed to get multiple basic artist data');
     throw error;
   }
 }
@@ -409,15 +537,15 @@ export async function getArtistDataById(token: string, artistId: string): Promis
       allTracks: allTracks || []
     };
   } catch (error) {
-    console.error(`Error getting data for artist ID ${artistId}:`, error);
+    console.error('[Spotify] Failed to get artist data by ID');
     
     // Try with fresh token if unauthorized
     if (error instanceof Error && error.message.includes('Unauthorized')) {
       try {
         const freshToken = await getTokenSpotify();
         return await getArtistDataById(freshToken, artistId);
-      } catch (retryError) {
-        console.error('Retry with fresh token failed:', retryError);
+      } catch {
+        // Silently return null on retry failure
         return null;
       }
     }

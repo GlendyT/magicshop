@@ -1,6 +1,7 @@
 import { loadMultipleArtistsData } from "services/spotify";
 import { ARTISTS } from "./Data/btspotify";
 import SpotifyClient from "./SpotifyClient";
+import Link from "next/link";
 
 
 const SpotifyPage = async () => {
@@ -14,6 +15,14 @@ const SpotifyPage = async () => {
         <p className="text-[0.7rem]">Data provided by Spotify Web API</p>
       </div>
       <SpotifyClient artists={ARTISTS} artistsData={artistsData} />
+      <div className="text-center mt-8">
+        <Link 
+          href={"/spotify/playlistgenerator"} 
+          className="inline-block text-2xl font-semibold text-purple-600 hover:text-purple-800 underline transition-colors"
+        >
+          Create Custom Playlist →
+        </Link>
+      </div>
     </div>
   );
 };
