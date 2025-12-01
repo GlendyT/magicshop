@@ -67,7 +67,7 @@ export const LinkRoutes: LinkRoutesTypes[] = [
     path: "/festa",
     image: "/Logos/festa2025.webp",
   },
-    {
+  {
     id: 12,
     name: "Tetris",
     path: "/tetris",
@@ -83,6 +83,14 @@ export const LinkRoutes: LinkRoutesTypes[] = [
     id: 14,
     name: "Spotify",
     path: "/spotify",
-    image: "/Logos/spotify.webp"
-  }
+    image: "/Logos/spotify.webp",
+    subroutes: [
+      {
+        id: 1,
+        name: "Playlist Generator",
+        path: "/spotify/playlist",
+        image: "/Logos/spotify.webp",
+      },
+    ],
+  },
 ];

@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import useDownload from "@/hooks/useDownload";
 import { btsPhrase } from "./btsPhrase";

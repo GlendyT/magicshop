@@ -4,7 +4,7 @@ import React from "react";
 import Formulario from "./Formulario";
 import Resultado from "./Resultado";
 
-const Vpassport = () => {
+const VPassport = () => {
   const { resultado, cargando, isMobile } = useRequestInfo();
   const fondoBase = cargando
     ? "bg-[url('/VPassport/VpassWeb2.webp')] max-sm:bg-[url('/VPassport/VpassPhone2.webp')] bg-cover bg-center bg-no-repeat"
@@ -25,4 +25,4 @@ const Vpassport = () => {
   );
 };
 
-export default Vpassport;
+export default VPassport;

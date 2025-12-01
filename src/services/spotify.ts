@@ -1,7 +1,12 @@
 "use server";
 
 import { SpotifyData } from "@/types/types.spotify";
-import { getBasicArtistData, getTokenSpotify, getMultipleBasicArtistData, getArtistDataById } from "./handlerSpotify";
+import {
+  getBasicArtistData,
+  getTokenSpotify,
+  getMultipleBasicArtistData,
+  getArtistDataById,
+} from "./handlerSpotify";
 
 export const loadArtistData = async (
   artistId: string
@@ -10,8 +15,8 @@ export const loadArtistData = async (
     const token = await getTokenSpotify();
     const artistData = await getBasicArtistData(token, artistId);
     return artistData;
-  } catch (error) {
-    console.error(`Error loading artist ID ${artistId}:`, error);
+  } catch {
+    console.error(`[Spotify] Failed to load artist data for ID ${artistId}`);
     return null;
   }
 };
@@ -23,8 +28,8 @@ export const loadFullArtistData = async (
     const token = await getTokenSpotify();
     const artistData = await getArtistDataById(token, artistId);
     return artistData;
-  } catch (error) {
-    console.error(`Error loading full artist data for ID ${artistId}:`, error);
+  } catch {
+    console.error(`[Spotify] Failed to load full artist data for ID ${artistId}`);
     return null;
   }
 };
@@ -36,9 +41,8 @@ export const loadMultipleArtistsData = async (
     const token = await getTokenSpotify();
     const artistsData = await getMultipleBasicArtistData(token, artistIds);
     return artistsData;
-  } catch (error) {
-    console.error('Error loading multiple artists:', error);
-    throw error;
+  } catch {
+    console.error('[Spotify] Failed to load multiple artists data');
+    return {}; // Return empty object instead of throwing
   }
 };
-

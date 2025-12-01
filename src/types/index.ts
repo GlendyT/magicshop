@@ -8,7 +8,7 @@ import {
   ReactNode,
   SetStateAction,
 } from "react";
-import { SpotifyData } from "./types.spotify";
+import { Notification, SelectedTrack, SpotifyData, SpotifyTrack } from "./types.spotify";
 import { TrackResult } from "./lastfmtypes";
 
 export type UsuarioType = {
@@ -91,7 +91,7 @@ export type BtsPhrases = {
   image: string;
 };
 export type ButtonProps = {
-  label?: string;
+  label?: string | ReactNode;
   onClick?: () => void;
   className?: string;
   icon?: ReactNode | undefined;
@@ -399,6 +399,7 @@ export type LinkRoutesTypes = {
   name: string;
   path: string;
   image: string;
+  subroutes?: LinkRoutesTypes[];
 };
 
 export type Option = {
@@ -584,8 +585,6 @@ export type SpotifyProviderProps = {
   artistId: string;
 };
 
-
-
 export interface BingoContextType {
   result: TrackResult | null;
   isChecking: boolean;
@@ -593,3 +592,35 @@ export interface BingoContextType {
   handleCheck: (username: string) => Promise<void>;
   handleCleanCheck: () => void;
 }
+
+export type Spotify2ContextType = {
+  searchResults: SpotifyTrack[];
+  setSearchQuery: (query: string) => void;
+  loading: boolean;
+  setArtistFilter: (filter: string) => void;
+  hasSearched: boolean;
+  isCreatingPlaylist: boolean;
+  notifications: Notification[];
+  removeNotification: (index: number) => void;
+  toggleTrackSelection: (track: SpotifyTrack) => void;
+  updateQuantity: (trackUri: string, quantity: number) => void;
+  generatePlaylist: () => void;
+  totalSongs: number;
+  handleLogout: () => void;
+  accessToken: string | null;
+  selectedTracks: Map<string, SelectedTrack>;
+  searchQuery: string;
+  artistFilter: string;
+  targetDurationHours: number | null;
+  setTargetDurationHours: (hours: number | null) => void;
+  fillArtistIds: string[];
+  toggleFillArtist: (artistId: string) => void;
+  currentDuration: {
+    hours: number;
+    minutes: number;
+    totalMs: number;
+  };
+  fillPlaylistToTarget: () => Promise<void>;
+  isFilling: boolean;
+  clearAll: () => void;
+};
