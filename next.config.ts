@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
     '192.168.1.135',
     '127.0.0.1'
   ],
+  // Deshabilitar static export temporalmente para evitar errores de pre-rendering
+  output: 'standalone',
   images: {
     remotePatterns: [
       {

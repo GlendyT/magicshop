@@ -1,6 +1,16 @@
 import { SpotifyAlbum, SpotifyArtist, SpotifyData, SpotifyTrack } from "@/types/types.spotify";
 
+// Cache en memoria para el token de Spotify
+let cachedToken: string | null = null;
+let tokenExpiresAt: number = 0;
+
 export async function getTokenSpotify(): Promise<string> {
+  // Verificar si tenemos un token válido en cache
+  const now = Date.now();
+  if (cachedToken && tokenExpiresAt > now) {
+    return cachedToken;
+  }
+
   const clientId = process.env.SPOTIFY_CLIENT_ID;
   const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
   
@@ -26,6 +36,12 @@ export async function getTokenSpotify(): Promise<string> {
     }
 
     const data = await response.json();
+    
+    // Cachear el token (expira en 3600 segundos - 1 hora)
+    // Renovar 5 minutos antes para evitar que expire durante uso
+    cachedToken = data.access_token;
+    tokenExpiresAt = now + ((data.expires_in - 300) * 1000);
+    
     return data.access_token;
   } catch (error) {
     if (error instanceof SpotifyFetchError && error.isNetworkError) {
@@ -319,7 +335,8 @@ export async function getArtistData(token: string, artistName: string): Promise<
       return null;
     }
 
-    const [albums, topTracks, allTracks, albumsWithTracks] = await Promise.all([
+    // Usar allSettled para que un fallo no cancele todo
+    const results = await Promise.allSettled([
       getArtistAlbums(token, artist.id),
       getArtistTopTracks(token, artist.id),
       getAllArtistTracks(token, artist.id),
@@ -328,10 +345,10 @@ export async function getArtistData(token: string, artistName: string): Promise<
 
     return {
       artist,
-      albums: albums || [],
-      albumsWithTracks: albumsWithTracks || [],
-      topTracks: topTracks || [],
-      allTracks: allTracks || []
+      albums: results[0].status === 'fulfilled' ? results[0].value : [],
+      topTracks: results[1].status === 'fulfilled' ? results[1].value : [],
+      allTracks: results[2].status === 'fulfilled' ? results[2].value : [],
+      albumsWithTracks: results[3].status === 'fulfilled' ? results[3].value : []
     };
   } catch {
     // Silently return null on error
@@ -461,21 +478,21 @@ export async function addTracksToPlaylist(
 // Función rápida para información básica del artista
 export async function getBasicArtistData(token: string, artistId: string): Promise<SpotifyData | null> {
   try {
-    const [artist, albums, topTracks] = await Promise.all([
+    const results = await Promise.allSettled([
       getArtistById(token, artistId),
       getAllArtistAlbums(token, artistId),
       getArtistTopTracks(token, artistId)
     ]);
     
-    if (!artist) {
+    if (results[0].status !== 'fulfilled' || !results[0].value) {
       return null;
     }
 
     return {
-      artist,
-      albums: albums || [],
+      artist: results[0].value,
+      albums: results[1].status === 'fulfilled' ? results[1].value : [],
       albumsWithTracks: [],
-      topTracks: topTracks || [],
+      topTracks: results[2].status === 'fulfilled' ? results[2].value : [],
       allTracks: []
     };
   } catch {
@@ -487,22 +504,35 @@ export async function getBasicArtistData(token: string, artistId: string): Promi
 export async function getMultipleBasicArtistData(token: string, artistIds: string[]): Promise<Record<string, SpotifyData>> {
   try {
     const artists = await getMultipleArtists(token, artistIds);
-    const result: Record<string, SpotifyData> = {};
     
-    for (const artist of artists) {
-      const [albums, topTracks] = await Promise.all([
+    // Procesar artistas en paralelo con allSettled
+    const artistDataPromises = artists.map(async (artist) => {
+      const results = await Promise.allSettled([
         getAllArtistAlbums(token, artist.id),
         getArtistTopTracks(token, artist.id)
       ]);
       
-      result[artist.id] = {
-        artist,
-        albums: albums || [],
-        albumsWithTracks: [],
-        topTracks: topTracks || [],
-        allTracks: []
+      return {
+        id: artist.id,
+        data: {
+          artist,
+          albums: results[0].status === 'fulfilled' ? results[0].value : [],
+          albumsWithTracks: [],
+          topTracks: results[1].status === 'fulfilled' ? results[1].value : [],
+          allTracks: []
+        }
       };
-    }
+    });
+    
+    const artistDataResults = await Promise.allSettled(artistDataPromises);
+    
+    const result: Record<string, SpotifyData> = {};
+    artistDataResults.forEach((promiseResult) => {
+      if (promiseResult.status === 'fulfilled') {
+        const { id, data } = promiseResult.value;
+        result[id] = data;
+      }
+    });
     
     return result;
   } catch (error) {
@@ -522,7 +552,7 @@ export async function getArtistDataById(token: string, artistId: string): Promis
       return null;
     }
 
-    const [albums, topTracks, allTracks, albumsWithTracks] = await Promise.all([
+    const results = await Promise.allSettled([
       getArtistAlbums(currentToken, artist.id),
       getArtistTopTracks(currentToken, artist.id),
       getAllArtistTracks(currentToken, artist.id),
@@ -531,10 +561,10 @@ export async function getArtistDataById(token: string, artistId: string): Promis
 
     return {
       artist,
-      albums: albums || [],
-      albumsWithTracks: albumsWithTracks || [],
-      topTracks: topTracks || [],
-      allTracks: allTracks || []
+      albums: results[0].status === 'fulfilled' ? results[0].value : [],
+      topTracks: results[1].status === 'fulfilled' ? results[1].value : [],
+      allTracks: results[2].status === 'fulfilled' ? results[2].value : [],
+      albumsWithTracks: results[3].status === 'fulfilled' ? results[3].value : []
     };
   } catch (error) {
     console.error('[Spotify] Failed to get artist data by ID');

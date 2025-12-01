@@ -8,6 +8,7 @@ import { useGSAP } from "@gsap/react";
 import { useState, useRef } from "react";
 import useRequestInfo from "@/hooks/useRequestInfo";
 
+
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(false);

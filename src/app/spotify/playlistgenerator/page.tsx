@@ -5,6 +5,9 @@ import useSpotify from "../../../hooks/useSpotify";
 import { ButtonUtils } from "@/utils/ButtonUtils";
 import { PiPlusCircle } from "react-icons/pi";
 
+// Marcar como dinámico porque depende de interacción del usuario y OAuth
+export const dynamic = 'force-dynamic';
+
 const PlaylistGenerator = () => {
   const {
     searchResults,

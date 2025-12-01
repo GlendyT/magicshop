@@ -185,8 +185,8 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
 
       // Create playlist name with date
       const date = new Date().toLocaleDateString();
-      const playlistName = `BTS Custom Playlist - ${date}`;
-      const description = `Custom BTS playlist with ${shuffledPlaylist.length} songs. Created with BTS Playlist Generator.`;
+      const playlistName = `BTS Playlist - ${date}`;
+      const description = `BTS playlist  ${shuffledPlaylist.length} songs generated with The Magic Shop`;
 
       const result = await createSpotifyPlaylist(
         accessToken,
@@ -206,21 +206,29 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
         }, 1000);
       }
     } catch (error) {
-      console.error("Error creating playlist:", error);
+      // Detectar error de autenticación (401)
+      const isAuthError = 
+        error instanceof Error && 
+        (error.message.includes("session has expired") || 
+         error.message.includes("login again") ||
+         error.message.includes("401"));
 
-      if (error instanceof Error && error.message.includes("login")) {
+      if (isAuthError) {
+        // Limpiar token inválido
         localStorage.removeItem("spotify_access_token");
         setAccessToken(null);
+        
         showNotification(
           "error",
           "Session expired",
-          "Please login again to continue"
+          "Your Spotify session has expired. Please click 'Login' to continue."
         );
       } else {
+        // Error genérico
         showNotification(
           "error",
           "Failed to create playlist",
-          "Please try again or check your connection"
+          error instanceof Error ? error.message : "Please try again or check your connection"
         );
       }
     } finally {

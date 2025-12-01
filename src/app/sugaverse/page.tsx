@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import useRequestInfo from "@/hooks/useRequestInfo";
 import React from "react";
 import Formulario from "./Formulario";

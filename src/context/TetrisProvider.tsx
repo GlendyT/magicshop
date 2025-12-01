@@ -214,7 +214,7 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
     const birthdayId = birthdaysLatest[index]?.id;
 
     // JK (id: 1) and RM (id: 2) show as available
-    if (birthdayId === 1 || birthdayId === 2 || birthdayId === 3) {
+    if (birthdayId === 1 || birthdayId === 2 || birthdayId === 3 || birthdayId === 4) {
       return false;
     }
 
@@ -226,7 +226,7 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
     const birthdayId = birthdaysLatest[index]?.id;
 
     // JK, RM and Jimin cards are always available (no level required)
-    if (birthdayId === 1 || birthdayId === 2 || birthdayId === 3) {
+    if (birthdayId === 1 || birthdayId === 2 || birthdayId === 3 || birthdayId === 4) {
       return true;
     }
 

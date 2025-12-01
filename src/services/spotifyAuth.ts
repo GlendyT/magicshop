@@ -1,5 +1,17 @@
 "use server";
 
+// Clase personalizada para errores de autenticación
+class SpotifyAuthError extends Error {
+  constructor(
+    message: string,
+    public statusCode: number,
+    public isAuthError: boolean = false
+  ) {
+    super(message);
+    this.name = 'SpotifyAuthError';
+  }
+}
+
 export async function createSpotifyPlaylist(
   accessToken: string,
   playlistName: string,
@@ -15,9 +27,20 @@ export async function createSpotifyPlaylist(
     });
 
     if (!userResponse.ok) {
+      // Detectar error 401 (token expirado/inválido)
+      if (userResponse.status === 401) {
+        throw new SpotifyAuthError(
+          'Your session has expired. Please login again.',
+          401,
+          true
+        );
+      }
+      
       const errorText = await userResponse.text();
-      console.error('User profile error:', errorText);
-      throw new Error('Failed to get user profile. Please login again.');
+      throw new SpotifyAuthError(
+        `Failed to get user profile: ${errorText}`,
+        userResponse.status
+      );
     }
 
     const userData = await userResponse.json();
@@ -41,9 +64,20 @@ export async function createSpotifyPlaylist(
     );
 
     if (!createResponse.ok) {
+      // Detectar error 401
+      if (createResponse.status === 401) {
+        throw new SpotifyAuthError(
+          'Your session has expired. Please login again.',
+          401,
+          true
+        );
+      }
+      
       const errorText = await createResponse.text();
-      console.error('Create playlist error:', errorText);
-      throw new Error('Failed to create playlist. Please try again.');
+      throw new SpotifyAuthError(
+        `Failed to create playlist: ${errorText}`,
+        createResponse.status
+      );
     }
 
     const playlist = await createResponse.json();
@@ -76,7 +110,10 @@ export async function createSpotifyPlaylist(
       playlistUrl: playlist.external_urls.spotify,
     };
   } catch (error) {
-    console.error('Error creating playlist:', error);
+    // Solo loguear en desarrollo
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error creating playlist:', error);
+    }
     throw error;
   }
 }

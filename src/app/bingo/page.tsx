@@ -1,4 +1,7 @@
 "use client";
+
+// Marcar como dinámico porque es interactivo
+export const dynamic = 'force-dynamic';
 import useBingo from "@/hooks/useBingo";
 import useRequestInfo from "@/hooks/useRequestInfo";
 import InputNameUtils from "@/utils/InputNameUtils";

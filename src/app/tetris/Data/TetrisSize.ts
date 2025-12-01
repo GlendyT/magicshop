@@ -72,7 +72,7 @@ export const BirthdayCards: birthdayCardType[] = [
     aka: "Jin",
     shortAka: "JN",
     date: new Date(1992, 11, 4),
-    birthdaycard: "",
+    birthdaycard: "/Tetris/JIN.webp",
   },
   {
     id: 5,

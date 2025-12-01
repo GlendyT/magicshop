@@ -16,7 +16,6 @@ import { TicTacToeProvider } from "@/context/TicTacToeProvider";
 import { TetrisProvider } from "@/context/TetrisProvider";
 import Contact from "@/utils/Contact";
 import { BingoProvider } from "@/context/BingoProvider";
-import { SpotifyProvider } from "@/context/SpotifyProvider";
 
 export const metadata: Metadata = {
   title: "The Magic Shop",
@@ -56,7 +55,6 @@ export default function RootLayout({
                         <TicTacToeProvider>
                           <TetrisProvider>
                             <BingoProvider>
-                              <SpotifyProvider>
                               <Sidebar />
 
                               {children}
@@ -64,7 +62,6 @@ export default function RootLayout({
                               <GoogleAnalytics gaId="G-3SC31S5CBD" />
                               <SpeedInsights />
                               <Analytics />
-                              </SpotifyProvider>
                             </BingoProvider>
                           </TetrisProvider>
                         </TicTacToeProvider>
