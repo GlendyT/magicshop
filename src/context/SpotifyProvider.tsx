@@ -4,13 +4,13 @@ import { createContext, useEffect, useMemo, useState } from "react";
 import { AllProviderProps, Spotify2ContextType } from "../types/index";
 import {
   SpotifyTrack,
-  Notification,
   SelectedTrack,
 } from "../types/types.spotify";
 import { useSearchParams } from "next/navigation";
 import { ARTISTS } from "@/app/spotify/Data/btspotify";
 import { loadFullArtistData } from "@/services/spotify";
 import { createSpotifyPlaylist } from "@/services/spotifyAuth";
+import { toast } from "react-toastify";
 
 const SpotifyContext = createContext<Spotify2ContextType>(null!);
 
@@ -26,29 +26,10 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
   const [hasSearched, setHasSearched] = useState(false);
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [isCreatingPlaylist, setIsCreatingPlaylist] = useState(false);
-  const [notifications, setNotifications] = useState<Notification[]>([]);
   const [targetDurationHours, setTargetDurationHours] = useState<number | null>(null);
   const [fillArtistIds, setFillArtistIds] = useState<string[]>([]);
   const [isFilling, setIsFilling] = useState(false);
-
-  const showNotification = (
-    type: "success" | "error" | "info",
-    message: string,
-    description?: string
-  ) => {
-    const id = Date.now();
-    const newNotification: Notification = { id, type, message, description };
-    setNotifications((prev) => [...prev, newNotification]);
-
-    // Auto remove after 5 seconds
-    setTimeout(() => {
-      setNotifications((prev) => prev.filter((n) => n.id !== id));
-    }, 5000);
-  };
-
-  const removeNotification = (id: number) => {
-    setNotifications((prev) => prev.filter((n) => n.id !== id));
-  };
+  const [expandedPlaylist, setExpandedPlaylist] = useState<SpotifyTrack[]>([]);
 
   useEffect(() => {
     // Check for access token in URL params
@@ -135,6 +116,7 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
       newSelected.set(track.id, { track, quantity: 1 });
     }
     setSelectedTracks(newSelected);
+    updateExpandedPlaylist(newSelected);
   };
 
   const updateQuantity = (trackId: string, delta: number) => {
@@ -144,7 +126,51 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
       const newQuantity = Math.max(1, Math.min(10, selected.quantity + delta));
       newSelected.set(trackId, { ...selected, quantity: newQuantity });
       setSelectedTracks(newSelected);
+      updateExpandedPlaylist(newSelected);
     }
+  };
+
+  const updateExpandedPlaylist = (tracks: Map<string, SelectedTrack>) => {
+    const expanded: SpotifyTrack[] = [];
+    tracks.forEach(({ track, quantity }) => {
+      for (let i = 0; i < quantity; i++) {
+        expanded.push(track);
+      }
+    });
+    // Mezclar aleatoriamente
+    const shuffled = expanded.sort(() => Math.random() - 0.5);
+    setExpandedPlaylist(shuffled);
+  };
+
+  const shufflePlaylist = () => {
+    const shuffled = [...expandedPlaylist].sort(() => Math.random() - 0.5);
+    setExpandedPlaylist(shuffled);
+    toast.info("Playlist shuffled!");
+  };
+
+  const removeTrackFromPreview = (trackId: string, indexToRemove: number) => {
+    // Eliminar solo una instancia del preview
+    const newExpandedPlaylist = expandedPlaylist.filter((_, i) => i !== indexToRemove);
+    setExpandedPlaylist(newExpandedPlaylist);
+
+    // Actualizar selectedTracks
+    const newSelected = new Map(selectedTracks);
+    const selected = newSelected.get(trackId);
+    
+    if (selected) {
+      if (selected.quantity > 1) {
+        // Reducir quantity en 1
+        newSelected.set(trackId, { ...selected, quantity: selected.quantity - 1 });
+      } else {
+        // Eliminar completamente si quantity es 1
+        newSelected.delete(trackId);
+      }
+      setSelectedTracks(newSelected);
+    }
+  };
+
+  const reorderPlaylist = (newOrder: SpotifyTrack[]) => {
+    setExpandedPlaylist(newOrder);
   };
 
   const generatePlaylist = async () => {
@@ -167,26 +193,15 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
     setIsCreatingPlaylist(true);
 
     try {
-      // Crear array simple con todas las canciones y sus repeticiones
-      const allTracks: SpotifyTrack[] = [];
-      selectedTracks.forEach(({ track, quantity }) => {
-        for (let i = 0; i < quantity; i++) {
-          allTracks.push(track);
-        }
-      });
-
-      // Mezclar completamente todas las canciones de forma aleatoria
-      const shuffledPlaylist = allTracks.sort(() => Math.random() - 0.5);
-
-      // Get track URIs
-      const trackUris = shuffledPlaylist.map(
+      // Usar la playlist expandida que ya está mezclada
+      const trackUris = expandedPlaylist.map(
         (track) => `spotify:track:${track.id}`
       );
 
       // Create playlist name with date
       const date = new Date().toLocaleDateString();
       const playlistName = `BTS Playlist - ${date}`;
-      const description = `BTS playlist  ${shuffledPlaylist.length} songs generated with The Magic Shop`;
+      const description = `BTS playlist ${expandedPlaylist.length} songs generated with The Magic Shop`;
 
       const result = await createSpotifyPlaylist(
         accessToken,
@@ -196,11 +211,7 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
       );
 
       if (result.success) {
-        showNotification(
-          "success",
-          "Playlist created successfully!",
-          `${playlistName} with ${shuffledPlaylist.length} songs has been added to your Spotify`
-        );
+        toast.success("Playlist created successfully!");
         setTimeout(() => {
           window.open(result.playlistUrl, "_blank");
         }, 1000);
@@ -218,18 +229,10 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
         localStorage.removeItem("spotify_access_token");
         setAccessToken(null);
         
-        showNotification(
-          "error",
-          "Session expired",
-          "Your Spotify session has expired. Please click 'Login' to continue."
-        );
+        toast.error("Session expired. Please log in again.");
       } else {
         // Error genérico
-        showNotification(
-          "error",
-          "Failed to create playlist",
-          error instanceof Error ? error.message : "Please try again or check your connection"
-        );
+        toast.error("Failed to create playlist. Please try again.");
       }
     } finally {
       setIsCreatingPlaylist(false);
@@ -257,11 +260,7 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
   const handleLogout = () => {
     localStorage.removeItem("spotify_access_token");
     setAccessToken(null);
-    showNotification(
-      "success",
-      "Logged out successfully",
-      "You have been disconnected from Spotify"
-    );
+    toast.info("Logged out from Spotify");
   };
 
   const toggleFillArtist = (artistId: string) => {
@@ -276,33 +275,22 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
 
   const clearAll = () => {
     setSelectedTracks(new Map());
+    setExpandedPlaylist([]);
     setTargetDurationHours(null);
     setFillArtistIds([]);
     setSearchQuery("");
     setArtistFilter("all");
-    showNotification(
-      "info",
-      "Selection cleared",
-      "All songs, duration, and filters have been reset"
-    );
+    toast.info("Cleared all selections");
   };
 
   const fillPlaylistToTarget = async () => {
     if (fillArtistIds.length === 0 || !targetDurationHours) {
-      showNotification(
-        "error",
-        "Missing information",
-        "Please select at least one artist and target duration"
-      );
+      toast.error("Please select at least one artist and set a target duration");
       return;
     }
 
     if (selectedTracks.size === 0) {
-      showNotification(
-        "error",
-        "No songs selected",
-        "Please add at least one song to your playlist"
-      );
+      toast.error("Please select at least one track in your playlist");
       return;
     }
 
@@ -328,11 +316,7 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
       });
       
       if (allArtistTracks.length === 0) {
-        showNotification(
-          "error",
-          "No tracks found",
-          "Could not load tracks from the selected artists"
-        );
+        toast.error("No tracks found for the selected artists");
         return;
       }
 
@@ -341,11 +325,7 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
       const remainingMs = targetMs - currentMs;
 
       if (remainingMs <= 0) {
-        showNotification(
-          "info",
-          "Playlist already complete",
-          `Your playlist duration (${currentDuration.hours}h ${currentDuration.minutes}m) already meets or exceeds the target (${targetDurationHours}h)`
-        );
+        toast.info("Your playlist already meets or exceeds the target duration");
         return;
       }
 
@@ -356,11 +336,7 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
       );
 
       if (availableTracks.length === 0) {
-        showNotification(
-          "error",
-          "No available tracks",
-          "All songs from this artist are already in your playlist"
-        );
+        toast.error("No additional tracks available to fill the playlist");
         return;
       }
 
@@ -381,6 +357,7 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
       }
 
       setSelectedTracks(newSelected);
+      updateExpandedPlaylist(newSelected);
       
       const finalHours = Math.floor((currentMs + filledMs) / (1000 * 60 * 60));
       const finalMinutes = Math.floor(((currentMs + filledMs) % (1000 * 60 * 60)) / (1000 * 60));
@@ -389,18 +366,12 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
         ? `${artistNames.slice(0, -1).join(", ")} and ${artistNames[artistNames.length - 1]}`
         : artistNames[0];
       
-      showNotification(
-        "success",
-        "Playlist completed!",
-        `Added ${tracksAdded} songs from ${artistsText}. Duration: ${finalHours}h ${finalMinutes}m`
+      toast.success(
+        `Added ${tracksAdded} songs from ${artistsText}. New duration: ${finalHours}h ${finalMinutes}m`
       );
     } catch (error) {
       console.error("Error filling playlist:", error);
-      showNotification(
-        "error",
-        "Failed to fill playlist",
-        "Please try again or select a different artist"
-      );
+      toast.error("Failed to fill playlist. Please try again.");
     } finally {
       setIsFilling(false);
     }
@@ -415,8 +386,6 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
         setArtistFilter,
         hasSearched,
         isCreatingPlaylist,
-        notifications,
-        removeNotification,
         toggleTrackSelection,
         updateQuantity,
         generatePlaylist,
@@ -434,6 +403,10 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
         fillPlaylistToTarget,
         isFilling,
         clearAll,
+        expandedPlaylist,
+        shufflePlaylist,
+        removeTrackFromPreview,
+        reorderPlaylist,
       }}
     >
       {children}

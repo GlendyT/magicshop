@@ -4,7 +4,7 @@ import SpotifyClient from "./SpotifyClient";
 //import Link from "next/link";
 
 const SpotifyPage = async () => {
-  const artistIds = ARTISTS.map(artist => artist.id);
+  const artistIds = ARTISTS.map((artist) => artist.id);
   const artistsData = await loadMultipleArtistsData(artistIds);
 
   return (
@@ -15,8 +15,8 @@ const SpotifyPage = async () => {
       </div>
       <SpotifyClient artists={ARTISTS} artistsData={artistsData} />
       {/* <div className="text-center mt-8">
-        <Link 
-          href={"/spotify/playlistgenerator"} 
+        <Link
+          href={"/spotify/playlistgenerator"}
           className="inline-block text-2xl font-semibold text-purple-600 hover:text-purple-800 underline transition-colors"
         >
           Create Custom Playlist →

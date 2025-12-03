@@ -70,13 +70,6 @@ export interface SelectedTrack {
   quantity: number;
 }
 
-export interface Notification {
-  id: number;
-  type: 'success' | 'error' | 'info';
-  message: string;
-  description?: string;
-}
-
 export interface PlaylistDuration {
   hours: number;
   minutes: number;

@@ -16,6 +16,7 @@ import { TicTacToeProvider } from "@/context/TicTacToeProvider";
 import { TetrisProvider } from "@/context/TetrisProvider";
 import Contact from "@/utils/Contact";
 import { BingoProvider } from "@/context/BingoProvider";
+import { ToastContainer } from "react-toastify";
 
 export const metadata: Metadata = {
   title: "The Magic Shop",
@@ -72,6 +73,7 @@ export default function RootLayout({
               </ImageCropProvider>
             </RequestInfoProvider>
           </DownloadProvider>
+          <ToastContainer />
         </DarkProvider>
       </body>
     </html>
