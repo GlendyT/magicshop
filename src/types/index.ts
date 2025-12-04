@@ -8,7 +8,7 @@ import {
   ReactNode,
   SetStateAction,
 } from "react";
-import { Notification, SelectedTrack, SpotifyData, SpotifyTrack } from "./types.spotify";
+import {  SelectedTrack, SpotifyData, SpotifyTrack } from "./types.spotify";
 import { TrackResult } from "./lastfmtypes";
 
 export type UsuarioType = {
@@ -421,7 +421,7 @@ export type SelectUtilsProps = {
   labelStyles?: string;
   spanStyles?: (option: Option, isSelected: boolean) => string;
   checked?: string;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void;
 };
 
 export type TextAreaProps = {
@@ -433,6 +433,9 @@ export type InputContentProps = {
   placeholder: string;
   className: string;
   from?: string;
+  value?: string;
+  onChange?: (query: string) => void;
+  disabled?: boolean;
 };
 
 export type OptionButtonProps = {
@@ -600,8 +603,6 @@ export type Spotify2ContextType = {
   setArtistFilter: (filter: string) => void;
   hasSearched: boolean;
   isCreatingPlaylist: boolean;
-  notifications: Notification[];
-  removeNotification: (index: number) => void;
   toggleTrackSelection: (track: SpotifyTrack) => void;
   updateQuantity: (trackUri: string, quantity: number) => void;
   generatePlaylist: () => void;
@@ -623,4 +624,8 @@ export type Spotify2ContextType = {
   fillPlaylistToTarget: () => Promise<void>;
   isFilling: boolean;
   clearAll: () => void;
+  expandedPlaylist: SpotifyTrack[];
+  shufflePlaylist: () => void;
+  removeTrackFromPreview: (trackId: string, indexToRemove: number) => void;
+  reorderPlaylist: (newOrder: SpotifyTrack[]) => void;
 };

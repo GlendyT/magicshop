@@ -20,7 +20,7 @@
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #210429 #0d011e;
+  scrollbar-color: #280134 #c2bccb;
 }
 
 /* Para navegadores Webkit (Chrome, Safari, Edge) */
@@ -30,7 +30,7 @@
 }
 
 *::-webkit-scrollbar-track {
-  background: #04000c;
+  background: #c7c1d3;
   border-radius: 10px;
 }
 

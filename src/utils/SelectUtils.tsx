@@ -8,13 +8,13 @@ const SelectUtils = ({
   value,
   options,
   disabled = false,
-  placeholder = "",
   className,
+  onChange
 }: SelectUtilsProps) => {
   const { usuarioGenerado } = useRequestInfo();
   return (
-    <>
-      <label htmlFor={id} className="text-sm text-white block">
+    <div className="flex flex-col">
+      <label htmlFor={id} className="text-sm  block">
         {label}
       </label>
       <select
@@ -22,25 +22,25 @@ const SelectUtils = ({
         id={id}
         name={name}
         value={value}
-        onChange={usuarioGenerado}
+        onChange={onChange || usuarioGenerado}
         disabled={disabled}
         className={` ${className}`}
         data-testid="select"
       >
-        <option value="" className="text-black">
-          {placeholder}
+        <option value="" disabled>
+          Select an option
         </option>
         {options.map((option) => (
           <option
             key={option.id}
-            value={option.name}
+            value={option.id}
             className="text-black border border-t-black"
           >
             {option.name}
           </option>
         ))}
       </select>
-    </>
+    </div>
   );
 };
 
