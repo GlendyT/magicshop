@@ -5,6 +5,9 @@ import SearchView from "./SearchView";
 import PlaylistView from "./PlaylistView";
 import DurationView from "./DurationView";
 
+
+export const dynamic = `force-dynamic`
+
 const PlaylistGenerator = () => {
   const {
     generatePlaylist,

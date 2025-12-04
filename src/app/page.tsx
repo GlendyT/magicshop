@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import { useState, useRef } from "react";
 import useRequestInfo from "@/hooks/useRequestInfo";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function Home() {

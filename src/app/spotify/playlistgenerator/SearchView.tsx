@@ -105,7 +105,7 @@ const SearchView = () => {
                   key={track.id}
                   className={`flex flex-col ${
                     isSelected
-                      ? "bg-slate-100 border-2 border-black-400"
+                      ? "bg-slate-100 border-2 border-slate-400"
                       : "bg-gray-50 hover:bg-gray-100 border-2 border-transparent"
                   }`}
                 >
@@ -149,7 +149,7 @@ const SearchView = () => {
                             <ButtonUtils
                               icon={<FaPlus />}
                               onClick={() => toggleTrackSelection(track)}
-                              className="w-8 h-8  text-slate rounded-sm flex items-center justify-center font-bold cursor-pointer transition-colors shadow-sm"
+                              className="w-8 h-8  text-slate-600 rounded-sm flex items-center justify-center font-bold cursor-pointer transition-colors shadow-sm"
                             />
                           </div>
                         )}

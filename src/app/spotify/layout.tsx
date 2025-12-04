@@ -3,6 +3,8 @@ import { SpotifyProvider } from "@/context/SpotifyProvider";
 import { Suspense } from "react";
 import { FiLoader } from "react-icons/fi";
 
+export const dynamic = `force-dynamic`
+
 function SpotifyProviderWrapper({ children }: { children: React.ReactNode }) {
   return (
     <Suspense

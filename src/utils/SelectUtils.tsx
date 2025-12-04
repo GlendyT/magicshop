@@ -27,6 +27,9 @@ const SelectUtils = ({
         className={` ${className}`}
         data-testid="select"
       >
+        <option value="" disabled>
+          Select an option
+        </option>
         {options.map((option) => (
           <option
             key={option.id}

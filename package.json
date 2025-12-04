@@ -9,7 +9,8 @@
     "lint": "next lint",
     "lint:fix": "eslint . --fix",
     "test": "jest --passWithNoTests",
-    "test:playwright": "playwright test"
+    "test:playwright": "playwright test",
+    "check:all" : "npm run lint && npm run test && npm run build && npm run test:playwright "
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
