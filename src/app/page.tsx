@@ -99,12 +99,12 @@ export default function Home() {
 
           <span className="text-purple-900 text-[0.7rem] ">
             <Link
-              href="https://ttechdesigners.com/"
+              href="https://github.com/GlendyT"
               target="_blank"
               rel="noopener noreferrer"
               className={`text-[0.7rem] text-center w-16 font-extrabold    transition-colors duration-300 `}
             >
-              developed by TTechDesigners
+              developed by GlendyT
             </Link>
           </span>
         </span>
