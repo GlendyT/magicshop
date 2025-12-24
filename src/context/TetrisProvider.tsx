@@ -70,7 +70,9 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
       });
 
       // Clear lines
-      const clearedBoard = newBoard.filter((row) => row.some((cell) => cell === 0));
+      const clearedBoard = newBoard.filter((row) =>
+        row.some((cell) => cell === 0)
+      );
       const linesCleared = BOARD_HEIGHT - clearedBoard.length;
       while (clearedBoard.length < BOARD_HEIGHT) {
         clearedBoard.unshift(Array(BOARD_WIDTH).fill(0));
@@ -102,7 +104,15 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
         }
       }
     },
-    [currentPiece, gameOver, isPaused, score, highScore, placePiece, isValidMove]
+    [
+      currentPiece,
+      gameOver,
+      isPaused,
+      score,
+      highScore,
+      placePiece,
+      isValidMove,
+    ]
   );
 
   const rotatePiece = useCallback(() => {
@@ -214,7 +224,13 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
     const birthdayId = birthdaysLatest[index]?.id;
 
     // JK (id: 1) and RM (id: 2) show as available
-    if (birthdayId === 1 || birthdayId === 2 || birthdayId === 3 || birthdayId === 4) {
+    if (
+      birthdayId === 1 ||
+      birthdayId === 2 ||
+      birthdayId === 3 ||
+      birthdayId === 4 ||
+      birthdayId === 5
+    ) {
       return false;
     }
 
@@ -226,7 +242,13 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
     const birthdayId = birthdaysLatest[index]?.id;
 
     // JK, RM and Jimin cards are always available (no level required)
-    if (birthdayId === 1 || birthdayId === 2 || birthdayId === 3 || birthdayId === 4) {
+    if (
+      birthdayId === 1 ||
+      birthdayId === 2 ||
+      birthdayId === 3 ||
+      birthdayId === 4 ||
+      birthdayId === 5
+    ) {
       return true;
     }
 
