@@ -1,72 +1,24 @@
 "use client";
 
 import { LinkRoutes } from "@/utils/Data/ListRoutes";
-import gsap from "gsap";
 import Image from "next/image";
 import Link from "next/link";
-import { useGSAP } from "@gsap/react";
-import { useState, useRef } from "react";
+import React from "react";
 import useRequestInfo from "@/hooks/useRequestInfo";
-import 'react-toastify/dist/ReactToastify.css';
-
+import "react-toastify/dist/ReactToastify.css";
+import { Card, CardContent } from "@/hooks/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/hooks/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 export default function Home() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
   const { loading } = useRequestInfo();
-
-  useGSAP(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  });
-
-  const slidesCount = isMobile
-    ? LinkRoutes.length
-    : Math.ceil(LinkRoutes.length / 2);
-  const itemsPerSlide = isMobile ? 1 : 2;
-
-  useGSAP(() => {
-    if (loading) {
-      const tl = gsap.timeline();
-      tl.to(".door-left", {
-        duration: 1.5,
-        rotateY: -90,
-        ease: "power2.inOut",
-        delay: 0.5,
-      })
-        .to(
-          ".door-right",
-          {
-            duration: 1.5,
-            rotateY: 90,
-            ease: "power2.inOut",
-          },
-          "-=1.5"
-        )
-;
-    }
-  }, [loading]);
-
-  const intervalRef = useRef<gsap.core.Tween | null>(null);
-
-  useGSAP(() => {
-    intervalRef.current = gsap.to(
-      {},
-      {
-        duration: 3,
-        repeat: -1,
-        onRepeat: () => {
-          setCurrentSlide((prev) => (prev + 1) % slidesCount);
-        },
-      }
-    );
-
-    return () => {
-      intervalRef.current?.kill();
-    };
-  });
+  const plugin = React.useRef(Autoplay({ delay: 2000 }));
 
   const commonClass =
     "absolute top-0 w-1/2 h-full  z-50 backdrop-blur-md bg-black/70   bg-contain bg-center bg-no-repeat door overflow-hidden ";
@@ -110,55 +62,32 @@ export default function Home() {
         </span>
       </div>
 
-      <div className="w-full ">
-        <div className="relative h-[250px] overflow-hidden rounded-lg">
-          <div
-            className="flex transition-transform duration-500 ease-in-out h-full"
-            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-          >
-            {Array.from({ length: slidesCount }, (_, slideIndex) => (
-              <div
-                key={slideIndex}
-                className="flex-shrink-0 w-full h-full flex justify-center items-center gap-8"
-              >
-                {LinkRoutes.slice(
-                  slideIndex * itemsPerSlide,
-                  slideIndex * itemsPerSlide + itemsPerSlide
-                ).map((linkrout) => (
-                  <Link
-                    key={linkrout.id}
-                    href={linkrout.path}
-                    className=" flex justify-center items-center  backdrop-blur-3xl bg-purple-900/10 rounded-4xl "
-                  >
-                    <div className="relative w-[300px] h-[250px]">
-                      <Image
-                        src={linkrout.image}
-                        alt={linkrout.name}
-                        fill
-                        className="object-contain"
-                        priority={slideIndex === 0}
-                      />
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            ))}
-          </div>
-
-          {/* Indicadores */}
-          <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 flex ">
-            {Array.from({ length: slidesCount }, (_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentSlide(index)}
-                className={`w-8 h-1 transition-colors ${
-                  index === currentSlide ? "bg-white" : "bg-white/50"
-                }`}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
+      <Carousel
+        plugins={[plugin.current]}
+        className="w-full max-w-[10rem] sm:max-w-xs"
+        onMouseEnter={plugin.current.stop}
+        onMouseLeave={plugin.current.reset}
+      >
+        <CarouselContent>
+          {LinkRoutes.map((linkroute, index) => (
+            <CarouselItem key={index} className="basis-1/2 pl-2 lg:basis-1/2  ">
+              <Card>
+                <CardContent className="relative flex items-center justify-center ">
+                  <Image
+                    src={linkroute.image}
+                    alt={linkroute.name}
+                    width={100}
+                    height={100}
+                    className=" object-cover "
+                  />
+                </CardContent>
+              </Card>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
 
       <div className="flex flex-wrap items-center justify-center gap-2 px-8 max-sm:px-8 ">
         {LinkRoutes.map((linkrout) => (

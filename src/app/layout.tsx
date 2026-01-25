@@ -10,13 +10,18 @@ import { FlipProvider } from "@/context/FlipProvider";
 import { FishProvider } from "@/context/FishProvider";
 import { RPSProvider } from "@/context/RPSProvider";
 import { DarkProvider } from "@/context/DarkModeProvider";
-import Sidebar from "@/utils/Sidebar";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { TicTacToeProvider } from "@/context/TicTacToeProvider";
 import { TetrisProvider } from "@/context/TetrisProvider";
 import Contact from "@/utils/Contact";
 import { BingoProvider } from "@/context/BingoProvider";
 import { ToastContainer } from "react-toastify";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/hooks/components/ui/sidebar";
+import AppSidebar from "@/utils/AppSidebar";
 
 export const metadata: Metadata = {
   title: "The Magic Shop",
@@ -56,9 +61,13 @@ export default function RootLayout({
                         <TicTacToeProvider>
                           <TetrisProvider>
                             <BingoProvider>
-                              <Sidebar />
-
-                              {children}
+                              <SidebarProvider>
+                                <AppSidebar />
+                                <SidebarInset className="relative overflow-y-auto">
+                                  <SidebarTrigger className="absolute top-4 left-4 z-10" />
+                                  {children}
+                                </SidebarInset>
+                              </SidebarProvider>
                               <Contact />
                               <GoogleAnalytics gaId="G-3SC31S5CBD" />
                               <SpeedInsights />

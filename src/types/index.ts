@@ -629,3 +629,10 @@ export type Spotify2ContextType = {
   removeTrackFromPreview: (trackId: string, indexToRemove: number) => void;
   reorderPlaylist: (newOrder: SpotifyTrack[]) => void;
 };
+
+
+export interface FortuneCookieType {
+  id: number;
+  message: string;
+  song: string;
+}
