@@ -4,6 +4,26 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const code = searchParams.get('code');
   const error = searchParams.get('error');
+  const tokenOnly = searchParams.get('token_only');
+
+  // Nueva funcionalidad para obtener solo el token de cliente
+  if (tokenOnly === 'true') {
+    try {
+      const response = await fetch('https://accounts.spotify.com/api/token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': `Basic ${Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`).toString('base64')}`,
+        },
+        body: 'grant_type=client_credentials',
+      });
+
+      const data = await response.json();
+      return NextResponse.json({ token: data.access_token });
+    } catch (error) {
+      return NextResponse.json({ error: 'Failed to get token', errorDetails: error}, { status: 500 });
+    }
+  }
 
   if (error) {
     return NextResponse.redirect(new URL('/spotify/playlistgenerator?error=access_denied', request.url));
@@ -43,8 +63,10 @@ export async function GET(request: NextRequest) {
 
     const data = await response.json();
     
-    // Redirect back with token
-    const redirectUrl = new URL('/spotify/playlistgenerator', request.url);
+    // Check if redirect_uri contains arirang to determine destination
+    const isArirangRequest = redirectUri.includes('/arirang');
+    const redirectUrl = new URL(isArirangRequest ? '/arirang' : '/spotify/playlistgenerator', request.url);
+    
     redirectUrl.searchParams.set('access_token', data.access_token);
     redirectUrl.searchParams.set('refresh_token', data.refresh_token);
     
