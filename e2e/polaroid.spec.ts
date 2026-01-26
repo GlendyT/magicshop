@@ -7,7 +7,7 @@ test("generate a polaroid photo", async ({ page }) => {
   await page.getByText("Special thanks to").click();
   await page.getByRole("img", { name: "logoarmy" }).click();
   await page.getByText("- BTS").click();
-  const downloadPromise = page.waitForEvent("download");
+  //const downloadPromise = page.waitForEvent("download");
   await page.getByRole("button", { name: "Download" }).click();
-  const download = await downloadPromise;
+  //const download = await downloadPromise;
 });

@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import Polaroid from '@/app/polaroid/page'
 
-jest.mock('next/image', () => (props: Record<string, any>) => <img {...props} />)
+jest.mock('next/image', () => (props: Record<string, any>) => <img {...props} alt={props.alt || ""} />)
 
 
 const handleDownloadImageMock = jest.fn<void, []>()
