@@ -28,13 +28,13 @@ jest.mock("@/hooks/useRequestInfo", () => () => ({
     },
 }));
 
-jest.mock("../../src/app/photobooth/photos/Photo", () => (props: any) => (
+jest.mock("../../src/app/photobooth/photos/Photo", () => () => (
     <div data-testid="Photo">Photo Component</div>
 ));
-jest.mock("../../src/app/photobooth/photos/Photo2", () => (props: any) => (
+jest.mock("../../src/app/photobooth/photos/Photo2", () => () => (
     <div data-testid="Photo2">Photo2 Component</div>
 ));
-jest.mock("../../src/app/photobooth/photos/Photo3", () => (props: any) => (
+jest.mock("../../src/app/photobooth/photos/Photo3", () => () => (
     <div data-testid="Photo3">Photo3 Component</div>
 ));
 jest.mock("../../src/app/photobooth/Logo", () => () => (

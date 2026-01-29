@@ -13,7 +13,7 @@ jest.mock("../../src/app/tetris/ButtonControls", () => () => (
 jest.mock(
   "../../src/utils/gift2/page.tsx",
   () =>
-    ({ level, name, imageUrl, onClick, isLocked, canOpen }: any) =>
+    ({  name, onClick, isLocked, canOpen }: any) =>
       (
         <div
           data-testid={`gift-${name}`}
