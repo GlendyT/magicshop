@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "type-check": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
     "test:unit": "jest",
     "test:unit:watch": "jest --watch --maxWorkers=1",
     "test:unit:serial": "jest --runInBand",

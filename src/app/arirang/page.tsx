@@ -198,7 +198,7 @@ const Arirang = () => {
               <ButtonUtils
                 label="Save"
                 onClick={handleDownloadImage}
-                disabled={!preview1}
+                //disabled={!preview1}
                 className={`max-sm:mt-2 ${preview1 ? ' bg-black hover:bg-gradient-to-r from-amber-600 from-5% via-red-700 via-40% to-red-900 to-85% text-white cursor-pointer' : 'bg-black/20 text-gray-600 cursor-not-allowed'}  px-2 py-2 `}
 
               />

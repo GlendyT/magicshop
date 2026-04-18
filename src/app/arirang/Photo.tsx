@@ -27,17 +27,19 @@ const Photo = ({ preview, handleFileChange }: PhotoProps) => {
           <Image
             src={backgroundArirang}
             alt="Background"
-            className="absolute top-0 z-0 left-0 w-full h-full object-cover"
-            width={800}
-            height={800}
+            className="absolute top-0 z-0 left-0 w-full h-full object-contain"
+            width={900}
+            height={900}
+            quality={100}
           />
           {preview ? (
             <Image
               src={preview}
               alt="photoboothbts"
-              className="object-cover relative z-20"
-              width={800}
-              height={800}
+              className="object-contain relative z-20"
+              width={900}
+              height={900}
+              quality={100}
             />
           ) : (
             <div
