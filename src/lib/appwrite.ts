@@ -10,19 +10,30 @@ export const appwriteConfig = {
   bucketId: process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID || "",
 };
 
-export const client = new Client();
+// Only initialize client if we have valid config
+let client: Client | null = null;
+let databases: Databases | null = null;
 
-client
-  .setEndpoint(appwriteConfig.endpoint!)
-  .setProject(appwriteConfig.projectId!);
+if (typeof window !== 'undefined' && appwriteConfig.endpoint && appwriteConfig.projectId) {
+  client = new Client();
+  client
+    .setEndpoint(appwriteConfig.endpoint)
+    .setProject(appwriteConfig.projectId);
+  databases = new Databases(client);
+}
 
-export const databases = new Databases(client);
+export { client, databases };
 
 export const getBTSPhrases = async () => {
+  if (!databases || !appwriteConfig.databaseId || !appwriteConfig.polaroidCollectionId) {
+    console.warn('Appwrite not properly configured');
+    return [];
+  }
+  
   try {
     const btsphrases = await databases.listDocuments(
-      appwriteConfig.databaseId!,
-      appwriteConfig.polaroidCollectionId!,
+      appwriteConfig.databaseId,
+      appwriteConfig.polaroidCollectionId,
       [Query.limit(100)]
     );
 

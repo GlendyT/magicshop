@@ -6,6 +6,9 @@ import {  jinora } from "@/utils/Fonts";
 import { ButtonUtils } from "@/utils/ButtonUtils";
 import { useBTS} from "../../lib/useBTS"
 
+// Force dynamic rendering to avoid prerendering issues
+export const dynamic = 'force-dynamic';
+
 const Polaroid = () => {
   const { handleDownloadImage } = useDownload();
   const { btsPhrases, isLoading } = useBTS()
