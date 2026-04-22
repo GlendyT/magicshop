@@ -22,7 +22,7 @@ import {
   SidebarTrigger,
 } from "@/hooks/components/ui/sidebar";
 import AppSidebar from "@/utils/AppSidebar";
-
+import Providers from "./Providers";
 export const metadata: Metadata = {
   title: "The Magic Shop",
   description: "Created by ARMY for ARMY and BTS",
@@ -39,6 +39,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -50,40 +52,42 @@ export default function RootLayout({
         ></script>
       </head>
       <body suppressHydrationWarning>
-        <DarkProvider>
-          <DownloadProvider>
-            <RequestInfoProvider>
-              <ImageCropProvider>
-                <PhotoBoothProvider>
-                  <FlipProvider>
-                    <FishProvider>
-                      <RPSProvider>
-                        <TicTacToeProvider>
-                          <TetrisProvider>
-                            <BingoProvider>
-                              <SidebarProvider>
-                                <AppSidebar />
-                                <SidebarInset className="relative overflow-y-auto">
-                                  <SidebarTrigger className="absolute top-4 left-4 z-50" />
-                                  {children}
-                                </SidebarInset>
-                              </SidebarProvider>
-                              <Contact />
-                              <GoogleAnalytics gaId="G-3SC31S5CBD" />
-                              <SpeedInsights />
-                              <Analytics />
-                            </BingoProvider>
-                          </TetrisProvider>
-                        </TicTacToeProvider>
-                      </RPSProvider>
-                    </FishProvider>
-                  </FlipProvider>
-                </PhotoBoothProvider>
-              </ImageCropProvider>
-            </RequestInfoProvider>
-          </DownloadProvider>
-          <ToastContainer />
-        </DarkProvider>
+        <Providers>
+          <DarkProvider>
+            <DownloadProvider>
+              <RequestInfoProvider>
+                <ImageCropProvider>
+                  <PhotoBoothProvider>
+                    <FlipProvider>
+                      <FishProvider>
+                        <RPSProvider>
+                          <TicTacToeProvider>
+                            <TetrisProvider>
+                              <BingoProvider>
+                                <SidebarProvider>
+                                  <AppSidebar />
+                                  <SidebarInset className="relative overflow-y-auto">
+                                    <SidebarTrigger className="absolute top-4 left-4 z-50" />
+                                    {children}
+                                  </SidebarInset>
+                                </SidebarProvider>
+                                <Contact />
+                                <GoogleAnalytics gaId="G-3SC31S5CBD" />
+                                <SpeedInsights />
+                                <Analytics />
+                              </BingoProvider>
+                            </TetrisProvider>
+                          </TicTacToeProvider>
+                        </RPSProvider>
+                      </FishProvider>
+                    </FlipProvider>
+                  </PhotoBoothProvider>
+                </ImageCropProvider>
+              </RequestInfoProvider>
+            </DownloadProvider>
+            <ToastContainer />
+          </DarkProvider>
+        </Providers>
       </body>
     </html>
   );

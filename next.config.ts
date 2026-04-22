@@ -1,12 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  allowedDevOrigins: [
-    '192.168.1.135',
-    '127.0.0.1'
-  ],
+  allowedDevOrigins: ["192.168.1.135", "127.0.0.1"],
   // Deshabilitar static export temporalmente para evitar errores de pre-rendering
-  output: 'standalone',
+  output: "standalone",
   images: {
     remotePatterns: [
       {
@@ -18,12 +15,16 @@ const nextConfig: NextConfig = {
         hostname: "lastfm.freetls.fastly.net",
       },
       {
-        protocol: "https", 
+        protocol: "https",
         hostname: "lastfm-img2.akamaized.net",
       },
       {
         protocol: "https",
         hostname: "**.last.fm",
+      },
+      {
+        protocol: "https",
+        hostname: "sfo.cloud.appwrite.io",
       },
     ],
   },
