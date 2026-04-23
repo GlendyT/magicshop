@@ -49,6 +49,13 @@ jobs:
   playwright:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    env:
+      NEXT_PUBLIC_APPWRITE_ENDPOINT: ${{ secrets.NEXT_PUBLIC_APPWRITE_ENDPOINT }}
+      NEXT_PUBLIC_APPWRITE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_PROJECT_ID }}
+      NEXT_PUBLIC_APPWRITE_PROJECT_NAME: ${{ secrets.NEXT_PUBLIC_APPWRITE_PROJECT_NAME }}
+      NEXT_PUBLIC_APPWRITE_DATABASE_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_DATABASE_ID }}
+      NEXT_PUBLIC_APPWRITE_POLAROID_COLLECTION_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_POLAROID_COLLECTION_ID }}
+      NEXT_PUBLIC_APPWRITE_BUCKET_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_BUCKET_ID }}
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
