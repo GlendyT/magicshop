@@ -28,7 +28,7 @@ const Polaroid = () => {
           </div>
         ) : (
           <Image
-            src={randomPhrase.image}
+            src={randomPhrase?.image}
             alt="btsphrase"
             width={200}
             height={200}
@@ -50,12 +50,12 @@ const Polaroid = () => {
             >
               Special thanks to{" "}
               <span className={`font-bold italic font-libre.`}>
-                {isLoading ? "Loading..." : randomPhrase.title} ,
+                {isLoading ? "Loading..." : randomPhrase?.title} ,
               </span>{" "}
               <span className="font-extrabold">ARMY</span>
             </div>
             <p className={`font-antonio text-end font-bold uppercase`}>
-              - {isLoading ? "Loading..." : randomPhrase.from}
+              - {isLoading ? "Loading..." : randomPhrase?.from}
             </p>
           </div>
         </div>
