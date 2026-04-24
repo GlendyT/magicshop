@@ -7,6 +7,8 @@ export const appwriteConfig = {
   databaseId: process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID || "",
   polaroidCollectionId:
     process.env.NEXT_PUBLIC_APPWRITE_POLAROID_COLLECTION_ID || "",
+  sugaverseCollectionId:
+    process.env.NEXT_PUBLIC_APPWRITE_SUGAVERSE_COLLECTION_ID || "",
   bucketId: process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID || "",
 };
 
@@ -14,7 +16,11 @@ export const appwriteConfig = {
 let client: Client | null = null;
 let databases: Databases | null = null;
 
-if (typeof window !== 'undefined' && appwriteConfig.endpoint && appwriteConfig.projectId) {
+if (
+  typeof window !== "undefined" &&
+  appwriteConfig.endpoint &&
+  appwriteConfig.projectId
+) {
   client = new Client();
   client
     .setEndpoint(appwriteConfig.endpoint)
@@ -24,12 +30,16 @@ if (typeof window !== 'undefined' && appwriteConfig.endpoint && appwriteConfig.p
 
 export { client, databases };
 
-export const getBTSPhrases = async () => {
-  if (!databases || !appwriteConfig.databaseId || !appwriteConfig.polaroidCollectionId) {
-    console.warn('Appwrite not properly configured');
+export const getBTSPolaroid = async () => {
+  if (
+    !databases ||
+    !appwriteConfig.databaseId ||
+    !appwriteConfig.polaroidCollectionId
+  ) {
+    console.warn("Appwrite not properly configured");
     return [];
   }
-  
+
   try {
     const btsphrases = await databases.listDocuments(
       appwriteConfig.databaseId,
@@ -40,6 +50,29 @@ export const getBTSPhrases = async () => {
     return btsphrases.documents;
   } catch (error) {
     console.log("Error fetching BTS phrases", error);
+    return [];
+  }
+};
+
+export const getSugaVerse = async () => {
+  if (
+    !databases ||
+    !appwriteConfig.databaseId ||
+    !appwriteConfig.sugaverseCollectionId
+  ) {
+    console.warn("Appwrite not properly configured");
+    return [];
+  }
+
+  try {
+    const sugaverse = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.sugaverseCollectionId,
+      [Query.limit(100)]
+    );
+    return sugaverse.documents;
+  } catch (error) {
+    console.log("Error fetching SugaVerse data", error);
     return [];
   }
 };

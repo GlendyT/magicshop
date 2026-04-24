@@ -238,8 +238,6 @@ export type Divs = {
 
 export type SugaStyle = {
   id: number;
-  name: string;
-  image: string;
   style: Divs[];
 };
 

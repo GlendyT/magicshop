@@ -4,14 +4,14 @@ import Image from "next/image";
 import useDownload from "@/hooks/useDownload";
 import {  jinora } from "@/utils/Fonts";
 import { ButtonUtils } from "@/utils/ButtonUtils";
-import { useBTS} from "../../lib/useBTS"
+import { useBTSPolaroid} from "../../lib/useBTS"
 
 // Force dynamic rendering to avoid prerendering issues
 export const dynamic = 'force-dynamic';
 
 const Polaroid = () => {
   const { handleDownloadImage } = useDownload();
-  const { btsPhrases, isLoading } = useBTS()
+  const { btsPhrases, isLoading } = useBTSPolaroid()
   
   const randomIndex = Math.floor(Math.random() * (btsPhrases?.length || 0));
   const randomPhrase = btsPhrases?.[randomIndex];
@@ -26,14 +26,18 @@ const Polaroid = () => {
           <div className="w-72 h-72 border-pink-300 border-4 flex items-center justify-center bg-gray-100">
             <p className="text-pink-300">Loading BTS phrases...</p>
           </div>
-        ) : (
+        ) : randomPhrase?.image ? (
           <Image
-            src={randomPhrase?.image}
+            src={randomPhrase.image}
             alt="btsphrase"
             width={200}
             height={200}
             className="w-72 justify-center border-pink-300 border-4"
           />
+        ) : (
+          <div className="w-72 h-72 border-pink-300 border-4 flex items-center justify-center bg-gray-100">
+            <p className="text-pink-300 text-center px-4">Image not available</p>
+          </div>
         )}
         <div className="pt-4 flex flex-row-2 h-28 justify-between w-full items-center text-pink-300">
           <Image
@@ -49,13 +53,13 @@ const Polaroid = () => {
                italic ${jinora.className}`}
             >
               Special thanks to{" "}
-              <span className={`font-bold italic font-libre.`}>
-                {isLoading ? "Loading..." : randomPhrase?.title} ,
+              <span className={`font-bold italic font-libre`}>
+                {isLoading ? "Loading..." : randomPhrase?.title || "BTS"} ,
               </span>{" "}
               <span className="font-extrabold">ARMY</span>
             </div>
             <p className={`font-antonio text-end font-bold uppercase`}>
-              - {isLoading ? "Loading..." : randomPhrase?.from}
+              - {isLoading ? "Loading..." : randomPhrase?.from || "Unknown"}
             </p>
           </div>
         </div>

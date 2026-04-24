@@ -10,7 +10,7 @@ const SelectUtils = ({
   disabled = false,
   className,
   labelStyles,
-  onChange
+  onChange,
 }: SelectUtilsProps) => {
   const { usuarioGenerado } = useRequestInfo();
   return (
@@ -19,13 +19,12 @@ const SelectUtils = ({
         {label}
       </label>
       <select
-      
         id={id}
         name={name}
         value={value}
         onChange={onChange || usuarioGenerado}
         disabled={disabled}
-        className={` ${className}`}
+        className={` capitalize ${className}`}
         data-testid="select"
       >
         <option value="" disabled>
@@ -35,7 +34,7 @@ const SelectUtils = ({
           <option
             key={option.id}
             value={option.name}
-            className="text-black border border-t-black"
+            className="text-black border border-t-black capitalize"
           >
             {option.name}
           </option>

@@ -2,14 +2,15 @@ import useRequestInfo from "@/hooks/useRequestInfo";
 import React from "react";
 import { dmmono, glich, pixel } from "@/utils/Fonts";
 import SelectUtils from "@/utils/SelectUtils";
-import { sugaStyles } from "./Data/sugaStyles";
 import TextAreaUtils from "@/utils/TextAreaUtils";
 import { ButtonUtils } from "@/utils/ButtonUtils";
 import InputNameUtils from "@/utils/InputNameUtils";
+import { useSugaVerse } from "lib/useBTS";
 
 const Formulario = () => {
   const { handleSubmit, usuario } = useRequestInfo();
   const { content, diseño, name } = usuario;
+  const { sugaverse, isLoading } = useSugaVerse();
 
   return (
     <div className="text-white max-sm:text-xs w-96">
@@ -51,9 +52,14 @@ const Formulario = () => {
             name="diseño"
             label="Choose Your favorite song"
             value={diseño}
-            options={sugaStyles}
-            disabled={!name}
-            placeholder="Select your art work"
+            options={
+              sugaverse?.map((item) => ({ id: item.$id, name: item.name })) ||
+              []
+            }
+            disabled={!name || isLoading}
+            placeholder={
+              isLoading ? "Loading songs..." : "Select your art work"
+            }
             className="appearance-none transition-all border-white border disabled:border-gray-600 disabled:text-gray-400 rounded w-full py-2 px-3 text-white"
           />
           <ButtonUtils
