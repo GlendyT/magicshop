@@ -5,3 +5,8 @@ export interface BTSPhrases extends Models.Document {
   from: string;
   image: string; // Solo el ID del archivo, no la URL completa
 }
+
+export interface SugaVerse extends Models.Document {
+  name: string;
+  image: string; // Solo el ID del archivo, no la URL completa
+}

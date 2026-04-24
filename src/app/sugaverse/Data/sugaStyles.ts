@@ -7,8 +7,6 @@ const commonPStyles = "font-dmmono text-right max-sm:text-xs";
 export const sugaStyles: SugaStyle[] = [
   {
     id: 1,
-    name: "D-Day",
-    image: "/Sugaverse/dday.webp",
     style: [
       {
         div1: `${commonDiv1Styles} flex-col relative items-center `,
@@ -20,8 +18,6 @@ export const sugaStyles: SugaStyle[] = [
   },
   {
     id: 2,
-    name: "D-2",
-    image: "/Sugaverse/d2.webp",
     style: [
       {
         div1: `${commonDiv1Styles} flex-col relative items-center`,
@@ -33,8 +29,6 @@ export const sugaStyles: SugaStyle[] = [
   },
   {
     id: 3,
-    name: "Agust D",
-    image: "/Sugaverse/agustd.webp",
     style: [
       {
         div1: `flex flex-col relative items-center `,
@@ -46,8 +40,6 @@ export const sugaStyles: SugaStyle[] = [
   },
   {
     id: 4,
-    name: "People Pt2",
-    image: "/Sugaverse/pp2.webp",
     style: [
       {
         div1: `${commonDiv1Styles} flex-col relative items-center`,
@@ -59,8 +51,6 @@ export const sugaStyles: SugaStyle[] = [
   },
   {
     id: 5,
-    name: "Haegum",
-    image: "/Sugaverse/hgm.webp",
     style: [
       {
         div1: `${commonDiv1Styles}  flex-col relative items-center`,
@@ -72,8 +62,6 @@ export const sugaStyles: SugaStyle[] = [
   },
   {
     id: 6,
-    name: "Yoongi Special Collage",
-    image: "/Sugaverse/agustdd.webp",
     style: [
       {
         div1: `${commonDiv1Styles} flex flex-col relative items-center`,
