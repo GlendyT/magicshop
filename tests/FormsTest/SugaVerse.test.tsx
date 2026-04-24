@@ -76,6 +76,15 @@ jest.mock("@/hooks/useRequestInfo", () => ({
     default: jest.fn(),
 }));
 
+jest.mock("@/lib/useBTS", () => ({
+    __esModule: true,
+    useSugaVerse: () => ({
+        sugaverse: [],
+        isLoading: false,
+        error: null,
+    }),
+}));
+
 describe("Formulario", () => {
     beforeEach(() => {
         (useRequestInfo as jest.Mock).mockReturnValue({

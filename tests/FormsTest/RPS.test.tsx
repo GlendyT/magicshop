@@ -55,6 +55,15 @@ jest.mock("@/hooks/useRequestInfo", () => ({
     default: jest.fn(),
 }));
 
+jest.mock("@/lib/useBTS", () => ({
+    __esModule: true,
+    useBTSMembers: () => ({
+        btsMembers: [],
+        isLoading: false,
+        error: null,
+    }),
+}));
+
 
 describe("Formulario", () => {
     beforeEach(() => {

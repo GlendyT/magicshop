@@ -14,7 +14,7 @@ test("Generate a Sugaverse", async ({ page }) => {
   await page.getByRole('textbox', { name: 'write something first' }).fill('hola');
   await page.getByRole('textbox', { name: 'Your Name' }).click();
   await page.getByRole('textbox', { name: 'Your Name' }).fill('casa');
-  await page.getByTestId('select').selectOption('Agust D');
+  await page.getByTestId('select').selectOption({ index: 1 });
   await page.getByTestId('form').getByTestId('button').click();
   await page.getByRole('button', { name: 'Restart' }).click();
 });

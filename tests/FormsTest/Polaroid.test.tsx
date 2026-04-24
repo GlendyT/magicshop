@@ -14,12 +14,15 @@ jest.mock('@/hooks/useDownload', () => ({
 
 
 jest.mock('@/lib/useBTS', () => ({
-    useBTS: () => ({
+    __esModule: true,
+    useBTSPolaroid: () => ({
         btsPhrases: [
             {
                 image: 'test-image.jpg',
                 title: 'Mock Title',
-                from: 'Mock From',
+                btsGroup: {
+                    name: 'Mock From'
+                },
             },
         ],
         isLoading: false,
