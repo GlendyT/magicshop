@@ -19,10 +19,9 @@ const Resultado = () => {
   );
   const dbData = dbIndex !== -1 ? sugaverse[dbIndex] : undefined;
 
-  // Asignamos uno de los 6 estilos cíclicamente usando el operador módulo (%)
-  // Si no hay índice válido, usa el primer estilo por defecto
   const localStyle =
     dbIndex !== -1 ? sugaStyles[dbIndex % sugaStyles.length] : sugaStyles[0];
+    
 
   return (
     <div className="sm:justify-center max-sm:text-xs flex flex-col gap-4">

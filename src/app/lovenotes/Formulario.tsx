@@ -1,14 +1,16 @@
 import useRequestInfo from "@/hooks/useRequestInfo";
 import { montserrat } from "@/utils/Fonts";
 import SelectUtils from "@/utils/SelectUtils";
-import { loveNotesImg } from "./Data/loveNotesImg";
 import { ButtonUtils } from "@/utils/ButtonUtils";
 import InputContentUtils from "@/utils/InputContentUtils";
 import InputNameUtils from "@/utils/InputNameUtils";
+import { useLoveNotes } from "lib/useBTS";
 
 const Formulario = () => {
   const { handleSubmit, isMaxCharLimitReachedH, usuario } = useRequestInfo();
   const { content, diseño } = usuario;
+  const { lovenotes } = useLoveNotes();
+
   return (
     <div
       className={`shadow-2xl relative flex flex-col w-full backdrop-blur-xl bg-pink-100/10 outline-none focus:outline-none rounded-lg p-5 ${montserrat.className}`}
@@ -18,7 +20,11 @@ const Formulario = () => {
           Love Notes with BTS and ARMY
         </h3>
       </div>
-      <form data-testid="form" className="mt-5 flex flex-col gap-2" onSubmit={handleSubmit}>
+      <form
+        data-testid="form"
+        className="mt-5 flex flex-col gap-2"
+        onSubmit={handleSubmit}
+      >
         <InputNameUtils
           from="To"
           placeholder="Whom"
@@ -39,7 +45,12 @@ const Formulario = () => {
           id="diseño"
           name="diseño"
           value={diseño}
-          options={loveNotesImg}
+          options={
+            lovenotes?.map((item) => ({
+              id: item.$id,
+              name: item.btsMembers?.name || "Desconocido",
+            })) || []
+          }
           disabled={!content}
           placeholder="Select your art work"
           label="Select BTS or a member"

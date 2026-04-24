@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { getBTSPolaroid, getSugaVerse } from "./appwrite";
-import { BTSPhrases, SugaVerse } from "../../type";
+import { getBTSPolaroid, getLoveNotes, getSugaVerse } from "./appwrite";
+import { BTSPhrases, LoveNotes, SugaVerse } from "../../type";
 
 export const useBTSPolaroid = () => {
   const {
@@ -31,6 +31,23 @@ export const useSugaVerse = () => {
 
   return {
     sugaverse: sugaverse as unknown as SugaVerse[],
+    isLoading,
+    error,
+  };
+};
+
+export const useLoveNotes = () => {
+  const {
+    data: lovenotes = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["lovenotes"],
+    queryFn: getLoveNotes,
+  });
+
+  return {
+    lovenotes: lovenotes as unknown as LoveNotes[],
     isLoading,
     error,
   };
