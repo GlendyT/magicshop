@@ -11,6 +11,10 @@ export const appwriteConfig = {
     process.env.NEXT_PUBLIC_APPWRITE_SUGAVERSE_COLLECTION_ID || "",
   lovenotesCollectionId:
     process.env.NEXT_PUBLIC_APPWRITE_LOVENOTES_COLLECTION_ID || "",
+  jinfishinggameCollectionId:
+    process.env.NEXT_PUBLIC_APPWRITE_JINFISHINGGAME_COLLECTION_ID || "",
+  btsmembersCollectionId:
+    process.env.NEXT_PUBLIC_APPWRITE_BTSMEMBERS_COLLECTION_ID || "",
   bucketId: process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID || "",
 };
 
@@ -98,12 +102,58 @@ export const getLoveNotes = async () => {
       appwriteConfig.lovenotesCollectionId,
       [
         Query.limit(100),
-        Query.select(["*", "btsMembers.*"]) // 👈 Esto le dice a Appwrite que traiga el objeto completo del miembro
+        Query.select(["*", "btsMembers.*"]), // Esto le dice a Appwrite que traiga el objeto completo del miembro
       ]
     );
     return lovenotes.documents;
   } catch (error) {
     console.log("Error fetching Love Notes", error);
+    return [];
+  }
+};
+
+export const getJinFishingGame = async () => {
+  if (
+    !databases ||
+    !appwriteConfig.databaseId ||
+    !appwriteConfig.jinfishinggameCollectionId
+  ) {
+    console.warn("Appwrite not properly configured");
+    return [];
+  }
+
+  try {
+    const jinfishinggame = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.jinfishinggameCollectionId,
+      [Query.limit(100), Query.select(["*", "btsMembers.*"])]
+    );
+    return jinfishinggame.documents;
+  } catch (error) {
+    console.log("Error fetching Jin Fishing Game", error);
+    return [];
+  }
+};
+
+export const getBTSMembers = async () => {
+  if (
+    !databases ||
+    !appwriteConfig.databaseId ||
+    !appwriteConfig.btsmembersCollectionId
+  ) {
+    console.warn("Appwrite not properly configured");
+    return [];
+  }
+
+  try {
+    const btsmembers = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.btsmembersCollectionId,
+      [Query.limit(100)]
+    );
+    return btsmembers.documents;
+  } catch (error) {
+    console.log("Error fetching BTS Members", error);
     return [];
   }
 };

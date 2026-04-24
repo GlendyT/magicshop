@@ -19,3 +19,19 @@ export interface LoveNotes extends Models.Document {
     name: string;
   };
 }
+
+export interface JinFishingGame extends Models.Document {
+  word: string;
+  clue: string;
+  image: string; // Solo el ID del archivo, no la URL completa
+  btsMember: {
+    name: string;
+  };
+}
+
+export interface BTSMembers extends Models.Document {
+  name: string;
+  aka: string;
+  btsGroup: string;
+  borndate: Date;
+}

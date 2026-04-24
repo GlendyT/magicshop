@@ -328,7 +328,7 @@ export type VirthdayGiftProps = {
 };
 
 export type FishJinTypes = {
-  id: number;
+ // id: number;
   word: string;
   clue: string;
   image: string;
