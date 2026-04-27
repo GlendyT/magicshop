@@ -59,7 +59,7 @@ const Polaroid = () => {
               <span className="font-extrabold">ARMY</span>
             </div>
             <p className={`font-antonio text-end font-bold uppercase`}>
-              - {isLoading ? "Loading..." : randomPhrase?.from || "Unknown"}
+              - {isLoading ? "Loading..." : randomPhrase?.btsGroup?.name || "Unknown"}
             </p>
           </div>
         </div>

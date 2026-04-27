@@ -13,23 +13,19 @@ const commonFromStyles = "  font-bold  ";
 export const loveNotesImg: LoveNotesTypes[] = [
   {
     id: 1,
-    name: "BTS",
-    image: "/LoveNotes/btsflower.webp",
     style: [
       {
         div1: `${commonStylesDiv1}`,
         div2: `${commonStylesDiv2}`,
-        div3: `${commonStylesDiv3} top-[70px] left-[60px]  gap-1 `,
-        p: `${commonPStyles} top-[160px] right-[140px]  gap-1  `,
-        to: `${commonToStyles}top-[70px] left-[85px] `,
-        from: `${commonFromStyles} left-9`,
+        div3: `${commonStylesDiv3} bottom-[100px] right-[80px]  gap-1 text-pink-400`,
+        p: `${commonPStyles} bottom-[80px] right-[65px]  gap-1 text-pink-400`,
+        to: `${commonToStyles} bottom-[100px] left-[225px]`,
+        from: `${commonFromStyles} bottom-[80px] left-[240px] `,
       },
     ],
   },
   {
     id: 2,
-    name: "Namjoon",
-    image: "/LoveNotes/rmflower.webp",
     style: [
       {
         div1: `${commonStylesDiv1}`,
@@ -43,38 +39,6 @@ export const loveNotesImg: LoveNotesTypes[] = [
   },
   {
     id: 3,
-    name: "Seokjin",
-    image: "/LoveNotes/jinflower.webp",
-    style: [
-      {
-        div1: `${commonStylesDiv1}`,
-        div2: `${commonStylesDiv2}`,
-        div3: `${commonStylesDiv3} top-[205px] right-[60px]  flex-col  `,
-        p: `${commonPStyles}  right-[30px] bottom-[220px]  flex-col `,
-        to: `${commonToStyles}top-[219px] left-[243px] `,
-        from: `${commonFromStyles} bottom-[230px] left-[245px] `,
-      },
-    ],
-  },
-  {
-    id: 4,
-    name: "Yoongi",
-    image: "/LoveNotes/sugaflower.webp",
-    style: [
-      {
-        div1: `${commonStylesDiv1}`,
-        div2: `${commonStylesDiv2}`,
-        div3: `${commonStylesDiv3}  bottom-[270px] left-[57px]  gap-1 `,
-        p: `${commonPStyles} bottom-[250px] left-[57px]  gap-1 `,
-        to: `${commonToStyles} bottom-[270px] left-[79px] `,
-        from: `${commonFromStyles} bottom-[250px] left-[94px] `,
-      },
-    ],
-  },
-  {
-    id: 5,
-    name: "Hoseok",
-    image: "/LoveNotes/jhopeflower.webp",
     style: [
       {
         div1: `${commonStylesDiv1}`,
@@ -87,24 +51,21 @@ export const loveNotesImg: LoveNotesTypes[] = [
     ],
   },
   {
-    id: 6,
-    name: "Jimin",
-    image: "/LoveNotes/jiminflower.webp",
+    id: 4,
     style: [
       {
         div1: `${commonStylesDiv1}`,
         div2: `${commonStylesDiv2}`,
-        div3: `${commonStylesDiv3} bottom-[100px] right-[80px]  gap-1 text-pink-400`,
-        p: `${commonPStyles} bottom-[80px] right-[65px]  gap-1 text-pink-400`,
-        to: `${commonToStyles} bottom-[100px] left-[225px]`,
-        from: `${commonFromStyles} bottom-[80px] left-[240px] `,
+        div3: `${commonStylesDiv3}  top-[160px] right-[86px]  flex-col `,
+        p: `${commonPStyles} bottom-[270px] right-[50px]  flex-col `,
+        to: `${commonToStyles} top-[175px] left-[238px] `,
+        from: `${commonFromStyles} bottom-[275px] left-[239px]  `,
       },
     ],
   },
+
   {
-    id: 7,
-    name: "Taehyung",
-    image: "/LoveNotes/vflower.webp",
+    id: 5,
     style: [
       {
         div1: `${commonStylesDiv1}`,
@@ -117,17 +78,41 @@ export const loveNotesImg: LoveNotesTypes[] = [
     ],
   },
   {
-    id: 8,
-    name: "JungKook",
-    image: "/LoveNotes/jungkookflower.webp",
+    id: 6,
     style: [
       {
         div1: `${commonStylesDiv1}`,
         div2: `${commonStylesDiv2}`,
-        div3: `${commonStylesDiv3}  top-[160px] right-[86px]  flex-col `,
-        p: `${commonPStyles} bottom-[270px] right-[50px]  flex-col `,
-        to: `${commonToStyles} top-[175px] left-[238px] `,
-        from: `${commonFromStyles} bottom-[275px] left-[239px]  `,
+        div3: `${commonStylesDiv3}  bottom-[270px] left-[57px]  gap-1 `,
+        p: `${commonPStyles} bottom-[250px] left-[57px]  gap-1 `,
+        to: `${commonToStyles} bottom-[270px] left-[79px] `,
+        from: `${commonFromStyles} bottom-[250px] left-[94px] `,
+      },
+    ],
+  },
+  {
+    id: 7,
+    style: [
+      {
+        div1: `${commonStylesDiv1}`,
+        div2: `${commonStylesDiv2}`,
+        div3: `${commonStylesDiv3} top-[205px] right-[60px]  flex-col  `,
+        p: `${commonPStyles}  right-[30px] bottom-[220px]  flex-col `,
+        to: `${commonToStyles}top-[219px] left-[243px] `,
+        from: `${commonFromStyles} bottom-[230px] left-[245px] `,
+      },
+    ],
+  },
+  {
+    id: 8,
+    style: [
+      {
+        div1: `${commonStylesDiv1}`,
+        div2: `${commonStylesDiv2}`,
+        div3: `${commonStylesDiv3} top-[70px] left-[60px]  gap-1 `,
+        p: `${commonPStyles} top-[160px] right-[140px]  gap-1  `,
+        to: `${commonToStyles}top-[70px] left-[85px] `,
+        from: `${commonFromStyles} left-9`,
       },
     ],
   },

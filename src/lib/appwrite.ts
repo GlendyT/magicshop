@@ -9,6 +9,8 @@ export const appwriteConfig = {
     process.env.NEXT_PUBLIC_APPWRITE_POLAROID_COLLECTION_ID || "",
   sugaverseCollectionId:
     process.env.NEXT_PUBLIC_APPWRITE_SUGAVERSE_COLLECTION_ID || "",
+  lovenotesCollectionId:
+    process.env.NEXT_PUBLIC_APPWRITE_LOVENOTES_COLLECTION_ID || "",
   bucketId: process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID || "",
 };
 
@@ -44,7 +46,10 @@ export const getBTSPolaroid = async () => {
     const btsphrases = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.polaroidCollectionId,
-      [Query.limit(100)]
+      [
+        Query.limit(100),
+        Query.select(["*", "btsGroup.*"]), // 👈 Expande la relación
+      ]
     );
 
     return btsphrases.documents;
@@ -73,6 +78,32 @@ export const getSugaVerse = async () => {
     return sugaverse.documents;
   } catch (error) {
     console.log("Error fetching SugaVerse data", error);
+    return [];
+  }
+};
+
+export const getLoveNotes = async () => {
+  if (
+    !databases ||
+    !appwriteConfig.databaseId ||
+    !appwriteConfig.polaroidCollectionId
+  ) {
+    console.warn("Appwrite not properly configured");
+    return [];
+  }
+
+  try {
+    const lovenotes = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.lovenotesCollectionId,
+      [
+        Query.limit(100),
+        Query.select(["*", "btsMembers.*"]) // 👈 Esto le dice a Appwrite que traiga el objeto completo del miembro
+      ]
+    );
+    return lovenotes.documents;
+  } catch (error) {
+    console.log("Error fetching Love Notes", error);
     return [];
   }
 };
