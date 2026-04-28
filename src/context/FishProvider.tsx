@@ -1,15 +1,19 @@
-"use client"
-import { wordList } from "@/seokjin/Data/wordList";
+"use client";
 import { createContext, useCallback, useEffect, useState } from "react";
 import { AllProviderProps, FishContextType, FishJinTypes } from "../types";
+import { useJinFishingGame } from "lib/useBTS";
 
 const FishContext = createContext<FishContextType>(null!);
 
 const FishProvider = ({ children }: AllProviderProps) => {
-  function getWord(): FishJinTypes {
-    const randomIndex = Math.floor(Math.random() * wordList.length);
-    return wordList[randomIndex];
-  }
+  const { jinfishinggame } = useJinFishingGame();
+  const getWord = useCallback((): FishJinTypes => {
+    if (!jinfishinggame || jinfishinggame.length === 0) {
+      return { word: "" } as FishJinTypes;
+    }
+    const randomIndex = Math.floor(Math.random() * jinfishinggame.length);
+    return jinfishinggame[randomIndex];
+  }, [jinfishinggame]);
   const MAX_TRIES = 6;
   const [wordData, setWordData] = useState<FishJinTypes>(getWord);
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
@@ -17,18 +21,24 @@ const FishProvider = ({ children }: AllProviderProps) => {
   const [show, setShow] = useState<boolean>(true);
   const [showModal, setShowModal] = useState<boolean>(true);
 
-  const wordToGuess = wordData.word.toLowerCase();
+  useEffect(() => {
+    if (jinfishinggame && jinfishinggame.length > 0 && (!wordData || !wordData.word)) {
+      setWordData(getWord());
+    }
+  }, [jinfishinggame, wordData, getWord]);
+
+  const wordToGuess = wordData?.word?.toLowerCase() || "";
 
   const correctLetters = guessedLetters.filter((letter) =>
-    wordToGuess.includes(letter.toLowerCase())
+    wordToGuess.includes(letter.toLowerCase()),
   );
 
   const incorrectGuesses = guessedLetters.filter(
-    (letter) => !wordToGuess.includes(letter.toLowerCase())
+    (letter) => !wordToGuess.includes(letter.toLowerCase()),
   );
 
   const isLoser = incorrectGuesses.length >= MAX_TRIES;
-  const isWinner = wordToGuess
+  const isWinner = wordToGuess.length > 0 && wordToGuess
     .split("")
     .every((letter) => guessedLetters.includes(letter.toLowerCase()));
 
@@ -43,7 +53,7 @@ const FishProvider = ({ children }: AllProviderProps) => {
         lowerCaseLetter,
       ]);
     },
-    [guessedLetters, isWinner, isLoser]
+    [guessedLetters, isWinner, isLoser],
   );
 
   useEffect(() => {
@@ -78,7 +88,7 @@ const FishProvider = ({ children }: AllProviderProps) => {
     return () => {
       document.removeEventListener("keypress", handler);
     };
-  }, []);
+  }, [getWord]);
 
   const handleClick = (key: string) => {
     setPressedLetter(key.toLowerCase());
@@ -95,14 +105,13 @@ const FishProvider = ({ children }: AllProviderProps) => {
   };
 
   useEffect(() => {
-    if (isWinner ) {
+    if (isWinner) {
       const timer = setTimeout(() => setShow(true), 3000);
       return () => clearTimeout(timer);
     } else {
       setShow(false);
     }
   }, [isWinner]);
-
 
   const handleCloseandRestart = () => {
     handleStartOver();
@@ -132,7 +141,7 @@ const FishProvider = ({ children }: AllProviderProps) => {
         wordData,
         setShow,
         show,
-        handleCloseandRestart
+        handleCloseandRestart,
       }}
     >
       {children}

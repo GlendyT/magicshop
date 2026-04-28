@@ -1,6 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { getBTSPolaroid, getLoveNotes, getSugaVerse } from "./appwrite";
-import { BTSPhrases, LoveNotes, SugaVerse } from "../../type";
+import {
+  getBTSMembers,
+  getBTSPolaroid,
+  getJinFishingGame,
+  getLoveNotes,
+  getSugaVerse,
+} from "./appwrite";
+import { BTSMembers, BTSPhrases, JinFishingGame, LoveNotes, SugaVerse } from "../../type";
 
 export const useBTSPolaroid = () => {
   const {
@@ -48,6 +54,40 @@ export const useLoveNotes = () => {
 
   return {
     lovenotes: lovenotes as unknown as LoveNotes[],
+    isLoading,
+    error,
+  };
+};
+
+export const useJinFishingGame = () => {
+  const {
+    data: jinfishinggame = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["jinfishinggame"],
+    queryFn: getJinFishingGame,
+  });
+
+  return {
+    jinfishinggame: jinfishinggame as unknown as JinFishingGame[],
+    isLoading,
+    error,
+  };
+};
+
+export const useBTSMembers = () => {
+  const {
+    data: btsMembers = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["btsMembers"],
+    queryFn: getBTSMembers,
+  });
+
+  return {
+    btsMembers: btsMembers as unknown as BTSMembers[],
     isLoading,
     error,
   };
