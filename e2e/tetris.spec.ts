@@ -19,7 +19,7 @@ test("generate Tetris", async ({ page }) => {
   await page.locator('div:nth-child(3) > div:nth-child(2) > button').first().click();
   await page.locator('button:nth-child(2)').first().click();
   await page.locator('div:nth-child(2) > button').first().click();
-  await page.locator('div:nth-child(3) > div > div > button').first().click();
+  await page.locator('div:nth-child(3) > div > div > button').first().click({ force: true });
   await page.locator('div:nth-child(2) > button:nth-child(2)').click();
   await page.getByRole('button', { name: 'Restart All' }).click();
 

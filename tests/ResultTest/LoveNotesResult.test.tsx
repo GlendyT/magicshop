@@ -14,6 +14,21 @@ jest.mock("next/image", () => ({
 jest.mock("@/hooks/useRequestInfo");
 jest.mock("@/hooks/useDownload");
 
+jest.mock("@/lib/useBTS", () => ({
+  __esModule: true,
+  useLoveNotes: () => ({
+    lovenotes: [
+      {
+        $id: "Default",
+        image: "test-image",
+        btsMembers: { name: "Test Member" },
+      },
+    ],
+    isLoading: false,
+    error: null,
+  }),
+}));
+
 jest.mock("../../src/app/lovenotes/Data/loveNotesImg", () => ({
   loveNotesImg: [
     {
@@ -58,7 +73,7 @@ describe("Resultado Component", () => {
     expect(getByText("Test User")).toBeInTheDocument();
     expect(getByText(/Love:/)).toBeInTheDocument();
     expect(getByText("Test Content")).toBeInTheDocument();
-    expect(getByAltText("Default")).toBeInTheDocument();
+    expect(getByAltText("Test Member")).toBeInTheDocument();
   });
 
   it("calls handleDownloadImage when Download button is clicked", () => {

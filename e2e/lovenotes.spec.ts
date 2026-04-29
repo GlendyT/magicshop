@@ -15,6 +15,6 @@ test("generate Lovenotes", async ({ page }) => {
   await page.getByTestId('input-content').click();
   await page.getByTestId('input-content').fill('hola2');
   await page.getByText('Select BTS or a member').click();
-  await page.getByTestId('select').selectOption('Hoseok');
+  await page.getByTestId('select').selectOption({ index: 1 });
   await page.getByTestId('form').getByTestId('button').click();
 });
