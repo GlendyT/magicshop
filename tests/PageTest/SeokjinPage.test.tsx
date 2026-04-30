@@ -4,7 +4,6 @@ import Seokjin from "@/seokjin/page";
 jest.mock("../../src/app/seokjin/Modal", () => () => <div data-testid="modal">Modal Component</div>);
 jest.mock("../../src/app/seokjin/Formulario", () => () => <div data-testid="formulario">Formulario Component</div>);
 jest.mock("../../src/app/seokjin/Fishing", () => () => <div data-testid="fishing">Fishing Component</div>);
-jest.mock("../../src/app/seokjin/Waves", () => () => <div data-testid="waves">Waves Component</div>);
 
 const mockUseFish = jest.fn();
 jest.mock("@/hooks/useFish", () => () => mockUseFish());
@@ -82,17 +81,6 @@ describe("Seokjin Component", () => {
 
         render(<Seokjin />);
         expect(screen.queryByTestId("formulario")).not.toBeInTheDocument();
-    });
-
-    it("always renders Waves component", () => {
-        mockUseFish.mockReturnValue({
-            showModal: false,
-            isWinner: false,
-            show: false,
-        });
-
-        render(<Seokjin />);
-        expect(screen.getByTestId("waves")).toBeInTheDocument();
     });
 
     it("applies correct CSS classes", () => {

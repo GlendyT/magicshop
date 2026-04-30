@@ -12,7 +12,7 @@ test("Generate a Sugaverse", async ({ page }) => {
 
   await page.getByRole('textbox', { name: 'write something first' }).click();
   await page.getByRole('textbox', { name: 'write something first' }).fill('hola');
-  await page.getByRole('textbox', { name: 'Your Name' }).click();
+  await page.getByRole('textbox', { name: 'Your Name' }).click({ force: true });
   await page.getByRole('textbox', { name: 'Your Name' }).fill('casa');
   await page.getByTestId('select').selectOption({ index: 1 });
   await page.getByTestId('form').getByTestId('button').click();

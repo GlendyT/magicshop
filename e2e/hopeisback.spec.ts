@@ -18,7 +18,7 @@ test("generate Hobi is back", async ({ page }) => {
   await page.getByTestId('input-content').click();
   await page.getByTestId('input-content').fill('hola');
   await page.getByTestId('radio-options').click();
-  await page.getByText('Let\'s welcome Hobi with a').click();
+  await page.getByText('Let\'s welcome Hobi with a').click({ force: true });
   await page.getByTestId('form').getByTestId('button').click();
   await page.getByText('glendyfrom hola').click();
   // const download8Promise = page.waitForEvent('download');

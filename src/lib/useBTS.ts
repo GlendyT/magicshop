@@ -6,8 +6,9 @@ import {
   getBTSPolaroid,
   getLoveNotes,
   getSugaVerse,
+  getTetrisBTS,
 } from "./appwrite";
-import { BTSMembers, BTSPhrases, JinFishingGame, LoveNotes, SugaVerse } from "../../type";
+import { BTSMembers, BTSPhrases, LoveNotes, SugaVerse, TetrisBTS } from "../../type";
 
 export const useBTSPolaroid = () => {
   const {
@@ -72,6 +73,24 @@ export const useBTSMembers = () => {
 
   return {
     btsMembers: btsMembers as unknown as BTSMembers[],
+    isLoading,
+    error,
+  };
+};
+
+
+export const useTetrisBTS = () => {
+  const {
+    data: tetrisBts = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["tetrisBts"],
+    queryFn: getTetrisBTS,
+  });
+
+  return {
+    tetrisBts: tetrisBts as unknown as TetrisBTS[],
     isLoading,
     error,
   };

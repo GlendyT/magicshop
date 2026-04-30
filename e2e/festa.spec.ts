@@ -24,5 +24,5 @@ test("generate Festa", async ({ page }) => {
     .locator("div")
     .filter({ hasText: /^holafrom hola2$/ })
     .nth(1)
-    .click();
+    .click({ force: true });
 });

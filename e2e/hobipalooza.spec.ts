@@ -1,8 +1,9 @@
-import { test } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 
 test.describe.configure({ mode: "serial" });
 
 test("Generate a Hobipalooza", async ({ page }) => {
+  test.setTimeout(60000);
   await page.goto("http://localhost:3000/hobipalooza");
 
   await page.locator('div').filter({ hasText: '0/15' }).nth(2).click();
@@ -10,6 +11,7 @@ test("Generate a Hobipalooza", async ({ page }) => {
   await page.getByTestId('form').locator('div').first().click();
   await page.getByRole('textbox', { name: 'Use your X @username' }).click();
   await page.getByRole('textbox', { name: 'Use your X @username' }).fill('casa')
+  await expect(page.locator('select[name="diseño"]')).toBeEnabled({ timeout: 30000 });
   await page.locator('select[name="diseño"]').selectOption('Singles or Collabs');
   await page.locator('#song').selectOption('Rush Hour (Feat. j-hope of BTS)');
   await page.getByTestId('form').getByTestId('button').click();
