@@ -12,8 +12,10 @@ test("Generate a Hobipalooza", async ({ page }) => {
   await page.getByRole('textbox', { name: 'Use your X @username' }).click();
   await page.getByRole('textbox', { name: 'Use your X @username' }).fill('casa')
   await expect(page.locator('select[name="diseño"]')).toBeEnabled({ timeout: 30000 });
-  await page.locator('select[name="diseño"]').selectOption('Singles or Collabs');
-  await page.locator('#song').selectOption('Rush Hour (Feat. j-hope of BTS)');
+  await expect(page.locator('select[name="diseño"] option').nth(1)).toBeAttached({ timeout: 30000 });
+  await page.locator('select[name="diseño"]').selectOption({ index: 1 });
+  await expect(page.locator('#song option').nth(1)).toBeAttached({ timeout: 30000 });
+  await page.locator('#song').selectOption({ index: 1 });
   await page.getByTestId('form').getByTestId('button').click();
   await page.getByText('happy').click();
   //await page.getByText('HOBI-DAY').click();

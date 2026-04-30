@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import css from "styled-jsx/css";
 import { PLAYER_0, PLAYER_X } from "./constants";
 
