@@ -15,6 +15,7 @@ import {
 import { citiesVisited } from "@/vpassport/Data/citiesVisited";
 import useDownload from "@/hooks/useDownload";
 import { getRandomSongFromAlbum } from "@/services/btsAlbums";
+import { getAllSongsFromAlbum } from "@/services/hobiAlbums";
 
 const RequestInfoContext = createContext<RequestInfoContextType>(null!);
 
@@ -30,10 +31,10 @@ const RequestInfoProvider = ({ children }: AllProviderProps) => {
   const [cargando, setCargando] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
   const [charCount, setCharCount] = useState<number>(
-    usuario.content.length || 0
+    usuario.content.length || 0,
   );
   const [charCountFrom, setCharCountFrom] = useState<number>(
-    usuario.name.length || 0
+    usuario.name.length || 0,
   );
   const [currWord] = useState<string>("hope");
   const [input, setInput] = useState<string>("");
@@ -108,7 +109,7 @@ const RequestInfoProvider = ({ children }: AllProviderProps) => {
   }, []);
 
   const handleContent = (
-    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
   ) => {
     const inputValue = e.target.value;
     if (inputValue.length <= maxCharLimit) {
@@ -147,7 +148,7 @@ const RequestInfoProvider = ({ children }: AllProviderProps) => {
   const usuarioGenerado = (
     e: React.ChangeEvent<
       HTMLSelectElement | HTMLTextAreaElement | HTMLInputElement
-    >
+    >,
   ) => {
     const { name, value } = e.target;
     setUsuario((prev) => ({
@@ -199,12 +200,12 @@ const RequestInfoProvider = ({ children }: AllProviderProps) => {
 
   const generateRandomSong = async () => {
     if (!selectedAlbum) return;
-    
+
     try {
       const randomSong = await getRandomSongFromAlbum(selectedAlbum);
       if (randomSong) {
         setGeneratedSong(randomSong);
-        setUsuario(prev => ({ ...prev, song: randomSong }));
+        setUsuario((prev) => ({ ...prev, song: randomSong }));
       }
     } catch (error) {
       console.error("Error generating random song:", error);
@@ -224,6 +225,20 @@ const RequestInfoProvider = ({ children }: AllProviderProps) => {
       }, 3800); // 0.5s delay + 1.5s rotation + 0.8s slide + margin
     }
   }, []);
+
+  const generateAlbumHobiList = async () => {
+    if (!selectedAlbum) return;
+
+    try {
+      const allSongs = await getAllSongsFromAlbum(selectedAlbum);
+      if (allSongs) {
+        setGeneratedSong(allSongs.join(", ")); // Puedes ajustar el formato según tus necesidades
+        setUsuario((prev) => ({ ...prev, song: allSongs.join(", ") }));
+      }
+    } catch (error) {
+      console.error("Error generating random song:", error);
+    }
+  };
   return (
     <RequestInfoContext.Provider
       value={{
@@ -289,6 +304,8 @@ const RequestInfoProvider = ({ children }: AllProviderProps) => {
 
         loading,
         setLoading,
+
+        generateAlbumHobiList
       }}
     >
       {children}

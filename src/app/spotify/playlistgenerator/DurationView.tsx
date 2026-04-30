@@ -2,8 +2,8 @@ import useSpotify from "@/hooks/useSpotify";
 import { ButtonUtils } from "@/utils/ButtonUtils";
 import React from "react";
 import { PiPlusCircle } from "react-icons/pi";
-import { ARTISTS } from "../Data/btspotify";
 import UnauthView from "./UnauthView";
+import { useBTSMembers } from "lib/useBTS";
 
 const DurationView = () => {
   const {
@@ -16,6 +16,7 @@ const DurationView = () => {
     fillPlaylistToTarget,
     isFilling,
   } = useSpotify();
+  const {btsMembers} = useBTSMembers();
   return (
     <div
       className={`relative w-96 ${!accessToken ? "pointer-events-none" : ""}`}
@@ -97,13 +98,13 @@ const DurationView = () => {
             Select artists to complete your playlist:
           </label>
           <div className="flex flex-wrap items-center justify-center gap-2 mb-4">
-            {ARTISTS.map((artist) => {
-              const isSelected = fillArtistIds.includes(artist.id);
+            {btsMembers.map((artist) => {
+              const isSelected = fillArtistIds.includes(artist.spotifyUrl);
               return (
                 <ButtonUtils
                   label={artist.name}
-                  key={artist.id}
-                  onClick={() => toggleFillArtist(artist.id)}
+                  key={artist.spotifyUrl}
+                  onClick={() => toggleFillArtist(artist.spotifyUrl)}
                   className={`py-2 px-3 rounded-lg font-medium text-xs transition-all cursor-pointer ${
                     isSelected
                       ? "bg-slate-900 text-white shadow-md"

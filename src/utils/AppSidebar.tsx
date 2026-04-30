@@ -7,6 +7,7 @@ import {
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -17,7 +18,7 @@ const AppSidebar = () => {
   return (
     <>
       <Sidebar>
-        <SidebarContent className="flex items-center pt-1">
+        <SidebarHeader className="flex items-center h-16 w-full max-w-screen-2xl mx-auto gap-2 md:gap-4 ">
           <Link href="/">
             <Image
               src="/Polaroid/Only-graphic-darkpurple.webp"
@@ -28,31 +29,32 @@ const AppSidebar = () => {
               priority
             />
           </Link>
+        </SidebarHeader>
+        <SidebarContent className="flex items-center pt-1">
           <SidebarGroup>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {LinkRoutes.map((linkroute) => (
-                  <SidebarMenuItem key={linkroute.id}>
-                    <SidebarMenuButton asChild>
-                      <Link href={linkroute.path}>
-                        <Image
-                          src={linkroute.image}
-                          alt={linkroute.name}
-                          className={`
+            <SidebarMenu className="flex flex-col gap-2">
+              {LinkRoutes.map((linkroute) => (
+                <SidebarMenuItem key={linkroute.id}>
+                  <SidebarMenuButton asChild>
+                    <Link href={linkroute.path}>
+                      <Image
+                        src={linkroute.image}
+                        alt={linkroute.name}
+                        className={`
                     object-contain
-                    
-                     
                   `}
-                          width={50}
-                          height={50}
-                          priority
-                        />
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
+                        width={100}
+                        height={50}
+                        priority
+                      />
+                      <span className="font-inter text-sm font-medium tracking-wide uppercase group-data-[collapsible=icon]:hidden">
+                        {linkroute.name}
+                      </span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
           </SidebarGroup>
         </SidebarContent>
       </Sidebar>

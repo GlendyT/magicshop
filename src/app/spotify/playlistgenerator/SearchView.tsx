@@ -3,12 +3,12 @@ import React from "react";
 import UnauthView from "./UnauthView";
 import InputContentUtils from "@/utils/InputContentUtils";
 import SelectUtils from "@/utils/SelectUtils";
-import { ARTISTS } from "../Data/btspotify";
 import { FaMinus, FaPlus, FaSearch } from "react-icons/fa";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { MdSearchOff } from "react-icons/md";
 import Image from "next/image";
 import { ButtonUtils } from "@/utils/ButtonUtils";
+import { useBTSMembers } from "lib/useBTS";
 
 const SearchView = () => {
   const {
@@ -24,6 +24,7 @@ const SearchView = () => {
     selectedTracks,
     updateQuantity,
   } = useSpotify();
+  const { btsMembers } = useBTSMembers();
 
   return (
     <div
@@ -48,8 +49,8 @@ const SearchView = () => {
             value={artistFilter}
             options={[
               { id: "all", name: "All Artists" },
-              ...ARTISTS.map((artist) => ({
-                id: artist.id,
+              ...btsMembers.map((artist) => ({
+                id: artist.spotifyUrl,
                 name: artist.name,
               })),
             ]}

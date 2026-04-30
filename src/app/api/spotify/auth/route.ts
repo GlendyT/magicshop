@@ -66,6 +66,7 @@ export async function GET(request: NextRequest) {
     // Check if redirect_uri contains arirang to determine destination
     const isArirangRequest = redirectUri.includes('/arirang');
     const redirectUrl = new URL(isArirangRequest ? '/arirang' : '/spotify/playlistgenerator', request.url);
+
     
     redirectUrl.searchParams.set('access_token', data.access_token);
     redirectUrl.searchParams.set('refresh_token', data.refresh_token);
