@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import {
   getBTSMembers,
   getBTSPolaroid,
-  getJinFishingGame,
   getLoveNotes,
   getSugaVerse,
 } from "./appwrite";
@@ -56,23 +55,6 @@ export const useLoveNotes = () => {
 
   return {
     lovenotes: lovenotes as unknown as LoveNotes[],
-    isLoading,
-    error,
-  };
-};
-
-export const useJinFishingGame = () => {
-  const {
-    data: jinfishinggame = [],
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["jinfishinggame"],
-    queryFn: getJinFishingGame,
-  });
-
-  return {
-    jinfishinggame: jinfishinggame as unknown as JinFishingGame[],
     isLoading,
     error,
   };

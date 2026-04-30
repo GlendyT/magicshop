@@ -1,31 +1,33 @@
 "use client";
 import { createContext, useCallback, useEffect, useState } from "react";
 import { AllProviderProps, FishContextType, FishJinTypes } from "../types";
-import { useJinFishingGame } from "lib/useBTS";
+import { getAllJinTracks } from "@/services/jinAlbums";
 
 const FishContext = createContext<FishContextType>(null!);
 
 const FishProvider = ({ children }: AllProviderProps) => {
-  const { jinfishinggame } = useJinFishingGame();
+  const [jinTracks, setJinTracks] = useState<FishJinTypes[]>([]);
+
   const getWord = useCallback((): FishJinTypes => {
-    if (!jinfishinggame || jinfishinggame.length === 0) {
+    if (!jinTracks || jinTracks.length === 0) {
       return { word: "" } as FishJinTypes;
     }
-    const randomIndex = Math.floor(Math.random() * jinfishinggame.length);
-    return jinfishinggame[randomIndex];
-  }, [jinfishinggame]);
+    const randomIndex = Math.floor(Math.random() * jinTracks.length);
+    return jinTracks[randomIndex];
+  }, [jinTracks]);
+
   const MAX_TRIES = 6;
-  const [wordData, setWordData] = useState<FishJinTypes>(getWord);
+  const [wordData, setWordData] = useState<FishJinTypes>({ word: "" } as FishJinTypes);
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const [pressedLetter, setPressedLetter] = useState<string | null>(null);
   const [show, setShow] = useState<boolean>(true);
   const [showModal, setShowModal] = useState<boolean>(true);
 
   useEffect(() => {
-    if (jinfishinggame && jinfishinggame.length > 0 && (!wordData || !wordData.word)) {
+    if (jinTracks && jinTracks.length > 0 && (!wordData || !wordData.word)) {
       setWordData(getWord());
     }
-  }, [jinfishinggame, wordData, getWord]);
+  }, [jinTracks, wordData, getWord]);
 
   const wordToGuess = wordData?.word?.toLowerCase() || "";
 
@@ -40,6 +42,7 @@ const FishProvider = ({ children }: AllProviderProps) => {
   const isLoser = incorrectGuesses.length >= MAX_TRIES;
   const isWinner = wordToGuess.length > 0 && wordToGuess
     .split("")
+    .filter((char) => /[a-z]/.test(char)) // Ignoramos espacios y símbolos para poder ganar
     .every((letter) => guessedLetters.includes(letter.toLowerCase()));
 
   const addGuessedLetter = useCallback(
@@ -117,6 +120,23 @@ const FishProvider = ({ children }: AllProviderProps) => {
     handleStartOver();
     setShow(false);
   };
+
+  useEffect(() => {
+    const loadTracks = async () => {
+      try {
+        const tracks = await getAllJinTracks();
+        // Mapeamos y limpiamos las canciones para que cumplan con la estructura del juego
+        const mappedTracks = tracks.map((track) => ({
+          // Eliminamos paréntesis y apóstrofes de los títulos
+          word: track.name.replace(/[()'’,′ -.]/g, ""),
+        }));
+        setJinTracks(mappedTracks as FishJinTypes[]);
+      } catch (error) {
+        console.error("Error loading tracks:", error);
+      }
+    }
+    loadTracks();
+  }, [])
 
   return (
     <FishContext.Provider

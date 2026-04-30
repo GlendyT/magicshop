@@ -3,16 +3,10 @@ import Image from "next/image";
 import Keyboard from "./Keyboard";
 import { ButtonUtils } from "@/utils/ButtonUtils";
 
-const VerticalLine = () => {
-  return (
-    <div className="w-[0.3rem] h-6 bg-blue-950 mx-10 max-sm:mx-10 max-xl:mx-16 max-sm:w-[0.2rem] max-sm:h-2"></div>
-  );
-};
 const Fishing = () => {
   const {
     isWinner,
     isLoser,
-    correctGuessCount,
     wordToGuess,
     guessedLetters,
     reveal,
@@ -30,19 +24,13 @@ const Fishing = () => {
               : "/FishJin/jin_fishing.webp"
           }
           alt="fishingjin"
-          width={400}
-          height={400}
+          width={300}
+          height={300}
           className={` transition-all duration-500 ease-in-out transform ${
-            isWinner ? "" : isLoser ? "w-[22rem]" : "w-96"
+            isWinner ? "" : isLoser ? "w-[20rem]" : "w-80"
           }`}
         />
-        <div className="absolute right-0 top-44 max-sm:top-32 max-xl:top-80 flex flex-col items-center">
-          {!isWinner &&
-            !isLoser &&
-            Array.from({ length: correctGuessCount }).map((_, index) => (
-              <VerticalLine key={index} />
-            ))}
-        </div>
+
       </div>
       <div className="flex gap-1 text-4xl font-extrabold uppercase font-mono">
         {wordToGuess.split("").map((letter, index) => (

@@ -6,7 +6,7 @@ import { getHOBIAlbums } from "@/services/hobiAlbums";
 import { useEffect } from "react";
 
 const Hobipalooza = () => {
-  const { resultado, cargando, generateAlbumHobiList, setAlbums } =
+  const { resultado, cargando, setAlbums } =
     useRequestInfo();
 
   useEffect(() => {
