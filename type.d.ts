@@ -34,4 +34,5 @@ export interface BTSMembers extends Models.Document {
   aka: string;
   btsGroup: string;
   borndate: Date;
+  spotifyUrl: string;
 }

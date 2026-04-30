@@ -1,19 +1,31 @@
 import useRequestInfo from "@/hooks/useRequestInfo";
-import { hobiMusic } from "./Data/hobiMusic";
 import SelectUtils from "@/utils/SelectUtils";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { getHobiGroupedMusic, HobiMusicGroup } from "@/services/hobiAlbums";
 
 const SelectAlbum = () => {
   const { usuario, setUsuario } = useRequestInfo();
   const { diseño, song, name } = usuario;
+  const [hobiMusic, setHobiMusic] = useState<HobiMusicGroup[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadMusic = async () => {
+      setLoading(true);
+      const data = await getHobiGroupedMusic();
+      setHobiMusic(data);
+      setLoading(false);
+    };
+    loadMusic();
+  }, []);
 
   // Buscar el álbum por nombre (el select guarda el name como string)
   const selectedAlbum = hobiMusic.find((album) => album.name === diseño);
 
   const songOptions =
-    selectedAlbum?.songs.map((song) => ({
-      id: song.id,
-      name: song.title,
+    selectedAlbum?.songs.map((s) => ({
+      id: s.id,
+      name: s.title,
     })) || [];
 
   const commonstyleSelect =
@@ -29,7 +41,7 @@ const SelectAlbum = () => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [diseño]);
+  }, [diseño, songOptions]);
 
   return (
     <div className="flex flex-col gap-2">
@@ -38,8 +50,8 @@ const SelectAlbum = () => {
         name="diseño"
         value={diseño}
         options={hobiMusic}
-        disabled={!name}
-        placeholder="Choose your favorite"
+        disabled={!name || loading}
+        placeholder={loading ? "Loading albums..." : "Choose your favorite"}
         className={`${commonstyleSelect}`}
       />
 
@@ -48,7 +60,7 @@ const SelectAlbum = () => {
         name="song"
         value={song || ""}
         options={songOptions}
-        disabled={!diseño}
+        disabled={!diseño || loading}
         placeholder={selectedAlbum ? "Choose a Song" : "Select an album first"}
         className={`${commonstyleSelect} mb-3`}
       />

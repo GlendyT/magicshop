@@ -91,6 +91,7 @@ export type RequestInfoContextType = {
   setLoading: (loading: boolean) => void;
   albums: { id: string; name: string }[];
   setAlbums: (albums: { id: string; name: string }[]) => void;
+  generateAlbumHobiList: () => Promise<void>;
 };
 
 export type BtsPhrases = {

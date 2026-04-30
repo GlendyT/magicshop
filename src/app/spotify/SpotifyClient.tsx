@@ -4,7 +4,7 @@ import { SpotifyData } from "@/types/types.spotify";
 import ArtistCard from "./ArtistCard";
 
 interface SpotifyClientProps {
-  artists: { name: string; id: string }[];
+  artists: { name: string; spotifyUrl: string }[];
   artistsData: Record<string, SpotifyData>;
 }
 
@@ -22,9 +22,9 @@ export default function SpotifyClient({
     <div className="flex flex-wrap items-center justify-center gap-4 mt-2">
       {artists.map((artist) => (
         <ArtistCard
-          key={artist.id}
+          key={artist.spotifyUrl}
           artistName={artist.name}
-          artistId={artist.id}
+          artistId={artist.spotifyUrl}
           onLoadArtist={loadArtistData}
         />
       ))}
