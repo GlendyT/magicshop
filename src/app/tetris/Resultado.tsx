@@ -21,7 +21,6 @@ const Resultado = () => {
     tableBoard,
   } = useTetris();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
   const [openall, setOpenAll] = useState(false);
 
   const toggleOpenAll = () => {
@@ -31,7 +30,7 @@ const Resultado = () => {
   const memoizedBoardCells = useMemo(() => {
     const view = renderBoard();
     return view.flatMap((row, y) =>
-      row.map((cell, x) => ({ cell, x, y, key: `${y}-${x}` }))
+      row.map((cell, x) => ({ cell, x, y, key: `${y}-${x}` })),
     );
   }, [renderBoard]);
   return (
@@ -95,7 +94,7 @@ const Resultado = () => {
               </span>
             </div>
           </div>
-          
+
           {/* Birthday gifts - rendered but hidden for testing */}
           <div className="hidden">
             {birthdaysLatest.map((bday, index) => (
@@ -103,10 +102,10 @@ const Resultado = () => {
                 key={index}
                 level={level}
                 name={bday.shortAka}
-                imageUrl={bday.birthdaycard}
+                imageUrl={bday.image}
                 onClick={() => {
-                  if (bday.birthdaycard) {
-                    setSelectedImage(bday.birthdaycard);
+                  if (bday.image) {
+                    setSelectedImage(bday.image);
                   }
                 }}
                 isLocked={false}
@@ -118,11 +117,11 @@ const Resultado = () => {
       </div>
 
       {openall && (
-        <div className="fixed inset-0 z-30 flex items-center justify-center bg-black/70 backdrop-blur-sm">
-          <div className="relative max-w-md max-h-[90vh] overflow-y-auto py-6 px-5 flex flex-wrap items-center justify-center gap-4 bg-purple-950/90 rounded-xl shadow-2xl">
+        <div className="fixed inset-0 z-30 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+          <div className="relative  max-h-[90vh] overflow-y-auto py-6 px-5 flex flex-wrap items-center justify-center gap-4 bg-purple-950/30 rounded-xl shadow-2xl">
             <ButtonUtils
               onClick={toggleOpenAll}
-              className="absolute top-0 right-4 bg-black/80 hover:bg-black text-white p-2 rounded-full transition-colors duration-200 z-10"
+              className="absolute top-0 right-4 bg-black/90 hover:bg-black text-white p-2 rounded-full transition-colors duration-200 z-10"
               aria-label="Close"
               icon={<RiCloseFill className="w-4 h-4 cursor-pointer" />}
             />
@@ -130,25 +129,26 @@ const Resultado = () => {
             {birthdaysLatest.map((bday, index) => (
               <div
                 key={index}
-                className="bg-violet-300 rounded-md text-violet-950 text-sm flex flex-col items-center justify-center p-2"
+                className="bg-violet-300 w-28 h-40 rounded-md text-violet-950 text-sm flex flex-col items-center justify-center p-2"
               >
                 <div
                   className="cursor-pointer transition-transform hover:scale-105"
                   onClick={() => {
-                    if (bday.birthdaycard) {
-                      setSelectedImage(bday.birthdaycard);
+                    if (bday.image) {
+                      setSelectedImage(bday.image);
                     }
                   }}
                 >
                   <Image
-                    src={bday.birthdaycard}
-                    alt={bday.shortAka}
-                    width={50}
-                    height={50}
-                    className="rounded-md"
+                    src={bday.image}
+                    alt={bday.shortAka || "BTS"}
+                    width={100}
+                    height={100}
+                    className="rounded-md object-cover"
                   />
-                  <p>
-                    {bday.shortAka} {formatDate(bday.date)}{" "}
+                  <p className="text-center uppercase">
+                    {bday.shortAka}{" "}
+                    {bday.date ? formatDate(new Date(bday.date)) : ""}
                   </p>
                 </div>
               </div>

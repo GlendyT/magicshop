@@ -111,7 +111,7 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
     }, 500);
 
     return () => clearTimeout(timeoutId);
-  }, [searchQuery, artistFilter]);
+  }, [searchQuery, artistFilter, btsMembers]);
 
   const toggleTrackSelection = (track: SpotifyTrack) => {
     const newSelected = new Map(selectedTracks);

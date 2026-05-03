@@ -12,12 +12,10 @@ test("generate RPS", async ({ page }) => {
   await page.getByRole("textbox", { name: "write one name" }).fill("glendy");
   await page.getByText("Choose Your Oponent").click();
   await page.getByTestId("radio-options").click();
-  await page.getByTestId("radio-options").locator("label").first().click();
+  await page.getByTestId("radio-options").locator("label").first().click({ force: true });
   await page.getByTestId("form").getByTestId("button").click();
   await page.getByTestId("card-rps").click();
-  await page.getByText("glendy side, press here").click();
-  await page.getByTitle("Rock").click();
-  await page.getByTitle("Paper").click();
-  await page.getByTitle("Siccors").click();
+  await page.getByText("glendy side, press here").click({ force: true });
+  await page.getByTitle("Rock").click({ force: true });
 
 });

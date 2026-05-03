@@ -12,6 +12,7 @@
     "test:unit": "jest",
     "test:unit:watch": "jest --watch --maxWorkers=1",
     "test:unit:serial": "jest --runInBand",
+    "test:unit:coverage": "jest --coverage",
     "test:all": "npm run test:unit && npm run test:e2e",
     "test:ci": "npm run test:unit:coverage && npm run test:e2e",
     "test:e2e": "playwright test",

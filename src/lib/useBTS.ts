@@ -4,11 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 import {
   getBTSMembers,
   getBTSPolaroid,
-  getJinFishingGame,
   getLoveNotes,
   getSugaVerse,
+  getTetrisBTS,
 } from "./appwrite";
-import { BTSMembers, BTSPhrases, JinFishingGame, LoveNotes, SugaVerse } from "../../type";
+import { BTSMembers, BTSPhrases, LoveNotes, SugaVerse, TetrisBTS } from "../../type";
 
 export const useBTSPolaroid = () => {
   const {
@@ -61,23 +61,6 @@ export const useLoveNotes = () => {
   };
 };
 
-export const useJinFishingGame = () => {
-  const {
-    data: jinfishinggame = [],
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["jinfishinggame"],
-    queryFn: getJinFishingGame,
-  });
-
-  return {
-    jinfishinggame: jinfishinggame as unknown as JinFishingGame[],
-    isLoading,
-    error,
-  };
-};
-
 export const useBTSMembers = () => {
   const {
     data: btsMembers = [],
@@ -90,6 +73,24 @@ export const useBTSMembers = () => {
 
   return {
     btsMembers: btsMembers as unknown as BTSMembers[],
+    isLoading,
+    error,
+  };
+};
+
+
+export const useTetrisBTS = () => {
+  const {
+    data: tetrisBts = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["tetrisBts"],
+    queryFn: getTetrisBTS,
+  });
+
+  return {
+    tetrisBts: tetrisBts as unknown as TetrisBTS[],
     isLoading,
     error,
   };

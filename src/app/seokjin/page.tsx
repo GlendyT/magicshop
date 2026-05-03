@@ -4,7 +4,6 @@ import useFish from "@/hooks/useFish";
 import Modal from "./Modal";
 import Fishing from "./Fishing";
 import Formulario from "./Formulario";
-import Waves from "./Waves";
 import { pressgame } from "@/utils/Fonts";
 
 const Seokjin = () => {
@@ -19,7 +18,7 @@ const Seokjin = () => {
       {isWinner ? show ? <Modal /> : <Fishing /> : <Fishing />}
 
       {showModal && <Formulario />}
-      <Waves />
+       
     </div>
   );
 };
