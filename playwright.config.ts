@@ -27,7 +27,7 @@ export default defineConfig({
   use: {
     baseURL: "http://localhost:3000",
 
-    trace: isCI ? "on" : "retain-on-failure",
+    trace: "retain-on-failure",
     screenshot: "only-on-failure",
     video: "retain-on-failure",
 
