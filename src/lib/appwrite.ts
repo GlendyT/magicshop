@@ -18,146 +18,204 @@ export const appwriteConfig = {
   bucketId: process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID || "",
 };
 
-// Only initialize client if we have valid config
 let client: Client | null = null;
 let databases: Databases | null = null;
 
-if (
-  typeof window !== "undefined" &&
-  appwriteConfig.endpoint &&
-  appwriteConfig.projectId
-) {
-  client = new Client();
-  client
-    .setEndpoint(appwriteConfig.endpoint)
-    .setProject(appwriteConfig.projectId);
-  databases = new Databases(client);
-}
+const getDatabases = () => {
+  if (!appwriteConfig.endpoint || !appwriteConfig.projectId) {
+    console.warn("[Appwrite] Missing endpoint or projectId", {
+      hasEndpoint: Boolean(appwriteConfig.endpoint),
+      hasProjectId: Boolean(appwriteConfig.projectId),
+    });
+
+    return null;
+  }
+
+  if (!client) {
+    client = new Client()
+      .setEndpoint(appwriteConfig.endpoint)
+      .setProject(appwriteConfig.projectId);
+  }
+
+  if (!databases) {
+    databases = new Databases(client);
+  }
+
+  return databases;
+};
 
 export { client, databases };
 
 export const getBTSPolaroid = async () => {
+  const db = getDatabases();
+
   if (
-    !databases ||
+    !db ||
     !appwriteConfig.databaseId ||
-    !appwriteConfig.lovenotesCollectionId
+    !appwriteConfig.polaroidCollectionId
   ) {
-    console.warn("Appwrite not properly configured");
+    console.warn("[Appwrite] getBTSPolaroid not properly configured", {
+      hasDatabases: Boolean(db),
+      hasDatabaseId: Boolean(appwriteConfig.databaseId),
+      hasPolaroidCollectionId: Boolean(appwriteConfig.polaroidCollectionId),
+    });
+
     return [];
   }
 
   try {
-    const btsphrases = await databases.listDocuments(
+    const btsphrases = await db.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.polaroidCollectionId,
       [
         Query.limit(100),
-        Query.select(["*", "btsGroup.*"]), // 👈 Expande la relación
+        Query.select(["*", "btsGroup.*"]),
       ]
     );
 
+    console.log("[Appwrite] getBTSPolaroid loaded:", btsphrases.documents.length);
+
     return btsphrases.documents;
   } catch (error) {
-    console.log("Error fetching BTS phrases", error);
+    console.error("[Appwrite] Error fetching BTS phrases", error);
     return [];
   }
 };
 
 export const getSugaVerse = async () => {
+  const db = getDatabases();
+
   if (
-    !databases ||
+    !db ||
     !appwriteConfig.databaseId ||
     !appwriteConfig.sugaverseCollectionId
   ) {
-    console.warn("Appwrite not properly configured");
+    console.warn("[Appwrite] getSugaVerse not properly configured", {
+      hasDatabases: Boolean(db),
+      hasDatabaseId: Boolean(appwriteConfig.databaseId),
+      hasSugaVerseCollectionId: Boolean(appwriteConfig.sugaverseCollectionId),
+    });
+
     return [];
   }
 
   try {
-    const sugaverse = await databases.listDocuments(
+    const sugaverse = await db.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.sugaverseCollectionId,
       [Query.limit(100)]
     );
+
+    console.log("[Appwrite] getSugaVerse loaded:", sugaverse.documents.length);
+
     return sugaverse.documents;
   } catch (error) {
-    console.log("Error fetching SugaVerse data", error);
+    console.error("[Appwrite] Error fetching SugaVerse data", error);
     return [];
   }
 };
 
 export const getLoveNotes = async () => {
+  const db = getDatabases();
+
   if (
-    !databases ||
+    !db ||
     !appwriteConfig.databaseId ||
-    !appwriteConfig.polaroidCollectionId
+    !appwriteConfig.lovenotesCollectionId
   ) {
-    console.warn("Appwrite not properly configured");
+    console.warn("[Appwrite] getLoveNotes not properly configured", {
+      hasDatabases: Boolean(db),
+      hasDatabaseId: Boolean(appwriteConfig.databaseId),
+      hasLoveNotesCollectionId: Boolean(appwriteConfig.lovenotesCollectionId),
+    });
+
     return [];
   }
 
   try {
-    const lovenotes = await databases.listDocuments(
+    const lovenotes = await db.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.lovenotesCollectionId,
       [
         Query.limit(100),
-        Query.select(["*", "btsMembers.*"]), // Esto le dice a Appwrite que traiga el objeto completo del miembro
+        Query.select(["*", "btsMembers.*"]),
       ]
     );
+
+    console.log("[Appwrite] getLoveNotes loaded:", lovenotes.documents.length);
+
     return lovenotes.documents;
   } catch (error) {
-    console.log("Error fetching Love Notes", error);
+    console.error("[Appwrite] Error fetching Love Notes", error);
     return [];
   }
 };
 
 export const getBTSMembers = async () => {
+  const db = getDatabases();
+
   if (
-    !databases ||
+    !db ||
     !appwriteConfig.databaseId ||
     !appwriteConfig.btsmembersCollectionId
   ) {
-    console.warn("Appwrite not properly configured");
+    console.warn("[Appwrite] getBTSMembers not properly configured", {
+      hasDatabases: Boolean(db),
+      hasDatabaseId: Boolean(appwriteConfig.databaseId),
+      hasBTSMembersCollectionId: Boolean(appwriteConfig.btsmembersCollectionId),
+    });
+
     return [];
   }
 
   try {
-    const btsmembers = await databases.listDocuments(
+    const btsmembers = await db.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.btsmembersCollectionId,
       [Query.limit(100)]
     );
+
+    console.log("[Appwrite] getBTSMembers loaded:", btsmembers.documents.length);
+
     return btsmembers.documents;
   } catch (error) {
-    console.log("Error fetching BTS Members", error);
+    console.error("[Appwrite] Error fetching BTS Members", error);
     return [];
   }
 };
 
 export const getTetrisBTS = async () => {
+  const db = getDatabases();
+
   if (
-    !databases ||
+    !db ||
     !appwriteConfig.databaseId ||
     !appwriteConfig.tetrisbtsCollectionId
   ) {
-    console.warn("Appwrite not properly configured");
+    console.warn("[Appwrite] getTetrisBTS not properly configured", {
+      hasDatabases: Boolean(db),
+      hasDatabaseId: Boolean(appwriteConfig.databaseId),
+      hasTetrisBTSCollectionId: Boolean(appwriteConfig.tetrisbtsCollectionId),
+    });
+
     return [];
   }
 
   try {
-    const tetrisbts = await databases.listDocuments(
+    const tetrisbts = await db.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.tetrisbtsCollectionId,
       [
         Query.limit(100),
-        Query.select(["*", "btsMembers.*"]), // Esto le dice a Appwrite que traiga el objeto completo del miembro
+        Query.select(["*", "btsMembers.*"]),
       ]
     );
 
+    console.log("[Appwrite] getTetrisBTS loaded:", tetrisbts.documents.length);
+
     return tetrisbts.documents;
   } catch (error) {
-    console.log("Error fetching tetris bts", error);
+    console.error("[Appwrite] Error fetching tetris bts", error);
     return [];
   }
 };
