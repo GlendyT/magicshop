@@ -172,7 +172,7 @@ jobs:
           retention-days: 7
 
   build:
-    needs: [lint, typecheck, test, playwright]
+    needs: [ lint, typecheck, test, playwright ]
     runs-on: ubuntu-latest
 
     steps:
