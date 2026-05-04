@@ -224,6 +224,30 @@ jobs:
           }
           NODE
 
+      - name: Debug env hashes
+        shell: bash
+        run: |
+          node <<'NODE'
+          const crypto = require("crypto");
+
+          const keys = [
+            "NEXT_PUBLIC_APPWRITE_ENDPOINT",
+            "NEXT_PUBLIC_APPWRITE_PROJECT_ID",
+            "NEXT_PUBLIC_APPWRITE_DATABASE_ID",
+            "NEXT_PUBLIC_APPWRITE_LOVENOTES_COLLECTION_ID",
+            "NEXT_PUBLIC_APPWRITE_BTSMEMBERS_COLLECTION_ID",
+            "NEXT_PUBLIC_APPWRITE_POLAROID_COLLECTION_ID",
+            "NEXT_PUBLIC_APPWRITE_SUGAVERSE_COLLECTION_ID",
+            "NEXT_PUBLIC_APPWRITE_TETRISBTS_COLLECTION_ID",
+          ];
+
+          for (const key of keys) {
+            const value = process.env[key] || "";
+            const hash = crypto.createHash("sha256").update(value).digest("hex").slice(0, 12);
+            console.log(`${key}: ${hash}`);
+          }
+          NODE
+
       - name: Run Playwright tests
         run: npx playwright test
         env:
