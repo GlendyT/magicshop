@@ -120,7 +120,7 @@ jobs:
           missing=0
 
           check_env () {
-            local name="$1"
+            local name="\$1"
             if [ -z "$(printenv "$name")" ]; then
               echo "❌ Missing env var: $name"
               missing=1
@@ -154,6 +154,25 @@ jobs:
 
       - name: Run Playwright tests
         run: npx playwright test
+        env:
+          # Pasar explícitamente TODAS las env vars al proceso de Playwright
+          # para que estén disponibles durante npm run build && npm run start
+          NEXT_PUBLIC_APPWRITE_ENDPOINT: ${{ secrets.NEXT_PUBLIC_APPWRITE_ENDPOINT }}
+          NEXT_PUBLIC_APPWRITE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_PROJECT_ID }}
+          NEXT_PUBLIC_APPWRITE_PROJECT_NAME: ${{ secrets.NEXT_PUBLIC_APPWRITE_PROJECT_NAME }}
+          NEXT_PUBLIC_APPWRITE_DATABASE_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_DATABASE_ID }}
+          NEXT_PUBLIC_APPWRITE_POLAROID_COLLECTION_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_POLAROID_COLLECTION_ID }}
+          NEXT_PUBLIC_APPWRITE_SUGAVERSE_COLLECTION_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_SUGAVERSE_COLLECTION_ID }}
+          NEXT_PUBLIC_APPWRITE_BTSMEMBERS_COLLECTION_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_BTSMEMBERS_COLLECTION_ID }}
+          NEXT_PUBLIC_APPWRITE_LOVENOTES_COLLECTION_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_LOVENOTES_COLLECTION_ID }}
+          NEXT_PUBLIC_APPWRITE_TETRISBTS_COLLECTION_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_TETRISBTS_COLLECTION_ID }}
+          NEXT_PUBLIC_APPWRITE_BUCKET_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_BUCKET_ID }}
+          SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+          SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+          SPOTIFY_ENDPOINT_URL: ${{ secrets.SPOTIFY_ENDPOINT_URL }}
+          SPOTIFY_TOKEN_URL: ${{ secrets.SPOTIFY_TOKEN_URL }}
+          NEXT_PUBLIC_SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+          NEXT_PUBLIC_BASE_URL: http://localhost:3000
 
       - name: Upload Playwright HTML report
         uses: actions/upload-artifact@v5
@@ -165,14 +184,14 @@ jobs:
 
       - name: Upload Playwright test results
         uses: actions/upload-artifact@v5
-        if: ${{ failure() }}
+        if: always()
         with:
           name: playwright-test-results
           path: test-results/
           retention-days: 7
 
   build:
-    needs: [ lint, typecheck, test, playwright ]
+    needs: [lint, typecheck, test, playwright]
     runs-on: ubuntu-latest
 
     steps:
@@ -190,3 +209,21 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          # También para el build final
+          NEXT_PUBLIC_APPWRITE_ENDPOINT: ${{ secrets.NEXT_PUBLIC_APPWRITE_ENDPOINT }}
+          NEXT_PUBLIC_APPWRITE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_PROJECT_ID }}
+          NEXT_PUBLIC_APPWRITE_PROJECT_NAME: ${{ secrets.NEXT_PUBLIC_APPWRITE_PROJECT_NAME }}
+          NEXT_PUBLIC_APPWRITE_DATABASE_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_DATABASE_ID }}
+          NEXT_PUBLIC_APPWRITE_POLAROID_COLLECTION_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_POLAROID_COLLECTION_ID }}
+          NEXT_PUBLIC_APPWRITE_SUGAVERSE_COLLECTION_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_SUGAVERSE_COLLECTION_ID }}
+          NEXT_PUBLIC_APPWRITE_BTSMEMBERS_COLLECTION_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_BTSMEMBERS_COLLECTION_ID }}
+          NEXT_PUBLIC_APPWRITE_LOVENOTES_COLLECTION_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_LOVENOTES_COLLECTION_ID }}
+          NEXT_PUBLIC_APPWRITE_TETRISBTS_COLLECTION_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_TETRISBTS_COLLECTION_ID }}
+          NEXT_PUBLIC_APPWRITE_BUCKET_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_BUCKET_ID }}
+          SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+          SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+          SPOTIFY_ENDPOINT_URL: ${{ secrets.SPOTIFY_ENDPOINT_URL }}
+          SPOTIFY_TOKEN_URL: ${{ secrets.SPOTIFY_TOKEN_URL }}
+          NEXT_PUBLIC_SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+          NEXT_PUBLIC_BASE_URL: http://localhost:3000
