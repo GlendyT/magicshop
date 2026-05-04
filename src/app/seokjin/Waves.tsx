@@ -51,20 +51,20 @@ const Waves = () => {
         <Image
           src="/FishJin/fish1.webp"
           alt="fishjin1"
-          width={600}
-          height={600}
+          width={900}
+          height={900}
         />
         <Image
           src="/FishJin/fish2.webp"
           alt="fishjin1"
-          width={185}
-          height={185}
+          width={900}
+          height={900}
         />
         <Image
           src="/FishJin/fish3.webp"
           alt="fishjin1"
-          width={185}
-          height={185}
+          width={900}
+          height={900}
         />
       </div>
     </div>

@@ -63,7 +63,7 @@ const CardRPS = () => {
         {maxTurns - turns === 0 && (
           <ButtonUtils
             onClick={handleModal}
-            label={showModal ? "Show your Gift 🎁" : "Hide"}
+            label={showModal ? "Show your Gift" : "Hide"}
             className="uppercase bg-purple-400 px-2 py-2"
           />
         )}

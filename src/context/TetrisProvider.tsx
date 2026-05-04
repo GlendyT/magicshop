@@ -3,20 +3,23 @@
 import { createContext, useCallback, useEffect, useState } from "react";
 import { AllProviderProps, Board, Piece, TetrisContextType } from "../types";
 import {
-  BirthdayCards,
   BOARD_HEIGHT,
   BOARD_WIDTH,
   SHAPES,
 } from "@/app/tetris/Data/TetrisSize";
 import useRequestInfo from "@/hooks/useRequestInfo";
+import { useTetrisBTS } from "lib/useBTS";
+import { TetrisBTS } from "../../type";
 
 const TetrisContext = createContext<TetrisContextType>(null!);
 
 const TetrisProvider = ({ children }: AllProviderProps) => {
+  const { tetrisBts, isLoading, error } = useTetrisBTS();
+
   const [board, setBoard] = useState<Board>(() =>
     Array(BOARD_HEIGHT)
       .fill(null)
-      .map(() => Array(BOARD_WIDTH).fill(0))
+      .map(() => Array(BOARD_WIDTH).fill(0)),
   );
   const [currentPiece, setCurrentPiece] = useState<Piece | null>(null);
   const [score, setScore] = useState(0);
@@ -55,7 +58,7 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
       }
       return true;
     },
-    [board]
+    [board],
   );
 
   const placePiece = useCallback(
@@ -71,7 +74,7 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
 
       // Clear lines
       const clearedBoard = newBoard.filter((row) =>
-        row.some((cell) => cell === 0)
+        row.some((cell) => cell === 0),
       );
       const linesCleared = BOARD_HEIGHT - clearedBoard.length;
       while (clearedBoard.length < BOARD_HEIGHT) {
@@ -81,7 +84,7 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
       setBoard(clearedBoard);
       setScore((prev) => prev + linesCleared * 100);
     },
-    [board]
+    [board],
   );
 
   const movePiece = useCallback(
@@ -89,7 +92,7 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
       if (!currentPiece || gameOver || isPaused) return;
       if (isValidMove(currentPiece, dx, dy)) {
         setCurrentPiece((prev) =>
-          prev ? { ...prev, x: prev.x + dx, y: prev.y + dy } : null
+          prev ? { ...prev, x: prev.x + dx, y: prev.y + dy } : null,
         );
       } else if (dy > 0) {
         placePiece(currentPiece);
@@ -112,13 +115,13 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
       highScore,
       placePiece,
       isValidMove,
-    ]
+    ],
   );
 
   const rotatePiece = useCallback(() => {
     if (!currentPiece || gameOver || isPaused) return;
     const rotated = currentPiece.shape[0].map((_, i) =>
-      currentPiece.shape.map((row) => row[i]).reverse()
+      currentPiece.shape.map((row) => row[i]).reverse(),
     );
     if (isValidMove(currentPiece, 0, 0, rotated)) {
       setCurrentPiece((prev) => (prev ? { ...prev, shape: rotated } : null));
@@ -185,7 +188,7 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
     setBoard(
       Array(BOARD_HEIGHT)
         .fill(null)
-        .map(() => Array(BOARD_WIDTH).fill(0))
+        .map(() => Array(BOARD_WIDTH).fill(0)),
     );
     setCurrentPiece(createPiece());
     setScore(0);
@@ -203,7 +206,7 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
     setBoard(
       Array(BOARD_HEIGHT)
         .fill(null)
-        .map(() => Array(BOARD_WIDTH).fill(0))
+        .map(() => Array(BOARD_WIDTH).fill(0)),
     );
     setCurrentPiece(null);
     setScore(0);
@@ -218,7 +221,16 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
     handleResetContent();
   };
 
-  const birthdaysLatest = [...BirthdayCards];
+  // Mapeamos los datos para extraer la información anidada de la relación btsMembers
+  const birthdaysLatest = tetrisBts.map((item: TetrisBTS) => ({
+    ...item,
+    // Extraemos la información del miembro desde la relación "btsMembers"
+    aka: item.btsMembers?.aka,
+    shortAka: item.btsMembers?.shortAKA,
+    birthdaycard: item.birthdaycard || item.image || "", // Cambia 'birthdaycard' o 'image' por el nombre de tu atributo en Appwrite
+    date: item.date || item.btsMembers?.borndate || item.borndate || "", // Extraemos la fecha de la colección principal o de la relación
+  }));
+ 
 
   const tableBoard = [
     {
@@ -257,6 +269,8 @@ const TetrisProvider = ({ children }: AllProviderProps) => {
         resetAll,
         birthdaysLatest,
         tableBoard,
+        isLoading,
+        error,
       }}
     >
       {children}

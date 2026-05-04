@@ -15,6 +15,12 @@ jest.mock("next/image", () => ({
 jest.mock("@/hooks/useRequestInfo");
 jest.mock("@/hooks/useDownload");
 
+const mockUseSugaVerse = jest.fn();
+jest.mock("@/lib/useBTS", () => ({
+  __esModule: true,
+  useSugaVerse: () => mockUseSugaVerse(),
+}));
+
 describe("Resultado Component", () => {
   const mockReset = jest.fn();
   const mockDownload = jest.fn();
@@ -22,10 +28,22 @@ describe("Resultado Component", () => {
   const mockUsuario = {
     name: "Glendy",
     content: "¡Bienvenido a casa!",
-    diseño: sugaStyles[0].name, 
+    diseño: sugaStyles[0].id.toString(), 
   };
 
   beforeEach(() => {
+    mockUseSugaVerse.mockReturnValue({
+      sugaverse: [
+        {
+          $id: sugaStyles[0].id.toString(), // 👈 Match exacto con el usuario.diseño
+          name: "Agust D",
+          image: "test-image",
+        },
+      ],
+      isLoading: false,
+      error: null,
+    });
+
     (useRequestInfo as jest.Mock).mockReturnValue({
       usuario: mockUsuario,
       handleResetContent: mockReset,

@@ -4,10 +4,10 @@ import { createContext, useEffect, useMemo, useState } from "react";
 import { AllProviderProps, Spotify2ContextType } from "../types/index";
 import { SpotifyTrack, SelectedTrack } from "../types/types.spotify";
 import { useSearchParams } from "next/navigation";
-import { ARTISTS } from "@/app/spotify/Data/btspotify";
 import { loadFullArtistData } from "@/services/spotify";
 import { createSpotifyPlaylist } from "@/services/spotifyAuth";
 import { toast } from "react-toastify";
+import { useBTSMembers } from "lib/useBTS";
 
 const SpotifyContext = createContext<Spotify2ContextType>(null!);
 
@@ -24,11 +24,12 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [isCreatingPlaylist, setIsCreatingPlaylist] = useState(false);
   const [targetDurationHours, setTargetDurationHours] = useState<number | null>(
-    null
+    null,
   );
   const [fillArtistIds, setFillArtistIds] = useState<string[]>([]);
   const [isFilling, setIsFilling] = useState(false);
   const [expandedPlaylist, setExpandedPlaylist] = useState<SpotifyTrack[]>([]);
+  const { btsMembers } = useBTSMembers();
 
   useEffect(() => {
     // Check for access token in URL params
@@ -61,11 +62,16 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
       try {
         const artistsToSearch =
           artistFilter === "all"
-            ? ARTISTS
-            : ARTISTS.filter((a) => a.id === artistFilter);
+            ? btsMembers.map((member) => ({
+                name: member.name,
+                id: member.spotifyUrl,
+              })) // Asumiendo que el ID es el nombre en minúsculas
+            : btsMembers
+                .map((member) => ({ name: member.name, id: member.spotifyUrl }))
+                .filter((a) => a.id === artistFilter);
 
         const tracksPromises = artistsToSearch.map((artist) =>
-          loadFullArtistData(artist.id)
+          loadFullArtistData(artist.id),
         );
         const artistsData = await Promise.all(tracksPromises);
 
@@ -78,7 +84,7 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
 
         // Remove duplicates based on track ID
         const uniqueTracks = Array.from(
-          new Map(tracks.map((track) => [track.id, track])).values()
+          new Map(tracks.map((track) => [track.id, track])).values(),
         );
 
         // Filter by search query
@@ -86,9 +92,9 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
           (track) =>
             track.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
             track.artists.some((artist) =>
-              artist.name.toLowerCase().includes(searchQuery.toLowerCase())
+              artist.name.toLowerCase().includes(searchQuery.toLowerCase()),
             ) ||
-            track.album.name.toLowerCase().includes(searchQuery.toLowerCase())
+            track.album.name.toLowerCase().includes(searchQuery.toLowerCase()),
         );
 
         setSearchResults(filtered);
@@ -105,7 +111,7 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
     }, 500);
 
     return () => clearTimeout(timeoutId);
-  }, [searchQuery, artistFilter]);
+  }, [searchQuery, artistFilter, btsMembers]);
 
   const toggleTrackSelection = (track: SpotifyTrack) => {
     const newSelected = new Map(selectedTracks);
@@ -154,7 +160,7 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
   const removeTrackFromPreview = (trackId: string, indexToRemove: number) => {
     // Remove only one instance from the preview
     const newExpandedPlaylist = expandedPlaylist.filter(
-      (_, i) => i !== indexToRemove
+      (_, i) => i !== indexToRemove,
     );
     setExpandedPlaylist(newExpandedPlaylist);
 
@@ -191,7 +197,7 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
       const scopes = "playlist-modify-private playlist-modify-public";
 
       const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(
-        redirectUri
+        redirectUri,
       )}&scope=${encodeURIComponent(scopes)}`;
 
       window.location.href = authUrl;
@@ -203,7 +209,7 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
     try {
       // Usar la playlist expandida que ya está mezclada
       const trackUris = expandedPlaylist.map(
-        (track) => `spotify:track:${track.id}`
+        (track) => `spotify:track:${track.id}`,
       );
 
       // Create playlist name with date
@@ -215,7 +221,7 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
         accessToken,
         playlistName,
         trackUris,
-        description
+        description,
       );
 
       if (result.success) {
@@ -294,7 +300,7 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
   const fillPlaylistToTarget = async () => {
     if (fillArtistIds.length === 0 || !targetDurationHours) {
       toast.error(
-        "Please select at least one artist and set a target duration"
+        "Please select at least one artist and set a target duration",
       );
       return;
     }
@@ -308,7 +314,7 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
     try {
       // Cargar todas las canciones de los artistas seleccionados
       const artistsDataPromises = fillArtistIds.map((artistId) =>
-        loadFullArtistData(artistId)
+        loadFullArtistData(artistId),
       );
       const artistsData = await Promise.all(artistsDataPromises);
 
@@ -340,7 +346,7 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
 
       if (remainingMs <= 0) {
         toast.info(
-          "Your playlist already meets or exceeds the target duration"
+          "Your playlist already meets or exceeds the target duration",
         );
         return;
       }
@@ -348,7 +354,7 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
       // Filtrar canciones que no estén ya en la playlist
       const selectedTrackIds = new Set(Array.from(selectedTracks.keys()));
       const availableTracks = allArtistTracks.filter(
-        (track) => !selectedTrackIds.has(track.id)
+        (track) => !selectedTrackIds.has(track.id),
       );
 
       if (availableTracks.length === 0) {
@@ -377,7 +383,7 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
 
       const finalHours = Math.floor((currentMs + filledMs) / (1000 * 60 * 60));
       const finalMinutes = Math.floor(
-        ((currentMs + filledMs) % (1000 * 60 * 60)) / (1000 * 60)
+        ((currentMs + filledMs) % (1000 * 60 * 60)) / (1000 * 60),
       );
 
       const artistsText =
@@ -388,7 +394,7 @@ const SpotifyProvider = ({ children }: AllProviderProps) => {
           : artistNames[0];
 
       toast.success(
-        `Added ${tracksAdded} songs from ${artistsText}. New duration: ${finalHours}h ${finalMinutes}m`
+        `Added ${tracksAdded} songs from ${artistsText}. New duration: ${finalHours}h ${finalMinutes}m`,
       );
     } catch (error) {
       console.error("Error filling playlist:", error);

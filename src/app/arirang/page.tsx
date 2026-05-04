@@ -17,9 +17,6 @@ import Photo from "./Photo";
 import { myFont } from "@/utils/Fonts";
 import Link from "next/link";
 
-
-
-
 const arirang = [
   {
     image: "/arirang/a.png",
@@ -58,8 +55,16 @@ const Arirang = () => {
   const [showResult, setShowResult] = useState(false);
   const { handleSubmit, handleResetContent, setAlbums, generateRandomSong } =
     useRequestInfo();
-  const [activeTab, setActiveTab] = useState<"card" | "pfp">("card")
-  const { preview1, handleFileChange, backgroundImage, openModal, setOpenModal, setPreview1, setImageSaved } = usePhotobooth()
+  const [activeTab, setActiveTab] = useState<"card" | "pfp">("card");
+  const {
+    preview1,
+    handleFileChange,
+    backgroundImage,
+    openModal,
+    setOpenModal,
+    setPreview1,
+    setImageSaved,
+  } = usePhotobooth();
   const { getProcessedImage, resetStates } = useImageCrop();
   const { handleDownloadImage } = useDownload();
 
@@ -77,8 +82,6 @@ const Arirang = () => {
     setOpenModal(false);
     return avatar;
   };
-
-
 
   useEffect(() => {
     const loadAlbums = async () => {
@@ -131,14 +134,13 @@ const Arirang = () => {
     /// setBackgroundImage(null);
   };
 
-
   return (
     <div className="h-screen  overflow-hidden relative ">
       <ArirangTags />
 
-
-
-      <div className={`flex flex-col min-h-screen w-full items-center pt-2  z-10 relative bg-black/20 ${myFont.className}`}>
+      <div
+        className={`flex flex-col min-h-screen w-full items-center pt-2  z-10 relative bg-black/20 ${myFont.className}`}
+      >
         <div>
           <iframe
             data-testid="modal-iframe"
@@ -157,14 +159,20 @@ const Arirang = () => {
           <ButtonUtils
             onClick={() => setActiveTab("card")}
             label="Card"
-            className={`px-6 py-2 uppercase font-extrabold  transition-all duration-300 ${activeTab === "card" ? "bg-[#d60f2d] text-white shadow-lg scale-105" : "bg-white text-black/40 hover:bg-red-100"
-              }`}
+            className={`px-6 py-2 uppercase font-extrabold  transition-all duration-300 ${
+              activeTab === "card"
+                ? "bg-[#d60f2d] text-white shadow-lg scale-105"
+                : "bg-white text-black/40 hover:bg-red-100"
+            }`}
           />
           <ButtonUtils
             onClick={() => setActiveTab("pfp")}
             label="Pfp"
-            className={`px-6 py-2 uppercase font-extrabold  transition-all duration-300 ${activeTab === "pfp" ? "bg-[#d60f2d] text-white shadow-lg scale-105" : "bg-white text-black/40 hover:bg-red-100"
-              }`}
+            className={`px-6 py-2 uppercase font-extrabold  transition-all duration-300 ${
+              activeTab === "pfp"
+                ? "bg-[#d60f2d] text-white shadow-lg scale-105"
+                : "bg-white text-black/40 hover:bg-red-100"
+            }`}
           />
         </div>
 
@@ -194,21 +202,22 @@ const Arirang = () => {
               backgroundImage={backgroundImage}
               activeTab={activeTab}
             />
-            <div data-testid="PhotoButton" className="flex  flex-row items-center justify-center gap-2 max-md:justify-between max-sm:gap-4 bg-red-700">
+            <div
+              data-testid="PhotoButton"
+              className="flex  flex-row items-center justify-center gap-2 max-md:justify-between max-sm:gap-4 bg-red-700"
+            >
               <ButtonUtils
                 label="Save"
                 onClick={handleDownloadImage}
-                disabled={!preview1}
-                className={`max-sm:mt-2 ${preview1 ? ' bg-black hover:bg-gradient-to-r from-amber-600 from-5% via-red-700 via-40% to-red-900 to-85% text-white cursor-pointer' : 'bg-black/20 text-gray-600 cursor-not-allowed'}  px-2 py-2 `}
-
+                //disabled={!preview1}
+                className={`max-sm:mt-2 ${preview1 ? " bg-black hover:bg-gradient-to-r from-amber-600 from-5% via-red-700 via-40% to-red-900 to-85% text-white cursor-pointer" : "bg-black/20 text-gray-600 cursor-not-allowed"}  px-2 py-2 `}
               />
 
               <ButtonUtils
                 label="Clean"
                 onClick={resetPhotoArirang}
-                className={`max-sm:mt-2 px-2 py-2  ${preview1 ? 'bg-black hover:bg-gradient-to-r from-amber-600 from-5% via-red-700 via-40% to-red-900 to-85% text-white cursor-pointer' : 'bg-black/20 text-gray-600 cursor-not-allowed'}`}
+                className={`max-sm:mt-2 px-2 py-2  ${preview1 ? "bg-black hover:bg-gradient-to-r from-amber-600 from-5% via-red-700 via-40% to-red-900 to-85% text-white cursor-pointer" : "bg-black/20 text-gray-600 cursor-not-allowed"}`}
                 disabled={!preview1}
-
               />
               <Link
                 href={"https://www.remove.bg/upload"}
@@ -222,7 +231,6 @@ const Arirang = () => {
           </div>
         )}
       </div>
-
 
       <Modal open={openModal}>
         <ImageCropModalContent

@@ -45,8 +45,8 @@ const mockTetrisData = {
   level: 1,
   resetAll: jest.fn(),
   birthdaysLatest: [
-    { shortAka: "RM", birthdaycard: "rm-card.jpg", date: "2024-09-12" },
-    { shortAka: "Jin", birthdaycard: "jin-card.jpg", date: "2024-12-04" },
+    { shortAka: "RM", image: "rm-card.jpg", date: "2024-09-12" },
+    { shortAka: "Jin", image: "jin-card.jpg", date: "2024-12-04" },
   ],
   isGiftLocked: jest.fn(() => false),
   canOpenGift: jest.fn(() => true),

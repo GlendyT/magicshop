@@ -13,14 +13,21 @@ jest.mock('@/hooks/useDownload', () => ({
 }))
 
 
-jest.mock('@/app/polaroid/btsPhrase', () => ({
-    btsPhrase: [
-        {
-            image: 'test-image.jpg',
-            title: 'Mock Title',
-            from: 'Mock From',
-        },
-    ],
+jest.mock('@/lib/useBTS', () => ({
+    __esModule: true,
+    useBTSPolaroid: () => ({
+        btsPhrases: [
+            {
+                image: 'test-image.jpg',
+                title: 'Mock Title',
+                btsGroup: {
+                    name: 'Mock From'
+                },
+            },
+        ],
+        isLoading: false,
+        error: null,
+    }),
 }))
 
 
@@ -28,6 +35,7 @@ interface ButtonUtilsProps {
     label: string
     onClick: () => void
     className?: string
+    disabled?: boolean
 }
 
 jest.mock('@/utils/ButtonUtils', () => ({

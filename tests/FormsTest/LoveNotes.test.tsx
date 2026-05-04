@@ -5,7 +5,7 @@ import useRequestInfo from "@/hooks/useRequestInfo";
 
 jest.mock("@/utils/Fonts", () => ({
     __esModule: true,
-    montserrat: { classNamer: "montserrat" }
+    montserrat: { className: "montserrat" }
 }))
 
 jest.mock("@/utils/InputNameUtils", () => ({
@@ -23,6 +23,15 @@ jest.mock("@/utils/InputContentUtils", () => ({
             disabled={props.disabled}
             className={props.className}
         />
+    )
+}))
+
+jest.mock("@/utils/SelectUtils", () => ({
+    __esModule: true,
+    default: (props: any) => (
+        <select data-testid="select-utils" {...props}>
+            <option value="">Option</option>
+        </select>
     )
 }))
 
@@ -44,6 +53,13 @@ jest.mock("@/hooks/useRequestInfo", () => ({
     default: jest.fn()
 }))
 
+jest.mock("@/lib/useBTS", () => ({
+    __esModule: true,
+    useLoveNotes: () => ({
+        lovenotes: []
+    })
+}))
+
 describe("Formulario", () => {
     beforeEach(() => {
         (useRequestInfo as jest.Mock).mockReturnValue({
@@ -62,6 +78,7 @@ describe("Formulario", () => {
         expect(screen.getByTestId("form")).toBeInTheDocument()
         expect(screen.getByTestId("input")).toBeInTheDocument()
         expect(screen.getByTestId("input-content")).toBeInTheDocument()
+        expect(screen.getByTestId("select-utils")).toBeInTheDocument()
         expect(screen.getByTestId("button-utils")).toBeInTheDocument()
     })
 
@@ -109,4 +126,3 @@ describe("Formulario", () => {
         expect(button).toBeDisabled()
     })
 })
-

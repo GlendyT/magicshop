@@ -3,9 +3,11 @@ import useRequestInfo from "@/hooks/useRequestInfo";
 import { ImageModalProps } from "@/types/index";
 import { ButtonUtils } from "@/utils/ButtonUtils";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const ImageModal = ({ isOpen, imageUrl, onClose }: ImageModalProps) => {
+  const [isImageLoading, setIsImageLoading] = useState(true);
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -32,7 +34,19 @@ const ImageModal = ({ isOpen, imageUrl, onClose }: ImageModalProps) => {
     >
       <div className=" my-2 mx-auto" onClick={(e) => e.stopPropagation()}>
         <div className="relative font-indie" id="print">
-          <Image src={imageUrl} alt="Freebie" width={400} height={450} />
+          {/* Spinner de carga mientras Next.js descarga la imagen */}
+          {isImageLoading && (
+            <div className="absolute inset-0 flex items-center justify-center bg-white/10 backdrop-blur-sm z-10 rounded-md">
+              <div className="w-10 h-10 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          )}
+          <Image 
+            src={imageUrl} 
+            alt="Freebie" 
+            width={400} 
+            height={450} 
+            onLoad={() => setIsImageLoading(false)}
+          />
           <div className="absolute inset-0 flex items-center justify-center text-center gap-5 px-10 text-sm max-md:text-xs pt-10 max-sm:pt-6">
             <div className="relative flex flex-col items-center justify-center pt-76 mt-3 left-14   ">
               <span className="text-[0.7rem] flex flex-col  max-md:text-xs max-sm:text-[0.6rem] text-black tracking-tighter text-montserrat backdrop-blur-md bg-amber-100/80 p-2 max-sm:p-1 border-2  ">

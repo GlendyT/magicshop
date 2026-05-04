@@ -1,4 +1,3 @@
-import { BirthdayCards } from "@/app/tetris/Data/TetrisSize";
 import { GAME_MODES, GAME_STATES } from "@/tictactoe/Data/constants";
 import {
   ChangeEvent,
@@ -10,6 +9,7 @@ import {
 } from "react";
 import {  SelectedTrack, SpotifyData, SpotifyTrack } from "./types.spotify";
 import { TrackResult } from "./lastfmtypes";
+import { TetrisBTS } from "../../type";
 
 export type UsuarioType = {
   name: string;
@@ -91,6 +91,7 @@ export type RequestInfoContextType = {
   setLoading: (loading: boolean) => void;
   albums: { id: string; name: string }[];
   setAlbums: (albums: { id: string; name: string }[]) => void;
+  generateAlbumHobiList: () => Promise<void>;
 };
 
 export type BtsPhrases = {
@@ -238,8 +239,6 @@ export type Divs = {
 
 export type SugaStyle = {
   id: number;
-  name: string;
-  image: string;
   style: Divs[];
 };
 
@@ -330,7 +329,7 @@ export type VirthdayGiftProps = {
 };
 
 export type FishJinTypes = {
-  id: number;
+ // id: number;
   word: string;
   clue: string;
   image: string;
@@ -548,24 +547,17 @@ export type TetrisContextType = {
   level: number;
   resetGame: () => void;
   resetAll: () => void;
-  birthdaysLatest: typeof BirthdayCards;
   tableBoard: {
     title: string;
     value: number | string;
   }[];
+  birthdaysLatest: TetrisBTS[];
+  isLoading: boolean;
+  error: unknown;
 };
 
 export type Board = number[][];
 export type Piece = { shape: number[][]; x: number; y: number; color: number };
-
-export type birthdayCardType = {
-  id: number;
-  name: string;
-  aka: string;
-  shortAka: string;
-  date: Date;
-  birthdaycard: string;
-};
 
 export interface Gift2Props {
   level?: number;
