@@ -121,7 +121,7 @@ jobs:
 
           check_env () {
             local name="\$1"
-            if [ -z "${!name}" ]; then
+            if [ -z "$(printenv "$name")" ]; then
               echo "❌ Missing env var: $name"
               missing=1
             else
