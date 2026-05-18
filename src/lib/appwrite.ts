@@ -73,7 +73,7 @@ export const getBTSPolaroid = async () => {
       ]
     );
 
-    console.log("[Appwrite] getBTSPolaroid loaded:", btsphrases.documents.length);
+   // console.log("[Appwrite] getBTSPolaroid loaded:", btsphrases.documents.length);
 
     return btsphrases.documents;
   } catch (error) {
@@ -106,7 +106,7 @@ export const getSugaVerse = async () => {
       [Query.limit(100)]
     );
 
-    console.log("[Appwrite] getSugaVerse loaded:", sugaverse.documents.length);
+    //console.log("[Appwrite] getSugaVerse loaded:", sugaverse.documents.length);
 
     return sugaverse.documents;
   } catch (error) {
@@ -142,7 +142,7 @@ export const getLoveNotes = async () => {
       ]
     );
 
-    console.log("[Appwrite] getLoveNotes loaded:", lovenotes.documents.length);
+    //console.log("[Appwrite] getLoveNotes loaded:", lovenotes.documents.length);
 
     return lovenotes.documents;
   } catch (error) {
@@ -175,7 +175,7 @@ export const getBTSMembers = async () => {
       [Query.limit(100)]
     );
 
-    console.log("[Appwrite] getBTSMembers loaded:", btsmembers.documents.length);
+    //console.log("[Appwrite] getBTSMembers loaded:", btsmembers.documents.length);
 
     return btsmembers.documents;
   } catch (error) {
@@ -211,7 +211,7 @@ export const getTetrisBTS = async () => {
       ]
     );
 
-    console.log("[Appwrite] getTetrisBTS loaded:", tetrisbts.documents.length);
+    //console.log("[Appwrite] getTetrisBTS loaded:", tetrisbts.documents.length);
 
     return tetrisbts.documents;
   } catch (error) {
