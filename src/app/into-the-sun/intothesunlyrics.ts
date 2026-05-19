@@ -71,3 +71,5 @@ const IntoTheSun = [
     btsmember: "ot7",
   },
 ];
+
+export default IntoTheSun;
