@@ -14,7 +14,8 @@ const FormmularioIntoTheSun = () => {
   const { getProcessedImage, resetStates } = useImageCrop();
   
   const [randomPhrase, setRandomPhrase] = useState<{lyricsPart: string, btsmember: string} | null>(null);
-  const [displayedText, setDisplayedText] = useState("");
+  const [displayedLyrics, setDisplayedLyrics] = useState("");
+  const [displayedMember, setDisplayedMember] = useState("");
   const [isTyping, setIsTyping] = useState(false);
 
   // Efecto de máquina de escribir
@@ -26,15 +27,19 @@ const FormmularioIntoTheSun = () => {
       ? "BTS (OT7)" 
       : randomPhrase.btsmember.charAt(0).toUpperCase() + randomPhrase.btsmember.slice(1);
       
-    const fullText = `"${randomPhrase.lyricsPart}"\n\n- ${formattedMember}`;
+    const fullLyrics = `"${randomPhrase.lyricsPart}"`;
+    const fullMember = `- ${formattedMember}`;
     
     const intervalId = setInterval(() => {
-      setDisplayedText(fullText.substring(0, i + 1));
-      i++;
-      if (i >= fullText.length) {
+      if (i < fullLyrics.length) {
+        setDisplayedLyrics(fullLyrics.substring(0, i + 1));
+      } else if (i < fullLyrics.length + fullMember.length) {
+        setDisplayedMember(fullMember.substring(0, i - fullLyrics.length + 1));
+      } else {
         clearInterval(intervalId);
         setIsTyping(false);
       }
+      i++;
     }, 50); // Velocidad de escritura en milisegundos
 
     return () => clearInterval(intervalId);
@@ -43,7 +48,8 @@ const FormmularioIntoTheSun = () => {
   const handleGetPhrase = () => {
     const randomIndex = Math.floor(Math.random() * IntoTheSunLyrics.length);
     setRandomPhrase(IntoTheSunLyrics[randomIndex]);
-    setDisplayedText("");
+    setDisplayedLyrics("");
+    setDisplayedMember("");
     setIsTyping(true);
   };
 
@@ -58,6 +64,20 @@ const FormmularioIntoTheSun = () => {
     return avatar;
   };
 
+  // Función para reiniciar la foto elegida
+  const handleResetPhoto = () => {
+    setPreview1("");
+    const fileInput = document.getElementById("avatarInput") as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = ""; // Limpiamos el input para permitir volver a subir la misma foto
+    }
+    setRandomPhrase(null);
+    setDisplayedLyrics("");
+    setDisplayedMember("");
+    setIsTyping(false);
+  };
+  console.log(displayedLyrics, displayedMember)
+
   return (
     <div
       id="final-content"
@@ -70,7 +90,7 @@ const FormmularioIntoTheSun = () => {
         <span>with BTS</span>
       </h1>
 
-      <div className=" backdrop-blur-md border border-white/20 p-8 rounded-2xl shadow-[0_0_30px_rgba(138,43,226,0.3)] pointer-events-auto justify-items-center ">
+      <div className=" backdrop-blur-md border border-white/20  rounded-2xl shadow-[0_0_30px_rgba(138,43,226,0.3)] pointer-events-auto justify-items-center ">
         {/* Contenedor principal de la imagen para descargar */}
         <div id="print" className="relative rounded-xl overflow-hidden">
           <label
@@ -83,20 +103,27 @@ const FormmularioIntoTheSun = () => {
                 alt="Sunset"
                 height={288}
                 width={288}
-                className="object-cover h-72 w-72 rounded-xl"
+                className="object-cover h-96 w-96 rounded-xl"
               />
             ) : (
-              <div className="w-72 h-72 border-4 border-dashed border-purple-600 rounded-xl flex items-center justify-center bg-white/5 hover:bg-white/10 transition-colors">
+              <div className="w-96 h-96 border-4 border-dashed border-purple-600 rounded-xl flex items-center justify-center bg-white/5 hover:bg-white/10 transition-colors">
                 <p className="text-gray-200">Click to add your sunset</p>
               </div>
             )}
 
             {/* Overlay para la frase animada */}
-            {displayedText && (
-              <div className="absolute inset-0 flex items-center justify-center p-6 bg-white/40 backdrop-blur-[2px] rounded-xl pointer-events-none transition-all duration-300">
-                <p className="text-black italic font-extrabold text-center whitespace-pre-wrap text-lg md:text-xl drop-shadow-[0_0_10px_rgba(255,255,255,1)]">
-                  {displayedText}
-                </p>
+            {(displayedLyrics || displayedMember) && (
+              <div className="absolute inset-0 flex flex-col items-center justify-between p-6 bg-white/5 backdrop-blur-[0.1px] rounded-xl pointer-events-none transition-all duration-300">
+                {displayedLyrics && (
+                  <p className="text-black italic font-extrabold text-start whitespace-pre-wrap text-lg md:text-xl drop-shadow-[0_0_10px_rgba(255,255,255,1)]">
+                    {displayedLyrics}
+                  </p>
+                )}
+                {displayedMember && (
+                  <p className="text-gray-900 font-extrabold text-base mt-4 self-end drop-shadow-[0_0_10px_rgba(255,255,255,1)]">
+                    {displayedMember}
+                  </p>
+                )}
               </div>
             )}
           </label>
@@ -116,6 +143,13 @@ const FormmularioIntoTheSun = () => {
           className={`bg-black text-white px-4 py-2 cursor-pointer   italic font-extrabold`}
           //disabled={isLoading}
         />
+        {preview1 && (
+          <ButtonUtils
+            label="Reset Photo"
+            onClick={handleResetPhoto}
+            className={`bg-black text-white px-4 py-2 cursor-pointer italic font-extrabold`}
+          />
+        )}
         <ButtonUtils
           label="Download"
           onClick={handleDownloadImage}
