@@ -25,9 +25,35 @@ const IntoTheSun: React.FC = () => {
 
   useEffect(() => {
     // Pequeño delay para asegurar que el DOM esté listo
+    gsap.config({
+      force3D: true, // fuerza aceleracion GPU
+    });
+
+    let ctx: gsap.Context;
+    let rafId: number;
+
     const timer = setTimeout(() => {
-      const ctx = gsap.context(() => {
+      rafId = requestAnimationFrame(() => {
+        ctx = gsap.context(() => {
         // Configurar el scroller como el contenedor
+        // ✅ scrollerProxy AQUÍ, dentro del contexto
+        ScrollTrigger.scrollerProxy(containerRef.current!, {
+          scrollTop(value) {
+            if (arguments.length && containerRef.current) {
+              containerRef.current.scrollTop = value as number;
+            }
+            return containerRef.current?.scrollTop ?? 0;
+          },
+          getBoundingClientRect() {
+            return {
+              top: 0,
+              left: 0,
+              width: window.innerWidth,
+              height: window.innerHeight,
+            };
+          },
+        });
+
         ScrollTrigger.defaults({
           scroller: containerRef.current,
         });
@@ -41,7 +67,7 @@ const IntoTheSun: React.FC = () => {
           trigger: ".scrollElement",
           start: "top top",
           end: "45% 100%",
-          scrub: 3,
+          scrub: 1,
         });
         scene1.to(
           "#h1-1",
@@ -74,7 +100,7 @@ const IntoTheSun: React.FC = () => {
               trigger: ".scrollElement",
               start: "15% top",
               end: "60% 100%",
-              scrub: 4,
+              scrub: 1,
               onEnter: () => gsap.to("#bird", { scaleX: 1, rotation: 0 }),
               onLeave: () => gsap.to("#bird", { scaleX: -1, rotation: -15 }),
             },
@@ -123,7 +149,7 @@ const IntoTheSun: React.FC = () => {
           trigger: ".scrollElement",
           start: "15% top",
           end: "40% 100%",
-          scrub: 4,
+          scrub: 1,
         });
         scene2.fromTo("#h2-1", { y: 500, opacity: 0 }, { y: 0, opacity: 1 }, 0);
         scene2.fromTo("#h2-2", { y: 500 }, { y: 0 }, 0.1);
@@ -145,7 +171,7 @@ const IntoTheSun: React.FC = () => {
               trigger: ".scrollElement",
               start: "40% top",
               end: "70% 100%",
-              scrub: 3,
+              scrub: 1,
               onEnter: () => {
                 gsap.utils.toArray<Element>("#bats path").forEach((item, i) => {
                   gsap.to(item, {
@@ -200,7 +226,7 @@ const IntoTheSun: React.FC = () => {
           trigger: ".scrollElement",
           start: "70% top",
           end: "bottom 100%",
-          scrub: 3,
+          scrub: 1,
         });
         sceneTransition.to(
           "#h2-1",
@@ -217,7 +243,7 @@ const IntoTheSun: React.FC = () => {
           trigger: ".scrollElement",
           start: "80% 50%",
           end: "bottom 100%",
-          scrub: 3,
+          scrub: 1,
         });
         scene3.fromTo("#h3-1", { y: 300 }, { y: -550 }, 0);
         scene3.fromTo("#h3-2", { y: 800 }, { y: -550 }, 0.03);
@@ -244,7 +270,7 @@ const IntoTheSun: React.FC = () => {
             trigger: ".scrollElement",
             start: "4000 top",
             end: "6000 100%",
-            scrub: 5,
+            scrub: 1,
             onEnter: () => gsap.set("#fstar", { opacity: 1 }),
             onLeave: () => gsap.set("#fstar", { opacity: 0 }),
           },
@@ -258,7 +284,7 @@ const IntoTheSun: React.FC = () => {
             trigger: ".scrollElement",
             start: "5200 top", // Comienza a aparecer casi al final del scroll
             end: "bottom 100%",
-            scrub: 2,
+            scrub: 1,
             onUpdate: (self) => {
               // Al llegar al final de la animación (progreso 1), ocultamos el scroll
               // para quitar la barra y evitar que se haga "scroll back"
@@ -276,21 +302,25 @@ const IntoTheSun: React.FC = () => {
             trigger: ".scrollElement",
             start: "5200 top",
             end: "bottom 100%",
-            scrub: 2,
+            scrub: 1,
           },
         });
-      }, containerRef);
 
-      return () => ctx.revert();
-    }, 100);
+        // ✅ refresh AL FINAL, después de todos los ScrollTriggers
+        ScrollTrigger.refresh();
+      }, containerRef); // ← scope del contexto
+      });
+    }, 50);
 
     const handleBeforeUnload = () => window.scrollTo(0, 0);
     window.addEventListener("beforeunload", handleBeforeUnload);
 
+    // ✅ Cleanup correcto del useEffect
     return () => {
       clearTimeout(timer);
+      cancelAnimationFrame(rafId);
       window.removeEventListener("beforeunload", handleBeforeUnload);
-      ScrollTrigger.getAll().forEach((t) => t.kill());
+      ctx?.revert(); // ← safe con optional chaining por si no llegó a crearse
     };
   }, []);
 
@@ -360,6 +390,8 @@ const IntoTheSun: React.FC = () => {
           position: fixed;
           top: 0;
           left: 0;
+          /* Permite que los eventos de scroll pasen a través del SVG */
+          pointer-events: none;
         }
         .scrollElement {
           position: relative;
