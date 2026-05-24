@@ -90,7 +90,7 @@ const FormmularioIntoTheSun = () => {
         <span>with BTS</span>
       </h1>
 
-      <div className=" backdrop-blur-md border border-white/20  rounded-2xl shadow-[0_0_30px_rgba(138,43,226,0.3)] pointer-events-auto justify-items-center ">
+      <div className=" backdrop-blur-md border border-white/20  rounded-2xl shadow-[0_0_30px_rgba(138,43,226,0.3)] justify-items-center ">
         {/* Contenedor principal de la imagen para descargar */}
         <div id="print" className="relative rounded-xl overflow-hidden">
           <label

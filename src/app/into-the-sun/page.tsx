@@ -127,7 +127,7 @@ const IntoTheSun: React.FC = () => {
           animation: sun,
           trigger: ".scrollElement",
           start: "top top",
-          end: "2200 100%",
+          end: "35% 100%",
           scrub: 1,
         });
         sun.to("#bg_grad", { attr: { cy: "330" } }, 0);
@@ -195,8 +195,8 @@ const IntoTheSun: React.FC = () => {
         ScrollTrigger.create({
           animation: sun2,
           trigger: ".scrollElement",
-          start: "2200 top",
-          end: "5000 100%",
+          start: "35% top",
+          end: "80% 100%",
           scrub: 1,
         });
         sun2.to("#sun", { attr: { offset: "0.6" } }, 0);
@@ -268,8 +268,8 @@ const IntoTheSun: React.FC = () => {
           ease: "power4.out",
           scrollTrigger: {
             trigger: ".scrollElement",
-            start: "4000 top",
-            end: "6000 100%",
+            start: "65% top",
+            end: "100% 100%",
             scrub: 1,
             onEnter: () => gsap.set("#fstar", { opacity: 1 }),
             onLeave: () => gsap.set("#fstar", { opacity: 0 }),
@@ -279,17 +279,20 @@ const IntoTheSun: React.FC = () => {
         /* ─── Final Content (Texto / Formulario) ─── */
         gsap.to("#final-content", {
           opacity: 1,
-          pointerEvents: "auto",
           scrollTrigger: {
             trigger: ".scrollElement",
-            start: "5200 top", // Comienza a aparecer casi al final del scroll
+            start: "85% bottom", // Comienza a aparecer casi al final del scroll
             end: "bottom 100%",
             scrub: 1,
             onUpdate: (self) => {
-              // Al llegar al final de la animación (progreso 1), ocultamos el scroll
-              // para quitar la barra y evitar que se haga "scroll back"
-              if (self.progress === 1 && containerRef.current) {
-                containerRef.current.style.overflow = "hidden";
+              const finalContent = document.getElementById("final-content");
+              // Al llegar al final de la animación, habilitamos clicks.
+              // Removido overflow='hidden' porque en Desktop altera el ancho (scrollbar), 
+              // forzando un reinicio de GSAP que rompe la animación.
+              if (self.progress > 0.99) {
+                if (finalContent) finalContent.style.pointerEvents = "auto";
+              } else {
+                if (finalContent) finalContent.style.pointerEvents = "none";
               }
             },
           },
@@ -300,7 +303,7 @@ const IntoTheSun: React.FC = () => {
           opacity: 0,
           scrollTrigger: {
             trigger: ".scrollElement",
-            start: "5200 top",
+            start: "85% bottom",
             end: "bottom 100%",
             scrub: 1,
           },
@@ -395,7 +398,7 @@ const IntoTheSun: React.FC = () => {
         }
         .scrollElement {
           position: relative;
-          height: 6000px;
+          height: 3000px;
           width: 100%;
           top: 0;
           z-index: 1;
