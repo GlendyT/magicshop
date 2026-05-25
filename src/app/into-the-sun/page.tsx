@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useSidebar } from "@/hooks/components/ui/sidebar";
@@ -11,6 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 const IntoTheSun: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { setOpen, setOpenMobile } = useSidebar();
+  const [isStarted, setIsStarted] = useState(false);
 
   useEffect(() => {
     // Ocultar el sidebar al montar el componente
@@ -35,283 +36,257 @@ const IntoTheSun: React.FC = () => {
     const timer = setTimeout(() => {
       rafId = requestAnimationFrame(() => {
         ctx = gsap.context(() => {
-        // Configurar el scroller como el contenedor
-        // ✅ scrollerProxy AQUÍ, dentro del contexto
-        ScrollTrigger.scrollerProxy(containerRef.current!, {
-          scrollTop(value) {
-            if (arguments.length && containerRef.current) {
-              containerRef.current.scrollTop = value as number;
-            }
-            return containerRef.current?.scrollTop ?? 0;
-          },
-          getBoundingClientRect() {
-            return {
-              top: 0,
-              left: 0,
-              width: window.innerWidth,
-              height: window.innerHeight,
-            };
-          },
-        });
-
-        ScrollTrigger.defaults({
-          scroller: containerRef.current,
-        });
-
-        const speed = 100;
-
-        /* ─── SCENE 1 ─── */
-        const scene1 = gsap.timeline();
-        ScrollTrigger.create({
-          animation: scene1,
-          trigger: ".scrollElement",
-          start: "top top",
-          end: "45% 100%",
-          scrub: 1,
-        });
-        scene1.to(
-          "#h1-1",
-          { y: 3 * speed, x: 1 * speed, scale: 0.9, ease: "power1.in" },
-          0,
-        );
-        scene1.to(
-          "#h1-2",
-          { y: 2.6 * speed, x: -0.6 * speed, ease: "power1.in" },
-          0,
-        );
-        scene1.to("#h1-3", { y: 1.7 * speed, x: 1.2 * speed }, 0.03);
-        scene1.to("#h1-4", { y: 3 * speed, x: 1 * speed }, 0.03);
-        scene1.to("#h1-5", { y: 2 * speed, x: 1 * speed }, 0.03);
-        scene1.to("#h1-6", { y: 2.3 * speed, x: -2.5 * speed }, 0);
-        scene1.to("#h1-7", { y: 5 * speed, x: 1.6 * speed }, 0);
-        scene1.to("#h1-8", { y: 3.5 * speed, x: 0.2 * speed }, 0);
-        scene1.to("#h1-9", { y: 3.5 * speed, x: -0.2 * speed }, 0);
-        scene1.to("#info", { y: 8 * speed }, 0);
-
-        /* ─── Bird ─── */
-        gsap.fromTo(
-          "#bird",
-          { opacity: 1 },
-          {
-            y: -250,
-            x: 800,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: ".scrollElement",
-              start: "15% top",
-              end: "60% 100%",
-              scrub: 1,
-              onEnter: () => gsap.to("#bird", { scaleX: 1, rotation: 0 }),
-              onLeave: () => gsap.to("#bird", { scaleX: -1, rotation: -15 }),
-            },
-          },
-        );
-
-        /* ─── Clouds ─── */
-        const clouds = gsap.timeline();
-        ScrollTrigger.create({
-          animation: clouds,
-          trigger: ".scrollElement",
-          start: "top top",
-          end: "70% 100%",
-          scrub: 1,
-        });
-        clouds.to("#cloud1", { x: 500 }, 0);
-        clouds.to("#cloud2", { x: 1000 }, 0);
-        clouds.to("#cloud3", { x: -1000 }, 0);
-        clouds.to("#cloud4", { x: -700, y: 25 }, 0);
-
-        /* ─── Sun motion ─── */
-        const sun = gsap.timeline();
-        ScrollTrigger.create({
-          animation: sun,
-          trigger: ".scrollElement",
-          start: "top top",
-          end: "35% 100%",
-          scrub: 1,
-        });
-        sun.to("#bg_grad", { attr: { cy: "330" } }, 0);
-        sun.to("#sun", { attr: { offset: "0.15" } }, 0);
-        sun.to("#bg_grad stop:nth-child(2)", { attr: { offset: "0.15" } }, 0);
-        sun.to("#bg_grad stop:nth-child(3)", { attr: { offset: "0.18" } }, 0);
-        sun.to("#bg_grad stop:nth-child(4)", { attr: { offset: "0.25" } }, 0);
-        sun.to("#bg_grad stop:nth-child(5)", { attr: { offset: "0.46" } }, 0);
-        sun.to(
-          "#bg_grad stop:nth-child(6)",
-          { attr: { "stop-color": "#FF9171" } },
-          0,
-        );
-
-        /* ─── SCENE 2 ─── */
-        const scene2 = gsap.timeline();
-        ScrollTrigger.create({
-          animation: scene2,
-          trigger: ".scrollElement",
-          start: "15% top",
-          end: "40% 100%",
-          scrub: 1,
-        });
-        scene2.fromTo("#h2-1", { y: 500, opacity: 0 }, { y: 0, opacity: 1 }, 0);
-        scene2.fromTo("#h2-2", { y: 500 }, { y: 0 }, 0.1);
-        scene2.fromTo("#h2-3", { y: 700 }, { y: 0 }, 0.1);
-        scene2.fromTo("#h2-4", { y: 700 }, { y: 0 }, 0.2);
-        scene2.fromTo("#h2-5", { y: 800 }, { y: 0 }, 0.3);
-        scene2.fromTo("#h2-6", { y: 900 }, { y: 0 }, 0.3);
-
-        /* ─── Bats ─── */
-        gsap.fromTo(
-          "#bats",
-          { opacity: 1, y: 400, scale: 0 },
-          {
-            y: 120,
-            scale: 0.8,
-            transformOrigin: "50% 50%",
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: ".scrollElement",
-              start: "40% top",
-              end: "70% 100%",
-              scrub: 1,
-              onEnter: () => {
-                gsap.utils.toArray<Element>("#bats path").forEach((item, i) => {
-                  gsap.to(item, {
-                    scaleX: 0.5,
-                    yoyo: true,
-                    repeat: 11,
-                    duration: 0.15,
-                    delay: 0.7 + i / 10,
-                    transformOrigin: "50% 50%",
-                  });
-                });
-                gsap.set("#bats", { opacity: 1 });
-              },
-              onLeave: () => gsap.to("#bats", { opacity: 0, delay: 2 }),
-            },
-          },
-        );
-
-        /* ─── Sun increase ─── */
-        const sun2 = gsap.timeline();
-        ScrollTrigger.create({
-          animation: sun2,
-          trigger: ".scrollElement",
-          start: "35% top",
-          end: "80% 100%",
-          scrub: 1,
-        });
-        sun2.to("#sun", { attr: { offset: "0.6" } }, 0);
-        sun2.to("#bg_grad stop:nth-child(2)", { attr: { offset: "0.7" } }, 0);
-        sun2.to("#sun", { attr: { "stop-color": "#ffff00" } }, 0);
-        sun2.to(
-          "#lg4 stop:nth-child(1)",
-          { attr: { "stop-color": "#0d2610" } },
-          0,
-        );
-        sun2.to(
-          "#lg4 stop:nth-child(2)",
-          { attr: { "stop-color": "#041205" } },
-          0,
-        );
-        sun2.to(
-          "#bg_grad stop:nth-child(6)",
-          { attr: { "stop-color": "#45224A" } },
-          0,
-        );
-
-        /* ─── Transition Scene 2 → Scene 3 ─── */
-        gsap.set("#scene3", { y: 580, visibility: "visible" });
-        const sceneTransition = gsap.timeline();
-        ScrollTrigger.create({
-          animation: sceneTransition,
-          trigger: ".scrollElement",
-          start: "70% top",
-          end: "bottom 100%",
-          scrub: 1,
-        });
-        sceneTransition.to(
-          "#h2-1",
-          { y: -680, scale: 1.5, transformOrigin: "50% 50%" },
-          0,
-        );
-        sceneTransition.to("#bg_grad", { attr: { cy: "-80" } }, 0);
-        sceneTransition.to("#bg2", { y: 0 }, 0);
-
-        /* ─── SCENE 3 ─── */
-        const scene3 = gsap.timeline();
-        ScrollTrigger.create({
-          animation: scene3,
-          trigger: ".scrollElement",
-          start: "80% 50%",
-          end: "bottom 100%",
-          scrub: 1,
-        });
-        scene3.fromTo("#h3-1", { y: 300 }, { y: -550 }, 0);
-        scene3.fromTo("#h3-2", { y: 800 }, { y: -550 }, 0.03);
-        scene3.fromTo("#h3-3", { y: 600 }, { y: -550 }, 0.06);
-        scene3.fromTo("#h3-4", { y: 800 }, { y: -550 }, 0.09);
-        scene3.fromTo("#h3-5", { y: 1000 }, { y: -550 }, 0.12);
-        scene3.fromTo("#stars", { opacity: 0 }, { opacity: 0.5, y: -500 }, 0);
-        scene3.fromTo(
-          "#arrow2",
-          { opacity: 0 },
-          { opacity: 0.7, y: -710 },
-          0.25,
-        );
-        scene3.fromTo("#text2", { opacity: 0 }, { opacity: 0.7, y: -710 }, 0.3);
-        scene3.to("#bg2-grad", { attr: { cy: 600 } }, 0);
-        scene3.to("#bg2-grad", { attr: { r: 500 } }, 0);
-
-        /* ─── Falling star ─── */
-        gsap.to("#fstar", {
-          x: -700,
-          y: -250,
-          ease: "power4.out",
-          scrollTrigger: {
-            trigger: ".scrollElement",
-            start: "65% top",
-            end: "100% 100%",
-            scrub: 1,
-            onEnter: () => gsap.set("#fstar", { opacity: 1 }),
-            onLeave: () => gsap.set("#fstar", { opacity: 0 }),
-          },
-        });
-
-        /* ─── Final Content (Texto / Formulario) ─── */
-        gsap.to("#final-content", {
-          opacity: 1,
-          scrollTrigger: {
-            trigger: ".scrollElement",
-            start: "85% bottom", // Comienza a aparecer casi al final del scroll
-            end: "bottom 100%",
-            scrub: 1,
-            onUpdate: (self) => {
-              const finalContent = document.getElementById("final-content");
-              // Al llegar al final de la animación, habilitamos clicks.
-              // Removido overflow='hidden' porque en Desktop altera el ancho (scrollbar), 
-              // forzando un reinicio de GSAP que rompe la animación.
-              if (self.progress > 0.99) {
-                if (finalContent) finalContent.style.pointerEvents = "auto";
-              } else {
-                if (finalContent) finalContent.style.pointerEvents = "none";
+          // Configurar el scroller como el contenedor
+          // ✅ scrollerProxy AQUÍ, dentro del contexto
+          ScrollTrigger.scrollerProxy(containerRef.current!, {
+            scrollTop(value) {
+              if (arguments.length && containerRef.current) {
+                containerRef.current.scrollTop = value as number;
               }
+              return containerRef.current?.scrollTop ?? 0;
             },
-          },
-        });
+            getBoundingClientRect() {
+              return {
+                top: 0,
+                left: 0,
+                width: window.innerWidth,
+                height: window.innerHeight,
+              };
+            },
+          });
 
-        /* ─── Ocultar "Scroll back" (flecha y texto) ─── */
-        gsap.to(["#arrow2", "#text2"], {
-          opacity: 0,
-          scrollTrigger: {
+          ScrollTrigger.defaults({
+            scroller: containerRef.current,
+          });
+
+          const speed = 100;
+
+          /* ─── SCENE 1 ─── */
+          const scene1 = gsap.timeline();
+          ScrollTrigger.create({
+            animation: scene1,
             trigger: ".scrollElement",
-            start: "85% bottom",
+            start: "top top",
+            end: "60% 100%",
+            scrub: 1,
+          });
+          scene1.to(
+            "#h1-1",
+            { y: 3 * speed, x: 1 * speed, scale: 0.9, ease: "power1.in" },
+            0,
+          );
+          scene1.to(
+            "#h1-2",
+            { y: 2.6 * speed, x: -0.6 * speed, ease: "power1.in" },
+            0,
+          );
+          scene1.to("#h1-3", { y: 1.7 * speed, x: 1.2 * speed }, 0.03);
+          scene1.to("#h1-4", { y: 3 * speed, x: 1 * speed }, 0.03);
+          scene1.to("#h1-5", { y: 2 * speed, x: 1 * speed }, 0.03);
+          scene1.to("#h1-6", { y: 2.3 * speed, x: -2.5 * speed }, 0);
+          scene1.to("#h1-7", { y: 5 * speed, x: 1.6 * speed }, 0);
+          scene1.to("#h1-8", { y: 3.5 * speed, x: 0.2 * speed }, 0);
+          scene1.to("#h1-9", { y: 3.5 * speed, x: -0.2 * speed }, 0);
+          scene1.to("#info", { y: 8 * speed }, 0);
+
+          /* ─── Bird ─── */
+          gsap.fromTo(
+            "#bird",
+            { opacity: 1 },
+            {
+              y: -250,
+              x: 800,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: ".scrollElement",
+                start: "15% top",
+                end: "85% 100%",
+                scrub: 1,
+                onEnter: () => gsap.to("#bird", { scaleX: 1, rotation: 0 }),
+                onLeave: () => gsap.to("#bird", { scaleX: -1, rotation: -15 }),
+              },
+            },
+          );
+
+          /* ─── Clouds ─── */
+          const clouds = gsap.timeline();
+          ScrollTrigger.create({
+            animation: clouds,
+            trigger: ".scrollElement",
+            start: "top top",
+            end: "70% 100%",
+            scrub: 1,
+          });
+          clouds.to("#cloud1", { x: 500 }, 0);
+          clouds.to("#cloud2", { x: 1000 }, 0);
+          clouds.to("#cloud3", { x: -1000 }, 0);
+          clouds.to("#cloud4", { x: -700, y: 25 }, 0);
+
+          /* ─── Sun motion ─── */
+          const sun = gsap.timeline();
+          ScrollTrigger.create({
+            animation: sun,
+            trigger: ".scrollElement",
+            start: "top top",
+            end: "35% 100%",
+            scrub: 1,
+          });
+          sun.to("#bg_grad", { attr: { cy: "330" } }, 0);
+          sun.to("#sun", { attr: { offset: "0.15" } }, 0);
+          sun.to("#bg_grad stop:nth-child(2)", { attr: { offset: "0.15" } }, 0);
+          sun.to("#bg_grad stop:nth-child(3)", { attr: { offset: "0.18" } }, 0);
+          sun.to("#bg_grad stop:nth-child(4)", { attr: { offset: "0.25" } }, 0);
+          sun.to("#bg_grad stop:nth-child(5)", { attr: { offset: "0.46" } }, 0);
+          sun.to(
+            "#bg_grad stop:nth-child(6)",
+            { attr: { "stop-color": "#FF9171" } },
+            0,
+          );
+
+          /* ─── SCENE 2 ─── */
+          const scene2 = gsap.timeline();
+          ScrollTrigger.create({
+            animation: scene2,
+            trigger: ".scrollElement",
+            start: "15% top",
+            end: "55% 100%",
+            scrub: 1.5,
+          });
+          scene2.fromTo(
+            "#h2-1",
+            { y: 400, opacity: 0 },
+            { y: 0, opacity: 1 },
+            0,
+          );
+          scene2.fromTo("#h2-2", { y: 400 }, { y: 0 }, 0.1);
+          scene2.fromTo("#h2-3", { y: 500 }, { y: 0 }, 0.1);
+          scene2.fromTo("#h2-4", { y: 500 }, { y: 0 }, 0.2);
+          scene2.fromTo("#h2-5", { y: 600 }, { y: 0 }, 0.3);
+          scene2.fromTo("#h2-6", { y: 600 }, { y: 0 }, 0.3);
+
+          /* ─── Bats ─── */
+          gsap.fromTo(
+            "#bats",
+            { opacity: 1, y: 400, scale: 0 },
+            {
+              y: 120,
+              scale: 0.8,
+              transformOrigin: "50% 50%",
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: ".scrollElement",
+                start: "40% top",
+                end: "70% 100%",
+                scrub: 1,
+              },
+            },
+          );
+
+          /* ─── Sun increase ─── */
+          const sun2 = gsap.timeline();
+          ScrollTrigger.create({
+            animation: sun2,
+            trigger: ".scrollElement",
+            start: "35% top",
+            end: "80% 100%",
+            scrub: 1,
+          });
+          sun2.to("#sun", { attr: { offset: "0.6" } }, 0);
+          sun2.to("#bg_grad stop:nth-child(2)", { attr: { offset: "0.7" } }, 0);
+          sun2.to("#sun", { attr: { "stop-color": "#ffff00" } }, 0);
+          sun2.to(
+            "#lg4 stop:nth-child(1)",
+            { attr: { "stop-color": "#0d2610" } },
+            0,
+          );
+          sun2.to(
+            "#lg4 stop:nth-child(2)",
+            { attr: { "stop-color": "#041205" } },
+            0,
+          );
+          sun2.to(
+            "#bg_grad stop:nth-child(6)",
+            { attr: { "stop-color": "#45224A" } },
+            0,
+          );
+
+          /* ─── Transition Scene 2 → Scene 3 ─── */
+          gsap.set("#scene3", { y: 580, visibility: "visible" });
+          const sceneTransition = gsap.timeline();
+          ScrollTrigger.create({
+            animation: sceneTransition,
+            trigger: ".scrollElement",
+            start: "70% top",
             end: "bottom 100%",
             scrub: 1,
-          },
-        });
+          });
+          sceneTransition.to(
+            "#h2-1",
+            { y: -680, scale: 1.5, transformOrigin: "50% 50%" },
+            0,
+          );
+          sceneTransition.to("#bg_grad", { attr: { cy: "-80" } }, 0);
+          sceneTransition.to("#bg2", { y: 0 }, 0);
 
-        // ✅ refresh AL FINAL, después de todos los ScrollTriggers
-        ScrollTrigger.refresh();
-      }, containerRef); // ← scope del contexto
+          /* ─── SCENE 3 ─── */
+          const scene3 = gsap.timeline();
+          ScrollTrigger.create({
+            animation: scene3,
+            trigger: ".scrollElement",
+            start: "70% 50%",
+            end: "bottom 100%",
+            scrub: 1.5,
+          });
+          scene3.fromTo("#h3-1", { y: 300 }, { y: -550 }, 0);
+          scene3.fromTo("#h3-2", { y: 400 }, { y: -550 }, 0.03);
+          scene3.fromTo("#h3-3", { y: 500 }, { y: -550 }, 0.06);
+          scene3.fromTo("#h3-4", { y: 600 }, { y: -550 }, 0.09);
+          scene3.fromTo("#h3-5", { y: 700 }, { y: -550 }, 0.12);
+          scene3.fromTo("#stars", { opacity: 0 }, { opacity: 0.5, y: -500 }, 0);
+          scene3.fromTo(
+            "#arrow2",
+            { opacity: 0 },
+            { opacity: 0.7, y: -710 },
+            0.25,
+          );
+          scene3.fromTo(
+            "#text2",
+            { opacity: 0 },
+            { opacity: 0.7, y: -710 },
+            0.3,
+          );
+          scene3.to("#bg2-grad", { attr: { cy: 600 } }, 0);
+          scene3.to("#bg2-grad", { attr: { r: 500 } }, 0);
+
+          /* ─── Falling star ─── */
+          gsap.to("#fstar", {
+            x: -700,
+            y: -250,
+            ease: "power4.out",
+            scrollTrigger: {
+              trigger: ".scrollElement",
+              start: "65% top",
+              end: "100% 100%",
+              scrub: 1,
+              onEnter: () => gsap.set("#fstar", { opacity: 1 }),
+              onLeave: () => gsap.set("#fstar", { opacity: 0 }),
+            },
+          });
+
+          /* ─── Ocultar "Scroll back" (flecha y texto) ─── */
+          gsap.to(["#arrow2", "#text2"], {
+            opacity: 0,
+            scrollTrigger: {
+              trigger: ".scrollElement",
+              start: "85% bottom",
+              end: "bottom 100%",
+              scrub: 1,
+            },
+          });
+
+          // ✅ refresh AL FINAL, después de todos los ScrollTriggers
+          ScrollTrigger.refresh();
+        }, containerRef); // ← scope del contexto
       });
     }, 50);
 
@@ -327,8 +302,94 @@ const IntoTheSun: React.FC = () => {
     };
   }, []);
 
+  const handleStart = () => {
+    setIsStarted(true);
+    if (!containerRef.current) return;
+
+    const finalContent = document.getElementById("final-content");
+    if (finalContent) finalContent.style.pointerEvents = "none";
+
+    // Calculamos el máximo scroll posible
+    const maxScroll = containerRef.current.scrollHeight - window.innerHeight;
+    const scrollObj = { y: 0 };
+
+    // Animamos el scroll automáticamente a lo largo de 35 segundos
+    gsap.to(scrollObj, {
+      y: maxScroll,
+      duration: 35,
+      ease: "power1.inOut",
+      onUpdate: () => {
+        if (containerRef.current) {
+          containerRef.current.scrollTop = scrollObj.y;
+        }
+      },
+      onComplete: () => {
+        // Al terminar el viaje completo, aparecemos el formulario con una animación suave
+        if (finalContent) {
+          gsap.to(finalContent, {
+            opacity: 1,
+            duration: 2, // 2 segundos para aparecer gradualmente
+            onComplete: () => {
+              finalContent.style.pointerEvents = "auto";
+            },
+          });
+        }
+      },
+    });
+  };
+
+  const handleRestart = () => {
+    const finalContent = document.getElementById("final-content");
+    if (finalContent) {
+      finalContent.style.pointerEvents = "none";
+      // Ocultamos el formulario de nuevo rápidamente
+      gsap.to(finalContent, { opacity: 0, duration: 0.5 });
+    }
+
+    if (containerRef.current) {
+      // Hacemos scroll hacia arriba rápidamente para reiniciar
+      gsap.to(containerRef.current, {
+        scrollTop: 0,
+        duration: 3,
+        ease: "power2.inOut",
+        onComplete: () => {
+          setIsStarted(false); // Volvemos a mostrar el botón START
+        },
+      });
+    }
+  };
+
   return (
     <>
+      {/* Reproductor de Spotify (Se mantiene montado siempre para que no se corte la música al iniciar el viaje) */}
+      <div className={`fixed z-[110] transition-all duration-1000 flex flex-col items-center ${!isStarted ? 'bottom-20 left-1/2 -translate-x-1/2 w-full max-w-sm px-4' : 'bottom-4 right-4 w-[300px] opacity-40 hover:opacity-100'}`}>
+        {!isStarted && <p className="text-white/60 text-xs mb-2 tracking-widest uppercase">Play the music for full experience</p>}
+        <iframe 
+          style={{ borderRadius: "12px" }} 
+          src="https://open.spotify.com/embed/track/1ZNolq7VI7efGlh2hb2VVr?utm_source=generator&theme=0" 
+          width="100%" 
+          height="80" 
+          frameBorder="0" 
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+          loading="lazy"
+        ></iframe>
+      </div>
+
+      {/* Pantalla inicial para iniciar el viaje automáticamente */}
+      {!isStarted && (
+        <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#0a0a1a] backdrop-blur-md transition-opacity duration-1000">
+          <h1 className="text-white/80 text-lg md:text-xl font-light mb-8 tracking-[0.3em] uppercase">
+            INTO THE SUN
+          </h1>
+          <button
+            onClick={handleStart}
+            className="text-white text-xl md:text-2xl font-bold tracking-widest border border-white/30 px-10 py-4 rounded-full hover:bg-white hover:text-black transition-all duration-500 hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(255,255,255,0.6)]"
+          >
+            START JOURNEY 
+          </button>
+        </div>
+      )}
+
       <div
         ref={containerRef}
         style={{
@@ -339,7 +400,7 @@ const IntoTheSun: React.FC = () => {
           height: "100vh",
           margin: 0,
           padding: 0,
-          overflow: "auto",
+          overflow: "hidden", // Quitamos el scroll manual, ahora es automático
           zIndex: 50,
         }}
       >
@@ -977,7 +1038,7 @@ const IntoTheSun: React.FC = () => {
               />
 
               <g id="info">
-                <polygon
+                {/* <polygon
                   id="arrow"
                   points="353.93 368.91 356.06 366.79 374.26 385 392.47 366.79 394.59 368.91 374.26 389.24 353.93 368.91"
                   fill="#fff"
@@ -992,7 +1053,7 @@ const IntoTheSun: React.FC = () => {
                   stroke="#231f20"
                   strokeMiterlimit="10"
                   strokeWidth="0.5"
-                />
+                /> */}
               </g>
 
               <path
@@ -1027,7 +1088,7 @@ const IntoTheSun: React.FC = () => {
         <div className="scrollElement" />
 
         {/* ════════════ FINAL CONTENT (HTML Overlay) ════════════ */}
-        <FormmularioIntoTheSun />
+        <FormmularioIntoTheSun onRestart={handleRestart} />
       </div>
     </>
   );

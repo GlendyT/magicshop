@@ -7,13 +7,18 @@ import useImageCrop from "@/hooks/useImageCrop";
 import Modal from "../photobooth/base/Modal";
 import ImageCropModalContent from "../photobooth/ImageCropModalContent";
 import IntoTheSunLyrics from "./intothesunlyrics";
+import { Download, Music4, RefreshCcw } from "lucide-react";
 
-const FormmularioIntoTheSun = () => {
+const FormmularioIntoTheSun = ({ onRestart }: { onRestart?: () => void }) => {
   const { handleDownloadImage } = useDownload();
-  const { openModal, setOpenModal, handleFileChange, preview1, setPreview1 } = usePhotobooth();
+  const { openModal, setOpenModal, handleFileChange, preview1, setPreview1 } =
+    usePhotobooth();
   const { getProcessedImage, resetStates } = useImageCrop();
-  
-  const [randomPhrase, setRandomPhrase] = useState<{lyricsPart: string, btsmember: string} | null>(null);
+
+  const [randomPhrase, setRandomPhrase] = useState<{
+    lyricsPart: string;
+    btsmember: string;
+  } | null>(null);
   const [displayedLyrics, setDisplayedLyrics] = useState("");
   const [displayedMember, setDisplayedMember] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -23,13 +28,15 @@ const FormmularioIntoTheSun = () => {
     if (!randomPhrase || !isTyping) return;
 
     let i = 0;
-    const formattedMember = randomPhrase.btsmember === "ot7" 
-      ? "BTS (OT7)" 
-      : randomPhrase.btsmember.charAt(0).toUpperCase() + randomPhrase.btsmember.slice(1);
-      
+    const formattedMember =
+      randomPhrase.btsmember === "ot7"
+        ? "BTS (OT7)"
+        : randomPhrase.btsmember.charAt(0).toUpperCase() +
+          randomPhrase.btsmember.slice(1);
+
     const fullLyrics = `"${randomPhrase.lyricsPart}"`;
     const fullMember = `- ${formattedMember}`;
-    
+
     const intervalId = setInterval(() => {
       if (i < fullLyrics.length) {
         setDisplayedLyrics(fullLyrics.substring(0, i + 1));
@@ -56,9 +63,9 @@ const FormmularioIntoTheSun = () => {
   const handleDone = async (): Promise<File | undefined> => {
     const avatar = await getProcessedImage();
     if (!avatar) return;
-    
+
     setPreview1(window.URL.createObjectURL(avatar));
-    
+
     resetStates();
     setOpenModal(false);
     return avatar;
@@ -67,7 +74,9 @@ const FormmularioIntoTheSun = () => {
   // Función para reiniciar la foto elegida
   const handleResetPhoto = () => {
     setPreview1("");
-    const fileInput = document.getElementById("avatarInput") as HTMLInputElement;
+    const fileInput = document.getElementById(
+      "avatarInput",
+    ) as HTMLInputElement;
     if (fileInput) {
       fileInput.value = ""; // Limpiamos el input para permitir volver a subir la misma foto
     }
@@ -76,7 +85,7 @@ const FormmularioIntoTheSun = () => {
     setDisplayedMember("");
     setIsTyping(false);
   };
-  console.log(displayedLyrics, displayedMember)
+  console.log(displayedLyrics, displayedMember);
 
   return (
     <div
@@ -136,26 +145,37 @@ const FormmularioIntoTheSun = () => {
           onChange={handleFileChange}
         />
       </div>
-      <div className="flex flex-row gap-2 pt-2 ">
+      <div className="flex flex-row flex-wrap justify-center gap-2 pt-2 ">
         <ButtonUtils
-          label="Get Your Phrase"
+          label="Add lyrics"
           onClick={handleGetPhrase}
-          className={`bg-black text-white px-4 py-2 cursor-pointer   italic font-extrabold`}
+          className={`bg-black text-white p-2 cursor-pointer   italic font-extrabold`}
+          icon={<Music4 className="w-5 h-5" />}
           //disabled={isLoading}
         />
-        {preview1 && (
+
+        <ButtonUtils
+          label=""
+          onClick={handleResetPhoto}
+          className={`bg-black text-white px-2 cursor-pointer italic font-extrabold`}
+          icon={<RefreshCcw className="w-5 h-5" />}
+
+        />
+
+        <ButtonUtils
+          label=""
+          onClick={handleDownloadImage}
+          className={`bg-black text-white px-2 cursor-pointer   italic font-extrabold`}
+          icon={<Download className="w-5 h-5" />}
+          //disabled={isLoading}
+        />
+        {onRestart && (
           <ButtonUtils
-            label="Reset Photo"
-            onClick={handleResetPhoto}
-            className={`bg-black text-white px-4 py-2 cursor-pointer italic font-extrabold`}
+            label="Restart Journey"
+            onClick={onRestart}
+            className={`bg-purple-900 hover:bg-purple-700 text-white px-4 py-2 cursor-pointer italic font-extrabold transition-colors`}
           />
         )}
-        <ButtonUtils
-          label="Download"
-          onClick={handleDownloadImage}
-          className={`bg-black text-white px-4 py-2 cursor-pointer   italic font-extrabold`}
-          //disabled={isLoading}
-        />
       </div>
 
       <Modal open={openModal}>
