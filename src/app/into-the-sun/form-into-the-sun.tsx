@@ -8,6 +8,7 @@ import Modal from "../photobooth/base/Modal";
 import ImageCropModalContent from "../photobooth/ImageCropModalContent";
 import IntoTheSunLyrics from "./intothesunlyrics";
 import { Download, Music4, RefreshCcw } from "lucide-react";
+import { poppins } from "@/utils/Fonts";
 
 const FormmularioIntoTheSun = ({ onRestart }: { onRestart?: () => void }) => {
   const { handleDownloadImage } = useDownload();
@@ -116,20 +117,20 @@ const FormmularioIntoTheSun = ({ onRestart }: { onRestart?: () => void }) => {
               />
             ) : (
               <div className="w-96 h-96 border-4 border-dashed border-purple-600 rounded-xl flex items-center justify-center bg-white/5 hover:bg-white/10 transition-colors">
-                <p className="text-gray-200">Click to add your sunset</p>
+                <p className="text-gray-200">Add your sunset or sunrise</p>
               </div>
             )}
 
             {/* Overlay para la frase animada */}
             {(displayedLyrics || displayedMember) && (
-              <div className="absolute inset-0 flex flex-col items-center justify-between p-6 bg-white/5 backdrop-blur-[0.1px] rounded-xl pointer-events-none transition-all duration-300">
+              <div className="absolute inset-0 flex flex-col items-center justify-between p-6 bg-black/20 backdrop-blur-[0.1px] rounded-xl pointer-events-none transition-all duration-300">
                 {displayedLyrics && (
-                  <p className="text-black italic font-extrabold text-start whitespace-pre-wrap text-lg md:text-xl drop-shadow-[0_0_10px_rgba(255,255,255,1)]">
+                  <p className={`text-white w-full ${poppins.className} font-semibold text-start whitespace-pre-wrap text-lg md:text-xl drop-shadow-[0_0_10px_rgba(255,255,255,1)]`}>
                     {displayedLyrics}
                   </p>
                 )}
                 {displayedMember && (
-                  <p className="text-gray-900 font-extrabold text-base mt-4 self-end drop-shadow-[0_0_10px_rgba(255,255,255,1)]">
+                  <p className="text-white font-semibold text-base mt-4 self-end drop-shadow-[0_0_10px_rgba(255,255,255,1)]">
                     {displayedMember}
                   </p>
                 )}
