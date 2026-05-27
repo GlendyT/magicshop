@@ -96,7 +96,7 @@ export default function Home() {
             href={linkrout.path}
             className="flex justify-center items-center transition-transform hover:scale-105 backdrop-blur-3xl bg-purple-900/10 rounded-xl p-1"
           >
-            <div className="relative w-20 h-20">
+            <div className="relative w-14 h-14">
               <Image
                 src={linkrout.image}
                 alt={linkrout.name}
