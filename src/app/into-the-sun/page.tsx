@@ -316,7 +316,7 @@ const IntoTheSun: React.FC = () => {
     // Animamos el scroll automáticamente a lo largo de 35 segundos
     gsap.to(scrollObj, {
       y: maxScroll,
-      duration: 35,
+      duration: 25,
       ease: "power1.inOut",
       onUpdate: () => {
         if (containerRef.current) {
