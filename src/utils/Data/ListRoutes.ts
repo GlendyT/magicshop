@@ -111,10 +111,16 @@ export const LinkRoutes: LinkRoutesTypes[] = [
     path: "/arirang",
     image: "/Logos/arirang.png",
   },
-    {
+  {
     id: 18,
     name: "Into the Sun",
     path: "/into-the-sun",
+    image: "/Logos/intothesun1.webp",
+  },
+  {
+    id: 19,
+    name: "BTS FIFA 2026",
+    path: "/bts-fifa-2026",
     image: "/Logos/intothesun1.webp",
   },
 ];
