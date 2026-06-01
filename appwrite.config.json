@@ -1,0 +1,530 @@
+{
+    "projectId": "69e6b56900059b447b48",
+    "projectName": "magicshop",
+    "endpoint": "https://sfo.cloud.appwrite.io/v1",
+    "settings": {
+        "services": {
+            "account": true,
+            "avatars": true,
+            "databases": true,
+            "locale": true,
+            "health": true,
+            "storage": true,
+            "teams": true,
+            "users": true,
+            "sites": true,
+            "functions": true,
+            "graphql": true,
+            "messaging": true
+        },
+        "protocols": {
+            "rest": true,
+            "graphql": true,
+            "websocket": true
+        },
+        "auth": {
+            "methods": {
+                "jwt": true,
+                "phone": true,
+                "invites": true,
+                "anonymous": true,
+                "email-otp": true,
+                "magic-url": true,
+                "email-password": true
+            },
+            "security": {
+                "duration": 31536000,
+                "limit": 0,
+                "sessionsLimit": 10,
+                "passwordHistory": 0,
+                "passwordDictionary": false,
+                "personalDataCheck": false,
+                "sessionAlerts": false,
+                "mockNumbers": []
+            }
+        }
+    },
+    "functions": [
+        {
+            "$id": "6a1dc0bb002398cdc3dc",
+            "name": "actualizar_btsmatches",
+            "runtime": "node-22",
+            "buildSpecification": "s-0.5vcpu-512mb",
+            "runtimeSpecification": "s-0.5vcpu-512mb",
+            "execute": [
+                "any"
+            ],
+            "events": [],
+            "scopes": [
+                "users.read"
+            ],
+            "schedule": "",
+            "timeout": 15,
+            "enabled": true,
+            "logging": true,
+            "entrypoint": "src/main.js",
+            "commands": "npm install",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "deploymentRetention": 0,
+            "path": "functions/actualizar-btsmatches"
+        }
+    ],
+    "tablesDB": [
+        {
+            "$id": "69eaeed7001d3e14a936",
+            "name": "magicshop",
+            "enabled": true
+        }
+    ],
+    "tables": [
+        {
+            "$id": "btsphrases",
+            "$permissions": [
+                "read(\"any\")"
+            ],
+            "databaseId": "69eaeed7001d3e14a936",
+            "name": "btsphrases",
+            "enabled": true,
+            "rowSecurity": false,
+            "columns": [
+                {
+                    "key": "title",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "image",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "btsGroup",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedTable": "btsgroup",
+                    "relationType": "manyToOne",
+                    "twoWay": false,
+                    "twoWayKey": "69eb030e0007cb1053cb",
+                    "onDelete": "cascade",
+                    "side": "parent"
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "sugaverse",
+            "$permissions": [
+                "read(\"any\")"
+            ],
+            "databaseId": "69eaeed7001d3e14a936",
+            "name": "sugaverse",
+            "enabled": true,
+            "rowSecurity": false,
+            "columns": [
+                {
+                    "key": "name",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "image",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "btsmembers",
+            "$permissions": [
+                "read(\"any\")"
+            ],
+            "databaseId": "69eaeed7001d3e14a936",
+            "name": "btsMembers",
+            "enabled": true,
+            "rowSecurity": false,
+            "columns": [
+                {
+                    "key": "name",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "aka",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "btsGroup",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedTable": "btsgroup",
+                    "relationType": "manyToOne",
+                    "twoWay": false,
+                    "twoWayKey": "69eb00be0032aeed9079",
+                    "onDelete": "cascade",
+                    "side": "parent"
+                },
+                {
+                    "key": "borndate",
+                    "type": "datetime",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "format": ""
+                },
+                {
+                    "key": "lovenotes",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedTable": "lovenotes",
+                    "relationType": "manyToOne",
+                    "twoWay": true,
+                    "twoWayKey": "btsMembers",
+                    "onDelete": "cascade",
+                    "side": "child"
+                },
+                {
+                    "key": "spotifyUrl",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "tetrisBTS",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedTable": "tetrisbts",
+                    "relationType": "manyToOne",
+                    "twoWay": true,
+                    "twoWayKey": "btsMembers",
+                    "onDelete": "cascade",
+                    "side": "child"
+                },
+                {
+                    "key": "shortAKA",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "btsgroup",
+            "$permissions": [
+                "read(\"any\")"
+            ],
+            "databaseId": "69eaeed7001d3e14a936",
+            "name": "btsGroup",
+            "enabled": true,
+            "rowSecurity": false,
+            "columns": [
+                {
+                    "key": "name",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "debut",
+                    "type": "datetime",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "format": ""
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "lovenotes",
+            "$permissions": [
+                "read(\"any\")"
+            ],
+            "databaseId": "69eaeed7001d3e14a936",
+            "name": "lovenotes",
+            "enabled": true,
+            "rowSecurity": false,
+            "columns": [
+                {
+                    "key": "btsMembers",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedTable": "btsmembers",
+                    "relationType": "manyToOne",
+                    "twoWay": true,
+                    "twoWayKey": "lovenotes",
+                    "onDelete": "cascade",
+                    "side": "parent"
+                },
+                {
+                    "key": "image",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "tetrisbts",
+            "$permissions": [
+                "read(\"any\")"
+            ],
+            "databaseId": "69eaeed7001d3e14a936",
+            "name": "tetrisBTS",
+            "enabled": true,
+            "rowSecurity": false,
+            "columns": [
+                {
+                    "key": "image",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "btsMembers",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedTable": "btsmembers",
+                    "relationType": "manyToOne",
+                    "twoWay": true,
+                    "twoWayKey": "tetrisBTS",
+                    "onDelete": "cascade",
+                    "side": "parent"
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "btsfifa",
+            "$permissions": [
+                "create(\"any\")"
+            ],
+            "databaseId": "69eaeed7001d3e14a936",
+            "name": "btsfifa",
+            "enabled": true,
+            "rowSecurity": false,
+            "columns": [
+                {
+                    "key": "lastfmuser",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "fifateam",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "btsmatches",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "69eaeed7001d3e14a936",
+            "name": "btsmatches",
+            "enabled": true,
+            "rowSecurity": false,
+            "columns": [
+                {
+                    "key": "team_a",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "team_b",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "target_song",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "team_a_start_streams",
+                    "type": "integer",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "min": -9223372036854775808,
+                    "max": 9223372036854775807
+                },
+                {
+                    "key": "target_streams",
+                    "type": "integer",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "min": -9223372036854775808,
+                    "max": 9223372036854775807
+                },
+                {
+                    "key": "team_b_start_stream",
+                    "type": "integer",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "min": -9223372036854775808,
+                    "max": 9223372036854775807
+                },
+                {
+                    "key": "stage",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "status",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "winner",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "team_a_current_streams",
+                    "type": "integer",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "min": -9223372036854775808,
+                    "max": 9223372036854775807
+                },
+                {
+                    "key": "team_b_current_streams",
+                    "type": "integer",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "min": -9223372036854775808,
+                    "max": 9223372036854775807
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "btsstats",
+            "$permissions": [
+                "create(\"any\")"
+            ],
+            "databaseId": "69eaeed7001d3e14a936",
+            "name": "btsStats",
+            "enabled": true,
+            "rowSecurity": false,
+            "columns": [
+                {
+                    "key": "album_name",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "total_members",
+                    "type": "integer",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "min": -9223372036854775808,
+                    "max": 9223372036854775807
+                },
+                {
+                    "key": "status",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                }
+            ],
+            "indexes": []
+        }
+    ],
+    "buckets": [
+        {
+            "$id": "69e6c38a00032fc37c75",
+            "$permissions": [
+                "read(\"any\")"
+            ],
+            "fileSecurity": false,
+            "name": "magicshop",
+            "enabled": true,
+            "maximumFileSize": 5000000000,
+            "allowedFileExtensions": [],
+            "compression": "none",
+            "encryption": true,
+            "antivirus": true
+        }
+    ]
+}
