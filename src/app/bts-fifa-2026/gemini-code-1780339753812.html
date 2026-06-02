@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuadro Eliminatorias FIFA Qatar 2022 (Prototipo)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        maroon: {
+                            100: '#D5ADAC',
+                            900: '#400412', // Color de fondo principal
+                            950: '#2A030A',
+                        },
+                        bracket: {
+                            DEFAULT: '#8A2B3C', // Color de los bloques de equipos
+                            border: '#FFFFFF', // Color del borde de los bloques
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Helvetica Neue', 'Arial', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-maroon-900 min-h-screen text-white font-sans p-6 md:p-10">
+
+    <div class="flex flex-col items-center justify-center space-y-12">
+        
+        <div class="flex flex-col md:flex-row items-center justify-center w-full gap-10 md:gap-4 lg:gap-10">
+
+            <div class="left-bracket flex flex-row items-center gap-10">
+                
+                <div class="flex flex-col gap-12 text-center text-xs">
+                    
+                    <div class="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">PAÍSES BAJOS</div>
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">EE.UU.</div>
+                    </div>
+                    
+                    <div class="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">ARGENTINA</div>
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">AUSTRALIA</div>
+                    </div>
+                    
+                    <div class="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">JAPÓN</div>
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">CROACIA</div>
+                    </div>
+                    
+                    <div class="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">BRASIL</div>
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">COREA DEL SUR</div>
+                    </div>
+
+                </div>
+
+                <div class="flex flex-col justify-around h-full py-20 gap-24 text-center text-xs">
+                    
+                    <div class="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">PAÍSES BAJOS</div>
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">ARGENTINA</div>
+                    </div>
+                    
+                    <div class="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">CROACIA</div>
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">BRASIL</div>
+                    </div>
+                    
+                </div>
+
+                <div class="flex flex-col justify-center h-full gap-4 text-center text-xs">
+                    
+                    <div class="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">ARGENTINA</div>
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">CROACIA</div>
+                    </div>
+                    
+                </div>
+
+            </div>
+            <div class="final-section flex flex-col items-center justify-center gap-8 py-8 md:p-4 text-center flex-grow">
+                
+                <div class="trophy text-6xl text-yellow-400 mb-2">🏆</div>
+
+                <div class="final-match flex flex-col gap-2.5">
+                    <div class="team bg-bracket border border-bracket-border rounded-xl w-44 md:w-48 h-10"></div>
+                    <div class="team bg-bracket border border-bracket-border rounded-xl w-44 md:w-48 h-10"></div>
+                </div>
+
+                <div class="final-text text-sm font-bold tracking-wider mt-1 text-white">Final</div>
+
+                <div class="logos mt-6 flex flex-col items-center gap-2">
+                    <div class="text-maroon-100 opacity-70 text-sm font-semibold tracking-wide">FIFA WORLD CUP</div>
+                    <div class="text-maroon-100 opacity-80 text-sm">Qatar 2022</div>
+                    <div class="font-bold text-3xl mt-2 text-maroon-50">TyC Sports</div>
+                </div>
+            </div>
+            <div class="right-bracket flex flex-row-reverse items-center gap-10">
+                
+                <div class="flex flex-col gap-12 text-center text-xs">
+                    
+                    <div class="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">INGLATERRA</div>
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">SENEGAL</div>
+                    </div>
+                    
+                    <div class="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">FRANCIA</div>
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">POLONIA</div>
+                    </div>
+                    
+                    <div class="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">MARRUECOS</div>
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">ESPAÑA</div>
+                    </div>
+                    
+                    <div class="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">PORTUGAL</div>
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">SUIZA</div>
+                    </div>
+
+                </div>
+
+                <div class="flex flex-col justify-around h-full py-20 gap-24 text-center text-xs">
+                    
+                    <div class="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">INGLATERRA</div>
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">FRANCIA</div>
+                    </div>
+                    
+                    <div class="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">MARRUECOS</div>
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">PORTUGAL</div>
+                    </div>
+                    
+                </div>
+
+                <div class="flex flex-col justify-center h-full gap-4 text-center text-xs">
+                    
+                    <div class="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">FRANCIA</div>
+                        <div class="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">MARRUECOS</div>
+                    </div>
+                    
+                </div>
+
+            </div>
+            </div>
+        </div>
+
+    <div class="absolute bottom-4 right-4 text-right flex flex-col items-end gap-1">
+        <div class="font-extrabold text-2xl text-white">TyC Sports</div>
+        <div class="text-[10px] text-white opacity-80">TyCSports.com</div>
+    </div>
+
+</body>
+</html>
