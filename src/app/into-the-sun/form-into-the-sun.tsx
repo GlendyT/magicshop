@@ -86,7 +86,6 @@ const FormmularioIntoTheSun = ({ onRestart }: { onRestart?: () => void }) => {
     setDisplayedMember("");
     setIsTyping(false);
   };
-  console.log(displayedLyrics, displayedMember);
 
   return (
     <div
@@ -125,13 +124,22 @@ const FormmularioIntoTheSun = ({ onRestart }: { onRestart?: () => void }) => {
             {(displayedLyrics || displayedMember) && (
               <div className="absolute inset-0 flex flex-col items-center justify-between p-6 bg-black/20 backdrop-blur-[0.1px] rounded-xl pointer-events-none transition-all duration-300">
                 {displayedLyrics && (
-                  <p className={`text-white w-full ${poppins.className} font-semibold text-start whitespace-pre-wrap text-lg md:text-xl drop-shadow-[0_0_10px_rgba(255,255,255,1)]`}>
+                  <p
+                    className={`text-white w-full ${poppins.className}  text-start whitespace-pre-wrap text-lg md:text-xl drop-shadow-[0_0_10px_rgba(255,255,255,1)]`}
+                  >
                     {displayedLyrics}
                   </p>
                 )}
                 {displayedMember && (
-                  <p className="text-white font-semibold text-base mt-4 self-end drop-shadow-[0_0_10px_rgba(255,255,255,1)]">
-                    {displayedMember}
+                  <p className="text-white flex flex-row gap-2 items-center justify-center font-semibold text-base mt-4 self-end drop-shadow-[0_0_10px_rgba(255,255,255,1)]">
+                    {displayedMember}{" "}
+                    <Image
+                      src="/Polaroid/Only-graphic-darkpurple.webp"
+                      alt="Sun Icon"
+                      width={15}
+                      height={15}
+                      className=" object-contain "
+                    />
                   </p>
                 )}
               </div>
@@ -146,30 +154,31 @@ const FormmularioIntoTheSun = ({ onRestart }: { onRestart?: () => void }) => {
           onChange={handleFileChange}
         />
       </div>
-      <div className="flex flex-row flex-wrap justify-center gap-2 pt-2 ">
-        <ButtonUtils
-          label="Add lyrics"
-          onClick={handleGetPhrase}
-          className={`bg-black text-white p-2 cursor-pointer   italic font-extrabold`}
-          icon={<Music4 className="w-5 h-5" />}
-          //disabled={isLoading}
-        />
+      <div className="flex flex-col flex-wrap justify-center gap-2 pt-2 ">
+        <div className="flex gap-2 justify-center flex-row">
+          <ButtonUtils
+            label="Add lyrics"
+            onClick={handleGetPhrase}
+            className={`bg-black text-white p-2 cursor-pointer   italic font-extrabold`}
+            icon={<Music4 className="w-5 h-5" />}
+            //disabled={isLoading}
+          />
 
-        <ButtonUtils
-          label=""
-          onClick={handleResetPhoto}
-          className={`bg-black text-white px-2 cursor-pointer italic font-extrabold`}
-          icon={<RefreshCcw className="w-5 h-5" />}
+          <ButtonUtils
+            label=""
+            onClick={handleResetPhoto}
+            className={`bg-black text-white px-2 cursor-pointer italic font-extrabold`}
+            icon={<RefreshCcw className="w-5 h-5" />}
+          />
 
-        />
-
-        <ButtonUtils
-          label=""
-          onClick={handleDownloadImage}
-          className={`bg-black text-white px-2 cursor-pointer   italic font-extrabold`}
-          icon={<Download className="w-5 h-5" />}
-          //disabled={isLoading}
-        />
+          <ButtonUtils
+            label=""
+            onClick={handleDownloadImage}
+            className={`bg-black text-white px-2 cursor-pointer   italic font-extrabold`}
+            icon={<Download className="w-5 h-5" />}
+            //disabled={isLoading}
+          />
+        </div>
         {onRestart && (
           <ButtonUtils
             label="Restart Journey"
