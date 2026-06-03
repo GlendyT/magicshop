@@ -33,6 +33,7 @@ const albums = [
   "Permission to dance on stage - Live",
 ];
 
+{/** COMPONENT TO CHANGE ---START--- */}
 const BracketMatch = ({ match }: { match: any }) => {
   const percentA =
     match.status === "completed" && match.winner === match.team_a
@@ -44,6 +45,7 @@ const BracketMatch = ({ match }: { match: any }) => {
       : Math.min((match.team_b_streams / match.target_streams) * 100, 100) || 0;
 
   return (
+
     <div className="bg-black/50 backdrop-blur-md border border-white/10 rounded-xl p-4 w-72 shadow-xl hover:border-purple-500/50 transition-colors duration-300 group">
       <div className="flex justify-between items-center mb-3">
         <div className="text-[10px] text-purple-300 font-bold uppercase tracking-widest px-2 py-1 bg-purple-500/20 rounded-full">
@@ -56,13 +58,13 @@ const BracketMatch = ({ match }: { match: any }) => {
         )}
       </div>
 
-      {/* Target Song Info */}
+       {/*Target Song Info */}
       <div className="flex items-center gap-2 mb-4 text-neutral-300 text-xs">
         <PlayCircle className="w-3 h-3 text-pink-400" />
         <span className="truncate">Target: {match.song}</span>
       </div>
 
-      {/* Team A */}
+      {/*Team A*/}
       <div
         className={`relative p-2.5 rounded-lg mb-2 overflow-hidden ${match.winner === match.team_a ? "bg-emerald-500/20 border border-emerald-500/50" : "bg-white/5 border border-white/5"}`}
       >
@@ -80,9 +82,9 @@ const BracketMatch = ({ match }: { match: any }) => {
         </div>
       </div>
 
-      {/* Team B */}
+       {/*Team B*/} 
       <div
-        className={`relative p-2.5 rounded-lg overflow-hidden ${match.winner === match.team_b ? "bg-emerald-500/20 border border-emerald-500/50" : "bg-white/5 border border-white/5"}`}
+        classame={`relative p-2.5 rounded-lg overflow-hidden ${match.winner === match.team_b ? "bg-emerald-500/20 border border-emerald-500/50" : "bg-white/5 border border-white/5"}`}
       >
         <div
           className="absolute top-0 left-0 h-full bg-gradient-to-r from-pink-600/40 to-orange-500/40 -z-10 transition-all duration-1000"
@@ -93,7 +95,7 @@ const BracketMatch = ({ match }: { match: any }) => {
             {match.team_b}
           </span>
           <span className="text-xs font-medium text-pink-200">
-            {Math.floor(percentB)}%
+            {Math.floor(percentB)}%N
           </span>
         </div>
       </div>
@@ -104,6 +106,158 @@ const BracketMatch = ({ match }: { match: any }) => {
     </div>
   );
 };
+
+{/**COMPONENT TO CHANGE ---ENDS--- */}
+
+
+
+
+{/**NEW COMPONENT IN PROGRESS....... */} 
+const BracketMatch2 = () => {
+  /*
+  const percentA =
+    match.status === "completed" && match.winner === match.team_a
+      ? 100
+      : Math.min((match.team_a_streams / match.target_streams) * 100, 100) || 0;
+  const percentB =
+    match.status === "completed" && match.winner === match.team_b
+      ? 100
+      : Math.min((match.team_b_streams / match.target_streams) * 100, 100) || 0;*/
+
+  return (
+  <div>
+
+
+    <div className="flex flex-col items-center justify-center lg:bg-white">
+        
+        <div className="flex flex-col md:flex-row ">
+
+            <div className="left-bracket flex flex-row items-center gap-10">
+                
+                <div className="flex flex-col gap-12 text-center text-xs">
+                    
+                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">PAÍSES BAJOS</div>
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">EE.UU.</div>
+                    </div>
+                    
+                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">ARGENTINA</div>
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">AUSTRALIA</div>
+                    </div>
+                    
+                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">JAPÓN</div>
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">CROACIA</div>
+                    </div>
+                    
+                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">BRASIL</div>
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">COREA DEL SUR</div>
+                    </div>
+
+                </div>
+
+                <div className="flex flex-col justify-around h-full py-20 gap-24 text-center text-xs">
+                    
+                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">PAÍSES BAJOS</div>
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">ARGENTINA</div>
+                    </div>
+                    
+                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">CROACIA</div>
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">BRASIL</div>
+                    </div>
+                    
+                </div>
+
+                <div className="flex flex-col justify-center h-full gap-4 text-center text-xs">
+                    
+                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">ARGENTINA</div>
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">CROACIA</div>
+                    </div>
+                    
+                </div>
+
+            </div>
+            <div className="final-section flex flex-col items-center justify-center gap-8 py-8 md:p-4 text-center flex-grow">
+                
+                <div className="trophy text-6xl text-yellow-400 mb-2">🏆</div>
+
+                <div className="final-match flex flex-col gap-2.5">
+                    <div className="team bg-bracket border border-bracket-border rounded-xl w-44 md:w-48 h-10"></div>
+                    <div className="team bg-bracket border border-bracket-border rounded-xl w-44 md:w-48 h-10"></div>
+                </div>
+
+                <div className="final-text text-sm font-bold tracking-wider mt-1 text-white">Final</div>
+
+                <div className="logos mt-6 flex flex-col items-center gap-2">
+                    <div className="text-maroon-100 opacity-70 text-sm font-semibold tracking-wide">FIFA WORLD CUP</div>
+                    <div className="text-maroon-100 opacity-80 text-sm">Qatar 2022</div>
+                    <div className="font-bold text-3xl mt-2 text-maroon-50">TyC Sports</div>
+                </div>
+            </div>
+            <div className="right-bracket flex flex-row-reverse items-center gap-10">
+                
+                <div className="flex flex-col gap-12 text-center text-xs">
+                    
+                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">INGLATERRA</div>
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">SENEGAL</div>
+                    </div>
+                    
+                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">FRANCIA</div>
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">POLONIA</div>
+                    </div>
+                    
+                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">MARRUECOS</div>
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">ESPAÑA</div>
+                    </div>
+                    
+                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">PORTUGAL</div>
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">SUIZA</div>
+                    </div>
+
+                </div>
+
+                <div className="flex flex-col justify-around h-full py-20 gap-24 text-center text-xs">
+                    
+                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">INGLATERRA</div>
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">FRANCIA</div>
+                    </div>
+                    
+                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">MARRUECOS</div>
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">PORTUGAL</div>
+                    </div>
+                    
+                </div>
+
+                <div className="flex flex-col justify-center h-full gap-4 text-center text-xs">
+                    
+                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">FRANCIA</div>
+                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">MARRUECOS</div>
+                    </div>
+                    
+                </div>
+
+            </div>
+            </div>
+        </div>
+
+
+    </div>
+  );
+};
+
+{/**NEW COMPONENT IN PROGRESS.... */}
 
 const BTSFifa2026 = () => {
   const [formData, setFormData] = useState({
@@ -349,7 +503,7 @@ const BTSFifa2026 = () => {
           </div>
         )}
 
-        {/* View: Bracket Dashboard */}
+        {/* View: Bracket Dashboard */} 
         {view === "bracket" && (
           <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
             <div className="mb-8 text-center sm:text-left">
@@ -367,7 +521,7 @@ const BTSFifa2026 = () => {
             </div>
 
             {/* Grid for Bracket */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 place-items-center min-h-[200px]">
+            <div className="grid grid-cols-1 gap-6 place-items-center min-h-[200px]">
               {isLoadingMatches ? (
                 <div className="col-span-full flex flex-col items-center justify-center gap-4 text-purple-400">
                   <div className="w-10 h-10 border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin"></div>
@@ -376,9 +530,7 @@ const BTSFifa2026 = () => {
                   </p>
                 </div>
               ) : matches.length > 0 ? (
-                matches.map((match) => (
-                  <BracketMatch key={match.id} match={match} />
-                ))
+                  <BracketMatch2 />
               ) : (
                 <div className="col-span-full text-center text-neutral-500 font-medium p-8 bg-black/30 rounded-2xl border border-white/5 w-full max-w-2xl">
                   Aún no hay partidos activos en la base de datos.
