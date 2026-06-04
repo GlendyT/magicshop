@@ -362,7 +362,7 @@ const IntoTheSun: React.FC = () => {
   return (
     <>
       {/* Reproductor de Spotify (Se mantiene montado siempre para que no se corte la música al iniciar el viaje) */}
-      <div className={`fixed z-[110] transition-all duration-1000 flex flex-col items-center ${!isStarted ? 'bottom-20 left-1/2 -translate-x-1/2 w-full max-w-sm px-4' : 'bottom-4 right-4 w-[300px] opacity-40 hover:opacity-100'}`}>
+      <div className={`fixed z-[110] transition-all duration-1000 flex-col items-center ${!isStarted ? "flex" : "hidden md:flex"} ${!isStarted ? 'bottom-20 left-1/2 -translate-x-1/2 w-full max-w-sm px-4' : 'bottom-4 right-4 w-[300px] opacity-40 hover:opacity-100 '}`}>
         {!isStarted && <p className="text-white/60 text-xs mb-2 tracking-widest uppercase">Play the music for full experience</p>}
         <iframe 
           style={{ borderRadius: "12px" }} 
