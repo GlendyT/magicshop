@@ -129,13 +129,34 @@ const MatchSlot = ({ match }: { match?: any }) => {
       : Math.min((match.team_b_streams / match.target_streams) * 100, 100) || 0;
 
   return (
-    <div className="match flex flex-col gap-1.5 w-36 justify-between md:w-40">
-      <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold ">
-        {match.team_a} {Math.round(percentA)}%
+    <div className="match flex flex-col gap-1.5 w-36 md:w-40 ">
+
+      <div>
+         <div className="flex justify-between team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">
+           {match.team_a} <span>{Math.round(percentA)}%</span>
+        </div>
+
+        <div className="w-full bg-black/20 h-1.5 rounded-full">
+          <div className="bg-white h-full rounded-full transition-all duration-500" style={{ width: `${percentA}%` }}></div>
+        </div> 
       </div>
-      <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">
-        {match.team_b} ({Math.round(percentB)}%)
+
+
+      <div>
+        <div className=" flex justify-between team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">
+        {match.team_b} <span>{Math.round(percentB)}%</span>
+        </div>
+
+        <div className="w-full bg-black/20 h-1.5 rounded-full">
+          <div className="bg-white h-full rounded-full transition-all duration-500" style={{ width: `${percentA}%` }}></div>
+        </div>
       </div>
+      
+
+
+
+
+
     </div>
   );
 };
