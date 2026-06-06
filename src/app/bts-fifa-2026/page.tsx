@@ -22,15 +22,13 @@ const albums = [
   "The Most Beautiful Moment in Life: Young Forever",
   "Wings",
   "You Never Walk Alone",
-  "Love Yourself: Her",
   "Love Yourself: Tear",
   "Love Yourself: Answer",
   "Map of the Soul: Persona",
   "Map of the Soul: 7",
   "BE",
   "Proof",
-  "Arirang",
-  "Permission to dance on stage - Live",
+  "Arirang"
 ];
 
 {/** COMPONENT TO CHANGE ---START--- */}
@@ -84,7 +82,7 @@ const BracketMatch = ({ match }: { match: any }) => {
 
        {/*Team B*/} 
       <div
-        classame={`relative p-2.5 rounded-lg overflow-hidden ${match.winner === match.team_b ? "bg-emerald-500/20 border border-emerald-500/50" : "bg-white/5 border border-white/5"}`}
+        className={`relative p-2.5 rounded-lg overflow-hidden ${match.winner === match.team_b ? "bg-emerald-500/20 border border-emerald-500/50" : "bg-white/5 border border-white/5"}`}
       >
         <div
           className="absolute top-0 left-0 h-full bg-gradient-to-r from-pink-600/40 to-orange-500/40 -z-10 transition-all duration-1000"
@@ -111,9 +109,40 @@ const BracketMatch = ({ match }: { match: any }) => {
 
 
 
+const MatchSlot = ({ match }: { match?: any }) => {
+  if (!match) {
+    return (
+      <div className="match flex flex-col gap-1.5 w-36 md:w-40">
+        <div className="team bg-gray-100 border border-dashed border-gray-300 p-2 rounded-lg text-black">?</div>
+        <div className="team bg-gray-100 border border-dashed border-gray-300 p-2 rounded-lg text-gray-400">?</div>
+      </div>
+    );
+  }
+
+  const percentA =
+    match.status === "completed" && match.winner === match.team_a
+      ? 100
+      : Math.min((match.team_a_streams / match.target_streams) * 100, 100) || 0;
+  const percentB =
+    match.status === "completed" && match.winner === match.team_b
+      ? 100
+      : Math.min((match.team_b_streams / match.target_streams) * 100, 100) || 0;
+
+  return (
+    <div className="match flex flex-col gap-1.5 w-36 justify-between md:w-40">
+      <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold ">
+        {match.team_a} {Math.round(percentA)}%
+      </div>
+      <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">
+        {match.team_b} ({Math.round(percentB)}%)
+      </div>
+    </div>
+  );
+};
 
 {/**NEW COMPONENT IN PROGRESS....... */} 
-const BracketMatch2 = () => {
+const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
+
   /*
   const percentA =
     match.status === "completed" && match.winner === match.team_a
@@ -125,137 +154,73 @@ const BracketMatch2 = () => {
       : Math.min((match.team_b_streams / match.target_streams) * 100, 100) || 0;*/
 
   return (
-  <div>
+  <div className="bg-red-900 flex flex-col items-center justify-center p-10 text-white md:p-1.5">
+      
+      <div className="flex flex-row items-center justify-center gap-6 lg:gap-6 md:gap-6">
 
 
-    <div className="flex flex-col items-center justify-center lg:bg-white">
-        
-        <div className="flex flex-col md:flex-row ">
-
-            <div className="left-bracket flex flex-row items-center gap-10">
-                
-                <div className="flex flex-col gap-12 text-center text-xs">
-                    
-                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">PAÍSES BAJOS</div>
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">EE.UU.</div>
-                    </div>
-                    
-                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">ARGENTINA</div>
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">AUSTRALIA</div>
-                    </div>
-                    
-                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">JAPÓN</div>
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">CROACIA</div>
-                    </div>
-                    
-                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">BRASIL</div>
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">COREA DEL SUR</div>
-                    </div>
-
+          {/**LEFT BRACKET */}
+            <div className="left-bracket flex flex-row items-center gap-4 md:gap-6">
+               {/** OCTAVOS DE FINAL */}
+                <div className="flex flex-col gap-12 text-center text-xs md:flex-col md:gap-12">
+                  {Array.from({ length: 4 }).map((_, i) => (
+              <MatchSlot key={`oct-izq-${i}`} match={allMatches[i]} />
+            ))}
                 </div>
 
-                <div className="flex flex-col justify-around h-full py-20 gap-24 text-center text-xs">
-                    
-                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">PAÍSES BAJOS</div>
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">ARGENTINA</div>
-                    </div>
-                    
-                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">CROACIA</div>
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">BRASIL</div>
-                    </div>
-                    
+                {/**CUARTOS DE FINAL */}
+                <div className="bg-red-900 flex flex-col justify-around h-full py-20 gap-24 text-center text-xs md:gap-48">
+                  {Array.from({ length: 2}).map((_, i) => (
+                    <MatchSlot key={`cua-izq-${i}`} match={null}/>
+                  ))}
                 </div>
 
+                {/**SEMIFINAL */}
                 <div className="flex flex-col justify-center h-full gap-4 text-center text-xs">
-                    
-                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">ARGENTINA</div>
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">CROACIA</div>
-                    </div>
-                    
+                    <MatchSlot match={null} />
                 </div>
 
             </div>
-            <div className="final-section flex flex-col items-center justify-center gap-8 py-8 md:p-4 text-center flex-grow">
-                
-                <div className="trophy text-6xl text-yellow-400 mb-2">🏆</div>
+            {/**LEFT BRACKET */}
 
-                <div className="final-match flex flex-col gap-2.5">
-                    <div className="team bg-bracket border border-bracket-border rounded-xl w-44 md:w-48 h-10"></div>
-                    <div className="team bg-bracket border border-bracket-border rounded-xl w-44 md:w-48 h-10"></div>
-                </div>
-
-                <div className="final-text text-sm font-bold tracking-wider mt-1 text-white">Final</div>
-
-                <div className="logos mt-6 flex flex-col items-center gap-2">
-                    <div className="text-maroon-100 opacity-70 text-sm font-semibold tracking-wide">FIFA WORLD CUP</div>
-                    <div className="text-maroon-100 opacity-80 text-sm">Qatar 2022</div>
-                    <div className="font-bold text-3xl mt-2 text-maroon-50">TyC Sports</div>
-                </div>
+            {/**CENTER */}
+            <div className="final-section flex flex-col items-center justify-center gap-8 py-8 md:p-0.5 text-center flex-grow">
+              <div className="text-6xl mb-2"></div>
+                <MatchSlot match={null} />
+          <div className="text-sm font-bold mt-2">Final</div>
+          <div className="mt-4 text-center">
+            <p className="text-sm opacity-80">FIFA WORLD CUP</p>
+            <p className="font-bold text-2xl">TyC Sports</p>
+          </div>
             </div>
-            <div className="right-bracket flex flex-row-reverse items-center gap-10">
+            
+            {/**RIGHT BRACKET */}
+            <div className="right-bracket flex flex-row-reverse items-center gap-4">
                 
+                {/** OCTAVOS DE FINAL */}
                 <div className="flex flex-col gap-12 text-center text-xs">
-                    
-                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">INGLATERRA</div>
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">SENEGAL</div>
-                    </div>
-                    
-                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">FRANCIA</div>
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">POLONIA</div>
-                    </div>
-                    
-                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">MARRUECOS</div>
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">ESPAÑA</div>
-                    </div>
-                    
-                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">PORTUGAL</div>
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">SUIZA</div>
-                    </div>
-
+                  {Array.from({ length: 4 }).map((_, i) => (
+              <MatchSlot key={`oct-der-${i}`} match={allMatches[i+4]} />
+            ))}
                 </div>
 
+                {/**CUARTOS DE FINAL */}
                 <div className="flex flex-col justify-around h-full py-20 gap-24 text-center text-xs">
-                    
-                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">INGLATERRA</div>
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">FRANCIA</div>
-                    </div>
-                    
-                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">MARRUECOS</div>
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">PORTUGAL</div>
-                    </div>
-                    
+                  {Array.from({ length: 2 }).map((_, i) => <MatchSlot key={`cua-der-${i}`} match={null} />)}
                 </div>
 
+                {/**SEMIFINAL */}
                 <div className="flex flex-col justify-center h-full gap-4 text-center text-xs">
-                    
-                    <div className="match flex flex-col gap-1.5 w-36 md:w-40">
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">FRANCIA</div>
-                        <div className="team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">MARRUECOS</div>
-                    </div>
-                    
+                  <MatchSlot match={null} />
                 </div>
-
             </div>
+            {/**RIGHT BRACKET */}
+
             </div>
         </div>
-
-
-    </div>
-  );
+);
 };
+
 
 {/**NEW COMPONENT IN PROGRESS.... */}
 
@@ -281,6 +246,7 @@ const BTSFifa2026 = () => {
         const [matchesData, statsData] = await Promise.all([
           getBTSMatches(),
           getBTSStats(),
+          
         ]);
 
         if (matchesData && matchesData.length > 0) {
@@ -296,7 +262,7 @@ const BTSFifa2026 = () => {
             stage: doc.stage,
             status: doc.status,
             winner: doc.winner,
-            song: doc.target_song,
+            song: doc.target_songs,
           }));
           setMatches(mappedMatches);
         }
@@ -332,7 +298,9 @@ const BTSFifa2026 = () => {
     setSuccess(false);
 
     try {
+
       await createBTSFifaUser(formData.lastfm, formData.album);
+
       setSuccess(true);
       setFormData({ lastfm: "", album: "" });
       // Cambiar a la vista del bracket después de 2 segundos de éxito
@@ -530,13 +498,15 @@ const BTSFifa2026 = () => {
                   </p>
                 </div>
               ) : matches.length > 0 ? (
-                  <BracketMatch2 />
+                <BracketMatch2 allMatches={matches}/>
               ) : (
                 <div className="col-span-full text-center text-neutral-500 font-medium p-8 bg-black/30 rounded-2xl border border-white/5 w-full max-w-2xl">
                   Aún no hay partidos activos en la base de datos.
                 </div>
               )}
             </div>
+
+              {/**<BracketMatch2 allMatches={partidosProcesados}/> */}
 
             <div className="mt-12 p-6 bg-white/5 border border-white/10 rounded-2xl text-center">
               <p className="text-neutral-400 text-sm">
