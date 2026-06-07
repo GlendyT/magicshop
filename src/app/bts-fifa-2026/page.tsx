@@ -260,12 +260,14 @@ const [selectedMatch, setSelectedMatch] = useState<any>(null);
         {selectedMatch && (
            <div className="space-y-4">
              <div className="text-xl font-bold">
-               {selectedMatch.team_a} vs {selectedMatch.team_b}
+               TEAM: {selectedMatch.team_a} vs TEAM : {selectedMatch.team_b}
              </div>
              {/* Aquí pones el contenido específico */}
              <div className="text-sm text-gray-600">
               <p>Fase: {selectedMatch.stage}</p>
               <p>Estado: {selectedMatch.status}</p>
+              <p>Song: {selectedMatch.song}</p>
+              <p>Target stream: {selectedMatch.target_streams}</p>
              </div>
            </div>
         )}
