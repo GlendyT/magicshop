@@ -26,19 +26,7 @@ const Cutter = () => {
       onCropComplete={onCropComplete}
       onZoomChange={setZoom}
       showGrid={false}
-      cropSize={{ width: 185, height: 185 }}
       onRotationChange={setRotation}
-      style={{
-        containerStyle: {
-          height: 220,
-          width: 220,
-          top: 8,
-          bottom: 8,
-          left: 8,
-          right: 8,
-          position: "relative",
-        },
-      }}
     />
   );
 };

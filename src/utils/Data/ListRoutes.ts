@@ -111,4 +111,10 @@ export const LinkRoutes: LinkRoutesTypes[] = [
     path: "/arirang",
     image: "/Logos/arirang.png",
   },
+    {
+    id: 18,
+    name: "Into the Sun",
+    path: "/into-the-sun",
+    image: "/Logos/IntoTheSun_MainLogo.webp",
+  },
 ];

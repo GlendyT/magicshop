@@ -19,8 +19,8 @@ const ImageCropModalContent = ({
     <div className="text-center relative pt-2 ">
       <h5 className="text-gray-800 mb-4">Edit your picture</h5>
       <div className="border border-dashed border-gray-300 p-6 rounded-lg">
-        <div className="flex justify-center">
-          <div className="crop-container mb-4">
+        <div className="flex justify-center w-full">
+          <div className="relative w-full h-64 sm:h-80 md:h-96 mb-4 overflow-hidden rounded-md bg-black/5">
             <Cutter />
           </div>
         </div>

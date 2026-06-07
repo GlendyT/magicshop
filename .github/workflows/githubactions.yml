@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - main
+      - develop
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -37,7 +38,35 @@ permissions:
   pull-requests: write
 
 jobs:
+  branch-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Verify branch is up to date with base branch
+        run: |
+          echo "🔍 Validando que tu rama esté actualizada con ${{ github.base_ref }}..."
+          git fetch origin ${{ github.base_ref }}
+          MERGE_BASE=$(git merge-base HEAD origin/${{ github.base_ref }})
+          BASE_HEAD=$(git rev-parse origin/${{ github.base_ref }})
+          if [ "$MERGE_BASE" != "$BASE_HEAD" ]; then
+            echo ""
+            echo "❌ Tu rama no incluye los últimos cambios de ${{ github.base_ref }}"
+            echo ""
+            echo "📋 Para actualizar tu rama ejecuta:"
+            echo "   git checkout ${{ github.head_ref }}"
+            echo "   git pull origin ${{ github.base_ref }}"
+            echo "   git push"
+            echo ""
+            exit 1
+          fi
+          echo "✅ La rama ${{ github.head_ref }} está actualizada con ${{ github.base_ref }}"
+
   lint:
+    needs: [branch-check]
     runs-on: ubuntu-latest
 
     steps:
@@ -57,6 +86,7 @@ jobs:
         run: npm run lint
 
   typecheck:
+    needs: [branch-check]
     runs-on: ubuntu-latest
 
     steps:
@@ -76,6 +106,7 @@ jobs:
         run: npm run typecheck
 
   test:
+    needs: [branch-check]
     runs-on: ubuntu-latest
 
     steps:
@@ -95,6 +126,7 @@ jobs:
         run: npm run test:unit:serial
 
   playwright:
+    needs: [branch-check]
     runs-on: ubuntu-latest
     timeout-minutes: 30
 

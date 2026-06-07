@@ -17,6 +17,7 @@ import {
   Monoton,
   Montserrat_Alternates,
   Tiny5,
+  Poppins,
 } from "next/font/google";
 import localFont from "next/font/local";
 
@@ -32,9 +33,9 @@ export const libre = Libre_Caslon_Text({
 });
 
 export const antonio = Antonio({
-    subsets: ["latin"],
-    weight: ["400"],
-  });
+  subsets: ["latin"],
+  weight: ["400"],
+});
 
 //TODO: FONTS PHOTOBOOTH
 export const ballet = Ballet({
@@ -89,10 +90,9 @@ export const virthday3 = Permanent_Marker({
 
 //TODO: FONT LOVENOTES
 export const montserrat = Montserrat_Alternates({
-    subsets: ["latin"],
-    weight: ["400"],
-  });
-  
+  subsets: ["latin"],
+  weight: ["400"],
+});
 
 //TODO: FONT FISHINGWITHJIN
 export const pressgame = Press_Start_2P({
@@ -106,12 +106,10 @@ export const rock = Rock_Salt({
   weight: ["400"],
 });
 
-
 export const indie = Indie_Flower({
   subsets: ["latin"],
   weight: ["400"],
 });
-
 
 export const monoton = Monoton({
   subsets: ["latin"],
@@ -124,7 +122,12 @@ export const tiny = Tiny5({
   weight: ["400"],
 });
 
-
 export const myFont = localFont({
   src: "../../public/Akzidenz_Grotesk_Next_Medium.otf",
+});
+
+//TODO: FONTS POPPINS
+export const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });

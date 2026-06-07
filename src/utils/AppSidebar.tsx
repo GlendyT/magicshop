@@ -42,7 +42,7 @@ const AppSidebar = () => {
                         className={`
                     object-contain
                   `}
-                        width={100}
+                        width={60}
                         height={50}
                         priority
                       />
