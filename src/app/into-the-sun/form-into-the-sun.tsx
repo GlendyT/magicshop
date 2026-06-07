@@ -131,13 +131,13 @@ const FormmularioIntoTheSun = ({ onRestart }: { onRestart?: () => void }) => {
                   </p>
                 )}
                 {displayedMember && (
-                  <p className="text-white flex flex-row gap-2 items-center justify-center font-semibold text-base mt-4 self-end drop-shadow-[0_0_10px_rgba(255,255,255,1)]">
+                  <p className="text-white flex flex-col gap-0.5 items-end justify-end font-semibold text-base mt-4 self-end drop-shadow-[0_0_10px_rgba(255,255,255,1)]">
                     {displayedMember}{" "}
                     <Image
-                      src="/Polaroid/Only-graphic-darkpurple.webp"
+                      src="/Polaroid/IntoTheSunXBA_white.webp"
                       alt="Sun Icon"
-                      width={15}
-                      height={15}
+                      width={145}
+                      height={145}
                       className=" object-contain "
                     />
                   </p>
