@@ -338,7 +338,15 @@ export const createBTSMatch = async (matchData: { team_a: string; team_b: string
       appwriteConfig.btsmatchesCollectionId,
       ID.unique(),
       {
-        ...matchData,
+        team_a: matchData.team_a,
+        team_b: matchData.team_b,
+        target_songs: matchData.target_songs, 
+        target_streams_v2: matchData.target_streams_v2,
+        stage: matchData.stage,
+        status: matchData.status,
+        winner: matchData.winner || "",
+        
+
         team_a_start_streams: 0, 
         team_b_start_stream: 0, // Nota: tienes este campo como team_b_start_stream en tu json
         team_a_current_streams: 0,

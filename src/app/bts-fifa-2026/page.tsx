@@ -499,8 +499,8 @@ const BTSFifa2026 = () => {
             id: doc.$id,
             team_a: doc.team_a,
             team_b: doc.team_b,
-            song: doc.target_songs || [],
-            target_streams: doc.target_streams_v2 || [],
+            song: doc.target_songs || doc.song || [],
+            target_streams: doc.target_streams_v2 || doc.target_streams || [],
             team_a_streams:
               doc.team_a_current_streams ?? (doc.team_a_start_streams || 0),
             team_b_streams:
