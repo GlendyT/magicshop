@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useSidebar } from "@/hooks/components/ui/sidebar";
 import FormmularioIntoTheSun from "./form-into-the-sun";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -362,15 +363,21 @@ const IntoTheSun: React.FC = () => {
   return (
     <>
       {/* Reproductor de Spotify (Se mantiene montado siempre para que no se corte la música al iniciar el viaje) */}
-      <div className={`fixed z-[110] transition-all duration-1000 flex-col items-center ${!isStarted ? "flex" : "hidden md:flex"} ${!isStarted ? 'bottom-20 left-1/2 -translate-x-1/2 w-full max-w-sm px-4' : 'bottom-4 right-4 w-[300px] opacity-40 hover:opacity-100 '}`}>
-        {!isStarted && <p className="text-white/60 text-xs mb-2 tracking-widest uppercase">Play the music for full experience</p>}
-        <iframe 
-          style={{ borderRadius: "12px" }} 
-          src="https://open.spotify.com/embed/track/1ZNolq7VI7efGlh2hb2VVr?utm_source=generator&theme=0" 
-          width="100%" 
-          height="80" 
-          frameBorder="0" 
-          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+      <div
+        className={`fixed z-[110] transition-all duration-1000 flex-col items-center ${!isStarted ? "flex" : "hidden md:flex"} ${!isStarted ? "bottom-20 left-1/2 -translate-x-1/2 w-full max-w-sm px-4" : "bottom-4 right-4 w-[300px] opacity-40 hover:opacity-100 "}`}
+      >
+        {!isStarted && (
+          <p className="text-white/60 text-xs mb-2 tracking-widest uppercase">
+            Play the music for full experience
+          </p>
+        )}
+        <iframe
+          style={{ borderRadius: "12px" }}
+          src="https://open.spotify.com/embed/track/1ZNolq7VI7efGlh2hb2VVr?utm_source=generator&theme=0"
+          width="100%"
+          height="80"
+          frameBorder="0"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
           loading="lazy"
         ></iframe>
       </div>
@@ -385,7 +392,7 @@ const IntoTheSun: React.FC = () => {
             onClick={handleStart}
             className="text-white text-xl md:text-2xl font-bold tracking-widest border border-white/30 px-10 py-4 rounded-full hover:bg-white hover:text-black transition-all duration-500 hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(255,255,255,0.6)]"
           >
-            START JOURNEY 
+            START JOURNEY
           </button>
         </div>
       )}
@@ -409,10 +416,10 @@ const IntoTheSun: React.FC = () => {
           onClick={() => (window.location.href = "/")}
           style={{
             position: "fixed",
-            top: "20px",
-            left: "20px",
+            top: "10px",
+            left: "0px",
             zIndex: 100,
-            background: "rgba(0, 0, 0, 0.5)",
+
             color: "white",
             border: "none",
             borderRadius: "50%",
@@ -436,7 +443,13 @@ const IntoTheSun: React.FC = () => {
           }}
           aria-label="Volver al inicio"
         >
-          ←
+          <Image
+            src="/Polaroid/Only-graphic-darkpurple.webp"
+            alt="logoarmy"
+            width={100}
+            height={100}
+            className="w-14 h-14 pl-2"
+          />
         </button>
 
         {/* ── Estilos inline para no depender de un CSS externo ── */}
