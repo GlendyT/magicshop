@@ -21,6 +21,8 @@ import {
   syncGlobalStats,
 } from "@/lib/appwrite";
 
+/// funcion temporal
+
 const albums = [
   "2 Cool 4 Skool",
   "O!RUL8,2?",
@@ -76,7 +78,7 @@ const AdminDashboard = () => {
     team_a: "",
     team_b: "",
     // target_song: '', // Cambios aqui
-    target_streams: 10000,
+    //    target_streams: 10000,
     stage: "Octavos",
     status: "active",
   });
@@ -91,10 +93,11 @@ const AdminDashboard = () => {
   const [isLoadingMatches, setIsLoadingMatches] = useState(true);
 
   // ESTADOS INDEPENDIENTE PARA LA LISTA DE CANCIONES
-  const [targetSongs, setTargetSongs] = useState<
-    { name: string; target: number }[]
-  >([]);
+  const [targetSongs, setTargetSongs] = useState<string[]>([]);
   const [songInput, setSongInput] = useState("");
+
+  const [targetStreams, setTargetStreams] = useState<number[]>([]);
+  const [currentStreamTarget, setCurrentStreamTarget] = useState(0);
 
   const fetchMatches = async () => {
     setIsLoadingMatches(true);
@@ -141,9 +144,27 @@ const AdminDashboard = () => {
 
   const availableAlbums = albums.filter((a) => !occupiedAlbums.includes(a));
 
+  // funcion para agregar cancon y streams
+  const handleAddToList = () => {
+    if (songInput.trim() !== "") {
+      setTargetSongs((prev) => [...prev, songInput]);
+
+      setTargetStreams((prev) => [...prev, currentStreamTarget || 10000]);
+
+      setSongInput("");
+      setCurrentStreamTarget(0);
+    } else {
+      setMessage({
+        text: "Debe agregar al menos una cancion meta.",
+        type: "error",
+      });
+    }
+  };
+
   const handleCreateMatch = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    console.log("el formuario ha sido enviado ")
     // Verificamos si hay algo en el input para "capturarlo"
     //const songToUse = [...targetSongs]; // Usamos el estado de canciones en lugar del formData
 
@@ -165,25 +186,23 @@ const AdminDashboard = () => {
       return;
     }
 
-    setTargetSongs([]);
-    setSongInput("");
-
     setIsSubmitting(true);
     setMessage({ text: "", type: "" });
 
     try {
 
-      //Convertimos cada objeto en un string JSON
-      const songsToSave = targetSongs.map(song => JSON.stringify(song));
+      console.log("Datos a enviar a Appwrite:", { team_a: formData.team_a, team_b: formData.team_b, target_songs: targetSongs,  target_streams_v2: targetStreams,});
 
       await createBTSMatch({
         team_a: formData.team_a,
         team_b: formData.team_b,
-        target_songs: songsToSave, // AQUI CAMBIO PASAMOS EL ARRAY
-        target_streams: formData.target_streams,
+        target_songs: targetSongs, // AQUI CAMBIO PASAMOS EL ARRAY
+        target_streams_v2: targetStreams,
+        // target_streams: formData.target_streams,
         stage: formData.stage,
         status: formData.status,
         winner: "",
+      
       });
       setMessage({
         text: "Partido creado exitosamente en la base de datos.",
@@ -193,6 +212,8 @@ const AdminDashboard = () => {
       // LIMPIANDO EL ESTADO DE SONGS
       setTargetSongs([]);
       setSongInput("");
+      setTargetStreams([]);
+      setCurrentStreamTarget(0);
       // limpiando el estado de songs
 
       setFormData((prev) => ({ ...prev, target_song: "" })); // Limpiar solo un poco
@@ -392,27 +413,7 @@ const AdminDashboard = () => {
                   <button
                     type="button"
                     className="bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-lg"
-                    onClick={() => {
-                      // Verificamos si ya existe un objeto con el nombre de la cancion
-                      const objIncludes = targetSongs.some(
-                        (s) => s.name === songInput,
-                      );
-
-                      if (songInput && !objIncludes) {
-                        // Creamos el objeto con la meta inicial
-                        setTargetSongs([
-                          ...targetSongs,
-                          { name: songInput, target: formData.target_streams },
-                        ]);
-                        setSongInput("");
-                        setMessage({ text: "", type: "" });
-                      } else if (objIncludes) {
-                        setMessage({
-                          text: "Esa cancion ya esta en la lista.",
-                          type: "error",
-                        });
-                      }
-                    }}
+                    onClick={handleAddToList} // ¡Aquí ya llamas a la función que definiste!
                   >
                     +
                   </button>
@@ -420,35 +421,40 @@ const AdminDashboard = () => {
 
                   {/** LISTA VISUAL DE CNCIONES ANADIADAS */}
                   <div className="flex flex-col gap-2 mt-2">
-                    {targetSongs.map((song, index) => (
+                    {targetSongs.map((songName, index) => (
                       <div
                         key={index}
                         className="flex items-center gap-2 bg-purple-500/20 p-2 rounded"
                       >
                         <span className="text-purple-300 flex-1">
-                          {song.name}
+                          {songName}{" "}
+                          {/* Aquí muestras el nombre directamente */}
                         </span>
 
                         {/* Input para la meta individual */}
                         <input
                           type="number"
-                          value={song.target}
+                          value={targetStreams[index]} // Accedes al array de números por el mismo índice
                           onChange={(e) => {
                             const newTarget = parseInt(e.target.value) || 0;
-                            const updated = [...targetSongs];
-                            updated[index].target = newTarget;
-                            setTargetSongs(updated);
+                            const updatedStreams = [...targetStreams];
+                            updatedStreams[index] = newTarget; // Actualizas el array de números
+                            setTargetStreams(updatedStreams);
                           }}
                           className="w-20 bg-black/50 text-white border border-white/10 rounded px-2"
                         />
 
                         <button
                           type="button"
-                          onClick={() =>
+                          onClick={() => {
+                            // Eliminas de AMBOS arrays usando el mismo índice
                             setTargetSongs(
                               targetSongs.filter((_, i) => i !== index),
-                            )
-                          }
+                            );
+                            setTargetStreams(
+                              targetStreams.filter((_, i) => i !== index),
+                            );
+                          }}
                           className="text-red-400 hover:text-red-200 font-bold px-2"
                         >
                           x
@@ -478,9 +484,6 @@ const AdminDashboard = () => {
                   <input
                     type="number"
                     name="target_streams"
-                    value={formData.target_streams}
-                    onChange={handleChange}
-                    required
                     min="1"
                     className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:ring-2 focus:ring-emerald-500"
                   />
@@ -663,27 +666,30 @@ const AdminDashboard = () => {
                       </div>
                     </div>
                     <p className="text-xs text-neutral-400 mt-1 flex items-center gap-1">
-                      <Music className="w-3 h-3 text-pink-400" />
+                      <Music className="w-3 h-3 text-pink-400 " />
                       <span className="truncate">
-                        {(() => {
-                          if (typeof m.target_songs === "string") {
-                            try {
-                              const parsed = JSON.parse(m.target_songs);
-                              return Array.isArray(parsed)
-                                ? parsed.join(", ")
-                                : m.target_songs;
-                            } catch {
-                              return m.target_songs;
-                            }
-                          }
-                          if (Array.isArray(m.target_songs)) {
-                            return m.target_songs.join(", ");
-                          }
-                          return "Sin canciones asignadas";
-                        })()}
+                        {m.target_songs.map((songName : string, index : number) => (
+                          <span
+                            key={index}
+                            className="text-white-700 font-medium"
+                          >
+                            {songName}
+                            <span className="text-neutral-400 font-normal mx-1">
+                              {/* Accedemos al número usando el mismo índice */}
+                              (
+                              {(
+                                m.target_streams_v2[index] || 0
+                              ).toLocaleString()}
+                              )
+                            </span>
+                            {index < m.target_songs.length - 1 && (
+                              <span className="text-neutral-300 ml-2">| </span>
+                            )}
+                          </span>
+                        ))}
                       </span>
                       <span className="text-neutral-600">|</span>
-                      Meta: {m.target_streams.toLocaleString()}
+                      Meta:
                     </p>
                   </div>
                   <button

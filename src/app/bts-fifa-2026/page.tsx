@@ -15,9 +15,11 @@ import { createBTSFifaUser, getBTSMatches, getBTSStats } from "@/lib/appwrite";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
-  DialogTitle,
+  DialogTitle
 } from "@/hooks/components/ui/dialog";
+
 
 const albums = [
   "2 Cool 4 Skool",
@@ -117,6 +119,7 @@ const BracketMatch = ({ match }: { match: any }) => {
   /**COMPONENT TO CHANGE ---ENDS--- */
 }
 
+/*
 const MatchSlot = ({
   match,
   onClick,
@@ -148,6 +151,8 @@ const MatchSlot = ({
     match.status === "completed" && match.winner === match.team_b
       ? 100
       : Math.min((match.team_b_streams / match.target_streams) * 100, 100) || 0;
+
+  console.log(match);
 
   return (
     <div
@@ -183,8 +188,84 @@ const MatchSlot = ({
         <div className="w-full bg-black/20 h-1.5 rounded-full">
           <div
             className="bg-white h-full rounded-full transition-all duration-500"
-            style={{ width: `${percentA}%` }}
+            style={{ width: `${percentB}%` }}
           ></div>
+        </div>
+      </div>
+    </div>
+  );
+};
+*/
+
+
+const MatchSlot = ({
+  match,
+  onClick,
+}: {
+  match?: any;
+  onClick: () => void;
+}) => {
+  if (!match) {
+    return (
+      <div onClick={onClick} className="match flex flex-col gap-1.5 w-36 md:w-40">
+        <div className="team bg-gray-100 border border-dashed border-gray-300 p-2 rounded-lg text-black">?</div>
+        <div className="team bg-gray-100 border border-dashed border-gray-300 p-2 rounded-lg text-gray-400">?</div>
+      </div>
+    );
+  }
+
+
+// 1. Obtenemos los arrays directamente (sin parseSongs
+const targets = match.target_streams_v2 || [];
+
+// 2. Calculamos el total de metas y el total de streams alcanzados
+const totalTarget = targets.reduce((sum: number, val: number) => sum + (Number(val) || 0), 0) || 1;
+
+// Asumiendo que ahora recibes los streams totales de cada equipo
+const streamsA = Number(match.team_a_streams || 0);
+const streamsB = Number(match.team_b_streams || 0);
+
+// 3. Calculamos porcentajes
+const percentA = Math.min((streamsA / totalTarget) * 100, 100);
+const percentB = Math.min((streamsB / totalTarget) * 100, 100);
+
+  
+/*
+  // 2. Buscamos el target específico de cada equipo
+  const songA = songs.find(s => s.name === match.team_a) || { target: match.target_streams || 1 };
+  const songB = songs.find(s => s.name === match.team_b) || { target: match.target_streams || 1 };
+
+  // 3. Calculamos porcentajes usando los targets individuales
+  const percentA = match.status === "completed" && match.winner === match.team_a 
+    ? 100 
+    : Math.min((match.team_a_streams / targetToUse) * 100, 100) || 0;
+
+  const percentB = match.status === "completed" && match.winner === match.team_b 
+    ? 100 
+    : Math.min((match.team_b_streams / targetToUse) * 100, 100) || 0;
+
+      console.log("Team A Streams:", match.team_a_streams, "Target:", songA.target);
+console.log("Calculo resultante:", (match.team_a_streams / songA.target) * 100);*/
+
+  return (
+    <div onClick={onClick} className="match flex flex-col gap-1.5 w-36 text-xs md:w-40">
+      <div>
+        <div className="flex justify-between team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">
+          {match.team_a} <span className="whitespace-nowrap">{Math.round(percentA)}%</span>
+          <button onClick={onClick} className="hover:opacity-60 transition-opacity">👁️</button>
+        </div>
+        <div className="w-full bg-black/20 h-1.5 rounded-full">
+          <div className="bg-white h-full rounded-full transition-all duration-500" style={{ width: `${percentA}%` }} />
+        </div>
+      </div>
+
+      <div>
+        <div className="flex justify-between team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">
+          <span className="truncate mr-2">{match.team_b}</span>
+          <span className="whitespace-nowrap">{Math.round(percentB)}%</span>
+        </div>
+        <div className="w-full bg-black/20 h-1.5 rounded-full">
+          <div className="bg-amber-500 h-full rounded-full transition-all duration-500" style={{ width: `${percentB}%` }} />
         </div>
       </div>
     </div>
@@ -198,12 +279,25 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
   const [selectedMatch, setSelectedMatch] = useState<any>(null);
   const [isModalOpen, setModalOpen] = useState(false);
 
-  // Función inteligente para buscar el partido en la etapa correcta
-  // index: ayuda a diferenciar si es el 1ero o 2do de la misma etapa
-  const getMatch = (stage: string, index: number) => {
-    const matchesInStage = allMatches.filter((m) => m.stage === stage);
-    return matchesInStage[index] || null;
+  const getWinnerOfMatch = (matchA: any, matchB: any) => {
+    // Si alguno de los partidos de octavos no está terminado, no hay ganador para cuartos
+    if (matchA?.status !== "completed" || matchB?.status !== "completed")
+      return null;
+
+    // Retornamos un objeto "partido" ficticio para los cuartos
+    return {
+      team_a: matchA.winner,
+      team_b: matchB.winner,
+      status: "active", // O 'completed' si ya tienes datos para cuartos
+      target_streams: matchA.target_streams_v2, // O la lógica de meta que necesites
+      team_a_streams: 0,
+      team_b_streams: 0,
+    };
   };
+
+  // 2. Definimos los enfrentamientos de cuartos basados en los ganadores de octavos
+  // Esto es solo un ejemplo de lógica:
+  //const quarter1 = allMatches.find((m) => m.id_cuarto === "Q1"); // O lógica similar
 
   const handleOpen = (match: any) => {
     if (match) {
@@ -212,71 +306,106 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
     }
   };
 
+console.log("Que tiene selectedMatch:" , selectedMatch)
+
+
 
   return (
     <div className="bg-red-900 flex flex-col items-center justify-center p-10 text-white">
       <div className="flex flex-row items-center justify-center gap-6">
-        {/* LADO IZQUIERDO */}
         <div className="flex flex-row items-center gap-4">
+          {/* Octavos Izquierda */}
           <div className="flex flex-col gap-12">
             {Array.from({ length: 4 }).map((_, i) => (
               <MatchSlot
-                key={`oct-izq-${i}`}
-                match={getMatch("Octavos", i)}
-                onClick={() => handleOpen(getMatch("Octavos", i))}
+                key={`izq-${i}`}
+                match={allMatches[i] || null}
+                onClick={() => allMatches[i] && handleOpen(allMatches[i])}
               />
             ))}
           </div>
+          {/* Cuartos Izquierda */}
           <div className="flex flex-col justify-around h-full py-20 gap-24">
-            {Array.from({ length: 2 }).map((_, i) => (
-              <MatchSlot
-                key={`cua-izq-${i}`}
-                match={getMatch("Cuartos", i)}
-                onClick={() => handleOpen(getMatch("Cuartos", i))}
-              />
-            ))}
+            {/* Siempre renderizamos el slot. Si el match es null, MatchSlot pintará el "?" automáticamente */}
+            <MatchSlot
+              match={getWinnerOfMatch(allMatches[0], allMatches[1])}
+              onClick={() => {}}
+            />
+            {/* El segundo slot de cuartos depende del partido 2 y 3 de octavos */}
+            <MatchSlot
+              match={getWinnerOfMatch(allMatches[2], allMatches[3])}
+              onClick={() => {}}
+            />
           </div>
+
+          {/**SEMIFINAL */}
           <div className="flex flex-col justify-center h-full gap-4">
             <MatchSlot
-              match={getMatch("Semifinal", 0)}
-              onClick={() => handleOpen(getMatch("Semifinal", 0))}
+              match={getWinnerOfMatch(
+                getWinnerOfMatch(allMatches[0], allMatches[1]), // Ganador del Cuarto 1
+                getWinnerOfMatch(allMatches[2], allMatches[3]), // Ganador del Cuarto 2
+              )}
+              onClick={() => {}}
             />
           </div>
         </div>
 
         {/* CENTRO (FINAL) */}
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center mb-40">
           <MatchSlot
-            match={getMatch("Final", 0)}
-            onClick={() => handleOpen(getMatch("Final", 0))}
+            match={getWinnerOfMatch(
+              // Semifinal Izquierda (la que construimos antes)
+              getWinnerOfMatch(
+                getWinnerOfMatch(allMatches[0], allMatches[1]),
+                getWinnerOfMatch(allMatches[2], allMatches[3]),
+              ),
+              // Semifinal Derecha (la que construimos antes)
+              getWinnerOfMatch(
+                getWinnerOfMatch(allMatches[4], allMatches[5]),
+                getWinnerOfMatch(allMatches[6], allMatches[7]),
+              ),
+            )}
+            onClick={() => {}}
           />
           <div className="text-sm font-bold mt-4">Final</div>
         </div>
 
         {/* LADO DERECHO */}
         <div className="flex flex-row-reverse items-center gap-4">
+          {/* Octavos Derecha */}
           <div className="flex flex-col gap-12">
             {Array.from({ length: 4 }).map((_, i) => (
               <MatchSlot
-                key={`oct-der-${i}`}
-                match={getMatch("Octavos de Final", i + 4)}
-                onClick={() => handleOpen(getMatch("Octavos de Final", i + 4))}
+                key={`der-${i}`}
+                match={allMatches[i + 4] || null} // Asignamos índices restantes
+                onClick={() =>
+                  allMatches[i + 4] && handleOpen(allMatches[i + 4])
+                }
               />
             ))}
           </div>
+          {/* Cuartos Derecha */}
           <div className="flex flex-col justify-around h-full py-20 gap-24">
-            {Array.from({ length: 2 }).map((_, i) => (
-              <MatchSlot
-                key={`cua-der-${i}`}
-                match={getMatch("Cuartos de Final", i + 2)}
-                onClick={() => handleOpen(getMatch("Cuartos de Final", i + 2))}
-              />
-            ))}
+            <MatchSlot
+              match={getWinnerOfMatch(allMatches[4], allMatches[5])}
+              onClick={() => {}}
+            />
+
+            {/* Segundo slot de Cuartos Derecha: depende de Octavos 6 y 7 */}
+            <MatchSlot
+              match={getWinnerOfMatch(allMatches[6], allMatches[7])}
+              onClick={() => {}}
+            />
           </div>
+
+          {/**SEMIFINAL */}
           <div className="flex flex-col justify-center h-full gap-4">
             <MatchSlot
-              match={getMatch("Semifinal", 1)}
-              onClick={() => handleOpen(getMatch("Semifinal", 1))}
+              match={getWinnerOfMatch(
+                getWinnerOfMatch(allMatches[4], allMatches[5]), // Ganador del Cuarto 3
+                getWinnerOfMatch(allMatches[6], allMatches[7]), // Ganador del Cuarto 4
+              )}
+              onClick={() => {}}
             />
           </div>
         </div>
@@ -285,26 +414,51 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
       <Dialog open={isModalOpen} onOpenChange={setModalOpen}>
         <DialogContent className="bg-white">
           <DialogHeader>
-            <DialogTitle>Detalles del Encuentro</DialogTitle>
+            <DialogTitle></DialogTitle>
+            <DialogDescription asChild>
+              <div className="space-y-2">
+                {selectedMatch ? (
+                  <>
+                    <p>
+                      <strong>Equipo A:</strong> {selectedMatch.team_a}
+                    </p>
+                    <p>
+                      <strong>Equipo B:</strong> {selectedMatch.team_b}
+                    </p>
+                    <p>
+                      <strong>Fase:</strong> {selectedMatch.stage}
+                    </p>
+
+                    {/* Aquí es donde mostraremos las canciones después */}
+                    <div className="mt-4">
+                      <strong>Canciones:</strong>
+                      {/* Por ahora solo un placeholder para que no rompa */}
+                      {/* Usamos selectedMatch y encadenamiento opcional (?.) */}
+                      <div className="space-y-2 mt-2">
+    {/* Usamos ?. tanto en selectedMatch como en target_songs */}
+    {selectedMatch.target_songs > 0 ? (
+      selectedMatch.target_songs.map((songName: string, index: number) => (
+        <div 
+          key={index} 
+          className="flex justify-between items-center bg-gray-100 p-2 rounded-lg"
+        >
+          <span>{songName}</span>
+        </div>
+      ))
+    ) : (
+      <p className="text-gray-500 text-sm">
+        {selectedMatch ? "No hay canciones registradas." : "Cargando datos..."}
+      </p>
+    )}
+  </div>
+                    </div>
+                  </>
+                ) : (
+                  <p>Selecciona un encuentro para ver los detalles.</p>
+                )}
+              </div>
+            </DialogDescription>
           </DialogHeader>
-
-          {selectedMatch && (
-            <div className="space-y-4">
-              <div className="text-xl font-bold">
-                TEAM: {selectedMatch.team_a} vs TEAM : {selectedMatch.team_b}
-              </div>
-              {/* Aquí pones el contenido específico */}
-              <div className="text-sm text-gray-600">
-                <p>Fase: {selectedMatch.stage}</p>
-                <p>Estado: {selectedMatch.status}</p>
-                <pre>
-                  DEBUG: {JSON.stringify(selectedMatch.target_songs, null, 2)}
-                </pre>
-
-                <p>Target stream: {selectedMatch.target_streams}</p>
-              </div>
-            </div>
-          )}
         </DialogContent>
       </Dialog>
     </div>
@@ -314,6 +468,7 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
 {
   /**NEW COMPONENT IN PROGRESS.... */
 }
+
 
 const BTSFifa2026 = () => {
   const [formData, setFormData] = useState({
@@ -344,7 +499,8 @@ const BTSFifa2026 = () => {
             id: doc.$id,
             team_a: doc.team_a,
             team_b: doc.team_b,
-            target_streams: doc.target_streams,
+            song: doc.target_songs || [],
+            target_streams: doc.target_streams_v2 || [],
             team_a_streams:
               doc.team_a_current_streams ?? (doc.team_a_start_streams || 0),
             team_b_streams:
@@ -352,7 +508,6 @@ const BTSFifa2026 = () => {
             stage: doc.stage,
             status: doc.status,
             winner: doc.winner,
-            song: doc.target_songs,
           }));
           setMatches(mappedMatches);
         }

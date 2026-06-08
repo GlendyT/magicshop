@@ -325,7 +325,7 @@ export const getBTSStats = async () => {
 };
 
 {/**PARA QUE ACEPTE UN ARRAY DE STRINGS Y NO UNA CANCION. EDITAR AQUI */}
-export const createBTSMatch = async (matchData: { team_a: string; team_b: string; target_songs: string[]; target_streams: number; stage: string; status: string; winner?: string }) => {
+export const createBTSMatch = async (matchData: { team_a: string; team_b: string; target_songs: string[]; target_streams_v2: number[]; stage: string; status: string; winner?: string }) => {
   const db = getDatabases();
 
   if (!db || !appwriteConfig.databaseId || !appwriteConfig.btsmatchesCollectionId) {
