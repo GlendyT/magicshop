@@ -150,13 +150,20 @@ const MatchSlot = ({
       : Math.min((match.team_b_streams / match.target_streams) * 100, 100) || 0;
 
   return (
-    <div onClick={onClick} className="match flex flex-col gap-1.5 w-36 text-xs md:w-40 ">
+    <div
+      onClick={onClick}
+      className="match flex flex-col gap-1.5 w-36 text-xs md:w-40 "
+    >
       <div>
         <div className="flex justify-between team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">
           {match.team_a}{" "}
-
           <span className="whitespace-nowrap">{Math.round(percentA)}%</span>
-          <button onClick={onClick} className="hover:opacity-60 transition-opacity">👁️</button>
+          <button
+            onClick={onClick}
+            className="hover:opacity-60 transition-opacity"
+          >
+            👁️
+          </button>
         </div>
 
         <div className="w-full bg-black/20 h-1.5 rounded-full">
@@ -169,7 +176,7 @@ const MatchSlot = ({
 
       <div>
         <div className=" flex justify-between team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">
-         <span className="truncate mr-2"> {match.team_b}{" "}</span>
+          <span className="truncate mr-2"> {match.team_b} </span>
           <span className="whitespace-nowrap">{Math.round(percentB)}%</span>
         </div>
 
@@ -188,7 +195,7 @@ const MatchSlot = ({
   /**NEW COMPONENT IN PROGRESS....... */
 }
 const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
-const [selectedMatch, setSelectedMatch] = useState<any>(null);
+  const [selectedMatch, setSelectedMatch] = useState<any>(null);
   const [isModalOpen, setModalOpen] = useState(false);
 
   // Función inteligente para buscar el partido en la etapa correcta
@@ -205,30 +212,44 @@ const [selectedMatch, setSelectedMatch] = useState<any>(null);
     }
   };
 
+
   return (
     <div className="bg-red-900 flex flex-col items-center justify-center p-10 text-white">
       <div className="flex flex-row items-center justify-center gap-6">
-        
         {/* LADO IZQUIERDO */}
         <div className="flex flex-row items-center gap-4">
           <div className="flex flex-col gap-12">
             {Array.from({ length: 4 }).map((_, i) => (
-              <MatchSlot key={`oct-izq-${i}`} match={getMatch("Octavos", i)} onClick={() => handleOpen(getMatch("Octavos", i))} />
+              <MatchSlot
+                key={`oct-izq-${i}`}
+                match={getMatch("Octavos", i)}
+                onClick={() => handleOpen(getMatch("Octavos", i))}
+              />
             ))}
           </div>
           <div className="flex flex-col justify-around h-full py-20 gap-24">
             {Array.from({ length: 2 }).map((_, i) => (
-              <MatchSlot key={`cua-izq-${i}`} match={getMatch("Cuartos", i)} onClick={() => handleOpen(getMatch("Cuartos", i))} />
+              <MatchSlot
+                key={`cua-izq-${i}`}
+                match={getMatch("Cuartos", i)}
+                onClick={() => handleOpen(getMatch("Cuartos", i))}
+              />
             ))}
           </div>
           <div className="flex flex-col justify-center h-full gap-4">
-            <MatchSlot match={getMatch("Semifinal", 0)} onClick={() => handleOpen(getMatch("Semifinal", 0))} />
+            <MatchSlot
+              match={getMatch("Semifinal", 0)}
+              onClick={() => handleOpen(getMatch("Semifinal", 0))}
+            />
           </div>
         </div>
 
         {/* CENTRO (FINAL) */}
         <div className="flex flex-col items-center justify-center">
-          <MatchSlot match={getMatch("Final", 0)} onClick={() => handleOpen(getMatch("Final", 0))} />
+          <MatchSlot
+            match={getMatch("Final", 0)}
+            onClick={() => handleOpen(getMatch("Final", 0))}
+          />
           <div className="text-sm font-bold mt-4">Final</div>
         </div>
 
@@ -236,45 +257,57 @@ const [selectedMatch, setSelectedMatch] = useState<any>(null);
         <div className="flex flex-row-reverse items-center gap-4">
           <div className="flex flex-col gap-12">
             {Array.from({ length: 4 }).map((_, i) => (
-              <MatchSlot key={`oct-der-${i}`} match={getMatch("Octavos de Final", i + 4)} onClick={() => handleOpen(getMatch("Octavos de Final", i + 4))} />
+              <MatchSlot
+                key={`oct-der-${i}`}
+                match={getMatch("Octavos de Final", i + 4)}
+                onClick={() => handleOpen(getMatch("Octavos de Final", i + 4))}
+              />
             ))}
           </div>
           <div className="flex flex-col justify-around h-full py-20 gap-24">
             {Array.from({ length: 2 }).map((_, i) => (
-              <MatchSlot key={`cua-der-${i}`} match={getMatch("Cuartos de Final", i + 2)} onClick={() => handleOpen(getMatch("Cuartos de Final", i + 2))} />
+              <MatchSlot
+                key={`cua-der-${i}`}
+                match={getMatch("Cuartos de Final", i + 2)}
+                onClick={() => handleOpen(getMatch("Cuartos de Final", i + 2))}
+              />
             ))}
           </div>
           <div className="flex flex-col justify-center h-full gap-4">
-            <MatchSlot match={getMatch("Semifinal", 1)} onClick={() => handleOpen(getMatch("Semifinal", 1))} />
+            <MatchSlot
+              match={getMatch("Semifinal", 1)}
+              onClick={() => handleOpen(getMatch("Semifinal", 1))}
+            />
           </div>
         </div>
-
       </div>
 
       <Dialog open={isModalOpen} onOpenChange={setModalOpen}>
-      <DialogContent className="bg-white">
-        <DialogHeader>
-          <DialogTitle>Detalles del Encuentro</DialogTitle>
-        </DialogHeader>
-        
-        {selectedMatch && (
-           <div className="space-y-4">
-             <div className="text-xl font-bold">
-               TEAM: {selectedMatch.team_a} vs TEAM : {selectedMatch.team_b}
-             </div>
-             {/* Aquí pones el contenido específico */}
-             <div className="text-sm text-gray-600">
-              <p>Fase: {selectedMatch.stage}</p>
-              <p>Estado: {selectedMatch.status}</p>
-              <p>Song: {selectedMatch.song}</p>
-              <p>Target stream: {selectedMatch.target_streams}</p>
-             </div>
-           </div>
-        )}
-      </DialogContent>
-    </Dialog>
-    </div>
+        <DialogContent className="bg-white">
+          <DialogHeader>
+            <DialogTitle>Detalles del Encuentro</DialogTitle>
+          </DialogHeader>
 
+          {selectedMatch && (
+            <div className="space-y-4">
+              <div className="text-xl font-bold">
+                TEAM: {selectedMatch.team_a} vs TEAM : {selectedMatch.team_b}
+              </div>
+              {/* Aquí pones el contenido específico */}
+              <div className="text-sm text-gray-600">
+                <p>Fase: {selectedMatch.stage}</p>
+                <p>Estado: {selectedMatch.status}</p>
+                <pre>
+                  DEBUG: {JSON.stringify(selectedMatch.target_songs, null, 2)}
+                </pre>
+
+                <p>Target stream: {selectedMatch.target_streams}</p>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 };
 
