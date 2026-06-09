@@ -146,19 +146,29 @@ const AdminDashboard = () => {
 
   // funcion para agregar cancon y streams
   const handleAddToList = () => {
-    if (songInput.trim() !== "") {
-      setTargetSongs((prev) => [...prev, songInput]);
+    // 1. PRIMERO: Validamos que no esté vacío
+    if (songInput.trim() === "") {
+      setMessage({
+        text: "Debe escribir el nombre de una canción.",
+        type: "error",
+      });
+      return;
+    }
 
+    // 2. NUEVO: Validamos duplicados
+    if (targetSongs.includes(songInput.trim())) {
+      setMessage({
+        text: "Esta canción ya fue agregada a la lista.",
+        type: "error",
+      });
+      return; // Aquí nos detenemos si está duplicada
+    }
+      setTargetSongs((prev) => [...prev, songInput]);
       setTargetStreams((prev) => [...prev, currentStreamTarget || 10000]);
 
       setSongInput("");
-      setCurrentStreamTarget(0);
-    } else {
-      setMessage({
-        text: "Debe agregar al menos una cancion meta.",
-        type: "error",
-      });
-    }
+      setCurrentStreamTarget(10000);
+      setMessage({ text: "", type: ""});
   };
 
   const handleCreateMatch = async (e: React.FormEvent) => {
@@ -393,6 +403,7 @@ const AdminDashboard = () => {
                 </label>
                 <div className="relative">
                   <Music className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500" />
+
                   <input
                     type="text"
                     name="target_song"
