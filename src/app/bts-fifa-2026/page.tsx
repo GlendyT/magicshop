@@ -219,38 +219,23 @@ const MatchSlot = ({
     );
   }
 
-  // 1. Obtenemos los arrays directamente (sin parseSongs
-  const targets = match.target_streams_v2 || [];
+  const totalMeta =
+    (match.target_streams || []).reduce(
+      (sum: number, val: number) => sum + (Number(val) || 0),
+      0,
+    ) || 1; // El || 1 evita la división por cero si la meta es 0 o está vacía
 
-  // 2. Calculamos el total de metas y el total de streams alcanzados
-  const totalTarget =
-    targets.reduce((sum: number, val: number) => sum + (Number(val) || 0), 0) ||
-    1;
+  const percentA =
+    match.status === "completed" && match.winner === match.team_a
+      ? 100
+      : Math.min((Number(match.team_a_streams || 0) / totalMeta) * 100, 100) ||
+        0;
 
-  // Asumiendo que ahora recibes los streams totales de cada equipo
-  const streamsA = Number(match.team_a_streams || 0);
-  const streamsB = Number(match.team_b_streams || 0);
-
-  // 3. Calculamos porcentajes
-  const percentA = Math.min((streamsA / totalTarget) * 100, 100);
-  const percentB = Math.min((streamsB / totalTarget) * 100, 100);
-
-  /*
-  // 2. Buscamos el target específico de cada equipo
-  const songA = songs.find(s => s.name === match.team_a) || { target: match.target_streams || 1 };
-  const songB = songs.find(s => s.name === match.team_b) || { target: match.target_streams || 1 };
-
-  // 3. Calculamos porcentajes usando los targets individuales
-  const percentA = match.status === "completed" && match.winner === match.team_a 
-    ? 100 
-    : Math.min((match.team_a_streams / targetToUse) * 100, 100) || 0;
-
-  const percentB = match.status === "completed" && match.winner === match.team_b 
-    ? 100 
-    : Math.min((match.team_b_streams / targetToUse) * 100, 100) || 0;
-
-      console.log("Team A Streams:", match.team_a_streams, "Target:", songA.target);
-console.log("Calculo resultante:", (match.team_a_streams / songA.target) * 100);*/
+  const percentB =
+    match.status === "completed" && match.winner === match.team_b
+      ? 100
+      : Math.min((Number(match.team_b_streams || 0) / totalMeta) * 100, 100) ||
+        0;
 
   return (
     <div
@@ -263,9 +248,8 @@ console.log("Calculo resultante:", (match.team_a_streams / songA.target) * 100);
           <span className="whitespace-nowrap">{Math.round(percentA)}%</span>
           <button
             onClick={onClick}
-            className="hover:opacity-60 transition-opacity"
+            className=""
           >
-            👁️
           </button>
         </div>
         <div className="w-full bg-black/20 h-1.5 rounded-full">
@@ -451,21 +435,14 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
                 <div className="space-x-0.5 gap-1 flex flex-row text-[9px]">
                   {selectedMatch?.song?.map(
                     (songName: string, index: number) => (
-                      <div
-                        key={index}
-                        className=""
-                      >
+                      <div key={index} className="">
                         <span className="">
-                          <span className="">
-                            Target:
-                          </span>
+                          <span className="">Target:</span>
                           {songName}
                         </span>
 
                         <span className="">
-                          <span className="">
-                            Goal:
-                          </span>
+                          <span className="">Goal:</span>
                           {selectedMatch.target_streams?.[
                             index
                           ]?.toLocaleString() || 0}

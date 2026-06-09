@@ -99,6 +99,12 @@ const AdminDashboard = () => {
   const [targetStreams, setTargetStreams] = useState<number[]>([]);
   const [currentStreamTarget, setCurrentStreamTarget] = useState(0);
 
+  const totalAlbumesSelected = matches.length * 2;
+  const isBracketFull = totalAlbumesSelected >= 16;
+
+
+
+
   const fetchMatches = async () => {
     setIsLoadingMatches(true);
     try {
@@ -163,25 +169,43 @@ const AdminDashboard = () => {
       });
       return; // Aquí nos detenemos si está duplicada
     }
-      setTargetSongs((prev) => [...prev, songInput]);
-      setTargetStreams((prev) => [...prev, currentStreamTarget || 10000]);
+    setTargetSongs((prev) => [...prev, songInput]);
+    setTargetStreams((prev) => [...prev, currentStreamTarget || 10000]);
 
-      setSongInput("");
-      setCurrentStreamTarget(10000);
-      setMessage({ text: "", type: ""});
+    setSongInput("");
+    setCurrentStreamTarget(10000);
+    setMessage({ text: "", type: "" });
   };
 
   const handleCreateMatch = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log("el formuario ha sido enviado ")
+    console.log("el formuario ha sido enviado ");
     // Verificamos si hay algo en el input para "capturarlo"
     //const songToUse = [...targetSongs]; // Usamos el estado de canciones en lugar del formData
-///s
+
     // Validar los equipos
     if (formData.team_a === formData.team_b) {
       setMessage({
         text: "No puedes enfrentar a un equipo contra sí mismo.",
+        type: "error",
+      });
+      return;
+    }
+
+
+    // 2. NUEVO: Validar que los equipos no estén ya en otro partido
+    const isOccupied = matches.some(
+      (match: any) =>
+        match.team_a === formData.team_a ||
+        match.team_b === formData.team_a ||
+        match.team_a === formData.team_b ||
+        match.team_b === formData.team_b,
+    );
+
+    if (isOccupied) {
+      setMessage({
+        text: "Uno de los equipos ya está participando en otro partido.",
         type: "error",
       });
       return;
@@ -200,8 +224,12 @@ const AdminDashboard = () => {
     setMessage({ text: "", type: "" });
 
     try {
-
-      console.log("Datos a enviar a Appwrite:", { team_a: formData.team_a, team_b: formData.team_b, target_songs: targetSongs,  target_streams_v2: targetStreams,});
+      console.log("Datos a enviar a Appwrite:", {
+        team_a: formData.team_a,
+        team_b: formData.team_b,
+        target_songs: targetSongs,
+        target_streams_v2: targetStreams,
+      });
 
       await createBTSMatch({
         team_a: formData.team_a,
@@ -212,7 +240,6 @@ const AdminDashboard = () => {
         stage: formData.stage,
         status: formData.status,
         winner: "",
-      
       });
       setMessage({
         text: "Partido creado exitosamente en la base de datos.",
@@ -401,34 +428,36 @@ const AdminDashboard = () => {
                 <label className="text-xs text-neutral-400 font-semibold uppercase tracking-wider">
                   Canción Meta (Target Song)
                 </label>
+
                 <div className="relative">
-                  <Music className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500" />
+                  <div className="flex gap-2 items-center w-full relative">
+                    <Music className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500" />
+                    <input
+                      type="text"
+                      name="target_song"
+                      value={songInput}
+                      onChange={(e) => {
+                        setSongInput(e.target.value);
 
-                  <input
-                    type="text"
-                    name="target_song"
-                    value={songInput}
-                    onChange={(e) => {
-                      setSongInput(e.target.value);
+                        if (message.text !== "") {
+                          setMessage({ text: "", type: "" });
+                        }
+                      }}
+                      list="bts-songs"
+                      placeholder="Escribe o selecciona de la lista (Escritura exacta de Last.fm)"
+                      className="w-full bg-black/50 border border-white/10 rounded-lg p-3 pl-10 text-white focus:ring-2 focus:ring-blue-500"
+                    />
 
-                      if (message.text !== "") {
-                        setMessage({ text: "", type: "" });
-                      }
-                    }}
-                    list="bts-songs"
-                    placeholder="Escribe o selecciona de la lista (Escritura exacta de Last.fm)"
-                    className="w-full bg-black/50 border border-white/10 rounded-lg p-3 pl-10 text-white focus:ring-2 focus:ring-blue-500"
-                  />
-
-                  {/** BOTON PARA ANADIR MAS CANCIONES */}
-                  <button
-                    type="button"
-                    className="bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-lg"
-                    onClick={handleAddToList} // ¡Aquí ya llamas a la función que definiste!
-                  >
-                    +
-                  </button>
-                  {/**boton para anadir mas canciones */}
+                    {/** BOTON PARA ANADIR MAS CANCIONES */}
+                    <button
+                      type="button"
+                      className="bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-lg w-14 p-3 cursor-pointer"
+                      onClick={handleAddToList} // ¡Aquí ya llamas a la función que definiste!
+                    >
+                      +
+                    </button>
+                    {/**boton para anadir mas canciones */}
+                  </div>
 
                   {/** LISTA VISUAL DE CNCIONES ANADIADAS */}
                   <div className="flex flex-col gap-2 mt-2">
@@ -466,7 +495,7 @@ const AdminDashboard = () => {
                               targetStreams.filter((_, i) => i !== index),
                             );
                           }}
-                          className="text-red-400 hover:text-red-200 font-bold px-2"
+                          className="text-red-400 hover:text-red-200 font-bold px-2 cursor-pointer"
                         >
                           x
                         </button>
@@ -481,6 +510,7 @@ const AdminDashboard = () => {
                     ))}
                   </datalist>
                 </div>
+
                 <p className="text-[10px] text-blue-400/70 ml-1">
                   Debe coincidir exactamente con el título oficial en Last.fm
                   para que los streams cuenten.
@@ -520,11 +550,17 @@ const AdminDashboard = () => {
 
               <button
                 type="submit"
-                disabled={isSubmitting}
-                className="w-full mt-4 bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 px-4 rounded-xl transition-all flex items-center justify-center gap-2"
+                disabled={isSubmitting || isBracketFull}
+                className={`w-full mt-4 font-bold py-3 px-4 rounded-xl transition-all flex items-center justify-center gap-2 
+                  ${isBracketFull
+                    ? "bg-gray-600 cursor-not-allowed opacity-80"
+                    : " bg-purple-600 hover:bg-purple-500 text-white"
+                }`}
               >
                 {isSubmitting ? (
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : isBracketFull ? (
+                  "Limite alcanzado (16/16)"
                 ) : (
                   "Crear Partido e Iniciar"
                 )}
@@ -679,25 +715,29 @@ const AdminDashboard = () => {
                     <p className="text-xs text-neutral-400 mt-1 flex items-center gap-1">
                       <Music className="w-3 h-3 text-pink-400 " />
                       <span className="truncate">
-                        {m.target_songs.map((songName : string, index : number) => (
-                          <span
-                            key={index}
-                            className="text-white-700 font-medium"
-                          >
-                            {songName}
-                            <span className="text-neutral-400 font-normal mx-1">
-                              {/* Accedemos al número usando el mismo índice */}
-                              (
-                              {(
-                                m.target_streams_v2[index] || 0
-                              ).toLocaleString()}
-                              )
+                        {m.target_songs.map(
+                          (songName: string, index: number) => (
+                            <span
+                              key={index}
+                              className="text-white-700 font-medium"
+                            >
+                              {songName}
+                              <span className="text-neutral-400 font-normal mx-1">
+                                {/* Accedemos al número usando el mismo índice */}
+                                (
+                                {(
+                                  m.target_streams_v2[index] || 0
+                                ).toLocaleString()}
+                                )
+                              </span>
+                              {index < m.target_songs.length - 1 && (
+                                <span className="text-neutral-300 ml-2">
+                                  |{" "}
+                                </span>
+                              )}
                             </span>
-                            {index < m.target_songs.length - 1 && (
-                              <span className="text-neutral-300 ml-2">| </span>
-                            )}
-                          </span>
-                        ))}
+                          ),
+                        )}
                       </span>
                       <span className="text-neutral-600">|</span>
                       Meta:
