@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"; // importamos useCallback para el team stats
 import {
   Music,
   ArrowRight,
@@ -310,8 +310,6 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
     }
   };
 
-  console.log("Que tiene selectedMatch:", selectedMatch);
-
   return (
     <div className="bg-red-900 flex flex-col items-center justify-center p-10 text-white">
       <div className="flex flex-row items-center justify-center gap-6">
@@ -422,9 +420,9 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
                 {/* TÍTULO CON EL VS */}
                 <div className="text-center">
                   <h2 className="text-sm font-black text-gray-900 tracking-tight">
-                    {selectedMatch?.team_a || "Equipo A"}
+                   <span className="text-purple-800">TEAM A: </span>{selectedMatch?.team_a}
                     <span className="text-purple-500 mx-2">VS</span>
-                    {selectedMatch?.team_b || "Equipo B"}
+                    <span className="text-purple-800">TEAM B: </span>{selectedMatch?.team_b}
                   </h2>
                   <p className="text-sm text-gray-500 mt-1 uppercase tracking-widest font-semibold">
                     {selectedMatch?.stage || "Etapa en curso"}
@@ -482,6 +480,14 @@ const BTSFifa2026 = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+
+      // Para actualizar las vistas, si no estamos en la vista correct 
+      // No hacemos nada y salimos
+      if (view !== 'stats' && view !== 'bracket') return;
+
+      setIsLoadingMatches(true);
+      setIsLoadingStats(true);
+
       try {
         const [matchesData, statsData] = await Promise.all([
           getBTSMatches(),
@@ -520,8 +526,60 @@ const BTSFifa2026 = () => {
         setIsLoadingStats(false);
       }
     };
+
+    fetchData()
+  }, [view]); // React "vigila" este estado
+
+/*
+ const fetchData = useCallback(async () => {
+        setIsLoadingMatches(true);
+        setIsLoadingStats(true);
+        try {
+          const [matchesData, statsData] = await Promise.all([
+          getBTSMatches(),
+          getBTSStats(),
+        ]);
+
+        
+        if (matchesData && matchesData.length > 0) {
+          const mappedMatches = matchesData.map((doc) => ({
+            id: doc.$id,
+            team_a: doc.team_a,
+            team_b: doc.team_b,
+            song: doc.target_songs || doc.song || [],
+            target_streams: doc.target_streams_v2 || doc.target_streams || [],
+            team_a_streams:
+              doc.team_a_current_streams ?? (doc.team_a_start_streams || 0),
+            team_b_streams:
+              doc.team_b_current_streams ?? (doc.team_b_start_streams || 0),
+            stage: doc.stage,
+            status: doc.status,
+            winner: doc.winner,
+          }));
+          setMatches(mappedMatches);
+        }
+
+        if (statsData) {
+          // Sort by total_members descending
+          const sortedStats = statsData.sort(
+            (a, b) => (b.total_members || 0) - (a.total_members || 0),
+          );
+          setStats(sortedStats);
+        }
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      } finally {
+        setIsLoadingMatches(false);
+        setIsLoadingStats(false);
+      }
+    }, []);
+
+    useEffect(() => {
+  if (view === 'stats' || view === 'bracket') {
     fetchData();
-  }, []);
+  }
+}, [view, fetchData]); // Ahora fetchData es una depend*/
+
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
