@@ -90,16 +90,16 @@ const FormmularioIntoTheSun = ({ onRestart }: { onRestart?: () => void }) => {
   return (
     <div
       id="final-content"
-      className="fixed top-0 left-0 w-full h-full flex flex-col items-center justify-center z-[60] px-10 "
+      className="fixed top-0 left-0 w-full h-full flex flex-col items-center justify-center z-[60] px-20 "
       style={{ opacity: 0, pointerEvents: "none" }}
     >
       {/* Aquí puedes diseñar tu texto o formulario usando Tailwind */}
-      <h1 className="text-white text-4xl md:text-6xl font-bold mb-6 font-montserrat tracking-widest drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] flex flex-col items-center justify-center">
-        INTO THE SUN
+      <h1 className="text-white text-4xl max-sm:text-xl font-bold mb-6 font-montserrat tracking-widest drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] flex flex-col items-center justify-center">
+        INTO THE <span>SUN</span>
         <span>with BTS</span>
       </h1>
 
-      <div className=" backdrop-blur-md border border-white/20  rounded-2xl shadow-[0_0_30px_rgba(138,43,226,0.3)] justify-items-center ">
+      <div className=" backdrop-blur-md border border-white/20 rounded-2xl shadow-[0_0_30px_rgba(138,43,226,0.3)] justify-items-center ">
         {/* Contenedor principal de la imagen para descargar */}
         <div id="print" className="relative rounded-xl overflow-hidden">
           <label
