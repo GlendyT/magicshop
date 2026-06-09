@@ -196,24 +196,32 @@ const MatchSlot = ({
 };
 */
 
+const Connector = ({ direction = "right" }) => (
+  <div className={`hidden md:block w-8 h-px border-t-2 border-white/20 ${direction === "right" ? "border-r-2 rounded-tr-lg" : "border-l-2 rounded-tl-lg"}`}>
+    {/* Esta pequeña línea dibuja el brazo del bracket */}
+  </div>
+);
+
 const MatchSlot = ({
   match,
   onClick,
+  connector,
 }: {
   match?: any;
   onClick: () => void;
+  connector?: "left" | "right" | null;
 }) => {
   if (!match) {
     return (
       <div
         onClick={onClick}
-        className="match flex flex-col gap-1.5 w-36 md:w-40"
+        className="match flex flex-col gap-1 md:w-[140px] text-[8px] md:text-[10px]"
       >
-        <div className="team bg-gray-100 border border-dashed border-gray-300 p-2 rounded-lg text-black">
-          ?
+        <div className="flex justify-center items-center team bg-gray-100 border border-dashed border-gray-300 px-2 py-1.5 rounded-lg text-black">
+          Pending... 0%
         </div>
-        <div className="team bg-gray-100 border border-dashed border-gray-300 p-2 rounded-lg text-gray-400">
-          ?
+        <div className="flex justify-center items-center team bg-gray-100 border border-dashed border-gray-300 p-2 rounded-lg text-gray-400">
+          Pending... 0%
         </div>
       </div>
     );
@@ -237,20 +245,18 @@ const MatchSlot = ({
       : Math.min((Number(match.team_b_streams || 0) / totalMeta) * 100, 100) ||
         0;
 
+  const connectorOffset = "-16px";
+  const connectorHeight = "38px";
+
   return (
     <div
       onClick={onClick}
-      className="match flex flex-col gap-1.5 w-36 text-xs md:w-40"
+      className="relative match flex flex-col gap-1.5 w-36 text-xs md:w-40"
     >
       <div>
-        <div className="flex justify-between team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">
+        <div className="flex justify-between team bg-bracket border border-bracket-border px-2 py-1 rounded-md font-bold">
           {match.team_a}{" "}
           <span className="whitespace-nowrap">{Math.round(percentA)}%</span>
-          <button
-            onClick={onClick}
-            className=""
-          >
-          </button>
         </div>
         <div className="w-full bg-black/20 h-1.5 rounded-full">
           <div
@@ -261,7 +267,7 @@ const MatchSlot = ({
       </div>
 
       <div>
-        <div className="flex justify-between team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">
+        <div className="flex justify-between team bg-bracket border border-bracket-border px-2 py-1 rounded-md opacity-70">
           <span className="truncate mr-2">{match.team_b}</span>
           <span className="whitespace-nowrap">{Math.round(percentB)}%</span>
         </div>
@@ -272,6 +278,36 @@ const MatchSlot = ({
           />
         </div>
       </div>
+
+      {connector === "right" && (
+        <>
+         <div className="absolute top-4 w-4 border-t border-white" 
+           style={{ right: connectorOffset}}
+         />
+         <div className="absolute bottom-4 w-4 border-t border-white"
+         style={{ right: connectorOffset}} />
+         <div className="absolute top-4 border-r border-white" 
+          style={{
+            right: connectorOffset,
+            height: connectorHeight,
+          }}/>
+
+          <div className="absolute top-1/2 -translate-y-1/2 right-[-32px] w-4 border-t border-white" />
+
+        </>
+      )}
+
+      {connector === "left" && (
+      <>
+        <div className="absolute top-4 left-[-24px] w-2 border-t border-white" />
+
+        <div className="absolute bottom-4 left-[-24px] w-2 border-t border-white" />
+
+        <div className="absolute left-[-24px] top-4 h-[44px] border-l border-white" />
+
+        <div className="absolute top-1/2 -translate-y-1/2 right-[-32px] w-4 border-t border-white" />
+      </>
+    )}
     </div>
   );
 };
@@ -311,21 +347,24 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
   };
 
   return (
-    <div className="bg-red-900 flex flex-col items-center justify-center p-10 text-white">
-      <div className="flex flex-row items-center justify-center gap-6">
-        <div className="flex flex-row items-center gap-4">
+   <div className="overflow-x-auto">
+    <div className="w-fit mx-auto flex flex-row items-center px-6 py-8 text-white bg-white/10 backdrop-blur-md rounded-2xl gap-6">
+
+        <div className="flex flex-row items-center gap-10">
+
           {/* Octavos Izquierda */}
-          <div className="flex flex-col gap-12">
+          <div className="flex flex-col gap-5">
             {Array.from({ length: 4 }).map((_, i) => (
               <MatchSlot
                 key={`izq-${i}`}
                 match={allMatches[i] || null}
                 onClick={() => allMatches[i] && handleOpen(allMatches[i])}
+                connector="right"
               />
             ))}
           </div>
           {/* Cuartos Izquierda */}
-          <div className="flex flex-col justify-around h-full py-20 gap-24">
+          <div className="flex flex-col justify-around gap-6 mt-16">
             {/* Siempre renderizamos el slot. Si el match es null, MatchSlot pintará el "?" automáticamente */}
             <MatchSlot
               match={getWinnerOfMatch(allMatches[0], allMatches[1])}
@@ -339,7 +378,7 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
           </div>
 
           {/**SEMIFINAL */}
-          <div className="flex flex-col justify-center h-full gap-4">
+          <div className="flex flex-col justify-center mt-14">
             <MatchSlot
               match={getWinnerOfMatch(
                 getWinnerOfMatch(allMatches[0], allMatches[1]), // Ganador del Cuarto 1
@@ -351,10 +390,11 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
         </div>
 
         {/* CENTRO (FINAL) */}
-        <div className="flex flex-col items-center justify-center mb-40">
+        <div className="flex flex-col items-center justify-center">
           <MatchSlot
             match={getWinnerOfMatch(
               // Semifinal Izquierda (la que construimos antes)
+              
               getWinnerOfMatch(
                 getWinnerOfMatch(allMatches[0], allMatches[1]),
                 getWinnerOfMatch(allMatches[2], allMatches[3]),
@@ -371,9 +411,9 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
         </div>
 
         {/* LADO DERECHO */}
-        <div className="flex flex-row-reverse items-center gap-4">
+        <div className="flex flex-row-reverse items-center gap-5">
           {/* Octavos Derecha */}
-          <div className="flex flex-col gap-12">
+          <div className="flex flex-col gap-8 p-2">
             {Array.from({ length: 4 }).map((_, i) => (
               <MatchSlot
                 key={`der-${i}`}
@@ -385,7 +425,7 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
             ))}
           </div>
           {/* Cuartos Derecha */}
-          <div className="flex flex-col justify-around h-full py-20 gap-24">
+          <div className="flex flex-col justify-around mt-16 gap-6">
             <MatchSlot
               match={getWinnerOfMatch(allMatches[4], allMatches[5])}
               onClick={() => {}}
@@ -399,7 +439,7 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
           </div>
 
           {/**SEMIFINAL */}
-          <div className="flex flex-col justify-center h-full gap-4">
+          <div className="flex flex-col justify-center h-full mt-14">
             <MatchSlot
               match={getWinnerOfMatch(
                 getWinnerOfMatch(allMatches[4], allMatches[5]), // Ganador del Cuarto 3
@@ -419,7 +459,7 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
               <div className="space-y-2">
                 {/* TÍTULO CON EL VS */}
                 <div className="text-center">
-                  <h2 className="text-sm font-black text-gray-900 tracking-tight">
+                  <h2 className="text-lg font-black text-gray-900 tracking-tight">
                    <span className="text-purple-800">TEAM A: </span>{selectedMatch?.team_a}
                     <span className="text-purple-500 mx-2">VS</span>
                     <span className="text-purple-800">TEAM B: </span>{selectedMatch?.team_b}
@@ -430,17 +470,17 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
                 </div>
 
                 {/* LISTA DE CANCIONES Y STREAMS */}
-                <div className="space-x-0.5 gap-1 flex flex-row text-[9px]">
+                <div className="space-x-0.5 gap-1 flex flex-col text-[9px]">
                   {selectedMatch?.song?.map(
                     (songName: string, index: number) => (
                       <div key={index} className="">
-                        <span className="">
-                          <span className="">Target:</span>
-                          {songName}
+                        <span className="gap-0.5">
+                          <span className="text-purple-500 font-medium">Target song: </span>
+                          {songName} {" "}
                         </span>
 
                         <span className="">
-                          <span className="">Goal:</span>
+                          <span className="text-purple-500">Goal: </span>
                           {selectedMatch.target_streams?.[
                             index
                           ]?.toLocaleString() || 0}
@@ -514,7 +554,11 @@ const BTSFifa2026 = () => {
 
         if (statsData) {
           // Sort by total_members descending
-          const sortedStats = statsData.sort(
+
+          // Filtramos los albumes existenes 16 y no 18
+          const filteredStats = statsData.filter(item => albums.includes(item.album_name))
+
+          const sortedStats = filteredStats.sort(
             (a, b) => (b.total_members || 0) - (a.total_members || 0),
           );
           setStats(sortedStats);
