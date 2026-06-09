@@ -17,9 +17,8 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle
+  DialogTitle,
 } from "@/hooks/components/ui/dialog";
-
 
 const albums = [
   "2 Cool 4 Skool",
@@ -197,7 +196,6 @@ const MatchSlot = ({
 };
 */
 
-
 const MatchSlot = ({
   match,
   onClick,
@@ -207,30 +205,37 @@ const MatchSlot = ({
 }) => {
   if (!match) {
     return (
-      <div onClick={onClick} className="match flex flex-col gap-1.5 w-36 md:w-40">
-        <div className="team bg-gray-100 border border-dashed border-gray-300 p-2 rounded-lg text-black">?</div>
-        <div className="team bg-gray-100 border border-dashed border-gray-300 p-2 rounded-lg text-gray-400">?</div>
+      <div
+        onClick={onClick}
+        className="match flex flex-col gap-1.5 w-36 md:w-40"
+      >
+        <div className="team bg-gray-100 border border-dashed border-gray-300 p-2 rounded-lg text-black">
+          ?
+        </div>
+        <div className="team bg-gray-100 border border-dashed border-gray-300 p-2 rounded-lg text-gray-400">
+          ?
+        </div>
       </div>
     );
   }
 
+  // 1. Obtenemos los arrays directamente (sin parseSongs
+  const targets = match.target_streams_v2 || [];
 
-// 1. Obtenemos los arrays directamente (sin parseSongs
-const targets = match.target_streams_v2 || [];
+  // 2. Calculamos el total de metas y el total de streams alcanzados
+  const totalTarget =
+    targets.reduce((sum: number, val: number) => sum + (Number(val) || 0), 0) ||
+    1;
 
-// 2. Calculamos el total de metas y el total de streams alcanzados
-const totalTarget = targets.reduce((sum: number, val: number) => sum + (Number(val) || 0), 0) || 1;
+  // Asumiendo que ahora recibes los streams totales de cada equipo
+  const streamsA = Number(match.team_a_streams || 0);
+  const streamsB = Number(match.team_b_streams || 0);
 
-// Asumiendo que ahora recibes los streams totales de cada equipo
-const streamsA = Number(match.team_a_streams || 0);
-const streamsB = Number(match.team_b_streams || 0);
+  // 3. Calculamos porcentajes
+  const percentA = Math.min((streamsA / totalTarget) * 100, 100);
+  const percentB = Math.min((streamsB / totalTarget) * 100, 100);
 
-// 3. Calculamos porcentajes
-const percentA = Math.min((streamsA / totalTarget) * 100, 100);
-const percentB = Math.min((streamsB / totalTarget) * 100, 100);
-
-  
-/*
+  /*
   // 2. Buscamos el target específico de cada equipo
   const songA = songs.find(s => s.name === match.team_a) || { target: match.target_streams || 1 };
   const songB = songs.find(s => s.name === match.team_b) || { target: match.target_streams || 1 };
@@ -248,14 +253,26 @@ const percentB = Math.min((streamsB / totalTarget) * 100, 100);
 console.log("Calculo resultante:", (match.team_a_streams / songA.target) * 100);*/
 
   return (
-    <div onClick={onClick} className="match flex flex-col gap-1.5 w-36 text-xs md:w-40">
+    <div
+      onClick={onClick}
+      className="match flex flex-col gap-1.5 w-36 text-xs md:w-40"
+    >
       <div>
         <div className="flex justify-between team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">
-          {match.team_a} <span className="whitespace-nowrap">{Math.round(percentA)}%</span>
-          <button onClick={onClick} className="hover:opacity-60 transition-opacity">👁️</button>
+          {match.team_a}{" "}
+          <span className="whitespace-nowrap">{Math.round(percentA)}%</span>
+          <button
+            onClick={onClick}
+            className="hover:opacity-60 transition-opacity"
+          >
+            👁️
+          </button>
         </div>
         <div className="w-full bg-black/20 h-1.5 rounded-full">
-          <div className="bg-white h-full rounded-full transition-all duration-500" style={{ width: `${percentA}%` }} />
+          <div
+            className="bg-white h-full rounded-full transition-all duration-500"
+            style={{ width: `${percentA}%` }}
+          />
         </div>
       </div>
 
@@ -265,7 +282,10 @@ console.log("Calculo resultante:", (match.team_a_streams / songA.target) * 100);
           <span className="whitespace-nowrap">{Math.round(percentB)}%</span>
         </div>
         <div className="w-full bg-black/20 h-1.5 rounded-full">
-          <div className="bg-amber-500 h-full rounded-full transition-all duration-500" style={{ width: `${percentB}%` }} />
+          <div
+            className="bg-amber-500 h-full rounded-full transition-all duration-500"
+            style={{ width: `${percentB}%` }}
+          />
         </div>
       </div>
     </div>
@@ -306,9 +326,7 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
     }
   };
 
-console.log("Que tiene selectedMatch:" , selectedMatch)
-
-
+  console.log("Que tiene selectedMatch:", selectedMatch);
 
   return (
     <div className="bg-red-900 flex flex-col items-center justify-center p-10 text-white">
@@ -417,45 +435,45 @@ console.log("Que tiene selectedMatch:" , selectedMatch)
             <DialogTitle></DialogTitle>
             <DialogDescription asChild>
               <div className="space-y-2">
-                {selectedMatch ? (
-                  <>
-                    <p>
-                      <strong>Equipo A:</strong> {selectedMatch.team_a}
-                    </p>
-                    <p>
-                      <strong>Equipo B:</strong> {selectedMatch.team_b}
-                    </p>
-                    <p>
-                      <strong>Fase:</strong> {selectedMatch.stage}
-                    </p>
+                {/* TÍTULO CON EL VS */}
+                <div className="text-center">
+                  <h2 className="text-sm font-black text-gray-900 tracking-tight">
+                    {selectedMatch?.team_a || "Equipo A"}
+                    <span className="text-purple-500 mx-2">VS</span>
+                    {selectedMatch?.team_b || "Equipo B"}
+                  </h2>
+                  <p className="text-sm text-gray-500 mt-1 uppercase tracking-widest font-semibold">
+                    {selectedMatch?.stage || "Etapa en curso"}
+                  </p>
+                </div>
 
-                    {/* Aquí es donde mostraremos las canciones después */}
-                    <div className="mt-4">
-                      <strong>Canciones:</strong>
-                      {/* Por ahora solo un placeholder para que no rompa */}
-                      {/* Usamos selectedMatch y encadenamiento opcional (?.) */}
-                      <div className="space-y-2 mt-2">
-    {/* Usamos ?. tanto en selectedMatch como en target_songs */}
-    {selectedMatch.target_songs > 0 ? (
-      selectedMatch.target_songs.map((songName: string, index: number) => (
-        <div 
-          key={index} 
-          className="flex justify-between items-center bg-gray-100 p-2 rounded-lg"
-        >
-          <span>{songName}</span>
-        </div>
-      ))
-    ) : (
-      <p className="text-gray-500 text-sm">
-        {selectedMatch ? "No hay canciones registradas." : "Cargando datos..."}
-      </p>
-    )}
-  </div>
-                    </div>
-                  </>
-                ) : (
-                  <p>Selecciona un encuentro para ver los detalles.</p>
-                )}
+                {/* LISTA DE CANCIONES Y STREAMS */}
+                <div className="space-x-0.5 gap-1 flex flex-row text-[9px]">
+                  {selectedMatch?.song?.map(
+                    (songName: string, index: number) => (
+                      <div
+                        key={index}
+                        className=""
+                      >
+                        <span className="">
+                          <span className="">
+                            Target:
+                          </span>
+                          {songName}
+                        </span>
+
+                        <span className="">
+                          <span className="">
+                            Goal:
+                          </span>
+                          {selectedMatch.target_streams?.[
+                            index
+                          ]?.toLocaleString() || 0}
+                        </span>
+                      </div>
+                    ),
+                  )}
+                </div>
               </div>
             </DialogDescription>
           </DialogHeader>
@@ -468,7 +486,6 @@ console.log("Que tiene selectedMatch:" , selectedMatch)
 {
   /**NEW COMPONENT IN PROGRESS.... */
 }
-
 
 const BTSFifa2026 = () => {
   const [formData, setFormData] = useState({

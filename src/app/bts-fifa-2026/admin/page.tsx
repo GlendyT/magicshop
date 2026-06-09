@@ -167,7 +167,7 @@ const AdminDashboard = () => {
     console.log("el formuario ha sido enviado ")
     // Verificamos si hay algo en el input para "capturarlo"
     //const songToUse = [...targetSongs]; // Usamos el estado de canciones en lugar del formData
-
+///s
     // Validar los equipos
     if (formData.team_a === formData.team_b) {
       setMessage({
