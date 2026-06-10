@@ -196,15 +196,26 @@ const MatchSlot = ({
 };
 */
 
-const MatchSlot = ({ match, onClick }: { match?: any; onClick: () => void; }) => {
+const MatchSlot = ({
+  match,
+  onClick,
+}: {
+  match?: any;
+  onClick: () => void;
+}) => {
   // Estilo compartido para que todo sea consistente
-  const baseClasses = "relative p-2 rounded-lg border border-white/5 bg-white/5 overflow-hidden flex justify-between items-center z-10 text-sm";
-  const emptyClasses = "p-2 rounded-lg border border-white/5 bg-white/5 text-white/20 flex justify-center items-center text-xs";
+  const baseClasses =
+    "relative p-1.5 sm:p-2 rounded-lg border border-white/5 bg-white/5 overflow-hidden flex justify-between items-center z-10 text-[11px] sm:text-sm w-24 sm:w-28 md:w-32 lg:w-36 xl:w-40";
+  const emptyClasses =
+    "p-1.5 sm:p-2 rounded-lg border border-white/5 bg-white/5 text-white/20 flex justify-center items-center text-[10px] sm:text-xs w-24 sm:w-28 md:w-32 lg:w-36 xl:w-40";
 
   // RETORNO 1: Si no hay match (Pendiente)
   if (!match) {
     return (
-      <div onClick={onClick} className="match flex flex-col gap-1.5 w-36 md:w-40 cursor-pointer">
+      <div
+        onClick={onClick}
+        className="match flex flex-col gap-1.5 cursor-pointer shrink-0"
+      >
         <div className={emptyClasses}>Pending...</div>
         <div className={emptyClasses}>Pending...</div>
       </div>
@@ -212,32 +223,54 @@ const MatchSlot = ({ match, onClick }: { match?: any; onClick: () => void; }) =>
   }
 
   // Lógica de cálculo (solo se ejecuta si hay match)
-  const totalMeta = (match.target_streams || []).reduce((sum: number, val: number) => sum + (Number(val) || 0), 0) || 1;
-  const getPercent = (streams: any, team: string) => 
-    (match.status === "completed" && match.winner === team) ? 100 : Math.min((Number(streams || 0) / totalMeta) * 100, 100) || 0;
+  const totalMeta =
+    (match.target_streams || []).reduce(
+      (sum: number, val: number) => sum + (Number(val) || 0),
+      0,
+    ) || 1;
+  const getPercent = (streams: any, team: string) =>
+    match.status === "completed" && match.winner === team
+      ? 100
+      : Math.min((Number(streams || 0) / totalMeta) * 100, 100) || 0;
 
   const percentA = getPercent(match.team_a_streams, match.team_a);
   const percentB = getPercent(match.team_b_streams, match.team_b);
 
   // RETORNO 2: Si hay match (Activo)
   return (
-    <div onClick={onClick} className="match flex flex-col gap-1.5 w-36 md:w-40 cursor-pointer">
+    <div
+      onClick={onClick}
+      className="match flex flex-col gap-1.5 cursor-pointer shrink-0 "
+    >
       {/* Team A */}
-      <div className={`${baseClasses} ${match.winner === match.team_a ? "bg-emerald-500/20 border-emerald-500/50" : ""}`}>
-        <div className="absolute top-0 left-0 h-full bg-gradient-to-r from-purple-600/40 to-blue-500/40 -z-10" style={{ width: `${percentA}%` }} />
-        <span className="font-semibold text-white truncate max-w-[100px]">{match.team_a}</span>
-        <span className="text-xs text-purple-200">{Math.floor(percentA)}%</span>
+      <div
+        className={`${baseClasses} ${match.winner === match.team_a ? "bg-emerald-500/20 border-emerald-500/50" : ""}`}
+      >
+        <div
+          className="absolute top-0 left-0 h-full bg-gradient-to-r from-purple-600/40 to-blue-500/40 -z-10 transition-all duration-300"
+          style={{ width: `${percentA}%` }}
+        />
+        <span className="font-semibold text-white truncate flex-1 mr-1 sm:mr-2 text-[10px] sm:text-xs">
+          {match.team_a}
+        </span>
+        <span className="text-[10px] sm:text-xs text-purple-200">{Math.floor(percentA)}%</span>
       </div>
       {/* Team B */}
-      <div className={`${baseClasses} ${match.winner === match.team_b ? "bg-emerald-500/20 border-emerald-500/50" : ""}`}>
-        <div className="absolute top-0 left-0 h-full bg-gradient-to-r from-pink-600/40 to-orange-500/40 -z-10" style={{ width: `${percentB}%` }} />
-        <span className="font-semibold text-white truncate max-w-[100px]">{match.team_b}</span>
+      <div
+        className={`${baseClasses} ${match.winner === match.team_b ? "bg-emerald-500/20 border-emerald-500/50" : ""}`}
+      >
+        <div
+          className="font-semibold text-white truncate flex-1 mr-1 sm:mr-2 text-[10px] sm:text-xs"
+          style={{ width: `${percentB}%` }}
+        />
+        <span className="font-semibold text-white text-left truncate flex-1 text-xs sm:text-sm">
+          {match.team_b}
+        </span>
         <span className="text-xs text-pink-200">{Math.floor(percentB)}%</span>
       </div>
     </div>
   );
 };
-
 
 {
   /**NEW COMPONENT IN PROGRESS....... */
@@ -274,12 +307,14 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
   };
 
   return (
-    <div className="w-full overflow-x-auto pb-6 scrollbar-hide"><div className="min-w-[900px] flex flex-col items-center justify-center p-6 text-white">
-      <div className="flex flex-col items-center justify-center p-6 text-white bg-white/10 backdrop-blur-md shadow-2xl">
-      <div className="flex flex-row items-center justify-center gap-8 md:gap-0.5">
-        <div className="flex flex-row items-center gap-5">
-          {/* Octavos Izquierda */} 
-          <div className="flex flex-col gap-9">
+    <div className="flex overflow-x-auto whitespace-nowrap scrollbar-hide lg:overflow-hidden bg-white/10 backdrop-blur-md rounded-2xl p-2 sm:p-4">
+      <div className="flex">
+
+     {/*<div className="flex flex-row items-center justify-center gap-2 sm:gap-4 md:gap-6 lg:gap-8"> */}
+
+        <div className="flex flex-row items-center gap-2 sm:gap-4 shrink-0">
+          {/* Octavos Izquierda */}
+          <div className="flex flex-col gap-6 sm:gap-9">
             {Array.from({ length: 4 }).map((_, i) => (
               <MatchSlot
                 key={`izq-${i}`}
@@ -288,9 +323,9 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
               />
             ))}
           </div>
-          {/* Cuartos Izquierda */}
-          <div className="flex flex-col justify-around h-full py-20 gap-24">
 
+          {/* Cuartos Izquierda */}
+          <div className="flex flex-col justify-around py-10 sm:py-20 gap-16 sm:gap-24">
             <MatchSlot
               match={getWinnerOfMatch(allMatches[0], allMatches[1])}
               onClick={() => {}}
@@ -303,7 +338,7 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
           </div>
 
           {/**SEMIFINAL */}
-          <div className="flex flex-col justify-center h-full gap-4">
+          <div className="flex flex-col justify-center gap-4">
             <MatchSlot
               match={getWinnerOfMatch(
                 getWinnerOfMatch(allMatches[0], allMatches[1]), // Ganador del Cuarto 1
@@ -315,7 +350,7 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
         </div>
 
         {/* CENTRO (FINAL) */}
-        <div className="flex flex-col items-center justify-center mb-40">
+        <div className="flex flex-col items-center justify-center shrink-0 px-1 sm:px-2 md:px-4">
           <MatchSlot
             match={getWinnerOfMatch(
               // Semifinal Izquierda (la que construimos antes)
@@ -331,13 +366,14 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
             )}
             onClick={() => {}}
           />
-          <div className="text-sm font-bold mt-4">Final</div>
+          <div className="text-xs sm:text-sm font-bold mt-2 sm:mt-4 bg-gradient-to-r from-purple-500
+           to-pink-500 bg-clip-text text-transparent">Final</div>
         </div>
 
         {/* LADO DERECHO */}
-        <div className="flex flex-row-reverse items-center gap-5">
+        <div className="flex flex-row-reverse items-center gap-2 sm:gap-4 shrink-0">
           {/* Octavos Derecha */}
-          <div className="flex flex-col gap-9">
+          <div className="flex flex-col gap-6 sm:gap-9">
             {Array.from({ length: 4 }).map((_, i) => (
               <MatchSlot
                 key={`der-${i}`}
@@ -348,8 +384,9 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
               />
             ))}
           </div>
+
           {/* Cuartos Derecha */}
-          <div className="flex flex-col justify-around h-full py-20 gap-24">
+          <div className="flex flex-col justify-around py-10 sm:py-20 gap-16 sm:gap-24">
             <MatchSlot
               match={getWinnerOfMatch(allMatches[4], allMatches[5])}
               onClick={() => {}}
@@ -363,7 +400,7 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
           </div>
 
           {/**SEMIFINAL */}
-          <div className="flex flex-col justify-center h-full gap-4">
+          <div className="flex flex-col justify-center gap-4">
             <MatchSlot
               match={getWinnerOfMatch(
                 getWinnerOfMatch(allMatches[4], allMatches[5]), // Ganador del Cuarto 3
@@ -372,9 +409,9 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
               onClick={() => {}}
             />
           </div>
+
         </div>
       </div>
-      
 
       <Dialog open={isModalOpen} onOpenChange={setModalOpen}>
         <DialogContent className="bg-white">
@@ -423,8 +460,10 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
           </DialogHeader>
         </DialogContent>
       </Dialog>
+
+     {/* </div> */}
     </div>
-  </div></div>);
+  );
 };
 
 {
@@ -758,7 +797,7 @@ const BTSFifa2026 = () => {
             </div>
 
             {/* Grid for Bracket */}
-            <div className="grid grid-cols-1 gap-6 place-items-center min-h-[200px]">
+            <div className="grid grid-cols-1 gap-6 justify-items-stretch min-h-[200px] w-full overflow-x-auto">
               {isLoadingMatches ? (
                 <div className="col-span-full flex flex-col items-center justify-center gap-4 text-purple-400">
                   <div className="w-10 h-10 border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin"></div>
