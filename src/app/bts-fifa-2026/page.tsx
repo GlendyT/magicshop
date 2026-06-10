@@ -207,7 +207,7 @@ const MatchSlot = ({
   const baseClasses =
     "relative p-1.5 sm:p-2 rounded-lg border border-white/5 bg-white/5 overflow-hidden flex justify-between items-center z-10 text-[11px] sm:text-sm w-24 sm:w-28 md:w-32 lg:w-36 xl:w-40";
   const emptyClasses =
-    "p-1.5 sm:p-2 rounded-lg border border-white/5 bg-white/5 text-white/20 flex justify-center items-center text-[10px] sm:text-xs w-24 sm:w-28 md:w-32 lg:w-36 xl:w-40";
+    "sm:p-2 p-1.5 rounded-lg border border-white/5 bg-white/5 text-white/20 flex justify-center items-center text-[10px] sm:text-xs w-24 sm:w-28 md:w-32 lg:w-36 xl:w-40";
 
   // RETORNO 1: Si no hay match (Pendiente)
   if (!match) {
@@ -260,7 +260,7 @@ const MatchSlot = ({
         className={`${baseClasses} ${match.winner === match.team_b ? "bg-emerald-500/20 border-emerald-500/50" : ""}`}
       >
         <div
-          className="font-semibold text-white truncate flex-1 mr-1 sm:mr-2 text-[10px] sm:text-xs"
+          className="absolute top-0 left-0 h-full bg-gradient-to-r from-pink-600/40 to-orange-500/40 -z-10 transition-all duration-300"
           style={{ width: `${percentB}%` }}
         />
         <span className="font-semibold text-white text-left truncate flex-1 text-xs sm:text-sm">
@@ -307,8 +307,8 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
   };
 
   return (
-    <div className="flex overflow-x-auto whitespace-nowrap scrollbar-hide lg:overflow-hidden bg-white/10 backdrop-blur-md rounded-2xl p-2 sm:p-4">
-      <div className="flex">
+    <div className="flex overflow-x-auto whitespace-nowrap scrollbar-hide lg:overflow-hidden bg-white/10 backdrop-blur-md rounded-[10px]">
+      <div className=" flex justify-center items-center">
 
      {/*<div className="flex flex-row items-center justify-center gap-2 sm:gap-4 md:gap-6 lg:gap-8"> */}
 
