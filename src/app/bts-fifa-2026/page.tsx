@@ -307,12 +307,14 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
   };
 
   return (
-    <div className="flex overflow-x-auto whitespace-nowrap scrollbar-hide lg:overflow-hidden bg-white/10 backdrop-blur-md rounded-[10px]">
-      <div className=" flex justify-center items-center">
+    <div className="bg-white/10 backdrop-blur-md rounded-[10px] p-4 w-full overflow-hidden lg:p-1.5">
+
+
+      <div className="w-full overflow-x-auto scrollbar-hide flex justify-start lg:justify-center cursor-grab active:cursor-grabbing">
 
      {/*<div className="flex flex-row items-center justify-center gap-2 sm:gap-4 md:gap-6 lg:gap-8"> */}
 
-        <div className="flex flex-row items-center gap-2 sm:gap-4 shrink-0">
+        <div className="flex flex-row items-center gap-2 sm:gap-4 shrink-0 min-w-max">
           {/* Octavos Izquierda */}
           <div className="flex flex-col gap-6 sm:gap-9">
             {Array.from({ length: 4 }).map((_, i) => (
@@ -797,7 +799,7 @@ const BTSFifa2026 = () => {
             </div>
 
             {/* Grid for Bracket */}
-            <div className="grid grid-cols-1 gap-6 justify-items-stretch min-h-[200px] w-full overflow-x-auto">
+            <div className="grid grid-cols-1 gap-6 justify-items-stretch place-items-center min-h-[200px] w-full overflow-x-auto">
               {isLoadingMatches ? (
                 <div className="col-span-full flex flex-col items-center justify-center gap-4 text-purple-400">
                   <div className="w-10 h-10 border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin"></div>
