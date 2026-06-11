@@ -1,4 +1,4 @@
-import { Client, Databases, Functions, Query, ID } from "appwrite";
+import { Client, Databases, Functions, Query, ID, Account } from "appwrite";
 
 export const appwriteConfig = {
   endpoint: process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT || "",
@@ -27,6 +27,7 @@ export const appwriteConfig = {
 let client: Client | null = null;
 let databases: Databases | null = null;
 let functions: Functions | null = null;
+let account: Account | null = null;
 
 const getDatabases = () => {
   if (!appwriteConfig.endpoint || !appwriteConfig.projectId) {
@@ -458,3 +459,17 @@ export const syncGlobalStats = async (albums: string[]) => {
     throw error;
   }
 };
+
+// Esta es la funciom para el auth 
+export const getAccount = () => {
+  if (!client) {
+    client = new Client()
+    .setEndpoint(appwriteConfig.endpoint)
+    .setProject(appwriteConfig.projectId);
+  }
+
+  if (!account) {
+    account = new Account(client);
+  }
+  return account;
+}
