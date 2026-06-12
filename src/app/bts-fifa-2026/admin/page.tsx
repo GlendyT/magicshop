@@ -21,6 +21,8 @@ import {
   syncGlobalStats,
 } from "@/lib/appwrite";
 
+import { Match } from "../types";
+
 /// funcion temporal
 
 const albums = [
@@ -70,7 +72,7 @@ const popularSongs = [
   "Butter",
   "Permission to Dance",
   "Yet To Come",
-  "Run BTS",
+  "Run BS",
 ];
 
 const AdminDashboard = () => {
@@ -89,7 +91,7 @@ const AdminDashboard = () => {
   const [isSyncingStats, setIsSyncingStats] = useState(false);
   const [message, setMessage] = useState({ text: "", type: "" });
 
-  const [matches, setMatches] = useState<any[]>([]);
+  const [matches, setMatches] = useState<Match[]>([]);
   const [isLoadingMatches, setIsLoadingMatches] = useState(true);
 
   // ESTADOS INDEPENDIENTE PARA LA LISTA DE CANCIONES
@@ -109,13 +111,13 @@ const AdminDashboard = () => {
       if (data && data.length > 0) {
         // Fetch user counts for each team in parallel
         const matchesWithCounts = await Promise.all(
-          data.map(async (m) => {
+          data.map(async (m): Promise<Match> => {
             const countA = await getTeamMemberCount(m.team_a);
             const countB = await getTeamMemberCount(m.team_b);
-            return { ...m, team_a_count: countA, team_b_count: countB };
+            return { ...m, team_a_count: countA, team_b_count: countB } as unknown as Match;
           }),
         );
-        setMatches(matchesWithCounts);
+        setMatches(matchesWithCounts); // No estamos seguras
       } else {
         setMatches([]);
       }
@@ -201,7 +203,7 @@ const AdminDashboard = () => {
 
     // 2. NUEVO: Validar que los equipos no estén ya en otro partido
     const isOccupied = matches.some(
-      (match: any) =>
+      (match: Match) =>
         match.team_a === formData.team_a ||
         match.team_b === formData.team_a ||
         match.team_a === formData.team_b ||
@@ -331,6 +333,7 @@ const AdminDashboard = () => {
       setMessage({ text: "Partido eliminado exitosamente.", type: "success" });
       fetchMatches();
     } catch (err) {
+      console.error(err) // Uso al obj 'err' y ayuda a depurar
       setMessage({ text: "Error al eliminar el partido.", type: "error" });
     }
   };
@@ -664,13 +667,13 @@ const AdminDashboard = () => {
               <p className="text-xs text-neutral-400">
                 1. Selecciona 2 equipos y crea el partido.
                 <br />
-                2. El estado iniciará como "active".
+                2. El estado iniciará como `&quot;`active `&quot;`. 
                 <br />
                 3. Al darle a <b>Sincronizar</b>, Appwrite buscará sus streams y
                 empezará a llenar las barras.
                 <br />
                 4. Cuando un equipo gane, el sistema lo marcará como
-                "completed".
+                `&quot;` completed `&quot;`.
               </p>
             </div>
           </div>
@@ -692,7 +695,7 @@ const AdminDashboard = () => {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 relative">
-              {matches.map((m: any) => (
+              {matches.map((m: Match) => (
                 <div
                   key={m.$id}
                   className="flex flex-col sm:flex-row justify-between items-centerbg-black/40 p-5 rounded-xl border border-white/5 hover:border-purple-500/30 transition-all gap-4 relative"
@@ -713,9 +716,11 @@ const AdminDashboard = () => {
                         </span>
                       )}
                     </div>
+
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-3 text-sm text-white font-medium truncate mb-2">
+
                       <div className="flex items-center gap-1.5 bg-purple-500/10 border truncate border-purple-500/20 px-2 py-1 rounded-md">
-                        <span>{m.team_a}</span>
+                        <span className="truncate">{m.team_a}</span>
                         <span className="text-[10px] text-purple-300 flex items-center bg-purple-500/20 px-1.5 py-0.5 rounded-sm">
                           <Users className="w-3 h-3 mr-1" />
                           {m.team_a_count || 0}
@@ -726,13 +731,15 @@ const AdminDashboard = () => {
                       </span>{" "}
                       {/**Cambio aqui */}
                       <div className="flex items-center gap-1.5 bg-pink-500/10 border border-pink-500/20 px-2 py-1 rounded-md">
-                        <span>{m.team_b}</span>
+                        <span className="truncate md:w-28">{m.team_b}</span>
                         <span className="text-[10px] text-pink-300 flex items-center bg-pink-500/20 px-1.5 py-0.5 rounded-sm">
                           <Users className="w-3 h-3 mr-1" />
                           {m.team_b_count || 0}
                         </span>
                       </div>
+
                     </div>
+
                     <p className="text-xs text-neutral-400 mt-1 flex items-center gap-1">
                       <Music className="w-3 h-3 text-pink-400 " />
                       <span className="truncate">
@@ -740,19 +747,17 @@ const AdminDashboard = () => {
                           (songName: string, index: number) => (
                             <span
                               key={index}
-                              className="text-white-700 font-medium"
+                              className="text-white-700 font-medium truncate"
                             >
                               {songName}
                               <span className="text-neutral-400 font-normal mx-1">
                                 {/* Accedemos al número usando el mismo índice */}
-                                (
                                 {(
                                   m.target_streams_v2[index] || 0
                                 ).toLocaleString()}
-                                )
                               </span>
                               {index < m.target_songs.length - 1 && (
-                                <span className="text-neutral-300 ml-2">
+                                <span className="text-neutral-600 ml-2 ">
                                   |{" "}
                                 </span>
                               )}
@@ -761,11 +766,11 @@ const AdminDashboard = () => {
                         )}
                       </span>
                       <span className="text-neutral-600">|</span>
-                      Meta:
+                      Meta: {(m.target_streams_v2.reduce((curr, add) => curr + add, 0)).toLocaleString()}
                     </p>
 
                     <button
-                      onClick={() => handleDeleteMatch(m.$id)}
+                      onClick={() => m.$id && handleDeleteMatch(m.$id)}
                       title="Eliminar partido"
                       className="p-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 hover:text-red-300 rounded-lg transigion-colors
                       shrink-0 absolute top-2 right-2"
