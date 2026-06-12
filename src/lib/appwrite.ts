@@ -1,4 +1,4 @@
-import { Client, Databases, Functions, Query, ID } from "appwrite";
+import { Client, Databases, Functions, Query, ID, Account } from "appwrite";
 
 export const appwriteConfig = {
   endpoint: process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT || "",
@@ -27,6 +27,7 @@ export const appwriteConfig = {
 let client: Client | null = null;
 let databases: Databases | null = null;
 let functions: Functions | null = null;
+let account: Account | null = null;
 
 const getDatabases = () => {
   if (!appwriteConfig.endpoint || !appwriteConfig.projectId) {
@@ -324,7 +325,8 @@ export const getBTSStats = async () => {
   }
 };
 
-export const createBTSMatch = async (matchData: { team_a: string; team_b: string; target_song: string; target_streams: number; stage: string; status: string; winner?: string }) => {
+{/**PARA QUE ACEPTE UN ARRAY DE STRINGS Y NO UNA CANCION. EDITAR AQUI */}
+export const createBTSMatch = async (matchData: { team_a: string; team_b: string; target_songs: string[]; target_streams_v2: number[]; stage: string; status: string; winner?: string }) => {
   const db = getDatabases();
 
   if (!db || !appwriteConfig.databaseId || !appwriteConfig.btsmatchesCollectionId) {
@@ -337,7 +339,13 @@ export const createBTSMatch = async (matchData: { team_a: string; team_b: string
       appwriteConfig.btsmatchesCollectionId,
       ID.unique(),
       {
-        ...matchData,
+        team_a: matchData.team_a,
+        team_b: matchData.team_b,
+        target_songs: matchData.target_songs, 
+        target_streams_v2: matchData.target_streams_v2,
+        stage: matchData.stage,
+        status: matchData.status,
+        winner: matchData.winner || "",
         team_a_start_streams: 0, 
         team_b_start_stream: 0, // Nota: tienes este campo como team_b_start_stream en tu json
         team_a_current_streams: 0,
@@ -448,4 +456,18 @@ export const syncGlobalStats = async (albums: string[]) => {
     console.error("[Appwrite] Error syncing global stats", error);
     throw error;
   }
+};
+
+// Esta es la funciom para el auth 
+export const getAccount = () => {
+  if (!client) {
+    client = new Client()
+    .setEndpoint(appwriteConfig.endpoint)
+    .setProject(appwriteConfig.projectId);
+  }
+
+  if (!account) {
+    account = new Account(client);
+  }
+  return account;
 };
