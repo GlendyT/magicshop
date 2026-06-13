@@ -7,7 +7,6 @@ import {
   Disc,
   Trophy,
   Users,
-  PlayCircle,
   BarChart3,
 } from "lucide-react";
 import { createBTSFifaUser, getBTSMatches, getBTSStats } from "@/lib/appwrite";
@@ -19,6 +18,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/hooks/components/ui/dialog";
+
+import { Match, AlbumStat } from "./types";
+
+interface BracketMatchProps {
+  allMatches: Match[];
+}
 
 const albums = [
   "2 Cool 4 Skool",
@@ -39,168 +44,11 @@ const albums = [
   "Arirang",
 ];
 
-{
-  /** COMPONENT TO CHANGE ---START--- */
-}
-const BracketMatch = ({ match }: { match: any }) => {
-  const percentA =
-    match.status === "completed" && match.winner === match.team_a
-      ? 100
-      : Math.min((match.team_a_streams / match.target_streams) * 100, 100) || 0;
-  const percentB =
-    match.status === "completed" && match.winner === match.team_b
-      ? 100
-      : Math.min((match.team_b_streams / match.target_streams) * 100, 100) || 0;
-
-  return (
-    <div className="bg-black/50 backdrop-blur-md border border-white/10 rounded-xl p-4 w-72 shadow-xl hover:border-purple-500/50 transition-colors duration-300 group">
-      <div className="flex justify-between items-center mb-3">
-        <div className="text-[10px] text-purple-300 font-bold uppercase tracking-widest px-2 py-1 bg-purple-500/20 rounded-full">
-          {match.stage}
-        </div>
-        {match.status === "active" && (
-          <div className="flex items-center gap-1 text-[10px] text-red-400 font-bold animate-pulse">
-            <span className="w-1.5 h-1.5 bg-red-500 rounded-full"></span> LIVE
-          </div>
-        )}
-      </div>
-
-      {/*Target Song Info */}
-      <div className="flex items-center gap-2 mb-4 text-neutral-300 text-xs">
-        <PlayCircle className="w-3 h-3 text-pink-400" />
-        <span className="truncate">Target: {match.song}</span>
-      </div>
-
-      {/*Team A*/}
-      <div
-        className={`relative p-2.5 rounded-lg mb-2 overflow-hidden ${match.winner === match.team_a ? "bg-emerald-500/20 border border-emerald-500/50" : "bg-white/5 border border-white/5"}`}
-      >
-        <div
-          className="absolute top-0 left-0 h-full bg-gradient-to-r from-purple-600/40 to-blue-500/40 -z-10 transition-all duration-1000"
-          style={{ width: `${percentA}%` }}
-        ></div>
-        <div className="flex justify-between items-center z-10 text-sm">
-          <span className="font-semibold text-white truncate max-w-[140px] drop-shadow-md">
-            {match.team_a}
-          </span>
-          <span className="text-xs font-medium text-purple-200">
-            {Math.floor(percentA)}%
-          </span>
-        </div>
-      </div>
-
-      {/*Team B*/}
-      <div
-        className={`relative p-2.5 rounded-lg overflow-hidden ${match.winner === match.team_b ? "bg-emerald-500/20 border border-emerald-500/50" : "bg-white/5 border border-white/5"}`}
-      >
-        <div
-          className="absolute top-0 left-0 h-full bg-gradient-to-r from-pink-600/40 to-orange-500/40 -z-10 transition-all duration-1000"
-          style={{ width: `${percentB}%` }}
-        ></div>
-        <div className="flex justify-between items-center z-10 text-sm">
-          <span className="font-semibold text-white truncate max-w-[140px] drop-shadow-md">
-            {match.team_b}
-          </span>
-          <span className="text-xs font-medium text-pink-200">
-            {Math.floor(percentB)}%N
-          </span>
-        </div>
-      </div>
-
-      <div className="mt-3 flex justify-between text-[10px] text-neutral-500 font-medium">
-        <span>Goal: {match.target_streams.toLocaleString()} streams</span>
-      </div>
-    </div>
-  );
-};
-
-{
-  /**COMPONENT TO CHANGE ---ENDS--- */
-}
-
-/*
 const MatchSlot = ({
   match,
   onClick,
 }: {
-  match?: any;
-  onClick: () => void;
-}) => {
-  if (!match) {
-    return (
-      <div
-        onClick={onClick}
-        className="match flex flex-col gap-1.5 w-36 md:w-40"
-      >
-        <div className="team bg-gray-100 border border-dashed border-gray-300 p-2 rounded-lg text-black">
-          ?
-        </div>
-        <div className="team bg-gray-100 border border-dashed border-gray-300 p-2 rounded-lg text-gray-400">
-          ?
-        </div>
-      </div>
-    );
-  }
-
-  const percentA =
-    match.status === "completed" && match.winner === match.team_a
-      ? 100
-      : Math.min((match.team_a_streams / match.target_streams) * 100, 100) || 0;
-  const percentB =
-    match.status === "completed" && match.winner === match.team_b
-      ? 100
-      : Math.min((match.team_b_streams / match.target_streams) * 100, 100) || 0;
-
-  console.log(match);
-
-  return (
-    <div
-      onClick={onClick}
-      className="match flex flex-col gap-1.5 w-36 text-xs md:w-40 "
-    >
-      <div>
-        <div className="flex justify-between team bg-bracket border border-bracket-border p-2 rounded-lg font-bold">
-          {match.team_a}{" "}
-          <span className="whitespace-nowrap">{Math.round(percentA)}%</span>
-          <button
-            onClick={onClick}
-            className="hover:opacity-60 transition-opacity"
-          >
-            👁️
-          </button>
-        </div>
-
-        <div className="w-full bg-black/20 h-1.5 rounded-full">
-          <div
-            className="bg-white h-full rounded-full transition-all duration-500"
-            style={{ width: `${percentA}%` }}
-          ></div>
-        </div>
-      </div>
-
-      <div>
-        <div className=" flex justify-between team bg-bracket border border-bracket-border p-2 rounded-lg opacity-70">
-          <span className="truncate mr-2"> {match.team_b} </span>
-          <span className="whitespace-nowrap">{Math.round(percentB)}%</span>
-        </div>
-
-        <div className="w-full bg-black/20 h-1.5 rounded-full">
-          <div
-            className="bg-white h-full rounded-full transition-all duration-500"
-            style={{ width: `${percentB}%` }}
-          ></div>
-        </div>
-      </div>
-    </div>
-  );
-};
-*/
-
-const MatchSlot = ({
-  match,
-  onClick,
-}: {
-  match?: any;
+  match: Match | null;
   onClick: () => void;
 }) => {
   // Estilo compartido para que todo sea consistente
@@ -222,18 +70,27 @@ const MatchSlot = ({
     );
   }
 
+  console.log(match.team_a_start_streams)
+
   // Lógica de cálculo (solo se ejecuta si hay match)
   const totalMeta =
-    (match.target_streams || []).reduce(
+    (match.target_streams_v2 || []).reduce(
       (sum: number, val: number) => sum + (Number(val) || 0),
       0,
     ) || 1;
-  const getPercent = (streams: any, team: string) =>
+
+  const getPercent = (
+    streams: number,
+    team: string, // streams lo pusimos number porque es un tipo de dato especido dentro del paritdo
+  ) =>
     match.status === "completed" && match.winner === team
       ? 100
       : Math.min((Number(streams || 0) / totalMeta) * 100, 100) || 0;
 
+      console.log("Tratando de hacer opercion de porcentaje:", match.team_a_start_streams)
+
   const percentA = getPercent(match.team_a_streams, match.team_a);
+  console.log("Porcentaje de a", percentA)
   const percentB = getPercent(match.team_b_streams, match.team_b);
 
   // RETORNO 2: Si hay match (Activo)
@@ -247,13 +104,16 @@ const MatchSlot = ({
         className={`${baseClasses} ${match.winner === match.team_a ? "bg-emerald-500/20 border-emerald-500/50" : ""}`}
       >
         <div
-          className="absolute top-0 left-0 h-full bg-gradient-to-r from-purple-600/40 to-blue-500/40 -z-10 transition-all duration-300"
-          style={{ width: `${percentA}%` }}
+          className={`absolute top-0 left-0 h-full bg-gradient-to-r from-purple-600/40 to-blue-500/40 -z-10 transition-all duration-300
+            ${ percentA >= 100 ? "bg-purple-700" : percentA >= 50 ? "bg-amber-500" : "bg-white"}
+           `} style={{ width: `${match.team_a_start_streams}%` }}
         />
         <span className="font-semibold text-white truncate flex-1 mr-1 sm:mr-2 text-[10px] sm:text-xs">
           {match.team_a}
         </span>
-        <span className="text-[10px] sm:text-xs text-purple-200">{Math.floor(percentA)}%</span>
+        <span className="text-[10px] sm:text-xs text-purple-200">
+          {match.team_a_start_streams}%
+        </span>
       </div>
       {/* Team B */}
       <div
@@ -275,31 +135,43 @@ const MatchSlot = ({
 {
   /**NEW COMPONENT IN PROGRESS....... */
 }
-const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
-  const [selectedMatch, setSelectedMatch] = useState<any>(null);
+const BracketMatch2 = ({ allMatches }: BracketMatchProps) => {
+  const [selectedMatch, setSelectedMatch] = useState<Match | null>(null);
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const getWinnerOfMatch = (matchA: any, matchB: any) => {
+  const getWinnerOfMatch = (
+    matchA: Match | null,
+    matchB: Match | null,
+  ): Match | null => {
     // Si alguno de los partidos de octavos no está terminado, no hay ganador para cuartos
-    if (matchA?.status !== "completed" || matchB?.status !== "completed")
+    if (matchA?.status !== "completed" || matchB?.status !== "completed") {
       return null;
+    }
 
-    // Retornamos un objeto "partido" ficticio para los cuartos
-    return {
+    const winnerMatch = {
       team_a: matchA.winner,
       team_b: matchB.winner,
-      status: "active", // O 'completed' si ya tienes datos para cuartos
-      target_streams: matchA.target_streams_v2, // O la lógica de meta que necesites
+      status: "active",
+      target_streams: matchA.target_streams_v2,
+      team_a_start_streams: 0,
+      team_b_start_stream: 0,
+
+      target_songs: [],
+      team_a_current_streams: 0,
+      team_b_current_streams: 0,
+      stage: "cuartos",
+      $id: "temp-id",
+      winner: "",
+      target_streams_v2: [],
       team_a_streams: 0,
-      team_b_streams: 0,
-    };
+      team_b_streams: 0
+    } as Match;
+    // Retornamos un objeto "partido" ficticio para los cuartos
+
+    return winnerMatch;
   };
 
-  // 2. Definimos los enfrentamientos de cuartos basados en los ganadores de octavos
-  // Esto es solo un ejemplo de lógica:
-  //const quarter1 = allMatches.find((m) => m.id_cuarto === "Q1"); // O lógica similar
-
-  const handleOpen = (match: any) => {
+  const handleOpen = (match: Match) => {
     if (match) {
       setSelectedMatch(match);
       setModalOpen(true);
@@ -308,11 +180,8 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
 
   return (
     <div className="bg-white/10 backdrop-blur-md rounded-[10px] p-4 w-full overflow-hidden lg:p-1.5">
-
-
       <div className="w-full overflow-x-auto scrollbar-hide flex justify-start lg:justify-center cursor-grab active:cursor-grabbing">
-
-     {/*<div className="flex flex-row items-center justify-center gap-2 sm:gap-4 md:gap-6 lg:gap-8"> */}
+        {/*<div className="flex flex-row items-center justify-center gap-2 sm:gap-4 md:gap-6 lg:gap-8"> */}
 
         <div className="flex flex-row items-center gap-2 sm:gap-4 shrink-0 min-w-max">
           {/* Octavos Izquierda */}
@@ -368,8 +237,12 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
             )}
             onClick={() => {}}
           />
-          <div className="text-xs sm:text-sm font-bold mt-2 sm:mt-4 bg-gradient-to-r from-purple-500
-           to-pink-500 bg-clip-text text-transparent">Final</div>
+          <div
+            className="text-xs sm:text-sm font-bold mt-2 sm:mt-4 bg-gradient-to-r from-purple-500
+           to-pink-500 bg-clip-text text-transparent"
+          >
+            Final
+          </div>
         </div>
 
         {/* LADO DERECHO */}
@@ -411,59 +284,56 @@ const BracketMatch2 = ({ allMatches }: { allMatches: any[] }) => {
               onClick={() => {}}
             />
           </div>
-
         </div>
       </div>
 
       <Dialog open={isModalOpen} onOpenChange={setModalOpen}>
-        <DialogContent className="bg-white">
+        <DialogContent className="bg-white/40">
           <DialogHeader>
-            <DialogTitle></DialogTitle>
+            <DialogTitle className="text-center p-0.5">
+              🥊
+            </DialogTitle>
             <DialogDescription asChild>
-              <div className="space-y-2">
-                {/* TÍTULO CON EL VS */}
-                <div className="text-center">
-                  <h2 className="text-lg font-black text-gray-900 tracking-tight">
-                    <span className="text-purple-800">TEAM A: </span>
-                    {selectedMatch?.team_a}
-                    <span className="text-purple-500 mx-2">VS</span>
-                    <span className="text-purple-800">TEAM B: </span>
-                    {selectedMatch?.team_b}
-                  </h2>
-                  <p className="text-sm text-gray-500 mt-1 uppercase tracking-widest font-semibold">
-                    {selectedMatch?.stage || "Etapa en curso"}
-                  </p>
+              <div className="">
+                {selectedMatch ? ( 
+
+                  <>
+                <div className="flex flex-col text-center text-xl">
+                  <span className="font-bold"> <span className="text-purple-700 text-sm">Team A: </span>{selectedMatch.team_a}</span>
+                  <span className="bg-orange-300/55 text-center text-sm font-semibold"> VS </span>
+                  <span className="font-bold"><span className="text-purple-700 text-sm">Team B: </span>{selectedMatch.team_b}</span>
                 </div>
 
-                {/* LISTA DE CANCIONES Y STREAMS */}
-                <div className="space-x-0.5 gap-1 flex flex-col text-[9px]">
-                  {selectedMatch?.song?.map(
-                    (songName: string, index: number) => (
-                      <div key={index} className="">
-                        <span className="gap-0.5">
-                          <span className="text-purple-500 font-medium">
-                            Target song:{" "}
-                          </span>
-                          {songName}{" "}
-                        </span>
+                  <div className="bg-white/15 p-2">
+                    {selectedMatch.target_songs.map((songs, index) => (
+                      <div key={index}
+                      className="flex justify-between items-center w-full font-semibold">
 
-                        <span className="">
-                          <span className="text-purple-500">Goal: </span>
-                          {selectedMatch.target_streams?.[
-                            index
-                          ]?.toLocaleString() || 0}
-                        </span>
+                        <span className="truncate"><strong>Target: </strong>{songs}</span>
+
+                        <div className="flex justify-between w-24 shrink-0">
+                          <span className=""><strong>Goal: </strong>{selectedMatch.target_streams_v2[index]}</span>
+                        </div>
+                        
                       </div>
-                    ),
-                  )}
-                </div>
+                    ))}
+
+                  </div>
+                  </>
+                ) : ( 
+                  <span>No hay canciones aun....</span>
+                )
+                }
+               
               </div>
+
+
             </DialogDescription>
           </DialogHeader>
         </DialogContent>
       </Dialog>
 
-     {/* </div> */}
+      {/* </div> */}
     </div>
   );
 };
@@ -483,8 +353,8 @@ const BTSFifa2026 = () => {
   const [error, setError] = useState("");
 
   const [view, setView] = useState<"join" | "bracket" | "stats">("join");
-  const [matches, setMatches] = useState<any[]>([]);
-  const [stats, setStats] = useState<any[]>([]);
+  const [matches, setMatches] = useState<Match[]>([]);
+  const [stats, setStats] = useState<AlbumStat[]>([]);
   const [isLoadingMatches, setIsLoadingMatches] = useState(true);
   const [isLoadingStats, setIsLoadingStats] = useState(true);
 
@@ -504,16 +374,23 @@ const BTSFifa2026 = () => {
         ]);
 
         if (matchesData && matchesData.length > 0) {
-          const mappedMatches = matchesData.map((doc) => ({
+          const mappedMatches : Match[] = matchesData.map((doc) => ({
             id: doc.$id,
             team_a: doc.team_a,
             team_b: doc.team_b,
-            song: doc.target_songs || doc.song || [],
-            target_streams: doc.target_streams_v2 || doc.target_streams || [],
+            target_songs: doc.target_songs,
+            target_streams_v2: doc.target_streams_v2,
+
+            // Devolviendo lo que la interfaz pide:
+            team_a_start_streams: Number(doc.team_a_start_streams ?? 0),
+            team_b_start_stream: Number(doc.team_b_start_stream ?? doc.team_b_start_streams ?? 0),
+            team_a_current_streams: Number(doc.team_a_current_streams ||0),
+            team_b_current_streams: Number(doc.team_b_current_streams || 0),
+
             team_a_streams:
-              doc.team_a_current_streams ?? (doc.team_a_start_streams || 0),
+              Number(doc.team_a_current_streams ?? doc.team_a_start_streams ?? 0),
             team_b_streams:
-              doc.team_b_current_streams ?? (doc.team_b_start_streams || 0),
+              Number(doc.team_b_current_streams ?? doc.team_b_start_stream ?? 0),
             stage: doc.stage,
             status: doc.status,
             winner: doc.winner,
@@ -524,15 +401,36 @@ const BTSFifa2026 = () => {
         if (statsData) {
           // Sort by total_members descending
 
-          // Filtramos los albumes existenes 16 y no 18
-          const filteredStats = statsData.filter((item) =>
-            albums.includes(item.album_name),
+          // define a narrow type for the raw documents we get from Appwrite
+          type RawStatDoc = {
+            $id: string;
+            album_name?: string;
+            total_members?: number | string;
+            status?: string;
+            [key: string]: unknown;
+          };
+
+          // keep only albums we care about (no `any`)
+          const filteredStats = (statsData as RawStatDoc[]).filter((item) =>
+            albums.includes(String(item.album_name ?? item.$id)),
           );
 
-          const sortedStats = filteredStats.sort(
-            (a, b) => (b.total_members || 0) - (a.total_members || 0),
-          );
+          // map RawStatDoc -> AlbumStat and coerce types safely
+          const mappedStats: AlbumStat[] = filteredStats.map((d) => ({
+            $id: d.$id,
+            album_name: String(d.album_name ?? d.$id ?? ""),
+            total_members:
+              typeof d.total_members === "string"
+                ? Number(d.total_members)
+                : Number(d.total_members ?? 0),
+            status: d.status ?? undefined,
+          }));
+
+          // comparator now works with guaranteed numbers
+          const sortedStats = mappedStats.sort((a, b) => b.total_members - a.total_members);
+
           setStats(sortedStats);
+
         }
       } catch (err) {
         console.error("Error fetching data:", err);
@@ -543,57 +441,13 @@ const BTSFifa2026 = () => {
     };
 
     fetchData();
+
+    
+    // Resetemaos el feedback del usuario en view
+    setSuccess(false);
+    setError("");
+
   }, [view]); // React "vigila" este estado
-
-  /*
- const fetchData = useCallback(async () => {
-        setIsLoadingMatches(true);
-        setIsLoadingStats(true);
-        try {
-          const [matchesData, statsData] = await Promise.all([
-          getBTSMatches(),
-          getBTSStats(),
-        ]);
-
-        
-        if (matchesData && matchesData.length > 0) {
-          const mappedMatches = matchesData.map((doc) => ({
-            id: doc.$id,
-            team_a: doc.team_a,
-            team_b: doc.team_b,
-            song: doc.target_songs || doc.song || [],
-            target_streams: doc.target_streams_v2 || doc.target_streams || [],
-            team_a_streams:
-              doc.team_a_current_streams ?? (doc.team_a_start_streams || 0),
-            team_b_streams:
-              doc.team_b_current_streams ?? (doc.team_b_start_streams || 0),
-            stage: doc.stage,
-            status: doc.status,
-            winner: doc.winner,
-          }));
-          setMatches(mappedMatches);
-        }
-
-        if (statsData) {
-          // Sort by total_members descending
-          const sortedStats = statsData.sort(
-            (a, b) => (b.total_members || 0) - (a.total_members || 0),
-          );
-          setStats(sortedStats);
-        }
-      } catch (err) {
-        console.error("Error fetching data:", err);
-      } finally {
-        setIsLoadingMatches(false);
-        setIsLoadingStats(false);
-      }
-    }, []);
-
-    useEffect(() => {
-  if (view === 'stats' || view === 'bracket') {
-    fetchData();
-  }
-}, [view, fetchData]); // Ahora fetchData es una depend*/
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -602,11 +456,14 @@ const BTSFifa2026 = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError("");
     setSuccess(false);
+
 
     try {
       await createBTSFifaUser(formData.lastfm, formData.album);
@@ -615,11 +472,16 @@ const BTSFifa2026 = () => {
       setFormData({ lastfm: "", album: "" });
       // Cambiar a la vista del bracket después de 2 segundos de éxito
       setTimeout(() => {
+
+        setSuccess(false); // Agregamos para limpiar antes de navegar
+
         setView("bracket");
       }, 2000);
-    } catch (err: any) {
-      console.error(err);
-      if (err.message === "ALREADY_EXISTS") {
+    } catch (err : unknown ) {
+
+   const errorMessage = err instanceof Error ? err.message : String(err);
+
+      if (errorMessage.includes("ALREADY_EXISTS")) {
         setError(
           "¡Este usuario de Last.fm ya está registrado en un equipo! No puedes hacer trampa.",
         );
@@ -630,6 +492,7 @@ const BTSFifa2026 = () => {
       setIsSubmitting(false);
     }
   };
+  
 
   return (
     <div className="min-h-screen bg-neutral-950 p-4 lg:p-8 bg-[url('https://images.unsplash.com/photo-1518609878373-06d740f60d8b?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-fixed bg-center relative font-sans">
@@ -703,7 +566,10 @@ const BTSFifa2026 = () => {
                     id="lastfm"
                     name="lastfm"
                     value={formData.lastfm}
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      if (error) setError("");
+                      handleChange(e);
+                    }}
                     required
                     placeholder="e.g. musiclover99"
                     className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all hover:bg-black/70"

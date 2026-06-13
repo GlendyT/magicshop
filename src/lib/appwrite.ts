@@ -268,7 +268,8 @@ export const createBTSFifaUser = async (lastfmuser: string, fifateam: string) =>
     );
     return response;
   } catch (error) {
-    console.error("[Appwrite] Error creating BTS FIFA user", error);
+   // console.error("[Appwrite] Error creating BTS FIFA user", error); 
+   // Se comento este console.error para que no se mueste 
     throw error;
   }
 };
@@ -405,7 +406,7 @@ export const getTeamMemberCount = async (team: string) => {
     );
     return response.total;
   } catch (error) {
-    console.error(`[Appwrite] Error fetching count for team ${team}`, error);
+   console.error(`[Appwrite] Error fetching count for team ${team}`, error);
     return 0;
   }
 };
