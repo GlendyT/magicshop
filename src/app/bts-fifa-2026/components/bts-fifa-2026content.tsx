@@ -2,7 +2,7 @@ import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { AlbumStat, Match } from "../types";
 import { createBTSFifaUser, getBTSMatches, getBTSStats } from "@/lib/appwrite";
-import { albums } from "../page";
+import { albums } from "../constants";
 import { Trophy } from "lucide-react";
 import FormTeam from "../views/form-team";
 import Playoffs from "../views/palyoffs";

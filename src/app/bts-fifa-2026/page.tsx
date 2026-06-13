@@ -9,24 +9,7 @@ export interface BracketMatchProps {
   allMatches: Match[];
 }
 
-export const albums = [
-  "2 Cool 4 Skool",
-  "O!RUL8,2?",
-  "Skool Luv Affair",
-  "Dark & Wild",
-  "The Most Beautiful Moment in Life, Pt. 1",
-  "The Most Beautiful Moment in Life, Pt. 2",
-  "The Most Beautiful Moment in Life: Young Forever",
-  "Wings",
-  "You Never Walk Alone",
-  "Love Yourself: Tear",
-  "Love Yourself: Answer",
-  "Map of the Soul: Persona",
-  "Map of the Soul: 7",
-  "BE",
-  "Proof",
-  "Arirang",
-];
+
 
 export default function BTSFifa2026() {
   return (
