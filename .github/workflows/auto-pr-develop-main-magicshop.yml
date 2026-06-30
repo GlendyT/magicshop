@@ -1,0 +1,29 @@
+name: Auto PR develop -> main
+
+on:
+    push:
+        branches:
+            - develop
+
+permissions:
+    contents: read
+    pull-requests: write
+
+jobs:
+    open-pr:
+        name: Crear o actualizar PR develop -> main
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v5
+
+            - name: Crear o actualizar PR
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  gh pr create \
+                    --base main \
+                    --head develop \
+                    --title "Release: develop -> main" \
+                    --body "PR automático generado al hacer push a develop. Revisar y mergear solo por bex." \
+                    --reviewer bex \
+                  || echo "ℹ️ Ya existe un PR abierto develop -> main, no se crea uno nuevo."
