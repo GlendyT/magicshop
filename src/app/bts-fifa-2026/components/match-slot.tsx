@@ -27,7 +27,7 @@ const MatchSlot = ({
     );
   }
 
-  console.log(match.team_a_start_streams);
+  //console.log(match.team_a_start_streams);
 
   // Lógica de cálculo (solo se ejecuta si hay match)
   const totalMeta =
@@ -44,13 +44,13 @@ const MatchSlot = ({
       ? 100
       : Math.min((Number(streams || 0) / totalMeta) * 100, 100) || 0;
 
-  console.log(
-    "Tratando de hacer opercion de porcentaje:",
-    match.team_a_start_streams,
-  );
+  // console.log(
+  //   "Tratando de hacer opercion de porcentaje:",
+  //   match.team_a_start_streams,
+  // );
 
   const percentA = getPercent(match.team_a_streams, match.team_a);
-  console.log("Porcentaje de a", percentA);
+  //console.log("Porcentaje de a", percentA);
   const percentB = getPercent(match.team_b_streams, match.team_b);
 
   // RETORNO 2: Si hay match (Activo)

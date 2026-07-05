@@ -452,8 +452,8 @@ const AdminDashboard = () => {
                         }
                       }}
                       list="bts-songs"
-                      placeholder="Escribe o selecciona de la lista (Escritura exacta de Last.fm)"
-                      className="w-full bg-black/50 border border-white/10 rounded-lg p-3 pl-10 text-white focus:ring-2 focus:ring-blue-500"
+                      placeholder="Escribe o selecciona de la lista (ID o título exacto de Spotify)"
+                      className="w-full bg-black/50 border border-white/10 rounded-lg p-3 pl-10 text-white focus:ring-2 focus:ring-green-500"
                     />
 
                     {/** BOTON PARA ANADIR MAS CANCIONES */}
@@ -531,8 +531,8 @@ const AdminDashboard = () => {
                   </datalist>
                 </div>
 
-                <p className="text-[10px] text-blue-400/70 ml-1">
-                  Debe coincidir exactamente con el título oficial en Last.fm
+                <p className="text-[10px] text-green-400/70 ml-1">
+                  Debe coincidir exactamente con el ID o título oficial en Spotify
                   para que los streams cuenten.
                 </p>
               </div>
@@ -591,15 +591,15 @@ const AdminDashboard = () => {
 
           {/* Panel de Sincronización */}
           <div className="space-y-6">
-            <div className="bg-gradient-to-br from-pink-500/10 to-orange-500/10 border border-pink-500/20 p-6 rounded-2xl shadow-lg backdrop-blur-sm relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-pink-500/10 rounded-full blur-3xl"></div>
+            <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20 p-6 rounded-2xl shadow-lg backdrop-blur-sm relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-green-500/10 rounded-full blur-3xl"></div>
 
               <h2 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
-                <Settings className="w-5 h-5 text-pink-400" />
+                <Settings className="w-5 h-5 text-green-400" />
                 Motor de Streams
               </h2>
               <p className="text-xs text-neutral-400 mb-6">
-                Fuerza a la Appwrite Function a consultar Last.fm en este
+                Fuerza a la Appwrite Function a consultar Spotify en este
                 preciso momento para todos los partidos activos.
               </p>
 
@@ -611,21 +611,21 @@ const AdminDashboard = () => {
                   type="text"
                   value={functionId}
                   onChange={(e) => setFunctionId(e.target.value)}
-                  className="w-full bg-black/50 border border-pink-500/20 rounded-lg p-2 text-xs text-neutral-300 focus:outline-none"
+                  className="w-full bg-black/50 border border-green-500/20 rounded-lg p-2 text-xs text-neutral-300 focus:outline-none focus:ring-1 focus:ring-green-500"
                 />
               </div>
 
               <button
                 onClick={handleSyncStreams}
                 disabled={isSyncing}
-                className="w-full bg-pink-600 hover:bg-pink-500 text-white font-bold py-3 px-4 rounded-xl transition-all shadow-lg shadow-pink-500/20 flex items-center justify-center gap-2"
+                className="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-4 rounded-xl transition-all shadow-lg shadow-green-500/20 flex items-center justify-center gap-2"
               >
                 {isSyncing ? (
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 ) : (
                   <>
                     <RefreshCw className="w-4 h-4" />
-                    Actualizar Streams (Last.fm)
+                    Actualizar Streams (Spotify)
                   </>
                 )}
               </button>

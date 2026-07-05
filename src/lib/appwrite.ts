@@ -238,6 +238,9 @@ export const getTetrisBTS = async () => {
   }
 };
 
+/**
+ * @deprecated Replaced by createBTSFifaUserSpotify — uses Spotify OAuth instead of Last.fm
+ */
 export const createBTSFifaUser = async (lastfmuser: string, fifateam: string) => {
   const db = getDatabases();
 
@@ -268,8 +271,50 @@ export const createBTSFifaUser = async (lastfmuser: string, fifateam: string) =>
     );
     return response;
   } catch (error) {
-   // console.error("[Appwrite] Error creating BTS FIFA user", error); 
-   // Se comento este console.error para que no se mueste 
+    throw error;
+  }
+};
+
+/**
+ * Crea un nuevo participante del BTS FIFA 2026 usando su cuenta de Spotify.
+ * Reemplaza a createBTSFifaUser (Last.fm).
+ */
+export const createBTSFifaUserSpotify = async (
+  spotifyUserId: string,
+  spotifyUsername: string,
+  fifateam: string
+) => {
+  const db = getDatabases();
+
+  if (!db || !appwriteConfig.databaseId || !appwriteConfig.btsfifaCollectionId) {
+    console.error("[Appwrite] createBTSFifaUserSpotify not properly configured");
+    throw new Error("Database not configured");
+  }
+
+  try {
+    // Verificar si este usuario de Spotify ya está registrado
+    const existingUsers = await db.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.btsfifaCollectionId,
+      [Query.equal('spotifyUserId', spotifyUserId)]
+    );
+
+    if (existingUsers.total > 0) {
+      throw new Error("ALREADY_EXISTS");
+    }
+
+    const response = await db.createDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.btsfifaCollectionId,
+      ID.unique(),
+      {
+        spotifyUserId,
+        spotifyUsername,
+        fifateam,
+      }
+    );
+    return response;
+  } catch (error) {
     throw error;
   }
 };
