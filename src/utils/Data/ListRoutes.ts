@@ -119,8 +119,8 @@ export const LinkRoutes: LinkRoutesTypes[] = [
   },
   {
     id: 19, 
-    name: "RM's Birthday 2026",
-    path: "/rm-birthday-2026",
-    image: "/Logos/RM_Birthday_2026_Logo.webp",
+    name: "JK and RM's Birthday 2026",
+    path: "/septemberline",
+    image: "/Logos/septemberline.webp",
   }
 ];

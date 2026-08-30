@@ -324,6 +324,12 @@
   background-size: cover;
 }
 
+.bg-septemberline {
+  background-image: url("/septemberline/bg-septemberline.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .loader {
   position: relative;
   width: 120px;
