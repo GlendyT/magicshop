@@ -117,4 +117,10 @@ export const LinkRoutes: LinkRoutesTypes[] = [
     path: "/into-the-sun",
     image: "/Logos/IntoTheSun_MainLogo.webp",
   },
+  {
+    id: 19, 
+    name: "JK and RM's Birthday 2026",
+    path: "/septemberline",
+    image: "/Logos/septemberline.webp",
+  }
 ];
